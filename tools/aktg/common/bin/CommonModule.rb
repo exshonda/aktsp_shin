@@ -82,7 +82,7 @@
 #  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
 #  の責任を負わない．
 #
-require "curses.so"
+require "curses" unless defined?(Curses)  # Ruby 2.1+: see ruby3_compat.rb
 require "rexml/document.rb"
 
 #=====================================================================

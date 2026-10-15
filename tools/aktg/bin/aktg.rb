@@ -67,6 +67,7 @@ if ($0 == __FILE__)
   TOOL_ROOT = File.expand_path(File.dirname(__FILE__) + "/../")
   $LOAD_PATH.unshift(TOOL_ROOT)
 end
+require File.expand_path("../common/bin/ruby3_compat.rb", File.dirname(__FILE__))
 require "common/bin/Config.rb"
 require "bin/builder/SingleBuilder.rb"
 require "bin/builder/MultiBuilder.rb"
