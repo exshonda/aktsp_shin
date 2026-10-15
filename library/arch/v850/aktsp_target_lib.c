@@ -279,6 +279,9 @@ AktspCancelIntRequest(InterruptNumberType intno)
 #ifdef _RH850G3K_
 #define SEG_CONT 0xffff8c00
 #define SEG_FLAG 0xffff8c02
+#elif defined(_RH850G3KH_)	/* RH850/F1KM-S1: TODO unverified, borrowed from G3K. Used only to raise ProtectionHook. */
+#define SEG_CONT 0xffff8c00
+#define SEG_FLAG 0xffff8c02
 #elif defined(_RH850G3M_)
 #define SEG_CONT 0xfffee980
 #define SEG_FLAG 0xfffee982
