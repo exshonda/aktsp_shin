@@ -152,14 +152,10 @@ def upload(server: str, elf: Path) -> None:
         raise McpError(f"upload failed: {r.stderr.strip()}")
 
 
-def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, str]:
+def load_and_setup(mcp: Mcp, server: str, outdir: Path, syms: dict[str, int],
+                   extra_breaks: tuple[str, ...] = ()) -> None:
+    """書込み・リセットし，判定用のブレークポイントを置く．"""
     elf = outdir / "atk2-sc1.elf"
-    syms = read_syms(outdir / "atk2-sc1.syms")
-    expected = int((outdir / "expected_count").read_text().strip())
-    a_count, a_state = syms["_check_count.1"], syms["_cp_state"]
-    a_loop = syms["_infinite_loop"]
-    a_cerc, a_cass = syms.get("__CheckErcd"), syms.get("__CheckAssert")
-
     upload(server, elf)
     st = mcp.call("get_status")
     if st.get("state") == "TARGET_RUNNING":
@@ -182,11 +178,36 @@ def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, 
     a_sd = syms.get("_kernel_internal_shutdownos")
     if a_sd is not None:
         mcp.call("add_breakpoint", address=a_sd, breakpoint_type="hardware")
+    for loc in extra_breaks:
+        mcp.call("add_breakpoint_at", location=loc, breakpoint_type="hardware")
+    a_count, a_state = syms["_check_count.1"], syms["_cp_state"]
     mcp.call("write_memory", address=a_count, data=list(JUNK_COUNT.to_bytes(4, "little")))
     mcp.call("write_memory", address=a_state, data=[JUNK_STATE])
     if (le(mcp.call("read_memory", address=a_count, length=4), 4) != JUNK_COUNT
             or le(mcp.call("read_memory", address=a_state, length=1), 1) != JUNK_STATE):
         raise McpError("pre-fill of check_count/cp_state did not stick")
+
+
+def describe_stop(mcp: Mcp, syms: dict[str, int], pc: int) -> str:
+    """_CheckErcd/_CheckAssert で止まっていれば，その式・ファイル・行を返す．"""
+    a_cerc, a_cass = syms.get("__CheckErcd"), syms.get("__CheckAssert")
+    if pc not in (a_cerc, a_cass):
+        return ""
+    r6, r7, r8 = (int(mcp.call("read_register", name=r)) for r in ("r6", "r7", "r8"))
+    if pc == a_cass:
+        return f" CheckAssert({read_cstr(mcp, r6)}) at {read_cstr(mcp, r7)}:{r8}"
+    return f" CheckErcd: unexpected ercd={r6} at {read_cstr(mcp, r7)}:{r8}"
+
+
+def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, str]:
+    syms = read_syms(outdir / "atk2-sc1.syms")
+    if "ENUM_AKTG_FORCE_MERGE_bootcnt" in (outdir / "out.c").read_text(errors="replace"):
+        return run_forced(mcp, server, outdir, timeout, syms)
+    expected = int((outdir / "expected_count").read_text().strip())
+    a_count, a_state = syms["_check_count.1"], syms["_cp_state"]
+    a_loop = syms["_infinite_loop"]
+    a_sd = syms.get("_kernel_internal_shutdownos")
+    load_and_setup(mcp, server, outdir, syms)
 
     t0 = time.monotonic()
     hung = False
@@ -206,13 +227,7 @@ def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, 
         lp = int(mcp.call("read_register", name="lp"))
         shutdown.append(f"E={err}({ERRNAME.get(err, '?')}) from {sym_of(syms, lp)}")
     elapsed = time.monotonic() - t0
-    where = ""
-    if pc in (a_cerc, a_cass):
-        r6, r7, r8 = (int(mcp.call("read_register", name=r)) for r in ("r6", "r7", "r8"))
-        if pc == a_cass:
-            where = f" CheckAssert({read_cstr(mcp, r6)}) at {read_cstr(mcp, r7)}:{r8}"
-        else:
-            where = f" CheckErcd: unexpected ercd={r6} at {read_cstr(mcp, r7)}:{r8}"
+    where = describe_stop(mcp, syms, pc)
     count = le(mcp.call("read_memory", address=a_count, length=4), 4)
     state = le(mcp.call("read_memory", address=a_state, length=1), 1)
     ok = (not hung and pc == a_loop and count == expected and state == AK_TRUE)
@@ -234,6 +249,122 @@ def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, 
         except McpError:
             pass
     return ok, detail
+
+
+def forced_merge_plan(out_c: Path) -> list[tuple[str, int]]:
+    """強制マージの out.c から，実行順のテスト ID と各テストの最終チェックポイントを得る．
+
+    AktspInitializeTestLib はブートごとに check_count を 0 に戻すので，期待値は
+    テストごとに決まる．チェックポイントは，その直前に現れたテスト ID (関数名や
+    ENUM_AKTG_FORCE_MERGE_bootcnt の比較) のテストに属するものとして数える．
+
+    期待値は，そのテストのコード中で AktspOutputLog_0("All check points passed.")
+    を直接出力している箇所があれば，その直前のチェックポイント番号 (finish: true の
+    テスト．合格を出力した後に OS がシャットダウンするのが正しく，以降のコードは
+    実行されない)．なければ最大のチェックポイント番号 (AktspCheckFinish(N))．
+    """
+    text = out_c.read_text(errors="replace")
+    order = re.findall(r'AktspOutputLog_0\("\\n=== (\S+) ==="\)', text)
+    if not order:
+        raise ValueError("forced merge: test order not found in out.c")
+    id_re = re.compile("|".join(re.escape(t) for t in sorted(order, key=len, reverse=True)))
+    cp_re = re.compile(r"\bAktsp(?:CheckPoint|CheckFinish)\((\d+)\)")
+    best: dict[str, int] = {}
+    finish: dict[str, int] = {}
+    last: dict[str, int] = {}
+    current = None
+    for line in text.splitlines():
+        m = id_re.search(line)
+        if m and not (m.end() < len(line) and (line[m.end()].isdigit())):
+            current = m.group(0)
+        if current is None:
+            continue
+        c = cp_re.search(line)
+        if c and int(c.group(1)) > 0:
+            best[current] = max(best.get(current, 0), int(c.group(1)))
+            last[current] = int(c.group(1))
+        if 'AktspOutputLog_0("All check points passed.")' in line and current in last:
+            finish[current] = max(finish.get(current, 0), last[current])
+    return [(t, finish.get(t, best.get(t, 0))) for t in order]
+
+
+def run_forced(mcp: Mcp, server: str, outdir: Path, timeout: float,
+               syms: dict[str, int]) -> tuple[bool, str]:
+    """強制マージ: 1 つのロードモジュールで複数のテストを順に実行する (ENABLE_RETURN_MAIN)．
+
+    次のテストの AktspInitializeTestLib に入ったところで，直前のテストを判定する．
+    最後のテストは AktspInfiniteLoop で判定する．
+    """
+    plan = forced_merge_plan(outdir / "out.c")
+    a_count, a_state = syms["_check_count.1"], syms["_cp_state"]
+    a_init, a_inf = syms["_AktspInitializeTestLib"], syms["_AktspInfiniteLoop"]
+    a_loop, a_sd = syms["_infinite_loop"], syms.get("_kernel_internal_shutdownos")
+    load_and_setup(mcp, server, outdir, syms, extra_breaks=("AktspInitializeTestLib",))
+
+    results: list[tuple[str, bool, str]] = []
+    boot = -1          # 実行中のテストの番号
+    notes: list[str] = []   # 失敗の証拠 (CheckErcd/CheckAssert/タイムアウト)
+    diags: list[str] = []   # 参考情報 (シャットダウン要因．finish テストでは正常)
+    t0 = time.monotonic()
+    t_test = t0
+
+    def judge(idx: int, end: str) -> None:
+        name, exp = plan[idx]
+        count = le(mcp.call("read_memory", address=a_count, length=4), 4)
+        state = le(mcp.call("read_memory", address=a_state, length=1), 1)
+        ok = exp > 0 and count == exp and state == AK_TRUE and not notes
+        d = f"check_count={count}/{exp} cp_state={state}"
+        if not ok:
+            d += " " + " ".join(notes + diags) + f" [{end}]"
+        results.append((name, ok, d))
+
+    while True:
+        mcp.call("run")
+        hung = False
+        while mcp.call("get_status").get("state") == "TARGET_RUNNING":
+            if time.monotonic() - t_test > timeout:
+                mcp.call("halt")
+                hung = True
+                break
+            time.sleep(0.1)
+        pc = int(mcp.call("get_pc"))
+        if hung:
+            notes.append(f"TIMEOUT(>{timeout:.0f}s) pc={sym_of(syms, pc)}")
+            if boot >= 0:
+                judge(boot, "hung")
+            break
+        if pc == a_init:
+            # main はブートごとに AktspInitializeTestLib を呼ぶ．最後のテストの後にも
+            # 1 回呼んでから AktspInfiniteLoop に入る
+            if 0 <= boot < len(plan):
+                judge(boot, "next boot")
+            boot += 1
+            notes, diags = [], []
+            t_test = time.monotonic()
+            continue
+        if pc == a_sd:
+            err = int(mcp.call("read_register", name="r6"))
+            if err != 0 and len(diags) < 4:
+                lp = int(mcp.call("read_register", name="lp"))
+                diags.append(f"ShutdownOS(E={err}({ERRNAME.get(err, '?')}) from {sym_of(syms, lp)})")
+            continue
+        w = describe_stop(mcp, syms, pc)
+        if w:
+            notes.append(w.strip())
+            continue
+        # AktspInfiniteLoop (全テスト終了) か infinite_loop (main に戻れなかった)
+        if 0 <= boot < len(plan):
+            judge(boot, "end" if pc == a_inf else f"stopped at {sym_of(syms, pc)}")
+        break
+
+    missing = [t for t, _ in plan[len(results):]]
+    npass = sum(ok for _, ok, _ in results)
+    ok_all = npass == len(plan) and not missing and pc == a_inf
+    lines = [f"forced merge {npass}/{len(plan)} passed {time.monotonic() - t0:.1f}s"]
+    lines += [f"    FAIL {n}: {d}" for n, ok, d in results if not ok]
+    if missing:
+        lines.append(f"    NOT RUN ({len(missing)}): {', '.join(missing[:5])}{' ...' if len(missing) > 5 else ''}")
+    return ok_all, "\n".join(lines)
 
 
 def main() -> int:

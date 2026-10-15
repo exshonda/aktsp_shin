@@ -12,7 +12,9 @@
 #    ATK2_DIR  ATK2 のソースツリー (既定: aktsp と並べて置いた ../atk2_sc1_shin)
 #    MAKE_JOBS make の並列数 (既定: 8)
 #    FUNC_INTERRUPT/FUNC_HARDWARE_COUNTER/FUNC_PROTECTION_HOOK  AKTG の同名オプション (既定: true)
-#    AKTSP_CDEFS コンパイラへの追加定義 (既定: -DAKTSP_TASK_STACK_SIZE=8192U -DAKTSP_HOOK_STACK_SIZE=4096U)
+#    AKTG_EXTRA  AKTG への追加オプション (-f を含むと強制マージ: make に -DENABLE_RETURN_MAIN を足す)
+#    AKTSP_CDEFS コンパイラへの追加定義 (既定: スタックサイズを自動で決める．下記参照)
+#    RAM_END     RAM の終端 (既定: 0xFEE00000．RH850/F1KM-S1 のローカル RAM 128KB)
 #    CCRH が PATH 上にあること (Linux 版 CC-RH)
 #
 set -euo pipefail
@@ -28,11 +30,14 @@ ATK2_DIR=$(cd "${ATK2_DIR:-$AKTSP/../atk2_sc1_shin}" && pwd)
 # コール内で重なる) は 4096 バイト，HW カウンタ割込みを伴うものは 8192 バイトが要る．
 # ISR/フックが使う OS スタック (AKTSP_HOOK_STACK_SIZE 分を含む) も，既定の
 # 512 バイトでは予備領域を越えてあふれ，直下の cp_state 等を書き潰した
-AKTSP_CDEFS=${AKTSP_CDEFS:--DAKTSP_TASK_STACK_SIZE=8192U -DAKTSP_HOOK_STACK_SIZE=4096U}
+AKTSP_CDEFS_USER=${AKTSP_CDEFS:-}
+RAM_END=${RAM_END:-0xFEE00000}
 # AKTG に渡すターゲット依存関数の有無 (true/false)
 FUNC_INTERRUPT=${FUNC_INTERRUPT:-true}
 FUNC_HARDWARE_COUNTER=${FUNC_HARDWARE_COUNTER:-true}
 FUNC_PROTECTION_HOOK=${FUNC_PROTECTION_HOOK:-true}
+# AKTG への追加オプション (テスト群ごとの OS 設定．例: --return_status STANDARD)
+AKTG_EXTRA=${AKTG_EXTRA:-}
 BASE_MAKEFILE=$ATK2_DIR/obj/obj_rh850f1kms1_ccrh/Makefile
 
 [ $# -ge 2 ] || { echo "usage: $0 <outdir> <yaml>..."; exit 1; }
@@ -47,13 +52,28 @@ rm -f out.c out.h out.arxml atk2-sc1.elf expected_count aktg_exclusion_list.txt
 if ! ruby "$AKTSP/tools/aktg/bin/aktg.rb" -p \
      --scalability_class SC1 --core_num 1 --use_multi_core false \
      --func_interrupt "$FUNC_INTERRUPT" --func_hardware_counter "$FUNC_HARDWARE_COUNTER" \
-     --func_protection_hook "$FUNC_PROTECTION_HOOK" \
+     --func_protection_hook "$FUNC_PROTECTION_HOOK" $AKTG_EXTRA \
      --out_file_name out "${yamls[@]}" > aktg.log 2>&1; then
   echo "AKTG failed (see $out/aktg.log)"; exit 1
 fi
 if [ -s aktg_exclusion_list.txt ]; then
   echo "excluded by AKTG:"; cat aktg_exclusion_list.txt
 fi
+
+# スタックサイズ: 指定がなければ，共有スタックの本数 (AKTG_STACK_NUM) から決める．
+# タスクスタックの合計を 64KB に収め，1 本あたり最大 8192 バイト (2 の冪)．
+# modistarc は 16 本使うので 4096 バイトになる (8192 だと RAM 128KB を超える)
+if [ -n "$AKTSP_CDEFS_USER" ]; then
+  AKTSP_CDEFS=$AKTSP_CDEFS_USER
+else
+  nstk=$(sed -n 's/^#define AKTG_STACK_NUM \([0-9]*\).*/\1/p' out.h)
+  tsz=8192
+  while [ "${nstk:-1}" -gt 0 ] && [ $((tsz * ${nstk:-1})) -gt 65536 ] && [ $tsz -gt 1024 ]; do tsz=$((tsz / 2)); done
+  AKTSP_CDEFS="-DAKTSP_TASK_STACK_SIZE=${tsz}U -DAKTSP_HOOK_STACK_SIZE=4096U"
+fi
+# 強制マージ (AKTG -f): シャットダウン後に main へ戻して次のテストを StartOS する
+case " $AKTG_EXTRA " in *" -f "*) AKTSP_CDEFS="$AKTSP_CDEFS -DENABLE_RETURN_MAIN" ;; esac
+echo "$AKTSP_CDEFS" > aktsp_cdefs
 
 # ATK2 の Python 版 cfg は EUC-JP の arxml を読めないので UTF-8 化する
 # (vpath の先頭が . なので，ここに置いたものが優先される)
@@ -94,6 +114,12 @@ if ! make -j"${MAKE_JOBS:-8}" AKTSP_CDEFS="$AKTSP_CDEFS" > make.log 2>&1; then
   exit 1
 fi
 [ -f atk2-sc1.elf ] || { echo "atk2-sc1.elf not built"; exit 1; }
+
+# RAM あふれの検査 (rlink は RAM 容量を知らないので，あふれても黙ってリンクする)
+ram_end=$(awk '/^SECTION +START/{f=1;next} f&&/^\*\*\*/{exit} f&&NF==4&&$1~/^fe/{print $2}' atk2-sc1.map | sort | tail -1)
+if [ -z "$ram_end" ] || [ $((16#$ram_end)) -ge $((RAM_END)) ]; then
+  echo "RAM overflow: end=0x$ram_end >= $RAM_END ($AKTSP_CDEFS)"; exit 1
+fi
 
 # 最終チェックポイント = out.c 中の最大のチェックポイント番号．通常は MainTask 末尾の
 # AktspCheckFinish(N) だが，ShutdownHook を試すテストを含むと ShutdownHook 内の
