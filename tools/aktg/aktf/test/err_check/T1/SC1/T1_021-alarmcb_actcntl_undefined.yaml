@@ -1,0 +1,44 @@
+T1_021_alarmcb_actcntl_undefined:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 3
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      actcnt: undefined
+      cbstat: AK_STOP
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 2
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 5
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE

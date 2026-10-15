@@ -1,0 +1,20 @@
+T4_087_maintask_wait_true_task_or_c2isr_not_activate:
+  property:
+    maintask_wait: true
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : 0
+
+  do:
+    id     : TASK1
+    syssrv : TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED

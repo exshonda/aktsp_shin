@@ -1,0 +1,223 @@
+######################################################################
+# CallTrustedFunction_normal_0001.yaml
+######################################################################
+CallTrustedFunction_normal_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+######################################################################
+# CallTrustedFunction_normal_0002.yaml
+######################################################################
+CallTrustedFunction_normal_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: C2ISR1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP3
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      caller: 
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+######################################################################
+# CallTrustedFunction_normal_0003.yaml
+######################################################################
+CallTrustedFunction_normal_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+######################################################################
+# CallTrustedFunction_normal_0004.yaml
+######################################################################
+CallTrustedFunction_normal_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP3
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      caller: 
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+######################################################################
+# CallTrustedFunction_normal_0005.yaml
+######################################################################
+CallTrustedFunction_normal_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+######################################################################
+# CallTrustedFunction_normal_0006.yaml
+######################################################################
+CallTrustedFunction_normal_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP3
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      caller: 
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+######################################################################

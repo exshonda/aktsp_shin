@@ -1,0 +1,3060 @@
+######################################################################
+# GetEvent_normal_0001.yaml
+######################################################################
+GetEvent_normal_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0002.yaml
+######################################################################
+GetEvent_normal_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0003.yaml
+######################################################################
+GetEvent_normal_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0004.yaml
+######################################################################
+GetEvent_normal_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0005.yaml
+######################################################################
+GetEvent_normal_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0006.yaml
+######################################################################
+GetEvent_normal_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0007.yaml
+######################################################################
+GetEvent_normal_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0008.yaml
+######################################################################
+GetEvent_normal_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0009.yaml
+######################################################################
+GetEvent_normal_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0010.yaml
+######################################################################
+GetEvent_normal_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0011.yaml
+######################################################################
+GetEvent_normal_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0012.yaml
+######################################################################
+GetEvent_normal_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0013.yaml
+######################################################################
+GetEvent_normal_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: C2ISR1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0014.yaml
+######################################################################
+GetEvent_normal_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0015.yaml
+######################################################################
+GetEvent_normal_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0016.yaml
+######################################################################
+GetEvent_normal_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0017.yaml
+######################################################################
+GetEvent_normal_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0018.yaml
+######################################################################
+GetEvent_normal_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0019.yaml
+######################################################################
+GetEvent_normal_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0020.yaml
+######################################################################
+GetEvent_normal_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0021.yaml
+######################################################################
+GetEvent_normal_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0022.yaml
+######################################################################
+GetEvent_normal_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0023.yaml
+######################################################################
+GetEvent_normal_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0024.yaml
+######################################################################
+GetEvent_normal_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0025.yaml
+######################################################################
+GetEvent_normal_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0026.yaml
+######################################################################
+GetEvent_normal_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0027.yaml
+######################################################################
+GetEvent_normal_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0028.yaml
+######################################################################
+GetEvent_normal_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0029.yaml
+######################################################################
+GetEvent_normal_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0030.yaml
+######################################################################
+GetEvent_normal_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0031.yaml
+######################################################################
+GetEvent_normal_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0032.yaml
+######################################################################
+GetEvent_normal_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0033.yaml
+######################################################################
+GetEvent_normal_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0034.yaml
+######################################################################
+GetEvent_normal_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0035.yaml
+######################################################################
+GetEvent_normal_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0036.yaml
+######################################################################
+GetEvent_normal_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0037.yaml
+######################################################################
+GetEvent_normal_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0038.yaml
+######################################################################
+GetEvent_normal_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0039.yaml
+######################################################################
+GetEvent_normal_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0040.yaml
+######################################################################
+GetEvent_normal_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: EventMaskType
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0041.yaml
+######################################################################
+GetEvent_normal_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: EventMaskType
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0042.yaml
+######################################################################
+GetEvent_normal_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: EventMaskType
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0043.yaml
+######################################################################
+GetEvent_normal_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: EventMaskType
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0044.yaml
+######################################################################
+GetEvent_normal_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0045.yaml
+######################################################################
+GetEvent_normal_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0046.yaml
+######################################################################
+GetEvent_normal_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0047.yaml
+######################################################################
+GetEvent_normal_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0048.yaml
+######################################################################
+GetEvent_normal_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0049.yaml
+######################################################################
+GetEvent_normal_0049:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0050.yaml
+######################################################################
+GetEvent_normal_0050:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0051.yaml
+######################################################################
+GetEvent_normal_0051:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0052.yaml
+######################################################################
+GetEvent_normal_0052:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: EventMaskType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0053.yaml
+######################################################################
+GetEvent_normal_0053:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0054.yaml
+######################################################################
+GetEvent_normal_0054:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0055.yaml
+######################################################################
+GetEvent_normal_0055:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0056.yaml
+######################################################################
+GetEvent_normal_0056:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+      var:
+        vname1:
+          type: EventMaskType
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0057.yaml
+######################################################################
+GetEvent_normal_0057:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0058.yaml
+######################################################################
+GetEvent_normal_0058:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0059.yaml
+######################################################################
+GetEvent_normal_0059:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: (EVENT1|EVENT2)
+######################################################################
+# GetEvent_normal_0060.yaml
+######################################################################
+GetEvent_normal_0060:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################
+# GetEvent_normal_0061.yaml
+######################################################################
+GetEvent_normal_0061:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0062.yaml
+######################################################################
+GetEvent_normal_0062:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0063.yaml
+######################################################################
+GetEvent_normal_0063:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: 0
+######################################################################
+# GetEvent_normal_0064.yaml
+######################################################################
+GetEvent_normal_0064:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      waievt: EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: EVENT1
+######################################################################
+# GetEvent_normal_0065.yaml
+######################################################################
+GetEvent_normal_0065:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: EventMaskType
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: GetEvent(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: EVENT2
+######################################################################

@@ -1,0 +1,29 @@
+T1_022_trusted_function_required_key:
+  property:
+    sc:
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+      maxact: 2
+      spolicy: AK_SCHFULL
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+
+  do:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1, &local)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      caller: TASK1

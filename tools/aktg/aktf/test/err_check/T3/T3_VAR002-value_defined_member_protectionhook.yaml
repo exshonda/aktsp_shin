@@ -1,0 +1,32 @@
+T3_VAR002_value_defined_member_protectionhook:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PROTECTION_HOOK1:
+      var:
+        vname1:
+          value: TASK1
+          mincycle: ANY_MINCYC_A

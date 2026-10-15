@@ -1,0 +1,24 @@
+T4_003_plural_INT_STATE:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    INT_STATE2:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition:

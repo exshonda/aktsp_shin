@@ -1,0 +1,36 @@
+######################################################################
+# FatalError_0004.yaml
+######################################################################
+FatalError_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################

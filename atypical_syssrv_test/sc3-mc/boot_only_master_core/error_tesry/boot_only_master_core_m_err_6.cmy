@@ -1,0 +1,6092 @@
+######################################################################
+# boot_only_master_core_m_err_6_0001.yaml
+######################################################################
+boot_only_master_core_m_err_6_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0002.yaml
+######################################################################
+boot_only_master_core_m_err_6_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAlarmAccess(TR_OSAP_OTHER_OTHER_CORE,ALARM1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmAccess_AlarmID()==ALARM1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckAlarmAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0003.yaml
+######################################################################
+boot_only_master_core_m_err_6_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmOwnership_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckAlarmOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0004.yaml
+######################################################################
+boot_only_master_core_m_err_6_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckCounterAccess(TR_OSAP_OTHER_OTHER_CORE,COUNTER1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterAccess_CounterID()==COUNTER1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckCounterAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0005.yaml
+######################################################################
+boot_only_master_core_m_err_6_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterOwnership_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckCounterOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0006.yaml
+######################################################################
+boot_only_master_core_m_err_6_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TR_OSAP_OTHER_OTHER_CORE,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRAccess_ISRID()==C2ISR2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0007.yaml
+######################################################################
+boot_only_master_core_m_err_6_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0008.yaml
+######################################################################
+boot_only_master_core_m_err_6_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISROwnership_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISROwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0009.yaml
+######################################################################
+boot_only_master_core_m_err_6_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckResourceAccess(TR_OSAP_OTHER_OTHER_CORE,RESOURCE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckResourceAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckResourceAccess_ResID()==RESOURCE1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckResourceAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0010.yaml
+######################################################################
+boot_only_master_core_m_err_6_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckScheduleTableAccess(TR_OSAP_OTHER_OTHER_CORE,SCHEDULE_TABLE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableAccess_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckScheduleTableAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0011.yaml
+######################################################################
+boot_only_master_core_m_err_6_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableOwnership_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckScheduleTableOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0012.yaml
+######################################################################
+boot_only_master_core_m_err_6_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckTaskAccess(TR_OSAP_OTHER_OTHER_CORE,TASK2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskAccess_TaskID()==TASK2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0013.yaml
+######################################################################
+boot_only_master_core_m_err_6_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0014.yaml
+######################################################################
+boot_only_master_core_m_err_6_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckTaskOwnership(TASK2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskOwnership_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0015.yaml
+######################################################################
+boot_only_master_core_m_err_6_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: TerminateApplication(NT_OSAP_OTHER_OTHER_CORE,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NT_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==NO_RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0016.yaml
+######################################################################
+boot_only_master_core_m_err_6_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0017.yaml
+######################################################################
+boot_only_master_core_m_err_6_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckAlarmAccess(TR_OSAP_OTHER_OTHER_CORE,ALARM1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0018.yaml
+######################################################################
+boot_only_master_core_m_err_6_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0019.yaml
+######################################################################
+boot_only_master_core_m_err_6_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterAccess(TR_OSAP_OTHER_OTHER_CORE,COUNTER1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0020.yaml
+######################################################################
+boot_only_master_core_m_err_6_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0021.yaml
+######################################################################
+boot_only_master_core_m_err_6_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISRAccess(TR_OSAP_OTHER_OTHER_CORE,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0022.yaml
+######################################################################
+boot_only_master_core_m_err_6_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0023.yaml
+######################################################################
+boot_only_master_core_m_err_6_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0024.yaml
+######################################################################
+boot_only_master_core_m_err_6_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckResourceAccess(TR_OSAP_OTHER_OTHER_CORE,RESOURCE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0025.yaml
+######################################################################
+boot_only_master_core_m_err_6_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckScheduleTableAccess(TR_OSAP_OTHER_OTHER_CORE,SCHEDULE_TABLE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0026.yaml
+######################################################################
+boot_only_master_core_m_err_6_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0027.yaml
+######################################################################
+boot_only_master_core_m_err_6_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckTaskAccess(TR_OSAP_OTHER_OTHER_CORE,TASK2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0028.yaml
+######################################################################
+boot_only_master_core_m_err_6_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0029.yaml
+######################################################################
+boot_only_master_core_m_err_6_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckTaskOwnership(TASK2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition:
+######################################################################
+# boot_only_master_core_m_err_6_0030.yaml
+######################################################################
+boot_only_master_core_m_err_6_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0031.yaml
+######################################################################
+boot_only_master_core_m_err_6_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0032.yaml
+######################################################################
+boot_only_master_core_m_err_6_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0033.yaml
+######################################################################
+boot_only_master_core_m_err_6_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAlarmAccess(TR_OSAP_OTHER_OTHER_CORE,ALARM1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmAccess_AlarmID()==ALARM1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckAlarmAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0034.yaml
+######################################################################
+boot_only_master_core_m_err_6_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmOwnership_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckAlarmOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0035.yaml
+######################################################################
+boot_only_master_core_m_err_6_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterAccess(TR_OSAP_OTHER_OTHER_CORE,COUNTER1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterAccess_CounterID()==COUNTER1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckCounterAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0036.yaml
+######################################################################
+boot_only_master_core_m_err_6_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterOwnership_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckCounterOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0037.yaml
+######################################################################
+boot_only_master_core_m_err_6_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISRAccess(TR_OSAP_OTHER_OTHER_CORE,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRAccess_ISRID()==C2ISR2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0038.yaml
+######################################################################
+boot_only_master_core_m_err_6_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0039.yaml
+######################################################################
+boot_only_master_core_m_err_6_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISROwnership_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISROwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0040.yaml
+######################################################################
+boot_only_master_core_m_err_6_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckResourceAccess(TR_OSAP_OTHER_OTHER_CORE,RESOURCE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckResourceAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckResourceAccess_ResID()==RESOURCE1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckResourceAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0041.yaml
+######################################################################
+boot_only_master_core_m_err_6_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckScheduleTableAccess(TR_OSAP_OTHER_OTHER_CORE,SCHEDULE_TABLE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableAccess_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckScheduleTableAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0042.yaml
+######################################################################
+boot_only_master_core_m_err_6_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableOwnership_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckScheduleTableOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0043.yaml
+######################################################################
+boot_only_master_core_m_err_6_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckTaskAccess(TR_OSAP_OTHER_OTHER_CORE,TASK2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskAccess_TaskID()==TASK2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0044.yaml
+######################################################################
+boot_only_master_core_m_err_6_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0045.yaml
+######################################################################
+boot_only_master_core_m_err_6_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckTaskOwnership(TASK2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskOwnership_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0046.yaml
+######################################################################
+boot_only_master_core_m_err_6_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+######################################################################
+# boot_only_master_core_m_err_6_0047.yaml
+######################################################################
+boot_only_master_core_m_err_6_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+######################################################################
+# boot_only_master_core_m_err_6_0048.yaml
+######################################################################
+boot_only_master_core_m_err_6_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+          global: true
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Application()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetApplicationState_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetApplicationState)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0049.yaml
+######################################################################
+boot_only_master_core_m_err_6_0049:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAlarmAccess(TR_OSAP_OTHER_OTHER_CORE,ALARM1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmAccess_AlarmID()==ALARM1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckAlarmAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0050.yaml
+######################################################################
+boot_only_master_core_m_err_6_0050:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckAlarmOwnership_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckAlarmOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0051.yaml
+######################################################################
+boot_only_master_core_m_err_6_0051:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckCounterAccess(TR_OSAP_OTHER_OTHER_CORE,COUNTER1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterAccess_CounterID()==COUNTER1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckCounterAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0052.yaml
+######################################################################
+boot_only_master_core_m_err_6_0052:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckCounterOwnership_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckCounterOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0053.yaml
+######################################################################
+boot_only_master_core_m_err_6_0053:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckISRAccess(TR_OSAP_OTHER_OTHER_CORE,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRAccess_ISRID()==C2ISR2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0054.yaml
+######################################################################
+boot_only_master_core_m_err_6_0054:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0055.yaml
+######################################################################
+boot_only_master_core_m_err_6_0055:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISROwnership_ISRID()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISROwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0056.yaml
+######################################################################
+boot_only_master_core_m_err_6_0056:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckResourceAccess(TR_OSAP_OTHER_OTHER_CORE,RESOURCE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckResourceAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckResourceAccess_ResID()==RESOURCE1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckResourceAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0057.yaml
+######################################################################
+boot_only_master_core_m_err_6_0057:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckScheduleTableAccess(TR_OSAP_OTHER_OTHER_CORE,SCHEDULE_TABLE1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableAccess_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckScheduleTableAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0058.yaml
+######################################################################
+boot_only_master_core_m_err_6_0058:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckScheduleTableOwnership_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckScheduleTableOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0059.yaml
+######################################################################
+boot_only_master_core_m_err_6_0059:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckTaskAccess(TR_OSAP_OTHER_OTHER_CORE,TASK2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskAccess_ApplID()==TR_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskAccess_TaskID()==TASK2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskAccess)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0060.yaml
+######################################################################
+boot_only_master_core_m_err_6_0060:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckTaskMemoryAccess(TASK2,AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: false
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS_CORE_1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0061.yaml
+######################################################################
+boot_only_master_core_m_err_6_0061:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckTaskOwnership(TASK2)
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckTaskOwnership_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckTaskOwnership)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# boot_only_master_core_m_err_6_0062.yaml
+######################################################################
+boot_only_master_core_m_err_6_0062:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NT_OSAP_OTHER_OTHER_CORE,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NT_OSAP_OTHER_OTHER_CORE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==NO_RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

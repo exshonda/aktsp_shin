@@ -1,0 +1,65 @@
+T3_TSK005_tstat_not_ready_defined_porder:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT2
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      porder: 1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetEvent(TASK2,EVENT1|EVENT2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1|EVENT2
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1|EVENT2
+      porder: 2
+    C2ISR1:
+      rtnstat: AK_STOP

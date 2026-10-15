@@ -1,0 +1,41 @@
+T4_MC_029_getspn_rtnstat_not_activate:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      getspn:
+        - SPINLOCK1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_DO_NOT_CARE
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval : E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK2:
+      tstat: AK_RUNNING_WAITSPIN
+      spnid: SPINLOCK1

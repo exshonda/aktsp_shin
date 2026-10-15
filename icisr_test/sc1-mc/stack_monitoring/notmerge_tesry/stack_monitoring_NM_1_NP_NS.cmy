@@ -1,0 +1,65 @@
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0001.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_isrid: ICISR1
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByIcIsr(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0002.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_isrid: ICISR1
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByIcIsr(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################

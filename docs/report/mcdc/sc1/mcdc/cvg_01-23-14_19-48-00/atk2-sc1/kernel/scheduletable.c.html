@@ -1,0 +1,802 @@
+<html xmlns:graph="graph" xmlns:file="file" xmlns:textutil="textutil">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <style type="text/css"> BODY,P,OL,TD{font-family: Arial, Helvetica, sans-serif;font-size:
+		11px;font-style: normal;color: #000000;} A:link {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: none;} A:active {font-family:
+		Arial, Helvetica, sans-serif;font-style: normal;color: #990000;text-decoration: none;}
+		A:visited {font-family: Arial, Helvetica, sans-serif;font-style: normal;color:
+		#999999;text-decoration: none;} A:hover {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: underline;} A.gray_link:link
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;}
+		A.gray_link:active {font-family: sans-serif;font-size: 11px;color: #666666;text-decoration:
+		none;} A.gray_link:visited {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_link:hover {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: underline;} A.red_link:link {font-family:
+		sans-serif;font-size: 11px;color: #990000;text-decoration: none;} A.red_link:active
+		{font-family: sans-serif;font-size: 11px;color: #990000;text-decoration: none;}
+		A.red_link:visited {font-family: sans-serif;font-size: 11px;color: #990000;text-decoration:
+		none;} A.red_link:hover {font-family: sans-serif;font-size: 11px;color:
+		#990000;text-decoration: underline;} A.green_link:link {font-family: sans-serif;font-size:
+		11px;color: #008040;text-decoration: none;} A.green_link:active {font-family:
+		sans-serif;font-size: 11px;color: #008040;text-decoration: none;} A.green_link:visited
+		{font-family: sans-serif;font-size: 11px;color: #008040;text-decoration: none;}
+		A.green_link:hover {font-family: sans-serif;font-size: 11px;color: #008040;text-decoration:	underline;} 
+		A.black_link:link {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:active {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:visited {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:hover {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: underline;}
+		A.blue_link:link {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:active {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:visited {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:hover {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: underline;}
+        A.dark_blue_link:link {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:active {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:visited {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:hover {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: underline;}		
+		A.gray_red_link:link {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_red_link:active {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: none;} A.gray_red_link:visited {font-family:
+		sans-serif;font-size: 11px;color: #666666;text-decoration: none;} A.gray_red_link:hover
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;} FONT.gray
+		{font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #999999;} FONT.gray2,
+		FONT.gray_red {font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #666666;}
+		FONT.time {font-size: 10px;font-family: Arial, Helvetica, sans-serif;color: #000000;}
+				
+		FONT.covered    {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #99ff99;}
+		FONT.notcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffcccc;}
+		FONT.halfcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffff66;}		
+		FONT.normal     {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffffff;}
+		
+		FONT.red {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;}
+		FONT.red2 {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;
+		text-decoration: underline;} FONT.green {font-size:11px;font-family: Arial, Helvetica,
+		sans-serif;color: #008040;} FONT.small {font-size: 1px;font-family: Arial, Helvetica,
+		sans-serif;color: #cccccc;} SELECT.cs_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} SELECT.ju_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} TD.cs_authors{font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;font-style: normal;color: #000000;border: 1px; bordercolor:
+		#d9c8ac;} UL, LI {font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-style:
+		normal;color: #000000; list-style-type: none; margin: 0; padding-left: 12px;}
+		#foldheader{cursor:pointer;cursor:hand ;} </style><title>
+         [<b>100%
+            </b>&#xA0;47/47&#xA0;]
+         &#xA0;&#xA0;/atk2-sc1/kernel/scheduletable.c
+      </title>
+   </head>
+   <body bgcolor="#ffffff">
+      <table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_header_expander.jpg" width="50%" align="left"><img src="rep_header_3.jpg" alt="rep_header_3.jpg"></td>
+            <td background="rep_header_expander.jpg" width="50%" align="right"><img src="rep_header_logo.jpg" alt="rep_header_logo.jpg"></td>
+         </tr>
+      </table>
+      <table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td width="16%" align="center"><font class="time">01/23/14 19:48:00</font></td>
+            <td align="center" bgcolor="#d9c8ac"><b>/atk2-sc1/kernel/scheduletable.c</b></td>
+         </tr>
+      </table><br>&#xA0;&#21508;&#34892;&#12398;&#12471;&#12531;&#12508;&#12523;&#12398;&#24847;&#21619;&#12399;&#27425;&#12398;&#36890;&#12426;&#12391;&#12377;:
+      <table border="0" width="60%" cellpadding="0" cellspacing="3">
+         <tr>
+            <td align="center" bgcolor="#99ff99" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12383;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffcccc" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffff66" width="10">code</td>
+            <td>&#37096;&#20998;&#30340;&#12395;&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffffff" width="10">code&#xA0;</td>
+            <td>&#12459;&#12496;&#12540;&#12391;&#12365;&#12427;&#35201;&#32032;&#12434;&#25345;&#12383;&#12394;&#12356;&#34892;</td>
+         </tr>
+      </table><br><table width="80%" border="0" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td>
+               <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                  <tr>
+                     <td align="center" bgcolor="#d9c8ac" colspan="4">100% 
+                        [&#xA0;47/47&#xA0;
+                        ]
+                        &#xA0;&#xA0;<b>/atk2-sc1/kernel/scheduletable.c</b></td>
+                  </tr>
+                  <tr>
+                     <td>&#xA0;</td>
+                     <td valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                           <tr>
+                              <td valign="top"><pre><code><font class="normal">/*
+ *  TOPPERS ATK2
+ *      Toyohashi Open Platform for Embedded Real-Time Systems
+ *      Automotive Kernel Version 2
+ *
+ *  Copyright (C) 2004-2013 by Center for Embedded Computing Systems
+ *              Graduate School of Information Science, Nagoya Univ., JAPAN
+ *  Copyright (C) 2011-2013 by FUJI SOFT INCORPORATED, JAPAN
+ *  Copyright (C) 2011-2013 by FUJITSU VLSI LIMITED, JAPAN
+ *  Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Renesas Electronics Corporation, JAPAN
+ *  Copyright (C) 2011-2013 by Sunny Giken Inc., JAPAN
+ *  Copyright (C) 2011-2013 by TOSHIBA CORPORATION, JAPAN
+ *  Copyright (C) 2004-2013 by Witz Corporation, JAPAN
+ *
+ *  &#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12399;&#65292;&#20197;&#19979;&#12398;(1)&#12316;(4)&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#22580;&#21512;&#12395;&#38480;&#12426;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#65288;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12434;&#21547;&#12416;&#65294;&#20197;&#19979;&#21516;&#12376;&#65289;&#12434;&#20351;&#29992;&#12539;&#35079;&#35069;&#12539;&#25913;
+ *  &#22793;&#12539;&#20877;&#37197;&#24067;&#65288;&#20197;&#19979;&#65292;&#21033;&#29992;&#12392;&#21628;&#12406;&#65289;&#12377;&#12427;&#12371;&#12392;&#12434;&#28961;&#20767;&#12391;&#35377;&#35582;&#12377;&#12427;&#65294;
+ *  (1) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#12477;&#12540;&#12473;&#12467;&#12540;&#12489;&#12398;&#24418;&#12391;&#21033;&#29992;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;
+ *      &#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12364;&#65292;&#12381;&#12398;&#12414;&#12414;&#12398;&#24418;&#12391;&#12477;&#12540;
+ *      &#12473;&#12467;&#12540;&#12489;&#20013;&#12395;&#21547;&#12414;&#12428;&#12390;&#12356;&#12427;&#12371;&#12392;&#65294;
+ *  (2) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#12521;&#12452;&#12502;&#12521;&#12522;&#24418;&#24335;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12427;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;
+ *      &#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;
+ *      &#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (3) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#27231;&#22120;&#12395;&#32068;&#12415;&#36796;&#12416;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12394;&#12356;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#27425;&#12398;&#12356;&#12378;&#12428;&#12363;&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;
+ *      &#12392;&#65294;
+ *    (a) &#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;&#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;
+ *        &#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *    (b) &#20877;&#37197;&#24067;&#12398;&#24418;&#24907;&#12434;&#65292;&#21029;&#12395;&#23450;&#12417;&#12427;&#26041;&#27861;&#12395;&#12424;&#12387;&#12390;&#65292;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12395;
+ *        &#22577;&#21578;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (4) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12427;&#12356;&#12363;&#12394;&#12427;&#25613;
+ *      &#23475;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;&#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *      &#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#12518;&#12540;&#12470;&#12414;&#12383;&#12399;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12363;&#12425;&#12398;&#12356;&#12363;&#12394;&#12427;&#29702;
+ *      &#30001;&#12395;&#22522;&#12389;&#12367;&#35531;&#27714;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;
+ *      &#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *
+ *  &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12399;&#65292;&#28961;&#20445;&#35388;&#12391;&#25552;&#20379;&#12373;&#12428;&#12390;&#12356;&#12427;&#12418;&#12398;&#12391;&#12354;&#12427;&#65294;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;
+ *  &#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12399;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12395;&#38306;&#12375;&#12390;&#65292;&#29305;&#23450;&#12398;&#20351;&#29992;&#30446;&#30340;
+ *  &#12395;&#23550;&#12377;&#12427;&#36969;&#21512;&#24615;&#12418;&#21547;&#12417;&#12390;&#65292;&#12356;&#12363;&#12394;&#12427;&#20445;&#35388;&#12418;&#34892;&#12431;&#12394;&#12356;&#65294;&#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12383;&#12356;&#12363;&#12394;&#12427;&#25613;&#23475;&#12395;&#38306;&#12375;&#12390;&#12418;&#65292;&#12381;
+ *  &#12398;&#36012;&#20219;&#12434;&#36000;&#12431;&#12394;&#12356;&#65294;
+ *
+ *  $Id: scheduletable.c 8076 2013-12-20 07:18:14Z shigihara $
+ */
+
+/*
+ *		&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#31649;&#29702;&#12514;&#12472;&#12517;&#12540;&#12523;
+ */
+
+#include "kernel_impl.h"
+#include "check.h"
+#include "scheduletable.h"
+
+/*
+ *  &#12488;&#12524;&#12540;&#12473;&#12525;&#12464;&#12510;&#12463;&#12525;&#12398;&#12487;&#12501;&#12457;&#12523;&#12488;&#23450;&#32681;
+ */
+#ifndef LOG_STASCHTBLREL_ENTER
+#define LOG_STASCHTBLREL_ENTER(schtblid, offset)
+#endif /* LOG_STASCHTBLREL_ENTER */
+
+#ifndef LOG_STASCHTBLREL_LEAVE
+#define LOG_STASCHTBLREL_LEAVE(ercd)
+#endif /* LOG_STASCHTBLREL_LEAVE */
+
+#ifndef LOG_STASCHTBLABS_ENTER
+#define LOG_STASCHTBLABS_ENTER(schtblid, start)
+#endif /* LOG_STASCHTBLABS_ENTER */
+
+#ifndef LOG_STASCHTBLABS_LEAVE
+#define LOG_STASCHTBLABS_LEAVE(ercd)
+#endif /* LOG_STASCHTBLABS_LEAVE */
+
+#ifndef LOG_STPSCHTBL_ENTER
+#define LOG_STPSCHTBL_ENTER(schtblid)
+#endif /* LOG_STPSCHTBL_ENTER */
+
+#ifndef LOG_STPSCHTBL_LEAVE
+#define LOG_STPSCHTBL_LEAVE(ercd)
+#endif /* LOG_STPSCHTBL_LEAVE */
+
+#ifndef LOG_NXTSCHTBL_ENTER
+#define LOG_NXTSCHTBL_ENTER(from, to)
+#endif /* LOG_NXTSCHTBL_ENTER */
+
+#ifndef LOG_NXTSCHTBL_LEAVE
+#define LOG_NXTSCHTBL_LEAVE(ercd)
+#endif /* LOG_NXTSCHTBL_LEAVE */
+
+#ifndef LOG_GETSCHTBLST_ENTER
+#define LOG_GETSCHTBLST_ENTER(schtblid)
+#endif /* LOG_GETSCHTBLST_ENTER */
+
+#ifndef LOG_GETSCHTBLST_LEAVE
+#define LOG_GETSCHTBLST_LEAVE(ercd, p_status)
+#endif /* LOG_GETSCHTBLST_LEAVE */
+
+#ifndef LOG_SCHTBL_ENTER
+#define LOG_SCHTBL_ENTER(p_schtblcb)
+#endif /* LOG_SCHTBL_ENTER */
+
+#ifndef LOG_SCHTBL_LEAVE
+#define LOG_SCHTBL_LEAVE(p_schtblcb)
+#endif /* LOG_SCHTBL_LEAVE */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&#12398;&#21021;&#26399;&#21270;
+ */
+#ifdef TOPPERS_schtbl_initialize
+
+void
+schtbl_initialize(void)
+{
+	ScheduleTableType	i;
+	SCHTBLCB			*p_schtblcb;
+	CNTCB				*p_cntcb;
+	TickType			staval;
+
+	for (i = 0U; </font><font class="covered">i &lt; tnum_scheduletable</font><font class="normal">; i++) {
+		p_schtblcb = &amp;(schtblcb_table[i]);
+		p_schtblcb-&gt;p_schtblinib = &amp;(schtblinib_table[i]);
+
+		/*
+		 *  STOPPED&#29366;&#24907;&#12395;&#12377;&#12427;&#26178;&#65292;p_nextschtblcb&#65292;p_prevschtblcb&#12434;&#21021;&#26399;&#21270;&#12377;&#12427;
+		 *  RUNNING&#65292;NEXT&#29366;&#24907;&#12395;&#12377;&#12427;&#26178;&#65292;expptindex&#12434;&#21021;&#26399;&#21270;&#12377;&#12427;
+		 */
+		p_schtblcb-&gt;p_nextschtblcb = NULL;
+		p_schtblcb-&gt;p_prevschtblcb = NULL;
+		(p_schtblcb-&gt;cntexpinfo).expirefunc = &amp;schtbl_expire;
+
+		if (</font><font class="covered">(p_schtblcb-&gt;p_schtblinib-&gt;autosta &amp; ((AppModeType) 1 &lt;&lt; appmodeid)) != APPMODE_NONE) {
+</font><font class="normal">			if (i</font><font class="covered">s_implschtbl(i)) {
+</font><font class="normal">				p_schtblcb-&gt;status = SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS;
+			}
+			else {
+				p_schtblcb-&gt;status = SCHEDULETABLE_RUNNING;
+			}
+			p_schtblcb-&gt;expptindex = EXPPTINDEX_INITIAL;
+
+			p_cntcb = p_schtblcb-&gt;p_schtblinib-&gt;p_cntcb;
+			staval = p_schtblcb-&gt;p_schtblinib-&gt;staval;
+			if (</font><font class="covered">p_schtblcb-&gt;p_schtblinib-&gt;actatr == ABSOLUT</font><font class="normal">E) {
+				/*
+				 *  &#32118;&#23550;&#26178;&#38291;&#12398;&#36215;&#21205;
+				 *  &#28288;&#20102;&#26178;&#38291;&#12364;0&#12398;&#22580;&#21512;&#65292;&#27425;&#12398;&#21608;&#26399;&#12398;0&#12398;&#12479;&#12452;&#12511;&#12531;&#12464;&#12392;&#12394;&#12427;
+				 *  &#65288;get_abstick&#12395;&#32771;&#24942;&#28168;&#12415;&#65289;
+				 */
+				(p_schtblcb-&gt;cntexpinfo).expiretick = get_abstick(p_cntcb, staval);
+			}
+			else {
+				/* &#30456;&#23550;&#26178;&#38291;&#12398;&#36215;&#21205; */
+				(p_schtblcb-&gt;cntexpinfo).expiretick = get_reltick(p_cntcb, staval);
+			}
+
+			insert_cnt_expr_que(&amp;(p_schtblcb-&gt;cntexpinfo), p_cntcb);
+		}
+		else {
+			p_schtblcb-&gt;status = SCHEDULETABLE_STOPPED;
+
+			queue_initialize(&amp;(p_schtblcb-&gt;cntexpinfo.cntexpque));
+		}
+	}
+}
+
+#endif /* TOPPERS_schtbl_initialize */
+
+/*
+ *  &#25351;&#23450;&#12375;&#12383;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#38283;&#22987;(&#30456;&#23550;&#26178;&#38291;)
+ */
+#ifdef TOPPERS_StartScheduleTableRel
+
+StatusType
+StartScheduleTableRel(ScheduleTableType ScheduleTableID, TickType Offset)
+{
+	StatusType	ercd = E_OK;
+	SCHTBLCB	*p_schtblcb;
+	CNTCB		*p_cntcb;
+
+	LOG_STASCHTBLREL_ENTER(ScheduleTableID, Offset);
+	CHECK_DISABL</font><font class="covered">EDINT();
+</font><font class="normal">	CHECK_CALLEV</font><font class="covered">EL(CALLEVEL_STARTSCHEDULETABLEREL);
+</font><font class="normal">	CHECK_ID(Sc</font><font class="covered">heduleTableID &lt; tnum_scheduletable);</font><font class="normal">
+	CHECK_ID(Sc</font><font class="covered">heduleTableID &gt;= tnum_implscheduletable);</font><font class="normal">
+
+	p_schtblcb = get_schtblcb(ScheduleTableID);
+	p_cntcb = p_schtblcb-&gt;p_schtblinib-&gt;p_cntcb;
+
+	CHECK_VALUE(</font><font class="covered">(Offset != 0</font><font class="normal">U) &amp;&amp;
+				((p_cntcb-&gt;p_cntinib-&gt;maxval - p_schtblcb-&gt;p_schtblinib-&gt;p_exppt-&gt;offset) &gt;= Offset));
+
+	x_nested_lock_os_int();
+
+	S_D_CHECK_S</font><font class="covered">TATE(p_schtblcb-&gt;status == SCHEDULETABLE_STOPPED);
+</font><font class="normal">
+	p_schtblcb-&gt;status = SCHEDULETABLE_RUNNING;
+	p_schtblcb-&gt;expptindex = EXPPTINDEX_INITIAL;
+	p_schtblcb-&gt;cntexpinfo.expiretick = get_reltick(p_cntcb, Offset);
+
+	insert_cnt_expr_que(&amp;(p_schtblcb-&gt;cntexpinfo), p_cntcb);
+
+  d_exit_no_errorhook:
+	x_nested_unlock_os_int();
+  exit_no_errorhook:
+	LOG_STASCHTBLREL_LEAVE(ercd);
+	return(ercd);
+
+#ifdef CFG_USE_ERRORHOOK
+  exit_errorhook:
+	x_nested_lock_os_int();
+  d_exit_errorhook:
+#ifdef CFG_USE_PARAMETERACCESS
+	_errorhook_par1.schtblid = ScheduleTableID;
+	_errorhook_par2.offset = Offset;
+#endif /* CFG_USE_PARAMETERACCESS */
+	call_errorhook(ercd, OSServiceId_StartScheduleTableRel);
+	goto d_exit_no_errorhook;
+#endif /* CFG_USE_ERRORHOOK */
+}
+
+#endif /* TOPPERS_StartScheduleTableRel */
+
+/*
+ *  &#25351;&#23450;&#12375;&#12383;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#38283;&#22987;(&#32118;&#23550;&#26178;&#38291;)
+ */
+#ifdef TOPPERS_StartScheduleTableAbs
+
+StatusType
+StartScheduleTableAbs(ScheduleTableType ScheduleTableID, TickType Start)
+{
+	StatusType	ercd = E_OK;
+	SCHTBLCB	*p_schtblcb;
+	CNTCB		*p_cntcb;
+
+	LOG_STASCHTBLABS_ENTER(ScheduleTableID, Start);
+	CHECK_DISABL</font><font class="covered">EDINT();
+</font><font class="normal">	CHECK_CALLEV</font><font class="covered">EL(CALLEVEL_STARTSCHEDULETABLEABS);
+</font><font class="normal">	CHECK_ID(Sc</font><font class="covered">heduleTableID &lt; tnum_scheduletable);</font><font class="normal">
+
+	p_schtblcb = get_schtblcb(ScheduleTableID);
+	p_cntcb = p_schtblcb-&gt;p_schtblinib-&gt;p_cntcb;
+
+	CHECK_VALUE</font><font class="covered">(p_cntcb-&gt;p_cntinib-&gt;maxval &gt;= Star</font><font class="normal">t);
+
+	x_nested_lock_os_int();
+
+	S_D_CHECK_S</font><font class="covered">TATE(p_schtblcb-&gt;status == SCHEDULETABLE_STOPPED);
+</font><font class="normal">
+	/* &#26263;&#40665;&#21516;&#26399;&#12398;&#22580;&#21512;&#65292;&#21516;&#26399;&#21205;&#20316;&#29366;&#24907;&#12391;&#21205;&#20316;&#12377;&#12427; */
+	if (i</font><font class="covered">s_implschtbl(ScheduleTableID)) {
+</font><font class="normal">		p_schtblcb-&gt;status = SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS;
+	}
+	else {
+		p_schtblcb-&gt;status = SCHEDULETABLE_RUNNING;
+	}
+	p_schtblcb-&gt;expptindex = EXPPTINDEX_INITIAL;
+	p_schtblcb-&gt;cntexpinfo.expiretick = get_abstick(p_cntcb, Start);
+
+	insert_cnt_expr_que(&amp;(p_schtblcb-&gt;cntexpinfo), p_cntcb);
+
+  d_exit_no_errorhook:
+	x_nested_unlock_os_int();
+  exit_no_errorhook:
+	LOG_STASCHTBLABS_LEAVE(ercd);
+	return(ercd);
+
+#ifdef CFG_USE_ERRORHOOK
+  exit_errorhook:
+	x_nested_lock_os_int();
+  d_exit_errorhook:
+#ifdef CFG_USE_PARAMETERACCESS
+	_errorhook_par1.schtblid = ScheduleTableID;
+	_errorhook_par2.start = Start;
+#endif /* CFG_USE_PARAMETERACCESS */
+	call_errorhook(ercd, OSServiceId_StartScheduleTableAbs);
+	goto d_exit_no_errorhook;
+#endif /* CFG_USE_ERRORHOOK */
+}
+
+#endif /* TOPPERS_StartScheduleTableAbs */
+
+/*
+ *  &#25351;&#23450;&#12375;&#12383;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#20572;&#27490;
+ */
+#ifdef TOPPERS_StopScheduleTable
+
+StatusType
+StopScheduleTable(ScheduleTableType ScheduleTableID)
+{
+	StatusType	ercd = E_OK;
+	SCHTBLCB	*p_schtblcb, *p_nextcb;
+
+	LOG_STPSCHTBL_ENTER(ScheduleTableID);
+	CHECK_DISABL</font><font class="covered">EDINT();
+</font><font class="normal">	CHECK_CALLEV</font><font class="covered">EL(CALLEVEL_STOPSCHEDULETABLE);
+</font><font class="normal">	CHECK_ID(Sc</font><font class="covered">heduleTableID &lt; tnum_scheduletable);</font><font class="normal">
+
+	p_schtblcb = get_schtblcb(ScheduleTableID);
+
+	x_nested_lock_os_int();
+
+	S_D_CHECK_N</font><font class="covered">OFUNC(p_schtblcb-&gt;status != SCHEDULETABLE_STOPPED);
+</font><font class="normal">
+	/*
+	 *  &#25351;&#23450;&#12373;&#12428;&#12383;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12364;SCHEDULETABLE_NEXT&#12398;&#22580;&#21512;,
+	 *  &#33258;&#20998;&#12434;Next&#12395;&#12375;&#12383;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12363;&#12425;&#65292;&#33258;&#20998;&#12434;&#22806;&#12377;
+	 */
+	if (</font><font class="covered">p_schtblcb-&gt;status == SCHEDULETABLE_NEXT) {
+</font><font class="normal">		p_schtblcb-&gt;p_prevschtblcb-&gt;p_nextschtblcb = NULL;
+		p_schtblcb-&gt;p_prevschtblcb = NULL;
+	}
+	else {
+		/*
+		 *  Next&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12364;&#23384;&#22312;&#12375;&#12383;&#22580;&#21512;,
+		 *  Next&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#20104;&#32004;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523;&#12377;&#12427;
+		 */
+		p_nextcb = p_schtblcb-&gt;p_nextschtblcb;
+		if (</font><font class="covered">p_nextcb != NULL) {
+</font><font class="normal">			p_nextcb-&gt;status = SCHEDULETABLE_STOPPED;
+			p_nextcb-&gt;p_prevschtblcb = NULL;
+			p_schtblcb-&gt;p_nextschtblcb = NULL;
+		}
+
+		/* &#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12363;&#12425;&#26082;&#12395;&#30331;&#37682;&#12375;&#12383;&#28288;&#20102;&#20966;&#29702;&#12434;&#21066;&#38500; */
+		delete_cnt_expr_que(&amp;(p_schtblcb-&gt;cntexpinfo),
+							p_schtblcb-&gt;p_schtblinib-&gt;p_cntcb);
+	}
+
+	p_schtblcb-&gt;status = SCHEDULETABLE_STOPPED;
+
+  d_exit_no_errorhook:
+	x_nested_unlock_os_int();
+  exit_no_errorhook:
+	LOG_STPSCHTBL_LEAVE(ercd);
+	return(ercd);
+
+#ifdef CFG_USE_ERRORHOOK
+  exit_errorhook:
+	x_nested_lock_os_int();
+  d_exit_errorhook:
+#ifdef CFG_USE_PARAMETERACCESS
+	_errorhook_par1.schtblid = ScheduleTableID;
+#endif /* CFG_USE_PARAMETERACCESS */
+	call_errorhook(ercd, OSServiceId_StopScheduleTable);
+	goto d_exit_no_errorhook;
+#endif /* CFG_USE_ERRORHOOK */
+}
+#endif /* TOPPERS_StopScheduleTable */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#20999;&#26367;&#12360;
+ */
+#ifdef TOPPERS_NextScheduleTable
+
+StatusType
+NextScheduleTable(ScheduleTableType ScheduleTableID_From,
+				  ScheduleTableType ScheduleTableID_To)
+{
+	StatusType	ercd = E_OK;
+	SCHTBLCB	*p_curcb, *p_nextcb;
+
+	LOG_NXTSCHTBL_ENTER(ScheduleTableID_From, ScheduleTableID_To);
+	CHECK_DISABL</font><font class="covered">EDINT();
+</font><font class="normal">	CHECK_CALLEV</font><font class="covered">EL(CALLEVEL_NEXTSCHEDULETABLE);
+</font><font class="normal">	CHECK_ID(Sc</font><font class="covered">heduleTableID_From &lt; tnum_scheduletable);</font><font class="normal">
+	CHECK_ID(Sc</font><font class="covered">heduleTableID_To &lt; tnum_scheduletable);</font><font class="normal">
+	CHECK_ID((Sc</font><font class="covered">heduleTableID_From &lt; tnum_implscheduletable) </font><font class="normal">==
+			 (ScheduleTableID_To &lt; tnum_implscheduletable));
+
+	p_curcb = get_schtblcb(ScheduleTableID_From);
+	p_nextcb = get_schtblcb(ScheduleTableID_To);
+
+	CHECK_ID(p_</font><font class="covered">curcb-&gt;p_schtblinib-&gt;p_cntcb == p_nextcb-&gt;p_schtblinib-&gt;p_cntcb);</font><font class="normal">
+
+	x_nested_lock_os_int();
+
+	/* ScheduleTableID_From&#12398;&#29366;&#24907;&#12481;&#12455;&#12483;&#12463; */
+	S_D_CHECK_N</font><font class="covered">OFUNC((p_curcb-&gt;status &amp; (SCHEDULETABLE_STOPPED | SCHEDULETABLE_NEXT)) == 0U);
+</font><font class="normal">
+	/* ScheduleTableID_To&#12398;&#29366;&#24907;&#12481;&#12455;&#12483;&#12463; */
+	S_D_CHECK_S</font><font class="covered">TATE(p_nextcb-&gt;status == SCHEDULETABLE_STOPPED);
+</font><font class="normal">
+	/*
+	 *  Current&#12395;&#23550;&#12375;&#12390;&#26082;&#12395;Next&#12364;&#23384;&#22312;&#12375;&#12383;&#22580;&#21512;,
+	 *  &#12371;&#12428;&#12414;&#12391;&#12398;Next&#12395;&#23550;&#12375;&#12390;&#12461;&#12515;&#12531;&#12475;&#12523;&#12377;&#12427;
+	 */
+	if (</font><font class="covered">p_curcb-&gt;p_nextschtblcb != NULL) {
+</font><font class="normal">		p_curcb-&gt;p_nextschtblcb-&gt;status = SCHEDULETABLE_STOPPED;
+		p_curcb-&gt;p_nextschtblcb-&gt;p_prevschtblcb = NULL;
+	}
+
+	p_curcb-&gt;p_nextschtblcb = p_nextcb;
+	p_nextcb-&gt;status = SCHEDULETABLE_NEXT;
+	p_nextcb-&gt;p_prevschtblcb = p_curcb;
+
+  d_exit_no_errorhook:
+	x_nested_unlock_os_int();
+  exit_no_errorhook:
+	LOG_NXTSCHTBL_LEAVE(ercd);
+	return(ercd);
+
+#ifdef CFG_USE_ERRORHOOK
+  exit_errorhook:
+	x_nested_lock_os_int();
+  d_exit_errorhook:
+#ifdef CFG_USE_PARAMETERACCESS
+	_errorhook_par1.schtblid_from = ScheduleTableID_From;
+	_errorhook_par2.schtblid_to = ScheduleTableID_To;
+#endif /* CFG_USE_PARAMETERACCESS */
+	call_errorhook(ercd, OSServiceId_NextScheduleTable);
+	goto d_exit_no_errorhook;
+#endif /* CFG_USE_ERRORHOOK */
+}
+
+#endif /* TOPPERS_NextScheduleTable */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#29366;&#24907;&#12398;&#21462;&#24471;
+ */
+#ifdef TOPPERS_GetScheduleTableStatus
+
+StatusType
+GetScheduleTableStatus(ScheduleTableType ScheduleTableID,
+					   ScheduleTableStatusRefType ScheduleStatus)
+{
+	StatusType	ercd = E_OK;
+	SCHTBLCB	*p_schtblcb;
+
+	LOG_GETSCHTBLST_ENTER(ScheduleTableID);
+	CHECK_DISABL</font><font class="covered">EDINT();
+</font><font class="normal">	CHECK_CALLEV</font><font class="covered">EL(CALLEVEL_GETSCHEDULETABLESTATUS);
+</font><font class="normal">	CHECK_ID(Sc</font><font class="covered">heduleTableID &lt; tnum_scheduletable);</font><font class="normal">
+	CHECK_PARAM_</font><font class="covered">POINTER(ScheduleStatus);
+</font><font class="normal">
+	p_schtblcb = get_schtblcb(ScheduleTableID);
+
+	*ScheduleStatus = p_schtblcb-&gt;status;
+
+  exit_no_errorhook:
+	LOG_GETSCHTBLST_LEAVE(ercd, ScheduleStatus);
+	return(ercd);
+
+#ifdef CFG_USE_ERRORHOOK
+  exit_errorhook:
+	x_nested_lock_os_int();
+#ifdef CFG_USE_PARAMETERACCESS
+	_errorhook_par1.schtblid = ScheduleTableID;
+	_errorhook_par2.p_schtblstate = ScheduleStatus;
+#endif /* CFG_USE_PARAMETERACCESS */
+	call_errorhook(ercd, OSServiceId_GetScheduleTableStatus);
+	x_nested_unlock_os_int();
+	goto exit_no_errorhook;
+#endif /* CFG_USE_ERRORHOOK */
+}
+
+#endif /* TOPPERS_GetScheduleTableStatus */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#28288;&#20102;&#20966;&#29702;&#38306;&#25968;
+ */
+#ifdef TOPPERS_schtbl_expire
+
+void
+schtbl_expire(CNTEXPINFO *p_cntexpinfo, const CNTCB *p_cntcb)
+{
+	SCHTBLEXPINFO schtblexpinfo;
+
+	schtblexpinfo.p_schtblcb = (SCHTBLCB *) p_cntexpinfo;
+
+	schtbl_expiry_process(&amp;schtblexpinfo, p_cntcb);
+
+	if (</font><font class="covered">schtblexpinfo.p_schtblcb != NULL) {
+</font><font class="normal">		insert_cnt_expr_que(&amp;(schtblexpinfo.p_schtblcb-&gt;cntexpinfo), p_cntcb);
+	}
+}
+
+#endif /* TOPPERS_schtbl_expire */
+
+/*
+ *  &#28288;&#20102;&#20966;&#29702;&#38306;&#25968;&#12363;&#12425;&#21508;&#12479;&#12452;&#12511;&#12531;&#12464;&#20966;&#29702;&#12398;&#23455;&#34892;
+ */
+#ifdef TOPPERS_schtbl_expiry_process
+
+void
+schtbl_expiry_process(SCHTBLEXPINFO *p_schtblexpinfo, const CNTCB *p_cntcb)
+{
+	boolean		loopcont = FALSE;
+	SCHTBLCB	*p_schtblcb;
+
+	/*
+	 *  &#35373;&#23450;&#12375;&#12383;&#28288;&#20102;&#28857;&#12399;&#65292;&#12377;&#12368;&#28288;&#20102;&#12377;&#12427;&#21487;&#33021;&#24615;&#12364;&#12354;&#12427;&#12398;&#12391;&#65292;
+	 *  &#32368;&#12426;&#36820;&#12375;&#24773;&#22577;&#12395;&#12424;&#12387;&#12390;&#12523;&#12540;&#12503;&#20966;&#29702;
+	 */
+	do {
+		p_schtblcb = p_schtblexpinfo-&gt;p_schtblcb;
+
+		if (</font><font class="covered">p_schtblcb-&gt;expptindex &lt; p_schtblcb-&gt;p_schtblinib-&gt;tnum_exppt</font><font class="normal">) {
+			/* &#21508;&#28288;&#20102;&#28857;&#26178; */
+			loopcont = schtbl_exppoint_process(p_schtblcb, p_cntcb);
+		}
+		else if (</font><font class="covered">p_schtblcb-&gt;expptindex == p_schtblcb-&gt;p_schtblinib-&gt;tnum_exppt</font><font class="normal">) {
+			/* &#21608;&#26399;&#12398;&#26368;&#24460;&#26178; */
+			loopcont = schtbl_tail(p_schtblcb, p_schtblexpinfo, p_cntcb);
+		}
+		else {
+			/*
+			 *  &#21608;&#26399;&#12398;&#38283;&#22987;&#26178;
+			 *  p_schtblcb-&gt;expptindex == EXPPTINDEX_INITIAL&#12375;&#12363;&#12354;&#12426;&#24471;&#12394;&#12356;
+			 */
+			loopcont = schtbl_head(p_schtblcb, p_cntcb);
+		}
+	} while (</font><font class="covered">loopcont != FALS</font><font class="normal">E);
+}
+
+#endif /* TOPPERS_schtbl_expiry_process */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#38283;&#22987;&#20966;&#29702;
+ */
+#ifdef TOPPERS_schtbl_head
+
+boolean
+schtbl_head(SCHTBLCB *p_schtblcb, const CNTCB *p_cntcb)
+{
+	boolean				loopcont;
+	const SCHTBLEXPPTCB	*p_exppoint;
+
+	p_exppoint = &amp;(p_schtblcb-&gt;p_schtblinib-&gt;p_exppt[EXPPTINDEX_TOP]);
+
+	if (</font><font class="covered">p_exppoint-&gt;offset == 0U</font><font class="normal">) {
+		/* &#21021;&#26399;&#12458;&#12501;&#12475;&#12483;&#12488;0&#12398;&#22580;&#21512;&#65292;&#20170;&#22238;&#28288;&#20102;&#20966;&#29702;&#20869;&#12391;1&#20491;&#30446;&#12398;&#28288;&#20102;&#28857;&#20966;&#29702;&#12434;&#34892;&#12358; */
+		loopcont = TRUE;
+	}
+	else {
+		loopcont = FALSE;
+		/* &#27425;&#12395;&#36215;&#21205;&#12377;&#12409;&#12365;&#26178;&#38291;&#12398;&#36984;&#23450; */
+		p_schtblcb-&gt;cntexpinfo.expiretick = add_tick(p_schtblcb-&gt;cntexpinfo.expiretick,
+													 p_exppoint-&gt;offset, p_cntcb-&gt;p_cntinib-&gt;maxval2);
+	}
+
+	p_schtblcb-&gt;expptindex = EXPPTINDEX_TOP;
+
+	return(loopcont);
+}
+
+#endif /* TOPPERS_schtbl_head */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#21508;&#28288;&#20102;&#28857;&#20966;&#29702;
+ */
+#ifdef TOPPERS_schtbl_exppoint_process
+
+boolean
+schtbl_exppoint_process(SCHTBLCB *p_schtblcb, const CNTCB *p_cntcb)
+{
+	boolean				loopcont = FALSE;
+	const SCHTBLEXPPTCB	*p_exppoint;
+	TickType			currtime;
+
+	p_exppoint = &amp;(p_schtblcb-&gt;p_schtblinib-&gt;p_exppt[p_schtblcb-&gt;expptindex]);
+
+	/* &#28288;&#20102;&#20966;&#29702;&#12398;&#23455;&#34892; */
+	LOG_SCHTBL_ENTER(p_schtblcb);
+	(p_exppoint-&gt;expptfnt)();
+	LOG_SCHTBL_LEAVE(p_schtblcb);
+
+	/* &#29694;&#22312;&#26178;&#38291;&#12398;&#36864;&#36991; */
+	currtime = p_exppoint-&gt;offset;
+	/* &#27425;&#12398;&#28288;&#20102;&#28857;&#12408; */
+	p_schtblcb-&gt;expptindex++;
+	p_exppoint++;
+
+	if (</font><font class="covered">p_schtblcb-&gt;expptindex == p_schtblcb-&gt;p_schtblinib-&gt;tnum_exppt</font><font class="normal">) {
+		/* &#29694;&#22312;&#12364;&#21608;&#26399;&#12398;&#26368;&#24460;&#12398;&#28288;&#20102;&#28857;&#12398;&#22580;&#21512; */
+		if (</font><font class="covered">p_schtblcb-&gt;p_schtblinib-&gt;length == currtime</font><font class="normal">) {
+			/*
+			 *  &#21336;&#30330;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#26368;&#32066;&#36933;&#24310;&#20516;&#12364;0&#12398;&#22580;&#21512;&#65292;Next&#12364;&#23384;&#22312;&#12377;&#12427;&#12363;&#12418;&#12375;&#12428;&#12394;&#12356;&#12383;&#12417;&#65292;
+			 *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#26368;&#24460;&#12479;&#12452;&#12511;&#12531;&#12464;&#20966;&#29702;&#12434;&#12377;&#12427;
+			 */
+			loopcont = TRUE;
+		}
+		else {
+			/* &#26368;&#32066;&#36933;&#24310;&#20966;&#29702;&#12398;&#12383;&#12417;&#65292;&#28288;&#20102;&#26178;&#38291;&#12398;&#35373;&#23450; */
+			p_schtblcb-&gt;cntexpinfo.expiretick = add_tick(p_schtblcb-&gt;cntexpinfo.expiretick,
+														 (p_schtblcb-&gt;p_schtblinib-&gt;length - currtime), p_cntcb-&gt;p_cntinib-&gt;maxval2);
+		}
+	}
+	else {
+		/* &#27425;&#12398;&#28288;&#20102;&#28857;&#12398;&#28288;&#20102;&#26178;&#38291;&#12398;&#35373;&#23450; */
+		p_schtblcb-&gt;cntexpinfo.expiretick = add_tick(p_schtblcb-&gt;cntexpinfo.expiretick,
+													 (p_exppoint-&gt;offset - currtime), p_cntcb-&gt;p_cntinib-&gt;maxval2);
+	}
+
+	return(loopcont);
+}
+
+#endif /* TOPPERS_schtbl_exppoint_process */
+
+/*
+ *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#32066;&#31471;&#20966;&#29702;
+ */
+#ifdef TOPPERS_schtbl_tail
+
+boolean
+schtbl_tail(SCHTBLCB *p_schtblcb, SCHTBLEXPINFO *p_schtblexpinfo, const CNTCB *p_cntcb)
+{
+	boolean				loopcont = FALSE;
+	SCHTBLCB			*p_nextcb;
+	const SCHTBLEXPPTCB	*p_exppoint;
+
+	/* &#21608;&#26399;&#12398;&#26368;&#24460;&#12395;&#12390;Next&#12364;&#23384;&#22312;&#12377;&#12427;&#12363;&#12481;&#12455;&#12483;&#12463; */
+	if (</font><font class="covered">p_schtblcb-&gt;p_nextschtblcb != NULL) {
+</font><font class="normal">		p_nextcb = p_schtblcb-&gt;p_nextschtblcb;
+
+		/*
+		 *  &#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12398;&#20999;&#12426;&#26367;&#12360;
+		 *
+		 *  &#26263;&#40665;&#21516;&#26399;&#21516;&#22763;&#12398;&#20999;&#26367;&#12434;&#32771;&#24942;&#12375;&#65292;&#29366;&#24907;&#12398;&#24341;&#32153;&#12366;&#12364;&#24517;&#35201;
+		 *  NextScheduleTable&#12391;&#21516;&#26399;&#26041;&#27861;&#12481;&#12455;&#12483;&#12463;&#12375;&#12390;&#12356;&#12427;&#12398;&#12391;&#65292;
+		 *  &#21516;&#26399;&#26041;&#27861;&#12398;&#19981;&#25972;&#21512;&#12364;&#12394;&#12356;
+		 */
+		p_nextcb-&gt;status = p_schtblcb-&gt;status;
+		p_nextcb-&gt;expptindex = EXPPTINDEX_INITIAL;
+
+		/* Next&#12398;&#28288;&#20102;&#28857;&#35373;&#23450;&#22522;&#28310;&#12399;&#65292;Prev&#12398;&#28288;&#20102;&#26178;&#21051;&#12392;&#12394;&#12427; */
+		p_nextcb-&gt;cntexpinfo.expiretick = p_schtblcb-&gt;cntexpinfo.expiretick;
+		p_nextcb-&gt;p_prevschtblcb = NULL;
+
+		/* &#20170;&#12414;&#12391;&#23455;&#34892;&#29366;&#24907;&#12398;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12486;&#12540;&#12502;&#12523;&#12395;&#23550;&#12375;&#12390;&#32066;&#20102;&#20966;&#29702; */
+		p_schtblcb-&gt;status = SCHEDULETABLE_STOPPED;
+		p_schtblcb-&gt;p_nextschtblcb = NULL;
+
+		/*
+		 *  &#19978;&#27969;&#20596;&#12424;&#12426;Next&#12398;&#21021;&#26399;&#28288;&#20102;&#28857;&#12434;&#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12395;&#36861;&#21152;&#12377;&#12427;&#26178;&#65292;
+		 *  &#20351;&#29992;&#12373;&#12428;&#12427;
+		 */
+		p_schtblexpinfo-&gt;p_schtblcb = p_nextcb;
+
+		loopcont = TRUE;
+	}
+	else {
+		/* &#21608;&#26399;&#21046;&#24481;&#12398;&#26377;&#28961;&#12481;&#12455;&#12483;&#12463; */
+		if (</font><font class="covered">p_schtblcb-&gt;p_schtblinib-&gt;repeat != FALS</font><font class="normal">E) {
+
+			p_schtblcb-&gt;expptindex = EXPPTINDEX_TOP;
+			p_exppoint = &amp;(p_schtblcb-&gt;p_schtblinib-&gt;p_exppt[EXPPTINDEX_TOP]);
+
+			if (</font><font class="covered">p_exppoint-&gt;offset == 0U</font><font class="normal">) {
+				/* &#21021;&#26399;&#12458;&#12501;&#12475;&#12483;&#12488;0&#12398;&#22580;&#21512;&#65292;&#20170;&#22238;&#28288;&#20102;&#20966;&#29702;&#20869;&#12391;1&#20491;&#30446;&#12398;&#28288;&#20102;&#28857;&#20966;&#29702;&#12434;&#34892;&#12358; */
+				loopcont = TRUE;
+			}
+			else {
+				/* &#26368;&#32066;&#36933;&#24310;&#20966;&#29702;&#12398;&#12383;&#12417;&#65292;&#28288;&#20102;&#26178;&#38291;&#12398;&#35373;&#23450; */
+				p_schtblcb-&gt;cntexpinfo.expiretick = add_tick(p_schtblcb-&gt;cntexpinfo.expiretick,
+															 p_exppoint-&gt;offset, p_cntcb-&gt;p_cntinib-&gt;maxval2);
+			}
+		}
+		else {
+			/* &#21608;&#26399;&#36215;&#21205;&#12375;&#12394;&#12356;&#12398;&#12391;&#65292;&#32066;&#20102;&#20966;&#29702; */
+			p_schtblcb-&gt;status = SCHEDULETABLE_STOPPED;
+			p_schtblexpinfo-&gt;p_schtblcb = NULL;
+			p_schtblcb-&gt;p_prevschtblcb = NULL;
+			p_schtblcb-&gt;p_nextschtblcb = NULL;
+		}
+	}
+
+	return(loopcont);
+}
+
+#endif /* TOPPERS_schtbl_tail */
+</font></code></pre></td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td>&#xA0;</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table><br><br><table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td align="center">&copy;Parasoft Corp. -C++test&reg;&#xA0;9.4.2.17&#xA0;&#12524;&#12509;&#12540;&#12488; &#12471;&#12473;&#12486;&#12512;&#xA0;</td>
+         </tr>
+      </table><br><table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_footer_expander.jpg" width="100%" align="left"><img src="rep_footer.jpg" alt="rep_footer.jpg"></td>
+         </tr>
+      </table>
+   </body>
+</html>

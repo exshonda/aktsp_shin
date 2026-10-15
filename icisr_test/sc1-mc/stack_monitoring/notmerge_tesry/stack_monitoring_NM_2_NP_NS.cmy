@@ -1,0 +1,81 @@
+######################################################################
+# stack_monitoring_NM_2_NP_NS_0001.yaml
+######################################################################
+stack_monitoring_NM_2_NP_NS_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+    finish: true
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_2_NP_NS_0002.yaml
+######################################################################
+stack_monitoring_NM_2_NP_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS_CORE_1,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+    finish: true
+
+  post_condition_1:
+######################################################################

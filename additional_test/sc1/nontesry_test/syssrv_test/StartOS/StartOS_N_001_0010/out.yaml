@@ -1,0 +1,145 @@
+
+Os:
+  Os:
+    OsInclude:
+      OsIncludeFileName: out.h
+    OsOS:
+      OsStackMonitoring: true
+      OsUseGetServiceId: true
+      OsUseParameterAccess: true
+      OsStatus: EXTENDED
+      OsScalabilityClass: SC1
+      OsHooks:
+        OsErrorHook: false
+        OsPostTaskHook: false
+        OsPreTaskHook: false
+        OsProtectionHook: false
+        OsShutdownHook: false
+        OsStartupHook: true
+      OsHookStack:
+        OsHookStackSize: AKTSP_HOOK_STACK_SIZE
+      OsOsStack:
+        OsOsStackSize: AKTSP_OS_STACK_SIZE
+        OsOsStackStartAddress: aktg_os_stack+AKTSP_BUFFER_STACK_SIZE
+    MainTask:
+      DefinitionRef: OsTask
+      OsTaskActivation: 1
+      OsTaskPriority: 0
+      OsTaskStackSize: AKTSP_TASK_STACK_SIZE
+      OsTaskSchedule: FULL
+      OsTaskResourceRef: "/Os/Os/DummyResource"
+      OsTaskEventRef: "/Os/Os/DummyEvent"
+    DummyTask:
+      DefinitionRef: OsTask
+      OsTaskActivation: 1
+      OsTaskPriority: 15
+      OsTaskStackSize: AKTSP_TASK_STACK_SIZE
+      OsTaskSchedule: FULL
+      OsTaskResourceRef: "/Os/Os/DummyResource"
+    DummyResource:
+      DefinitionRef: OsResource
+      OsResourceProperty: STANDARD
+    DummyEvent:
+      DefinitionRef: OsEvent
+    TASK1:
+      DefinitionRef: OsTask
+      OsTaskActivation: 1
+      OsTaskPriority: 10
+      OsTaskStackSize: AKTSP_TASK_STACK_SIZE
+      OsTaskStackStartAddress: aktg_stack[0]
+      OsTaskSchedule: NON
+      OsTaskAutostart:
+        OsTaskAppModeRef:
+          - "/Os/Os/autostaMode"
+    TASK2:
+      DefinitionRef: OsTask
+      OsTaskActivation: 1
+      OsTaskPriority: 11
+      OsTaskStackSize: AKTSP_TASK_STACK_SIZE
+      OsTaskStackStartAddress: aktg_stack[1]
+      OsTaskSchedule: NON
+    ALARM1:
+      DefinitionRef: OsAlarm
+      OsAlarmCounterRef: "/Os/Os/COUNTER1"
+      OsAlarmAction:
+        OsAlarmActivateTask:
+          OsAlarmActivateTaskRef: "/Os/Os/TASK3"
+      OsAlarmAutostart:
+        OsAlarmAlarmTime: 3
+        OsAlarmCycleTime: 0
+        OsAlarmAutostartType: ABSOLUTE
+        OsAlarmAppModeRef: "/Os/Os/autostaMode"
+    ALARM2:
+      DefinitionRef: OsAlarm
+      OsAlarmCounterRef: "/Os/Os/COUNTER1"
+      OsAlarmAction:
+        OsAlarmActivateTask:
+          OsAlarmActivateTaskRef: "/Os/Os/TASK4"
+      OsAlarmAutostart:
+        OsAlarmAlarmTime: 3
+        OsAlarmCycleTime: 0
+        OsAlarmAutostartType: RELATIVE
+        OsAlarmAppModeRef: "/Os/Os/autostaMode"
+    SCHEDULE_TABLE1:
+      DefinitionRef: OsScheduleTable
+      OsScheduleTableDuration: 11
+      OsScheduleTableRepeating: false
+      OsScheduleTableCounterRef: "/Os/Os/COUNTER1"
+      OsScheduleTableExpiryPoint_0:
+        DefinitionRef: OsScheduleTableExpiryPoint
+        OsScheduleTblExpPointOffset: 3
+        OsScheduleTableTaskActivation_0:
+          DefinitionRef: OsScheduleTableTaskActivation
+          OsScheduleTableActivateTaskRef: "/Os/Os/TASK3"
+      OsScheduleTableSync:
+        OsScheduleTblSyncStrategy: IMPLICIT
+      OsScheduleTableAutostart:
+        OsScheduleTableStartValue: 0
+        OsScheduleTableAutostartType: ABSOLUTE
+        OsScheduleTableAppModeRef: "/Os/Os/autostaMode"
+    SCHEDULE_TABLE2:
+      DefinitionRef: OsScheduleTable
+      OsScheduleTableDuration: 5
+      OsScheduleTableRepeating: false
+      OsScheduleTableCounterRef: "/Os/Os/COUNTER1"
+      OsScheduleTableExpiryPoint_0:
+        DefinitionRef: OsScheduleTableExpiryPoint
+        OsScheduleTblExpPointOffset: 2
+        OsScheduleTableTaskActivation_0:
+          DefinitionRef: OsScheduleTableTaskActivation
+          OsScheduleTableActivateTaskRef: "/Os/Os/TASK4"
+      OsScheduleTableSync:
+        OsScheduleTblSyncStrategy: NONE
+      OsScheduleTableAutostart:
+        OsScheduleTableStartValue: 1
+        OsScheduleTableAutostartType: RELATIVE
+        OsScheduleTableAppModeRef: "/Os/Os/autostaMode"
+    COUNTER1:
+      DefinitionRef: OsCounter
+      OsCounterMaxAllowedValue: 10
+      OsCounterMinCycle: 2
+      OsCounterTicksPerBase: 1
+      OsCounterType: SOFTWARE
+    TASK3:
+      DefinitionRef: OsTask
+      OsTaskActivation: 1
+      OsTaskPriority: 11
+      OsTaskStackSize: AKTSP_TASK_STACK_SIZE
+      OsTaskStackStartAddress: aktg_stack[2]
+      OsTaskSchedule: NON
+    TASK4:
+      DefinitionRef: OsTask
+      OsTaskActivation: 1
+      OsTaskPriority: 11
+      OsTaskStackSize: AKTSP_TASK_STACK_SIZE
+      OsTaskStackStartAddress: aktg_stack[3]
+      OsTaskSchedule: NON
+    autostaMode:
+      DefinitionRef: OsAppMode
+    DUMMY_C2ISR:
+      DefinitionRef: OsIsr
+      OsIsrInterruptNumber: AKTSP_INTNO_E
+      OsIsrInterruptPriority: 4
+      OsIsrStackSize: AKTSP_C2ISR_STACK_SIZE
+      OsIsrCategory: CATEGORY_2
+      OsIsrInterruptSource: ENABLE

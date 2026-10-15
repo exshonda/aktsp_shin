@@ -1,0 +1,414 @@
+######################################################################
+# EnableInterruptSource_m_err_2_0001.yaml
+######################################################################
+EnableInterruptSource_m_err_2_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OS_CORE
+
+  post_condition:
+######################################################################
+# EnableInterruptSource_m_err_2_0002.yaml
+######################################################################
+EnableInterruptSource_m_err_2_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_EnableInterruptSource_EnableISR()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_EnableInterruptSource)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# EnableInterruptSource_m_err_2_0003.yaml
+######################################################################
+EnableInterruptSource_m_err_2_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_EnableInterruptSource_EnableISR()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_EnableInterruptSource)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# EnableInterruptSource_m_err_2_0004.yaml
+######################################################################
+EnableInterruptSource_m_err_2_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_EnableInterruptSource_EnableISR()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_EnableInterruptSource)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# EnableInterruptSource_m_err_2_0005.yaml
+######################################################################
+EnableInterruptSource_m_err_2_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_EnableInterruptSource_EnableISR()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_EnableInterruptSource)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# EnableInterruptSource_m_err_2_0006.yaml
+######################################################################
+EnableInterruptSource_m_err_2_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_EnableInterruptSource_EnableISR()==C2ISR2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_EnableInterruptSource)
+    gcov: false
+
+  post_condition_3:
+######################################################################

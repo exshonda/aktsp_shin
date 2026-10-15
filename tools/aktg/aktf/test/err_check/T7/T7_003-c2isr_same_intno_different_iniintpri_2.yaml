@@ -1,0 +1,45 @@
+T7_003_c2isr_same_intno_different_iniintpri_2:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+
+  post_condition_0:
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_STOP

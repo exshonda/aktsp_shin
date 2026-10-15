@@ -1,0 +1,37 @@
+T3_SC3_CNT001_ctype_software_undefine_osap:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      mincyc: 10
+      maxval: 100
+      curval: 50
+      ctype: AK_SOFTWARE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    COUNTER1:
+      curval: 5

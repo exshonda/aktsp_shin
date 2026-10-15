@@ -1,0 +1,21 @@
+T4_005_plural_running:
+  property:
+    sc: 
+  pre_condition:
+    TASK1:
+      type: TASK
+      curpri: TSK_PRI_HIGH
+      tstat: RUNNING
+
+    TASK2:
+      type: TASK
+      curpri: TSK_PRI_HIGH
+      tstat: RUNNING
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition:

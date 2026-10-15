@@ -1,0 +1,44 @@
+T4_048_no_procunit_of_intstete_istat:
+  property:
+    sc: 
+
+  pre_condition:
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_ISR1_A
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      istat:
+      type: INT_STATE
+
+  do_0:
+    id: C1ISR1
+    syssrv: DisableAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: C1ISR
+
+  do_1:
+    id: C1ISR1
+    syssrv: EnableAllInterrupts()
+    gcov: true
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP

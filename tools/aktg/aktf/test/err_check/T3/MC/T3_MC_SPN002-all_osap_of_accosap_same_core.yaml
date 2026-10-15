@@ -1,0 +1,47 @@
+T3_MC_SPN002_all_osap_of_accosap_same_core.yaml.yaml:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - NT_OSAP_SELF_CORE_2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    INT_STATE2:
+      type: INT_STATE
+      istat:
+      coreid: CORE_OTHER
+
+  do:
+    id: TASK1
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval : E_OK
+    gcov: true
+
+  post_condition:
+    TASK1:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1

@@ -1,0 +1,271 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜タスク強制終了処理テスト個別ポリシー＞
+
+本ドキュメントは，保護違反時処理テストのタスク強制処理テストに関する開
+発および実施要綱についてまとめたものである．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2011-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2011-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2011-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2011-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: forced_task_termination_policy.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ はじめに
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+本ドキュメントは，AKTSP(Automotive Kernel Test Suite Package)および
+AKTG(Automotive Kernel Test Generator)のユーザーズマニュアルの記載内容
+および，PictMasterのユーザーズマニュアル，AKTSPにおけるテストの開発およ
+び実施要綱を理解していること前提とする．
+本ドキュメントでは，タスク強制終了処理テスト個別ポリシーを記載する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) PICTモデルファイルのテストケースの生成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PICTモデルファイルのシートを以下のように分けて記載する．
+また，全てのテストケースがまとめて実行可能なテストケースとなる．
+本テストケースにおいて，保護違反要因の種類には4つあるが，その中の一つで
+あるタスクディスパッチ時にスタックオーバーフローを検出する組み合わせの
+みを別のシートとして作成している．
+
+《保護違反要因》
+ 1. スタックオーバーフロー(タスクディスパッチ時)
+ 2. スタックオーバーフロー(割込み発生時)
+ 3. CPU例外
+ 4. メモリ保護違反
+
+■タスクディスパッチ時にスタックオーバーフローするテストケース以外
+  ・SC3の場合
+  →./forced_task_termination.xls：merge_1シート
+
+  ・SC3-MCの場合
+  →./forced_task_termination.xls：m_m_1シート(割込み禁止状態が1段，スピンロックを獲得済み(1段)のタスクが強制終了するケース)
+  →./forced_task_termination.xls：m_m_2シート(割込み禁止状態が2段，スピンロックを獲得済み(1段)のタスクが強制終了するケース)
+  →./forced_task_termination.xls：m_m_3シート(割込み禁止状態が1段，スピンロックを獲得済み(2段)のタスクが強制終了するケース)
+  →./forced_task_termination.xls：m_m_4シート(割込み禁止状態が2段，スピンロックを獲得済み(2段)のタスクが強制終了するケース)
+
+■タスクディスパッチ時にスタックオーバーフローするテストケース
+  ・SC3の場合
+  →./forced_task_termination.xls：merge_2シート
+
+  ・SC3-MCの場合
+  →./forced_task_termination.xls：m_m_5シート(割込み禁止状態にならないスピンロックを獲得済み(1段,2段)のタスクが強制終了するケース)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) 組み合わせパラメータ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■call_origin
+保護違反を発生させる処理単位
+  ・Task			信頼タスク
+  ・ntTask			非信頼タスク
+
+■protection_hook
+プロテクションフックの有無
+  ・pro_ON			プロテクションフックあり
+
+■pro_return_value
+プロテクションフックの戻り値
+  ・terminate_task_isr	PRO_TERMINATETASKISR
+
+■org_ttype
+呼出し元タスクのタスク種別
+  ・AK_BASIC		基本タスク
+  ・AK_EXTENDED		拡張タスク
+
+■org_spolicy
+呼出し元タスクのスケジューリングポリシ
+  ・AK_SCHFULL				フルプリエンプティブスケジューリング
+  ・AK_SCHNON 				ノンプリエンプティブスケジューリング
+  ・AK_SCHFULL/GROUP_TASK	フルプリ＋グループタスク
+
+■org_actcnt
+呼出し元タスクの起動要求回数
+  ・ANY_MAX_ACTCNT	最大起動要求回数と等しい
+  ・1				1回
+
+■org_resource_1
+呼出し元タスクの1つ目の獲得リソースの種別
+  ・AK_STANDARD		標準リソース
+  ・AK_LINKED		リンクリソース
+  ・AK_INTERNAL		内部リソース
+  ・-				リソースなし
+
+■org_resource_2
+呼出し元タスクの2つ目の獲得リソースの種別
+  ・AK_STANDARD		標準リソース
+  ・AK_LINKED		リンクリソース
+  ・-				リソースなし
+
+■org_spinlock_1(MCのみ)
+呼出し元タスクの1つ目の獲得スピンロックの種別
+  ・SUS_ALL_SPN		SuspendAllInterrupts実行状態となるスピンロック
+  ・SUS_OS_SPN		SuspendOSInterrupts実行状態となるスピンロック
+  ・DO_NOT_CARE		割込み禁止状態にならないスピンロック
+
+■org_spinlock_2(MCのみ)
+呼出し元タスクの2つ目の獲得スピンロックの種別
+  ・SUS_ALL_SPN		SuspendAllInterrupts実行状態となるスピンロック
+  ・SUS_OS_SPN		SuspendOSInterrupts実行状態となるスピンロック
+  ・DO_NOT_CARE		割込み禁止状態にならないスピンロック
+  ・-				スピンロックなし
+
+■other_curpri
+他タスクの優先度
+  ・TSK_PRI_HIGH	呼出し元タスクより優先度が高い
+  ・TSK_PRI_LOW		呼出し元タスクより優先度が低い
+
+■other_tstat
+他タスクのタスク状態
+  ・READY			実行可能状態
+  ・SUSPENDED		休止状態
+  ・WAITING			待ち状態
+
+■os_intstat
+割込み禁止状態
+  ・ENA_ALL_INT		全割込み許可
+  ・DIS_ALL_INT		DisableAllInterruptsによる割込み禁止状態
+  ・SUS_ALL_INT		SuspendAllInterruptsによる割込み禁止状態
+  ・SUS_OS_INT		SuspendOSInterruptsによる割込み禁止状態
+  ・SUS_ALL_ALL_INT	SUS_ALL_INT(1段目) + SUS_ALL_INT(2段目)
+  ・SUS_OS_OS_INT	SUS_OS_INT(1段目) + SUS_OS_INT(2段目)
+  ・SUS_ALL_OS_INT	SUS_ALL_INT(1段目) + SUS_OS_INT(2段目)
+  ・SUS_OS_ALL_INT	SUS_OS_INT(1段目) + SUS_ALL_INT(2段目)
+
+■call_pro_fact
+  ・cpu_exception	    	CPU例外による保護違反時処理
+  ・stack_monitoring_int	スタックオーバーフローによる保護違反時処理(割込み発生時)
+  ・stack_monitoring_disp	スタックオーバーフローによる保護違反時処理(タスクディスパッチ時)
+  ・memory_protection		メモリ保護違反による保護違反時処理
+
+■sys_srv
+スタックオーバーフローを検出するトリガーとなるシステムサービス
+  ・Terminate   TerminateTask
+  ・Chain_org   ChainTask(対象タスク：自タスク)
+  ・Chain_other ChainTask(対象タスク：他タスク)
+  ・Act         ActivateTask
+  ・WaitEvt     WaitEvent
+  ・SetEvt      SetEvent
+  ・RelRes      ReleaseResource
+  ・Sch         Schedule
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) 組み合わせパラメータ規定ポリシー
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+―――――――――――――――――――――――――――――――――――
+(3.1) 共通ポリシー
+―――――――――――――――――――――――――――――――――――
+(3.1.1) 各オブジェクトのOSAP
+自タスク以外のOSAPは，すべて信頼OSAPとする．
+
+(3.1.2) 2段目獲得リソースのパラメータ（関連付け，OSAP，リソース種別）
+2段目獲得リソースのパラメータは，1段目獲得リソースと同様とする．
+
+(3.1.3) リソースの関連付け
+全てのリソースオブジェクトは，他タスクに関連付けられるものとする．
+
+(3.1.4) スタックモニタリング
+スタックオーバーフローの検出方法は，スタックポインタチェック方式とする．
+
+―――――――――――――――――――――――――――――――――――
+(3.2) 個別ポリシー
+―――――――――――――――――――――――――――――――――――
+(3.2.1) stack_monitoring_disp によるタスク強制終了
+タスクディスパッチによるスタックオーバーフロー検出では，トリガーとなる
+システムサービス毎に以下のパラメータを固定する．
+
+(3.2.1.1) ActivateTaskによるディスパッチ
+■other_tstat
+  ・SUSPENDED		休止状態
+
+(3.2.1.2) ChainTaskによるディスパッチ
+Chain_org，Chain_other共に以下のパラメータを固定する．
+■other_tstat
+  ・SUSPENDED		休止状態
+
+(3.2.1.3) TerminateTaskによるディスパッチ
+■other_tstat
+  ・READY		    実行可能状態
+
+(3.2.1.4) Scheduleによるディスパッチ
+■other_tstat
+  ・READY		    実行可能状態
+
+(3.2.1.5) SetEventによるディスパッチ
+■other_tstat
+  ・WAITING		    待ち状態
+
+(3.2.1.6) WaitEventによるディスパッチ
+■other_tstat
+  ・READY		    実行可能状態
+
+(3.2.1.7) ReleaseResourceによるディスパッチ
+■other_tstat
+  ・READY		    実行可能状態
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(4) TESRY生成表
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+各パターン個別で条件に合うように記述する．各保護違反の発生および検出に
+は以下のターゲット依存API，指定した処理を使用する．各APIの仕様は，ター
+ゲット依存テストライブラリ外部仕様書を参照する．
+
+■スタックオーバーフロー発生
+  以下の関数を呼び出すことでスタックオーバーフローを発生させ，スタック
+  オーバーフローを検出する．
+  ・割込み発生時
+  −AktspRaiseTaskStackOverflowByInterrupt
+  ・タスクティスパッチ時
+  −AktspRaiseTaskStackOverflowByDispatch
+  
+■CPU例外発生
+  以下の関数を呼び出すことでCPU例外を発生させる．
+  −AktspRaiseCPUException
+
+■メモリ保護違反発生
+  以下の処理を実行することでメモリ保護違反を発生させる．
+  この処理で，非信頼OSAPのタスクから信頼OSAPのスタックへ書込みアクセス
+  を行う．
+  −aktg_stack[0][0] = 1
+
+以上．

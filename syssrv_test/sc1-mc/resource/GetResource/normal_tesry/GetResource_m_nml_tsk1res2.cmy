@@ -1,0 +1,1972 @@
+######################################################################
+# GetResource_m_nml_tsk1res2_0001.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+        - RESOURCE3
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0002.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+        - RESOURCE3
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0003.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0004.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0005.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0006.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0007.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0008.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0009.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0010.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0011.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0012.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0013.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0014.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0015.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0016.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0017.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0018.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0019.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0020.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0021.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0022.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0023.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0024.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0025.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0026.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0027.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0028.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0029.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0030.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0031.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0032.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE4
+    RESOURCE4:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0033.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_m_nml_tsk1res2_0034.yaml
+######################################################################
+GetResource_m_nml_tsk1res2_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+######################################################################

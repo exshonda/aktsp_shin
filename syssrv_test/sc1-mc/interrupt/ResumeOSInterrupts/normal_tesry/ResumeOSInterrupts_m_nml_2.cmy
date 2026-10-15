@@ -1,0 +1,331 @@
+######################################################################
+# ResumeOSInterrupts_m_nml_2_0001.yaml
+######################################################################
+ResumeOSInterrupts_m_nml_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_0:
+
+  do_1:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_2:
+    id: C2ISR1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    INT_STATE1:
+      istat:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ResumeOSInterrupts_m_nml_2_0002.yaml
+######################################################################
+ResumeOSInterrupts_m_nml_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+    gcov: false
+
+  post_condition_0:
+
+  do_1:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_2:
+    id: C2ISR1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    INT_STATE1:
+      istat:
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ResumeOSInterrupts_m_nml_2_0003.yaml
+######################################################################
+ResumeOSInterrupts_m_nml_2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: TASK1
+
+  do_2:
+    id: TASK1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: TASK1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    INT_STATE1:
+      istat:
+    TASK1:
+      getspn:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ResumeOSInterrupts_m_nml_2_0004.yaml
+######################################################################
+ResumeOSInterrupts_m_nml_2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+    gcov: false
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: TASK1
+
+  do_2:
+    id: TASK1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: TASK1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    INT_STATE1:
+      istat:
+    TASK1:
+      getspn:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+######################################################################

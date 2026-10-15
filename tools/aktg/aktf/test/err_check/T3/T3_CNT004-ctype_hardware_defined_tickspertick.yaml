@@ -1,0 +1,31 @@
+T3_CNT004_ctype_hardware_defined_tickspertick:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TickType
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      ticksperbase: 1
+
+  do:
+    id: TASK1
+    syssrv: GetCounterValue(COUNTER1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: ANY_MAXVAL_A

@@ -1,0 +1,65 @@
+T4_MC_031_data_sender_osap_not_active_task_c2isr:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR2:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_OTHER_ISR2_B
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_INT_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+      include: aktsp_common_lib.h
+      initval: (AktspIocDataIntegerTypeNoPrim)DATA_INT_A
+
+  do:
+    id: C2ISR2
+    syssrv: IocRead_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition:
+    C2ISR2:
+      var:
+        vname1:
+          value: DATA_INT_A
+    IOC0:
+      data:
+        - IOC0_DATA0: DATA_INT_A

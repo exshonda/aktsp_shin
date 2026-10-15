@@ -1,0 +1,475 @@
+######################################################################
+# CancelAlarm_modistarc_0001.yaml
+######################################################################
+CancelAlarm_modistarc_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      task: TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0002.yaml
+######################################################################
+CancelAlarm_modistarc_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      incounter: COUNTER2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_B
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0003.yaml
+######################################################################
+CancelAlarm_modistarc_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      event: EVENT1
+      task: TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: C2ISR1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0004.yaml
+######################################################################
+CancelAlarm_modistarc_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      task: TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0005.yaml
+######################################################################
+CancelAlarm_modistarc_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      task: TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0006.yaml
+######################################################################
+CancelAlarm_modistarc_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      incounter: COUNTER2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_B
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0007.yaml
+######################################################################
+CancelAlarm_modistarc_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      incounter: COUNTER2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_B
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0008.yaml
+######################################################################
+CancelAlarm_modistarc_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: NON_TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      event: EVENT1
+      task: TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# CancelAlarm_modistarc_0009.yaml
+######################################################################
+CancelAlarm_modistarc_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+      event: EVENT1
+      task: TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+######################################################################

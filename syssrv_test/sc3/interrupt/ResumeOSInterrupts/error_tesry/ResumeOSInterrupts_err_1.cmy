@@ -1,0 +1,406 @@
+######################################################################
+# ResumeOSInterrupts_err_1_0001.yaml
+######################################################################
+ResumeOSInterrupts_err_1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeOSInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# ResumeOSInterrupts_err_1_0002.yaml
+######################################################################
+ResumeOSInterrupts_err_1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeOSInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# ResumeOSInterrupts_err_1_0003.yaml
+######################################################################
+ResumeOSInterrupts_err_1_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeOSInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# ResumeOSInterrupts_err_1_0004.yaml
+######################################################################
+ResumeOSInterrupts_err_1_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeOSInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# ResumeOSInterrupts_err_1_0005.yaml
+######################################################################
+ResumeOSInterrupts_err_1_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeOSInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# ResumeOSInterrupts_err_1_0006.yaml
+######################################################################
+ResumeOSInterrupts_err_1_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS822
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeOSInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

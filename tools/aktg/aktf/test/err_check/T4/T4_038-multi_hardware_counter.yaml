@@ -1,0 +1,29 @@
+T4_038_multi_hardware_counter:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    COUNTER1:
+      type: COUNTER
+      curval: 0
+      ctype: AK_HARDWARE
+    COUNTER2:
+      type: COUNTER
+      curval: 0
+      ctype: AK_HARDWARE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    COUNTER1:
+      curval: 5

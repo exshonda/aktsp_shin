@@ -1,0 +1,2095 @@
+######################################################################
+# StartScheduleTableRel_err_osap_0001.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C1ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+######################################################################
+# StartScheduleTableRel_err_osap_0002.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(INVALID_SCHTBL_ID,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==INVALID_SCHTBL_ID)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0003.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0004.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE2
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0005.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0006.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,0)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0007.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_MAXVAL_A-ANY_SCDLTBL_INIT_OFFSET_A+1)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_MAXVAL_A-ANY_SCDLTBL_INIT_OFFSET_A+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0008.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0009.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0010.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0011.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(INVALID_SCHTBL_ID,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==INVALID_SCHTBL_ID)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0012.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0013.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE2
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0014.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0015.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,0)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0016.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_MAXVAL_A-ANY_SCDLTBL_INIT_OFFSET_A+1)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_MAXVAL_A-ANY_SCDLTBL_INIT_OFFSET_A+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0017.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0018.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP2
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ACCESS)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0019.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ACCESS)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0020.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# StartScheduleTableRel_err_osap_0021.yaml
+######################################################################
+StartScheduleTableRel_err_osap_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableRel(SCHEDULE_TABLE1,ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_ScheduleTableID()==SCHEDULE_TABLE1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_StartScheduleTableRel_Offset()==ANY_PARAM_OFFSET_STARTSCDLTBLREL)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_StartScheduleTableRel)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

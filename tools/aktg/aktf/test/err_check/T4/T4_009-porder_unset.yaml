@@ -1,0 +1,27 @@
+T4_009_porder_unset:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri : TSK_PRI_HIGH
+      maxact: 1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri : TSK_PRI_MID
+
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri : TSK_PRI_MID
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition:

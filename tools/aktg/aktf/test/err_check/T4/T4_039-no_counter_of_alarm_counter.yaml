@@ -1,0 +1,38 @@
+T4_039_no_counter_of_alarm_counter:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      task: TASK2
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    ALARM1:
+      astat: AK_UNSET

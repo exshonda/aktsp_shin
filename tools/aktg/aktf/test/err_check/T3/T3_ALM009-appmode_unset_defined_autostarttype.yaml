@@ -1,0 +1,41 @@
+T3_ALM009_appmode_unset_defined_autostarttype:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_UNSET
+      task: TASK2
+      autostarttype: AK_ABSOLUTE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    MainApp:
+      type: APPLICATION_MODE
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET

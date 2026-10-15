@@ -1,0 +1,64 @@
+T3_SCHTBL009_syncstrategy_implicit_autostarttype_synchron:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      repeat: AK_TRUE
+      duration: 5
+      syncstrategy: AK_IMPLICIT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      curval: 1
+      autostarttype: AK_SYNCHRON
+      starttick: 1
+      appmode:
+        - MainApp
+      expoint:
+        2:
+          setevt:
+            - TASK2: EVENT1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 3
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+      curevt: EVENT1
+    SCHEDULE_TABLE1:
+      curval: 2
+    COUNTER1:
+      curval: 4
+      cstat: AK_CS_DOING

@@ -1,0 +1,4167 @@
+######################################################################
+# TerminateTask_normal_schedule_0001.yaml
+######################################################################
+TerminateTask_normal_schedule_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0002.yaml
+######################################################################
+TerminateTask_normal_schedule_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0003.yaml
+######################################################################
+TerminateTask_normal_schedule_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0004.yaml
+######################################################################
+TerminateTask_normal_schedule_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0005.yaml
+######################################################################
+TerminateTask_normal_schedule_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0006.yaml
+######################################################################
+TerminateTask_normal_schedule_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0007.yaml
+######################################################################
+TerminateTask_normal_schedule_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0008.yaml
+######################################################################
+TerminateTask_normal_schedule_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0009.yaml
+######################################################################
+TerminateTask_normal_schedule_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0010.yaml
+######################################################################
+TerminateTask_normal_schedule_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0011.yaml
+######################################################################
+TerminateTask_normal_schedule_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0012.yaml
+######################################################################
+TerminateTask_normal_schedule_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0013.yaml
+######################################################################
+TerminateTask_normal_schedule_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0014.yaml
+######################################################################
+TerminateTask_normal_schedule_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0015.yaml
+######################################################################
+TerminateTask_normal_schedule_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0016.yaml
+######################################################################
+TerminateTask_normal_schedule_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0017.yaml
+######################################################################
+TerminateTask_normal_schedule_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0018.yaml
+######################################################################
+TerminateTask_normal_schedule_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0019.yaml
+######################################################################
+TerminateTask_normal_schedule_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0020.yaml
+######################################################################
+TerminateTask_normal_schedule_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0021.yaml
+######################################################################
+TerminateTask_normal_schedule_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0022.yaml
+######################################################################
+TerminateTask_normal_schedule_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0023.yaml
+######################################################################
+TerminateTask_normal_schedule_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0024.yaml
+######################################################################
+TerminateTask_normal_schedule_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0025.yaml
+######################################################################
+TerminateTask_normal_schedule_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0026.yaml
+######################################################################
+TerminateTask_normal_schedule_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0027.yaml
+######################################################################
+TerminateTask_normal_schedule_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0028.yaml
+######################################################################
+TerminateTask_normal_schedule_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0029.yaml
+######################################################################
+TerminateTask_normal_schedule_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0030.yaml
+######################################################################
+TerminateTask_normal_schedule_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0031.yaml
+######################################################################
+TerminateTask_normal_schedule_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0032.yaml
+######################################################################
+TerminateTask_normal_schedule_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0033.yaml
+######################################################################
+TerminateTask_normal_schedule_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0034.yaml
+######################################################################
+TerminateTask_normal_schedule_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0035.yaml
+######################################################################
+TerminateTask_normal_schedule_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0036.yaml
+######################################################################
+TerminateTask_normal_schedule_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0037.yaml
+######################################################################
+TerminateTask_normal_schedule_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0038.yaml
+######################################################################
+TerminateTask_normal_schedule_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0039.yaml
+######################################################################
+TerminateTask_normal_schedule_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0040.yaml
+######################################################################
+TerminateTask_normal_schedule_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0041.yaml
+######################################################################
+TerminateTask_normal_schedule_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0042.yaml
+######################################################################
+TerminateTask_normal_schedule_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0043.yaml
+######################################################################
+TerminateTask_normal_schedule_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0044.yaml
+######################################################################
+TerminateTask_normal_schedule_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0045.yaml
+######################################################################
+TerminateTask_normal_schedule_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0046.yaml
+######################################################################
+TerminateTask_normal_schedule_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0047.yaml
+######################################################################
+TerminateTask_normal_schedule_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0048.yaml
+######################################################################
+TerminateTask_normal_schedule_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0049.yaml
+######################################################################
+TerminateTask_normal_schedule_0049:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0050.yaml
+######################################################################
+TerminateTask_normal_schedule_0050:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0051.yaml
+######################################################################
+TerminateTask_normal_schedule_0051:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0052.yaml
+######################################################################
+TerminateTask_normal_schedule_0052:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0053.yaml
+######################################################################
+TerminateTask_normal_schedule_0053:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0054.yaml
+######################################################################
+TerminateTask_normal_schedule_0054:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0055.yaml
+######################################################################
+TerminateTask_normal_schedule_0055:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0056.yaml
+######################################################################
+TerminateTask_normal_schedule_0056:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0057.yaml
+######################################################################
+TerminateTask_normal_schedule_0057:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0058.yaml
+######################################################################
+TerminateTask_normal_schedule_0058:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0059.yaml
+######################################################################
+TerminateTask_normal_schedule_0059:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0060.yaml
+######################################################################
+TerminateTask_normal_schedule_0060:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0061.yaml
+######################################################################
+TerminateTask_normal_schedule_0061:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0062.yaml
+######################################################################
+TerminateTask_normal_schedule_0062:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0063.yaml
+######################################################################
+TerminateTask_normal_schedule_0063:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0064.yaml
+######################################################################
+TerminateTask_normal_schedule_0064:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0065.yaml
+######################################################################
+TerminateTask_normal_schedule_0065:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0066.yaml
+######################################################################
+TerminateTask_normal_schedule_0066:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      porder: 2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0067.yaml
+######################################################################
+TerminateTask_normal_schedule_0067:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0068.yaml
+######################################################################
+TerminateTask_normal_schedule_0068:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0069.yaml
+######################################################################
+TerminateTask_normal_schedule_0069:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0070.yaml
+######################################################################
+TerminateTask_normal_schedule_0070:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0071.yaml
+######################################################################
+TerminateTask_normal_schedule_0071:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0072.yaml
+######################################################################
+TerminateTask_normal_schedule_0072:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0073.yaml
+######################################################################
+TerminateTask_normal_schedule_0073:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0074.yaml
+######################################################################
+TerminateTask_normal_schedule_0074:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0075.yaml
+######################################################################
+TerminateTask_normal_schedule_0075:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0076.yaml
+######################################################################
+TerminateTask_normal_schedule_0076:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# TerminateTask_normal_schedule_0077.yaml
+######################################################################
+TerminateTask_normal_schedule_0077:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: NON_TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# TerminateTask_normal_schedule_0078.yaml
+######################################################################
+TerminateTask_normal_schedule_0078:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+    TASK2:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+    TASK3:
+      type: TASK
+      osap: TRUSTED_OSAP1
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 2
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################

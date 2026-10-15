@@ -1,0 +1,190 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜エラー処理テストの開発および実施要綱＞
+
+本ドキュメントは，エラー処理テストの開発および実施要綱についてまとめた
+ものである．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2012-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2012-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2012-2013 by Spansion LLC, USA
+Copyright (C) 2012-2013 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2012-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2012-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2012-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2012-2014 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2012-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: developer.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+はじめに
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+本ドキュメントは，AKTSP(Automotive Kernel Test Suite Package)および
+AKTG(Automotive Kernel Test Generator)のユーザーズマニュアルの記載内容
+および，関連ドキュメントを理解していることを前提とする．
+本ドキュメントでは，エラー処理テストの概略を記載する．
+詳細内容は各テストのテストポリシーを参照すること．
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) ファイル/フォルダ構成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+エラー処理テストのフォルダ構成を以下にまとめる．
+
+	error_test/
+		developer.txt										エラー処理テスト開発文書(本ドキュメント)
+		illegal_terminate_policy.xls						不正終了個別ポリシー
+		sc1/												SC1
+			illegal_terminate_task/							タスクの不正終了テスト用フォルダ
+				illegal_terminate_task.xls					タスクの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_task_NS1.csv				タスクの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								タスクの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_task_NS1.cmy			TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_c2isr/						C2ISRの不正終了テスト用フォルダ
+				illegal_terminate_c2isr.xls					C2ISRの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_c2isr_NS1.csv				C2ISRの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								C2ISRの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_c2isr_NS1.cmy			TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_hook/							フックの不正終了テスト用フォルダ
+				illegal_terminate_hook.xls					フックの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_hook_STA1.csv				フックの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								フックの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_hook_STA1.cmy			TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+		sc3/												SC3
+			illegal_terminate_task/							タスクの不正終了テスト用フォルダ
+				illegal_terminate_task.xls					タスクの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_task_NS1.csv				タスクの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								タスクの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_task_NS1.cmy			TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_c2isr/						C2ISRの不正終了テスト用フォルダ
+				illegal_terminate_c2isr.xls					C2ISRの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_c2isr_NS1.csv				C2ISRの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								C2ISRの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_c2isr_NS1.cmy			TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_hook/							フックの不正終了テスト用フォルダ
+				illegal_terminate_hook.xls					フックの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_hook_STA1.csv				フックの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								フックの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_hook_STA1.cmy			TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+		sc1-mc/
+			illegal_terminate_task/							タスクの不正終了テスト用フォルダ
+				illegal_terminate_task.xls					タスクの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_task_m_NS1.csv			タスクの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								タスクの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_task_m_NS1.cmy		TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_c2isr/						C2ISRの不正終了テスト用フォルダ
+				illegal_terminate_c2isr.xls					C2ISRの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_c2isr_m_NS1.csv			C2ISRの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								C2ISRの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_c2isr_m_NS1.cmy		TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_hook/							フックの不正終了テスト用フォルダ
+				illegal_terminate_hook.xls					フックの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_hook_m_O_STA1.csv			フックの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								フックの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_hook_m_O_STA1.cmy		TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+		sc3-mc/
+			illegal_terminate_task/							タスクの不正終了テスト用フォルダ
+				illegal_terminate_task.xls					タスクの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_task_m_NS1.csv			タスクの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								タスクの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_task_m_NS1.cmy		TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+			illegal_terminate_c2isr/						C2ISRの不正終了テスト用フォルダ
+				illegal_terminate_c2isr.xls					C2ISRの不正終了テストのPictMasterモデルファイル
+				illegal_terminate_c2isr_m_NS1.csv			C2ISRの不正終了テストのTCSファイル
+					：
+				notmerge_tesry/								C2ISRの不正終了テストのマージ実行不可のTESRYデータを格納するフォルダ
+					illegal_terminate_c2isr_m_NS1.cmy		TESRYデータをTCSファイル単位でまとめたもの
+						:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) テストポリシーの規定
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+エラーテストは以下のように分類される．
+
+(A)システムサービスにより発生するエラー処理(集中エラー処理テスト)
+   本項目についてはシステムサービステストの異常系のテストに発生パター
+   ンが含まれているため，システムサービステストにエラーフック処理の動
+   作の確認を追加する形で実施する方針とする．
+   ※SC1用のTESRYデータには，システム定義のエラーフックが起動することの
+     確認しかないため，SC1-MCでSC1用TESRYデータを流用する際は，AKTGの
+     add_osap_error_hookオプションを使用することにより，OSAP固有のエラ
+     ーフックの確認も行う．
+
+(B)不正終了により発生するエラー処理(不正終了テスト)
+   本ディレクトリ下でテストを行うものとする．
+   ポリシーは"illegal_terminate_policy.xls"に規定する．
+   ※SC1用のTESRYデータには，システム定義のエラーフックが起動することの
+     確認しかないが，SC1-MC向けに作成したTESRYデータで十分にOSAP固有の
+     エラーフックによる確認を行なっているため，add_osap_error_hookオプ
+     ションは使用しない．
+
+
+
+以上

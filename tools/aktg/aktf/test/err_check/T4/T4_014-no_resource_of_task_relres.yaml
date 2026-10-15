@@ -1,0 +1,21 @@
+T4_014_no_resource_of_task_relres:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      actcnt: 1
+      relres:
+        - RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

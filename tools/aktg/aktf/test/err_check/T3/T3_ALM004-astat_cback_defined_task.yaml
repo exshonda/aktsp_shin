@@ -1,0 +1,44 @@
+T3_ALM004_astat_cback_defined_task:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      callback: ALARM_CBACK1
+      task: TASK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING

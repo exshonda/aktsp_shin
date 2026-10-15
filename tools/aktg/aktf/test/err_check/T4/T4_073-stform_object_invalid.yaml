@@ -1,0 +1,75 @@
+T4_073_stform_object_invalid:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: 3
+    TASK4:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      repeat: AK_TRUE
+      duration: 5
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 1
+      expoint:
+        2:
+          setevt:
+            - TASK2: EVENT1
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      repeat: AK_TRUE
+      duration: 15
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE3
+      expoint:
+        5:
+          acttsk:
+            - TASK4
+        10:
+          acttsk:
+            - TASK3
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 3
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: StopScheduleTable(SCHEDULE_TABLE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    SCHEDULE_TABLE2:
+      ststat: SCHEDULETABLE_STOPPED

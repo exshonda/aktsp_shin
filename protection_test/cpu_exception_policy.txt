@@ -1,0 +1,184 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜CPU例外テスト個別ポリシー＞
+
+本ドキュメントは，保護違反時処理テストのCPU例外テストに関する開発および
+実施要綱についてまとめたものである．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2011-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2011-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2011-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2011-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: cpu_exception_policy.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ はじめに
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+本ドキュメントは，AKTSP(Automotive Kernel Test Suite Package)および
+AKTG(Automotive Kernel Test Generator)のユーザーズマニュアルの記載内容
+および，PictMasterのユーザーズマニュアル，AKTSPにおけるテストの開発およ
+び実施要綱を理解していること前提とする．
+本ドキュメントでは，CPU例外テストの個別ポリシーを記載する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) PICTモデルファイルのテストケースの生成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PICTモデルファイルのシートは，まとめて実行可能なテストケースとまとめて
+実行できないテストケースでシートを分割し，さらに，まとめて実行できない
+テストケースについては，プロテクションフックの有無とシャットダウンフッ
+クの有無でシートを分割する．
+また，SC3-MCのテストケースは，SC3のテストケースで組合せが網羅できている
+ため，SC3-MCで新たに追加するテストケースはない．
+
+■まとめて実行できるテストケース
+  ・SC1/SC3の場合
+  →cpu_exception.xls：Mergeシート
+
+  ・SC1-MCの場合
+  →cpu_exception.xls：m_Mergeシート
+
+■まとめて実行できないテストケース
+  ・SC1/SC3の場合
+  →cpu_exception.xls：NotMerge_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →cpu_exception.xls：NotMerge_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →cpu_exception.xls：NotMerge_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →cpu_exception.xls：NotMerge_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+  ・SC1-MCの場合
+  →cpu_exception.xls：m_NotMerge_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →cpu_exception.xls：m_NotMerge_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →cpu_exception.xls：m_NotMerge_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →cpu_exception.xls：m_NotMerge_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) 組み合わせパラメータ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■call_origin
+CPU例外を発生させる処理単位
+[SC1]
+  ・C1ISR
+  ・C2ISR
+  ・Task
+  ・StartupHook
+  ・ShutdownHook
+  ・PreTaskHook
+  ・PostTaskHook
+  ・ErrorHook
+  ・ProtectionHook
+  ・AlarmCallback
+
+[SC1-MC]
+信頼OSAP
+  ・tStartupHook
+  ・tShutdownHook
+  ・tErrorHook
+
+[SC3]
+信頼OSAP
+  ・C1ISR
+  ・C2ISR
+  ・Task
+  ・tStartupHook
+  ・tShutdownHook
+  ・tErrorHook
+非信頼OSAP
+  ・ntTask
+  ・ntStartupHook
+  ・ntShutdownHook
+  ・ntErrorHook
+システム
+  ・StartupHook
+  ・ShutdownHook
+  ・PreTaskHook
+  ・PostTaskHook
+  ・ErrorHook
+  ・ProtectionHook
+  ・TrustedFunction_Task(信頼タスクが信頼関数を呼び出す)
+  ・TrustedFunction_ntTask(非信頼タスクが信頼関数を呼び出す)
+  ・TrustedFunction_C2ISR(C2ISRが信頼関数を呼び出す)
+
+■protection_hook
+プロテクションフックの有無
+  ・pro_ON       プロテクションフックあり
+  ・pro_OFF      プロテクションフックなし
+  ※プロテクションフックの有無でシートを分けているため，本パラメータは
+    固定となっている
+
+■pro_return_value
+プロテクションフックの戻り値
+  ・shutdown               PRO_SHUTDOWN
+  ・ignore                 PRO_IGNORE
+  ・terminate_task_isr     PRO_TERMINATETASKISR(SC3,SC4)
+  ・terminate_osap         PRO_TERMINATEAPPL(SC3,SC4)
+  ・terminate_osap_restart PRO_TERMINATEAPPL_RESTART(SC3,SC4)
+  ・other_state            その他(PRO_INVALID)
+
+■shutdown_hook
+シャットダウンフックの有無
+  ・shut_ON      シャットダウンフックあり
+  ・shut_OFF     シャットダウンフックなし
+  ※シャットダウンフックの有無でシートを分けているため，本パラメータは
+    固定となっている
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) TESRY生成表
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+各パターンで条件に合うように記述する．
+
+■CPU例外発生に使用するターゲット依存API
+  (APIの仕様は，ターゲット依存API外部仕様書を参照)
+全テストケースでAktspRaiseCPUExceptionを使用する．
+
+■doの処理を実行するとOSシャットダウンでテストプログラムに実行を戻さな
+  い場合
+該当するdoに「finish: true」を指定することによりAKTGで終了を認識するこ
+とが可能となる．
+
+■処理単位が所属するOSアプリケーション(SC3，SC4)
+CPU例外を発生させる処理単位(call_origin)が所属するOSAPを以下を指定する．
+・call_originが信頼OSAPに所属する場合：TRUSTED_OSAP1
+・call_originが非信頼OSAPに所属する場合：NON_TRUSTED_OSAP1
+・call_originが信頼関数の場合：TRUSTED_OSAP2
+
+
+以上．

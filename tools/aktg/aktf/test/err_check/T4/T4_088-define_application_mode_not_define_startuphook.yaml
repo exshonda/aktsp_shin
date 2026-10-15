@@ -1,0 +1,34 @@
+T4_088_define_application_mode_not_define_startuphook:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+    application_mode: APPLICATION_MODE1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      appmode:
+        - APPLICATION_MODE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+    APPLICATION_MODE2:
+      type: APPLICATION_MODE
+
+  do_0:
+    id: TASK1
+    syssrv: AktspCheckMemoryAccess1(0)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_MEMORY)
+
+  post_condition_1:

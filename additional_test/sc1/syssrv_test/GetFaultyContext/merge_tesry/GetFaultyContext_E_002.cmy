@@ -1,0 +1,93 @@
+######################################################################
+# GetFaultyContext_E_002_0001.yaml
+######################################################################
+GetFaultyContext_E_002_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_ALMVAL_A
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_ALMVAL_A-1
+      ctype: AK_SOFTWARE
+      cstat: AK_CS_NULL
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    COUNTER1:
+      curval: ANY_ALMVAL_A
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    ALARM_CBACK1:
+      cbstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: GetFaultyContext()
+    rettype: FaultyContextType
+    retval: FC_INVALID
+    gcov: true
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    gcov: false
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################

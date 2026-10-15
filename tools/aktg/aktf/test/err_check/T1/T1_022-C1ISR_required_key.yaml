@@ -1,0 +1,22 @@
+T1_022_C1ISR_required_key:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: 2
+      actcnt: undefined
+    C1ISR1:
+      type: C1ISR
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C1ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

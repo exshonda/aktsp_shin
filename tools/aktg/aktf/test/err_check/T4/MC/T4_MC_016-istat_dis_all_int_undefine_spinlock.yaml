@@ -1,0 +1,31 @@
+T4_MC_016_istat_dis_all_int_undefine_spinlock:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: SPINLOCK1
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+
+  do:
+    id: TASK2
+    syssrv: EnableAllInterrupts()
+    gcov: true
+
+  post_condition:
+    INT_STATE1:
+      istat:

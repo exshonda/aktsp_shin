@@ -1,0 +1,54 @@
+T2_003_alarm_cback_var_invalid:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_ALMVAL_A-1
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_ALMVAL_A
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+      var:
+        1cback:
+         type: AlarmBaseType
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    COUNTER1:
+      curval: ANY_ALMVAL_A
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition_1:

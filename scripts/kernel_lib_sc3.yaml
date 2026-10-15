@@ -1,0 +1,23 @@
+kernel_lib_sc3:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      ttype: AK_BASIC
+      maxact: 2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

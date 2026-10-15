@@ -1,0 +1,3329 @@
+######################################################################
+# ChainTask_normal_evt_0001.yaml
+######################################################################
+ChainTask_normal_evt_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0002.yaml
+######################################################################
+ChainTask_normal_evt_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0003.yaml
+######################################################################
+ChainTask_normal_evt_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0004.yaml
+######################################################################
+ChainTask_normal_evt_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0005.yaml
+######################################################################
+ChainTask_normal_evt_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0006.yaml
+######################################################################
+ChainTask_normal_evt_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0007.yaml
+######################################################################
+ChainTask_normal_evt_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0008.yaml
+######################################################################
+ChainTask_normal_evt_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0009.yaml
+######################################################################
+ChainTask_normal_evt_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0010.yaml
+######################################################################
+ChainTask_normal_evt_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0011.yaml
+######################################################################
+ChainTask_normal_evt_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      curpri: TSK_PRI_MID
+      bootcnt: 1
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0012.yaml
+######################################################################
+ChainTask_normal_evt_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      curpri: TSK_PRI_MID
+      bootcnt: 1
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0013.yaml
+######################################################################
+ChainTask_normal_evt_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0014.yaml
+######################################################################
+ChainTask_normal_evt_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0015.yaml
+######################################################################
+ChainTask_normal_evt_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0016.yaml
+######################################################################
+ChainTask_normal_evt_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0017.yaml
+######################################################################
+ChainTask_normal_evt_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0018.yaml
+######################################################################
+ChainTask_normal_evt_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0019.yaml
+######################################################################
+ChainTask_normal_evt_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0020.yaml
+######################################################################
+ChainTask_normal_evt_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0021.yaml
+######################################################################
+ChainTask_normal_evt_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0022.yaml
+######################################################################
+ChainTask_normal_evt_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0023.yaml
+######################################################################
+ChainTask_normal_evt_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+      getres:
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0024.yaml
+######################################################################
+ChainTask_normal_evt_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+      getres:
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0025.yaml
+######################################################################
+ChainTask_normal_evt_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0026.yaml
+######################################################################
+ChainTask_normal_evt_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0027.yaml
+######################################################################
+ChainTask_normal_evt_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0028.yaml
+######################################################################
+ChainTask_normal_evt_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0029.yaml
+######################################################################
+ChainTask_normal_evt_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0030.yaml
+######################################################################
+ChainTask_normal_evt_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0031.yaml
+######################################################################
+ChainTask_normal_evt_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0032.yaml
+######################################################################
+ChainTask_normal_evt_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0033.yaml
+######################################################################
+ChainTask_normal_evt_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0034.yaml
+######################################################################
+ChainTask_normal_evt_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0035.yaml
+######################################################################
+ChainTask_normal_evt_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0036.yaml
+######################################################################
+ChainTask_normal_evt_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0037.yaml
+######################################################################
+ChainTask_normal_evt_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0038.yaml
+######################################################################
+ChainTask_normal_evt_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0039.yaml
+######################################################################
+ChainTask_normal_evt_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0040.yaml
+######################################################################
+ChainTask_normal_evt_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0041.yaml
+######################################################################
+ChainTask_normal_evt_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0042.yaml
+######################################################################
+ChainTask_normal_evt_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      getres:
+        - RESOURCE1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0043.yaml
+######################################################################
+ChainTask_normal_evt_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      getres:
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0044.yaml
+######################################################################
+ChainTask_normal_evt_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      getres:
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0045.yaml
+######################################################################
+ChainTask_normal_evt_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0046.yaml
+######################################################################
+ChainTask_normal_evt_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0047.yaml
+######################################################################
+ChainTask_normal_evt_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0048.yaml
+######################################################################
+ChainTask_normal_evt_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0049.yaml
+######################################################################
+ChainTask_normal_evt_0049:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0050.yaml
+######################################################################
+ChainTask_normal_evt_0050:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0051.yaml
+######################################################################
+ChainTask_normal_evt_0051:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################
+# ChainTask_normal_evt_0052.yaml
+######################################################################
+ChainTask_normal_evt_0052:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      bootcnt: 0
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curevt: 0
+######################################################################

@@ -1,0 +1,39 @@
+T4_079_iniintpri_and_curintpri_undefined_c2isr_getres:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval:  E_OK
+
+  post_condition:
+    C2ISR1:
+      curintpri: INT_PRI_HIGH

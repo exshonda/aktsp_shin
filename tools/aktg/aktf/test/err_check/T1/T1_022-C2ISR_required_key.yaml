@@ -1,0 +1,32 @@
+T1_022_C2ISR_required_key:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: 2
+      actcnt: 1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_B
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

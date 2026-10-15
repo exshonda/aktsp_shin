@@ -1,0 +1,19 @@
+T4_034_pretaskhook_need_runtask:
+  property:
+    sc: 
+
+  pre_condition:
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

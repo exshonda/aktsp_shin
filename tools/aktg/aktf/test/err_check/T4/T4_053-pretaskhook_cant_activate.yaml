@@ -1,0 +1,24 @@
+T4_053_pretaskhook_cant_activate:
+  property:
+    sc: 
+
+  pre_condition:
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

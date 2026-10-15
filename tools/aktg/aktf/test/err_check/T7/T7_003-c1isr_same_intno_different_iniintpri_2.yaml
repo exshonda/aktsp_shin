@@ -1,0 +1,28 @@
+T7_003_c1isr_same_intno_different_iniintpri_2:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: 2
+      actcnt: 1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_ISR1_A
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_STOP
+    C1ISR2:
+      type: C1ISR
+      intno: INTNO_SELF_ISR1_B
+      iniintpri: INT_PRI_TOP
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C1ISR2
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

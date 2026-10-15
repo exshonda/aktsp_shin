@@ -1,0 +1,30 @@
+T4_SC3_010_object_not_define_belong_osap:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type  : RESTART_TASK
+      tstat : SUSPENDED
+      inipri : TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP2:
+      type  : OSAP
+      osapstat : APPLICATION_ACCESSIBLE
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

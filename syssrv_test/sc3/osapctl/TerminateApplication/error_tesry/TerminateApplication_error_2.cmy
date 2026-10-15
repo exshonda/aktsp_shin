@@ -1,0 +1,446 @@
+######################################################################
+# TerminateApplication_error_2_0001.yaml
+######################################################################
+TerminateApplication_error_2_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_RESTARTING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: TerminateApplication(NT_OSAP_RESTARTING,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NT_OSAP_RESTARTING)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==NO_RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# TerminateApplication_error_2_0002.yaml
+######################################################################
+TerminateApplication_error_2_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_TERMINATED
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: C2ISR1
+    syssrv: TerminateApplication(NT_OSAP_TERMINATED,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NT_OSAP_TERMINATED)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==NO_RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# TerminateApplication_error_2_0003.yaml
+######################################################################
+TerminateApplication_error_2_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP1
+    RESTART_TASK1:
+      type: RESTART_TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP3
+    NON_TRUSTED_OSAP3:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP3,RESTART)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+    RESTART_TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      actcnt: 1
+    NON_TRUSTED_OSAP3:
+      osapstat: APPLICATION_RESTARTING
+
+  do_1:
+    id: RESTART_TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP3,RESTART)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NON_TRUSTED_OSAP3)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_12:
+    id: RESTART_TASK1
+    syssrv: AllowAccess()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_12:
+    NON_TRUSTED_OSAP3:
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_13:
+    id: RESTART_TASK1
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_13:
+    TASK1:
+      tstat: RUNNING
+    RESTART_TASK1:
+      tstat: SUSPENDED
+######################################################################
+# TerminateApplication_error_2_0004.yaml
+######################################################################
+TerminateApplication_error_2_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_RESTARTING
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NT_OSAP_RESTARTING,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NT_OSAP_RESTARTING)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==NO_RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# TerminateApplication_error_2_0005.yaml
+######################################################################
+TerminateApplication_error_2_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_TERMINATED
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NT_OSAP_TERMINATED,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_Application()==NT_OSAP_TERMINATED)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_TerminateApplication_RestartOption()==NO_RESTART)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TerminateApplication)
+    gcov: false
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

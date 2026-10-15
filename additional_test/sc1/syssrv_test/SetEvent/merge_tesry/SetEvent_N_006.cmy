@@ -1,0 +1,66 @@
+######################################################################
+# SetEvent_N_006_0001.yaml
+######################################################################
+SetEvent_N_006_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      actcnt: 1
+      spolicy: AK_SCHFULL
+      maxact: 1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      maxact: 1
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: SetEvent(TASK2,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curevt: EVENT1
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+######################################################################

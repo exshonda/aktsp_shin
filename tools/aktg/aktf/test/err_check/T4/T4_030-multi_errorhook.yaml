@@ -1,0 +1,22 @@
+T4_030_multi_errorhook:
+  property:
+    sc: 
+
+  pre_condition:
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK2:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

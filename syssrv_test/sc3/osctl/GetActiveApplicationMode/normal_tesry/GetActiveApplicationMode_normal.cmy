@@ -1,0 +1,237 @@
+######################################################################
+# GetActiveApplicationMode_normal_0001.yaml
+######################################################################
+GetActiveApplicationMode_normal_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0002.yaml
+######################################################################
+GetActiveApplicationMode_normal_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0003.yaml
+######################################################################
+GetActiveApplicationMode_normal_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0004.yaml
+######################################################################
+GetActiveApplicationMode_normal_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0005.yaml
+######################################################################
+GetActiveApplicationMode_normal_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0006.yaml
+######################################################################
+GetActiveApplicationMode_normal_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0007.yaml
+######################################################################
+GetActiveApplicationMode_normal_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0008.yaml
+######################################################################
+GetActiveApplicationMode_normal_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################
+# GetActiveApplicationMode_normal_0009.yaml
+######################################################################
+GetActiveApplicationMode_normal_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: MainApp
+
+  post_condition:
+######################################################################

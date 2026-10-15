@@ -1,0 +1,22 @@
+T1_021_intstate_actcnt_undefined:
+  property:
+    sc:
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+    INT_STATE:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+
+  do:
+    id: TASK1
+    syssrv: EnableAllInterrupts()
+
+  post_condition:
+    INT_STATE:
+      actcnt: undefined
+      istat:

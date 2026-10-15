@@ -1,0 +1,18 @@
+T1_022_posttask_hook_required_key:
+  property:
+    sc: 
+
+  pre_condition:
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

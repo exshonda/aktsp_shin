@@ -1,0 +1,1571 @@
+######################################################################
+# CheckScheduleTableOwnership_nml_0001.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0002.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0003.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0004.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0005.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0006.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0007.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0008.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0009.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0010.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0011.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0012.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0013.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0014.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0015.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0016.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0017.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0018.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0019.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0020.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0021.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0022.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0023.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0024.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0025.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0026.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: NON_TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0027.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0028.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0029.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP2
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_nml_0030.yaml
+######################################################################
+CheckScheduleTableOwnership_nml_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP2
+
+  post_condition:
+######################################################################

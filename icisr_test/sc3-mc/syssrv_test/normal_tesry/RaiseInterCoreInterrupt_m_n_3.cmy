@@ -1,0 +1,2017 @@
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0001.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_OTHER_ISR1_A
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    C1ISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0002.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_OTHER_ISR1_A
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    C1ISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0003.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      rtnstat: AK_ACTIVATE
+      intno: INTNO_OTHER_ISR2_B
+      iniintpri: INT_PRI_ICISR+1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0004.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      rtnstat: AK_ACTIVATE
+      intno: INTNO_OTHER_ISR2_B
+      iniintpri: INT_PRI_ICISR+1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0005.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      rtnstat: AK_ACTIVATE
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_ICISR
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0006.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      rtnstat: AK_ACTIVATE
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_ICISR
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0007.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    ERROR_HOOK2:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK2
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK2:
+      hookstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0008.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK2:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK2
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK2:
+      hookstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0009.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ICISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    ICISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0010.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ICISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    ICISR1:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0011.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    POSTTASK_HOOK2:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: POSTTASK_HOOK2
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    POSTTASK_HOOK2:
+      hookstat: AK_STOP
+    TASK2:
+      tstat: SUSPENDED
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0012.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK2:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: POSTTASK_HOOK2
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    POSTTASK_HOOK2:
+      hookstat: AK_STOP
+    TASK2:
+      tstat: SUSPENDED
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0013.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    PRETASK_HOOK2:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: PRETASK_HOOK2
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    PRETASK_HOOK2:
+      hookstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0014.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK2:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: PRETASK_HOOK2
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    PRETASK_HOOK2:
+      hookstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0015.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    PROTECTION_HOOK2:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK2
+    syssrv: return(PRO_IGNORE)
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    PROTECTION_HOOK2:
+      hookstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0016.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK2:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK2
+    syssrv: return(PRO_IGNORE)
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    PROTECTION_HOOK2:
+      hookstat: AK_STOP
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0017.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK2
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: EnableAllInterrupts()
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0018.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK2
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: EnableAllInterrupts()
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0019.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+
+  do_2:
+    id: ICISR3
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    ICISR3:
+      rtnstat: AK_STOP
+
+  do_3:
+    id: TASK2
+    syssrv: EnableInterruptSource(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0020.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: EnableInterruptSource(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0021.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK2
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ResumeAllInterrupts()
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0022.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK2
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ResumeAllInterrupts()
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0023.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    TASK2:
+      getspn:
+    INT_STATE1:
+      istat:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0024.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    TASK2:
+      getspn:
+    INT_STATE1:
+      istat:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0025.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK2
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ResumeOSInterrupts()
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0026.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK2
+      coreid: CORE_OTHER
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ResumeOSInterrupts()
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0027.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR3:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    TASK2:
+      getspn:
+    INT_STATE1:
+      istat:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+    ICISR3:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# RaiseInterCoreInterrupt_m_n_3_0028.yaml
+######################################################################
+RaiseInterCoreInterrupt_m_n_3_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK2
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ICISR2:
+      rtnstat: AK_ACTIVATE
+    TASK2:
+      getspn:
+    INT_STATE1:
+      istat:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ICISR2
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ICISR2:
+      rtnstat: AK_STOP
+######################################################################

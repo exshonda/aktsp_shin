@@ -1,0 +1,26 @@
+T1_015_pre_condition_object_array:
+  property:
+    sc:
+  pre_condition:
+   TASK1:
+      - type   : TASK
+
+
+   TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do:
+    id     : TASK1
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

@@ -1,0 +1,44 @@
+T3_TSK012_tstat_waiting_defined_getres:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    EVENT1:
+      type: EVENT
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+          value: 0
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: WAITING

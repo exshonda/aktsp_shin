@@ -1,0 +1,27 @@
+######################################################################
+# ShutdownOS_E_002_0005.yaml
+######################################################################
+ShutdownOS_E_002_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: ShutdownOS(E_OK)
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+######################################################################

@@ -1,0 +1,51 @@
+version: "$Id: T1_029-version_exist.yaml 2 2014-04-15 07:29:16Z fsi-dankei $"
+Alarm_normal_0001:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: 5
+      cstat: AK_CS_DOING

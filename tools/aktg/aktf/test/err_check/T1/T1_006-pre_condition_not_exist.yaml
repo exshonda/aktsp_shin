@@ -1,0 +1,17 @@
+T1_006_pre_condition_not_exist:
+  property:
+    sc: 
+
+  do:
+    id     : TASK1
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

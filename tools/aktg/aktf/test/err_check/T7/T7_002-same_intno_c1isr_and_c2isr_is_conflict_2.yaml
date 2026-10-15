@@ -1,0 +1,23 @@
+T7_002_same_intno_c1isr_and_c2isr_is_conflict_2:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: 2
+      actcnt: 1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C1ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

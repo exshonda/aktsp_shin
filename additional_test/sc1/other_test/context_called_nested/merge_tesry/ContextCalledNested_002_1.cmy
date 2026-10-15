@@ -1,0 +1,520 @@
+######################################################################
+# ContextCalledNested_002_1_0001.yaml
+######################################################################
+ContextCalledNested_002_1_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: false
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      var:
+        vname1:
+          value: TASK1
+######################################################################
+# ContextCalledNested_002_1_0002.yaml
+######################################################################
+ContextCalledNested_002_1_0002:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+      
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_1:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      var:
+        vname1:
+          value: TASK2
+######################################################################
+# ContextCalledNested_002_1_0003.yaml
+######################################################################
+ContextCalledNested_002_1_0003:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+      
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_1:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_3:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: TASK2
+######################################################################
+# ContextCalledNested_002_1_0004.yaml
+######################################################################
+ContextCalledNested_002_1_0004:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      
+  do_1:
+    id: POSTTASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_1:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      var:
+        vname1:
+          value: TASK1
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    gcov: false
+
+  post_condition_4:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_6:
+    id: POSTTASK_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+    TASK1:
+      tstat: SUSPENDED
+######################################################################
+# ContextCalledNested_002_1_0005.yaml
+######################################################################
+ContextCalledNested_002_1_0005:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      
+  do_1:
+    id: POSTTASK_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_1:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_3:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: TASK1
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_5:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    gcov: false
+
+  post_condition_5:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_6:
+    id: POSTTASK_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+    TASK1:
+      tstat: SUSPENDED
+######################################################################
+# ContextCalledNested_002_1_0006.yaml
+######################################################################
+ContextCalledNested_002_1_0006:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_3:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: TASK1
+######################################################################

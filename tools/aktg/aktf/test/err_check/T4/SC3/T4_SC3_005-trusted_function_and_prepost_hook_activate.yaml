@@ -1,0 +1,30 @@
+T4_SC3_005_trusted_function_and_prepost_hook_activate:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

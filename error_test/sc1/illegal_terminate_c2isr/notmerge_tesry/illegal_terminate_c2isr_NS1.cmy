@@ -1,0 +1,1553 @@
+######################################################################
+# illegal_terminate_c2isr_NS1_0001.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0002.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: DisableAllInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0003.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0004.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: DisableAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0005.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+######################################################################
+# illegal_terminate_c2isr_NS1_0006.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0007.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+######################################################################
+# illegal_terminate_c2isr_NS1_0008.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0009.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+######################################################################
+# illegal_terminate_c2isr_NS1_0010.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0011.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+######################################################################
+# illegal_terminate_c2isr_NS1_0012.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0013.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# illegal_terminate_c2isr_NS1_0014.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0015.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0016.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0017.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0018.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0019.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0020.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0021.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0022.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0023.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0024.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0025.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0026.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# illegal_terminate_c2isr_NS1_0027.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+######################################################################
+# illegal_terminate_c2isr_NS1_0028.yaml
+######################################################################
+illegal_terminate_c2isr_NS1_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################

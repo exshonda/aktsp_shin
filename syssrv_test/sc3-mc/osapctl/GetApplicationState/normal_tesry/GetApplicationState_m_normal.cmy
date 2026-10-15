@@ -1,0 +1,1605 @@
+######################################################################
+# GetApplicationState_m_normal_0001.yaml
+######################################################################
+GetApplicationState_m_normal_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0002.yaml
+######################################################################
+GetApplicationState_m_normal_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0003.yaml
+######################################################################
+GetApplicationState_m_normal_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0004.yaml
+######################################################################
+GetApplicationState_m_normal_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0005.yaml
+######################################################################
+GetApplicationState_m_normal_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0006.yaml
+######################################################################
+GetApplicationState_m_normal_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0007.yaml
+######################################################################
+GetApplicationState_m_normal_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0008.yaml
+######################################################################
+GetApplicationState_m_normal_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0009.yaml
+######################################################################
+GetApplicationState_m_normal_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0010.yaml
+######################################################################
+GetApplicationState_m_normal_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0011.yaml
+######################################################################
+GetApplicationState_m_normal_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0012.yaml
+######################################################################
+GetApplicationState_m_normal_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0013.yaml
+######################################################################
+GetApplicationState_m_normal_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PROTECTION_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0014.yaml
+######################################################################
+GetApplicationState_m_normal_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PROTECTION_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0015.yaml
+######################################################################
+GetApplicationState_m_normal_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    SHUTDOWN_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0016.yaml
+######################################################################
+GetApplicationState_m_normal_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    SHUTDOWN_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0017.yaml
+######################################################################
+GetApplicationState_m_normal_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    STARTUP_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0018.yaml
+######################################################################
+GetApplicationState_m_normal_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: ApplicationStateType
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    STARTUP_HOOK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0019.yaml
+######################################################################
+GetApplicationState_m_normal_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0020.yaml
+######################################################################
+GetApplicationState_m_normal_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0021.yaml
+######################################################################
+GetApplicationState_m_normal_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE_2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0022.yaml
+######################################################################
+GetApplicationState_m_normal_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE_2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0023.yaml
+######################################################################
+GetApplicationState_m_normal_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0024.yaml
+######################################################################
+GetApplicationState_m_normal_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0025.yaml
+######################################################################
+GetApplicationState_m_normal_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0026.yaml
+######################################################################
+GetApplicationState_m_normal_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0027.yaml
+######################################################################
+GetApplicationState_m_normal_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE_2
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0028.yaml
+######################################################################
+GetApplicationState_m_normal_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE_2
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0029.yaml
+######################################################################
+GetApplicationState_m_normal_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0030.yaml
+######################################################################
+GetApplicationState_m_normal_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0031.yaml
+######################################################################
+GetApplicationState_m_normal_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0032.yaml
+######################################################################
+GetApplicationState_m_normal_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0033.yaml
+######################################################################
+GetApplicationState_m_normal_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE_2
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0034.yaml
+######################################################################
+GetApplicationState_m_normal_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE_2
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0035.yaml
+######################################################################
+GetApplicationState_m_normal_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(NT_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################
+# GetApplicationState_m_normal_0036.yaml
+######################################################################
+GetApplicationState_m_normal_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK1
+    syssrv: GetApplicationState(TR_OSAP_OTHER_OTHER_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_ACCESSIBLE
+######################################################################

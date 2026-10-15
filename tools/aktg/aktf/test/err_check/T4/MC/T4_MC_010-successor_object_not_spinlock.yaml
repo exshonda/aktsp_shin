@@ -1,0 +1,39 @@
+T4_MC_010_successor_object_not_spinlock:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 2
+      bootcnt: 0
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type  : TASK
+      tstat : AK_RUNNING_WAITSPIN
+      curpri: TSK_PRI_HIGH
+      spnid : SPIN_LOCK1
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type : SPINLOCK
+      lockflg: AK_LOCK
+      successor: TASK1
+
+  do:
+    id     : TASK1
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+    TASK2:
+      tstat : RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

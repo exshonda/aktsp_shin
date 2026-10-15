@@ -1,0 +1,35 @@
+b kernel_expire_process
+b counter.c:401
+b counter.c:416
+set logging file result_execute.log
+set logging on
+commands 1
+p kernel_tcb_table[2]->tstat
+p kernel_tcb_table[3]->tstat
+p kernel_tcb_table[4]->tstat
+p kernel_almcb_table[0]->cntexpinfo->expiretick
+p kernel_almcb_table[1]->cntexpinfo->expiretick
+p dummy_hwcnt_curval
+c
+end
+commands 2
+set dummy_hwcnt_curval=7
+p kernel_tcb_table[2]->tstat
+p kernel_tcb_table[3]->tstat
+p kernel_tcb_table[4]->tstat
+p kernel_almcb_table[0]->cntexpinfo->expiretick
+p kernel_almcb_table[1]->cntexpinfo->expiretick
+p dummy_hwcnt_curval
+c
+end
+commands 3
+p kernel_tcb_table[2]->tstat
+p kernel_tcb_table[3]->tstat
+p kernel_tcb_table[4]->tstat
+p kernel_almcb_table[0]->cntexpinfo->expiretick
+p kernel_almcb_table[1]->cntexpinfo->expiretick
+p dummy_hwcnt_curval
+end
+c
+set logging off
+quit

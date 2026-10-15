@@ -1,0 +1,308 @@
+######################################################################
+# osap_termination_restart_NM_testing_the_effect_m_0001.yaml
+######################################################################
+osap_termination_restart_NM_testing_the_effect_m_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      porder: 1
+      relres:
+        - RESOURCE2
+      getres:
+        - RESOURCE2
+      curpri: TSK_PRI_TOP
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      porder: 2
+      curpri: TSK_PRI_TOP
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: READY
+      porder: 3
+      curpri: TSK_PRI_TOP
+      osap: NON_TRUSTED_OSAP2
+    TASK5:
+      type: TASK
+      tstat: READY
+      porder: 4
+      curpri: TSK_PRI_TOP
+      osap: TR_OSAP_SELF_CORE
+    TASK6:
+      type: TASK
+      tstat: READY
+      porder: 1
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE4
+      getres:
+        - RESOURCE3
+      osap: NON_TRUSTED_OSAP2
+    TASK7:
+      type: TASK
+      tstat: READY
+      porder: 2
+      curpri: TSK_PRI_HIGH
+      osap: TR_OSAP_SELF_CORE
+    TASK8:
+      type: TASK
+      tstat: READY
+      porder: 3
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP2
+    TASK9:
+      type: TASK
+      tstat: READY
+      porder: 4
+      curpri: TSK_PRI_HIGH
+      osap: TR_OSAP_SELF_CORE
+    TASK10:
+      type: TASK
+      tstat: READY
+      porder: 1
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK11:
+      type: TASK
+      tstat: READY
+      porder: 2
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK12:
+      type: TASK
+      tstat: READY
+      porder: 3
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    TASK13:
+      type: TASK
+      tstat: READY
+      porder: 1
+      curpri: TSK_PRI_LOW
+      osap: TR_OSAP_SELF_CORE
+    TASK14:
+      type: TASK
+      tstat: READY
+      porder: 2
+      curpri: TSK_PRI_LOW
+      relres:
+        - RESOURCE2
+      osap: NON_TRUSTED_OSAP2
+    TASK15:
+      type: TASK
+      tstat: READY
+      relres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      curpri: TSK_PRI_BOTTOM
+      osap: NON_TRUSTED_OSAP2
+    TASK16:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_BOTTOM
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    NON_TRUSTED_OSAP2:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE4
+    RESOURCE4:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NON_TRUSTED_OSAP2
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP2,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    NON_TRUSTED_OSAP2:
+      osapstat: APPLICATION_TERMINATED
+
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+      getspn:
+    TASK3:
+      tstat: READY
+      porder: 1
+    TASK4:
+      tstat: SUSPENDED
+    TASK5:
+      tstat: READY
+      porder: 2
+    TASK6:
+      tstat: SUSPENDED
+      getres:
+    TASK7:
+      tstat: READY
+      porder: 1
+    TASK8:
+      tstat: SUSPENDED
+    TASK9:
+      tstat: READY
+      porder: 2
+    TASK10:
+      tstat: SUSPENDED
+      getres:
+    TASK11:
+      tstat: READY
+      porder: 1
+    TASK12:
+      tstat: SUSPENDED
+    TASK13:
+      tstat: READY
+    TASK14:
+      tstat: SUSPENDED
+      getres:
+    TASK15:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+      
+  do_1:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: RUNNING
+    TASK5:
+      tstat: READY
+      porder: 1
+
+  do_2:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK3:
+      tstat: SUSPENDED
+    TASK5:
+      tstat: RUNNING
+
+  do_3:
+    id: TASK5
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK5:
+      tstat: SUSPENDED
+    TASK7:
+      tstat: RUNNING
+    TASK9:
+      tstat: READY
+      porder: 1
+
+  do_4:
+    id: TASK7
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    TASK7:
+      tstat: SUSPENDED
+    TASK9:
+      tstat: RUNNING
+
+  do_5:
+    id: TASK9
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK9:
+      tstat: SUSPENDED
+    TASK11:
+      tstat: RUNNING
+
+  do_6:
+    id: TASK11
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    TASK11:
+      tstat: SUSPENDED
+    TASK13:
+      tstat: RUNNING
+######################################################################

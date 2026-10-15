@@ -1,0 +1,32 @@
+T5_005_not_active_process_unit:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 2
+      bootcnt: 0
+
+    TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do:
+    id     : TASK2
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

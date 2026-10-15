@@ -1,0 +1,40 @@
+T5_004_not_process_unit:
+  property:
+    sc: 
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 2
+      bootcnt: 0
+      relres :
+        - RES1
+
+    TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+    RES1:
+      type   : RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id     : RES1
+    syssrv : ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

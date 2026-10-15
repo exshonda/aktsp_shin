@@ -1,0 +1,39 @@
+T4_MC_001_curval_not_0_pretaskhook_activate:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 1
+      ctype: AK_SOFTWARE
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

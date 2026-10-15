@@ -1,0 +1,30 @@
+T4_SC3_009_trusted_function_defined_arg:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 2
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller:
+      arg: local
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

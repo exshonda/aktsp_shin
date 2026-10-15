@@ -1,0 +1,22 @@
+T4_011_no_event_of_relevt:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      actcnt: 1
+      ttype: AK_EXTENDED
+      relevt:
+        - EVENT1
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

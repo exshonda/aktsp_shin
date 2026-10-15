@@ -1,0 +1,18 @@
+b task.c:242
+b queue_delete_next
+b kernel_internal_shutdownos
+set logging file result_execute.log
+set logging on
+commands 1
+set kernel_ready_queue[kernel_nextpri]->p_next=&kernel_ready_queue[kernel_nextpri]
+c
+end
+commands 2
+c
+end
+commands 3
+p ercd
+end
+c
+set logging off
+quit

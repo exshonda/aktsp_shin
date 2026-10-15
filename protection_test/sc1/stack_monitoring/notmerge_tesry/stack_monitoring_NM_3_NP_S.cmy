@@ -1,0 +1,103 @@
+######################################################################
+# stack_monitoring_NM_3_NP_S_0001.yaml
+######################################################################
+stack_monitoring_NM_3_NP_S_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_3_NP_S_0002.yaml
+######################################################################
+stack_monitoring_NM_3_NP_S_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################

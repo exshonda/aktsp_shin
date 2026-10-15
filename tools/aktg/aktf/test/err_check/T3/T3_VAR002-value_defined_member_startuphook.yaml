@@ -1,0 +1,31 @@
+T3_VAR002_value_defined_member_startuphook:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+    STARTUP_HOOK1:
+      var:
+        vname1:
+          mincycle: ANY_MINCYC_A

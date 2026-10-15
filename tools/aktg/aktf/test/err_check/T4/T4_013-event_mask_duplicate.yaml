@@ -1,0 +1,29 @@
+T4_013_event_mask_duplicate:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      actcnt: 1
+      ttype: AK_EXTENDED
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: 1
+    EVENT2:
+      type: EVENT
+      mask: 1
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

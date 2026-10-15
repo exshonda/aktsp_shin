@@ -1,0 +1,43 @@
+ActivateTask_normal_0002:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      actcnt: 1
+      spolicy: AK_SCHFULL
+      maxact: ANY_BASIC_MAXACT
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        1c2isr:
+          type: ISRType
+          value: 1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP

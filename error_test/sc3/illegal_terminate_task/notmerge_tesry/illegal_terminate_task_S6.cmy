@@ -1,0 +1,4363 @@
+######################################################################
+# illegal_terminate_task_S6_0001.yaml
+######################################################################
+illegal_terminate_task_S6_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0002.yaml
+######################################################################
+illegal_terminate_task_S6_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0003.yaml
+######################################################################
+illegal_terminate_task_S6_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0004.yaml
+######################################################################
+illegal_terminate_task_S6_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0005.yaml
+######################################################################
+illegal_terminate_task_S6_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0006.yaml
+######################################################################
+illegal_terminate_task_S6_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0007.yaml
+######################################################################
+illegal_terminate_task_S6_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0008.yaml
+######################################################################
+illegal_terminate_task_S6_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0009.yaml
+######################################################################
+illegal_terminate_task_S6_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0010.yaml
+######################################################################
+illegal_terminate_task_S6_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0011.yaml
+######################################################################
+illegal_terminate_task_S6_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0012.yaml
+######################################################################
+illegal_terminate_task_S6_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0013.yaml
+######################################################################
+illegal_terminate_task_S6_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0014.yaml
+######################################################################
+illegal_terminate_task_S6_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0015.yaml
+######################################################################
+illegal_terminate_task_S6_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0016.yaml
+######################################################################
+illegal_terminate_task_S6_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0017.yaml
+######################################################################
+illegal_terminate_task_S6_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0018.yaml
+######################################################################
+illegal_terminate_task_S6_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0019.yaml
+######################################################################
+illegal_terminate_task_S6_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0020.yaml
+######################################################################
+illegal_terminate_task_S6_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0021.yaml
+######################################################################
+illegal_terminate_task_S6_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0022.yaml
+######################################################################
+illegal_terminate_task_S6_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0023.yaml
+######################################################################
+illegal_terminate_task_S6_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0024.yaml
+######################################################################
+illegal_terminate_task_S6_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0025.yaml
+######################################################################
+illegal_terminate_task_S6_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0026.yaml
+######################################################################
+illegal_terminate_task_S6_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0027.yaml
+######################################################################
+illegal_terminate_task_S6_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0028.yaml
+######################################################################
+illegal_terminate_task_S6_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0029.yaml
+######################################################################
+illegal_terminate_task_S6_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0030.yaml
+######################################################################
+illegal_terminate_task_S6_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0031.yaml
+######################################################################
+illegal_terminate_task_S6_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0032.yaml
+######################################################################
+illegal_terminate_task_S6_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0033.yaml
+######################################################################
+illegal_terminate_task_S6_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0034.yaml
+######################################################################
+illegal_terminate_task_S6_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0035.yaml
+######################################################################
+illegal_terminate_task_S6_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0036.yaml
+######################################################################
+illegal_terminate_task_S6_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0037.yaml
+######################################################################
+illegal_terminate_task_S6_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0038.yaml
+######################################################################
+illegal_terminate_task_S6_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0039.yaml
+######################################################################
+illegal_terminate_task_S6_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0040.yaml
+######################################################################
+illegal_terminate_task_S6_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0041.yaml
+######################################################################
+illegal_terminate_task_S6_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0042.yaml
+######################################################################
+illegal_terminate_task_S6_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0043.yaml
+######################################################################
+illegal_terminate_task_S6_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0044.yaml
+######################################################################
+illegal_terminate_task_S6_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0045.yaml
+######################################################################
+illegal_terminate_task_S6_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0046.yaml
+######################################################################
+illegal_terminate_task_S6_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0047.yaml
+######################################################################
+illegal_terminate_task_S6_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0048.yaml
+######################################################################
+illegal_terminate_task_S6_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0049.yaml
+######################################################################
+illegal_terminate_task_S6_0049:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0050.yaml
+######################################################################
+illegal_terminate_task_S6_0050:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0051.yaml
+######################################################################
+illegal_terminate_task_S6_0051:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0052.yaml
+######################################################################
+illegal_terminate_task_S6_0052:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0053.yaml
+######################################################################
+illegal_terminate_task_S6_0053:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0054.yaml
+######################################################################
+illegal_terminate_task_S6_0054:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0055.yaml
+######################################################################
+illegal_terminate_task_S6_0055:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0056.yaml
+######################################################################
+illegal_terminate_task_S6_0056:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0057.yaml
+######################################################################
+illegal_terminate_task_S6_0057:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0058.yaml
+######################################################################
+illegal_terminate_task_S6_0058:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0059.yaml
+######################################################################
+illegal_terminate_task_S6_0059:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_4:
+######################################################################
+# illegal_terminate_task_S6_0060.yaml
+######################################################################
+illegal_terminate_task_S6_0060:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId() == OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_4:
+######################################################################

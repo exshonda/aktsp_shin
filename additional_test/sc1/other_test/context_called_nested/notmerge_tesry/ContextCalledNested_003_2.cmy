@@ -1,0 +1,271 @@
+######################################################################
+# ContextCalledNested_003_2_0001.yaml
+######################################################################
+ContextCalledNested_003_2_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# ContextCalledNested_003_2_0002.yaml
+######################################################################
+ContextCalledNested_003_2_0002:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat:  AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: ShutdownOS(E_OK)
+    gcov: false
+
+  post_condition_1:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# ContextCalledNested_003_2_0003.yaml
+######################################################################
+ContextCalledNested_003_2_0003:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: false
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# ContextCalledNested_003_2_0004.yaml
+######################################################################
+ContextCalledNested_003_2_0004:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat:  AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: AktspRaiseCPUException()
+    gcov: false
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: ShutdownOS(E_OK)
+    gcov: false
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+    gcov: true
+
+  post_condition_2:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+

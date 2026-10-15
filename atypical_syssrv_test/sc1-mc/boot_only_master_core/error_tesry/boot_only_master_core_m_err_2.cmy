@@ -1,0 +1,347 @@
+######################################################################
+# boot_only_master_core_m_err_2_0001.yaml
+######################################################################
+boot_only_master_core_m_err_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TickType
+          value: 0
+          global: true
+        vname2:
+          type: TickType
+          global: true
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_ONLY_OSAP
+        - AK_BOTH
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetElapsedValue_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetElapsedValue_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetElapsedValue_ElapsedValue()==&vname2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetElapsedValue)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# boot_only_master_core_m_err_2_0002.yaml
+######################################################################
+boot_only_master_core_m_err_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TickType
+          global: true
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetCounterValue(COUNTER1,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_ONLY_OSAP
+        - AK_BOTH
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetCounterValue_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetCounterValue_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetCounterValue)
+    gcov: false
+
+  post_condition_4:
+######################################################################
+# boot_only_master_core_m_err_2_0003.yaml
+######################################################################
+boot_only_master_core_m_err_2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          value: 0
+          global: true
+        vname2:
+          type: TickType
+          global: true
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+
+  do_0:
+    id: TASK1
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetElapsedValue_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetElapsedValue_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetElapsedValue_ElapsedValue()==&vname2)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetElapsedValue)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# boot_only_master_core_m_err_2_0004.yaml
+######################################################################
+boot_only_master_core_m_err_2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          global: true
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+
+  do_0:
+    id: TASK1
+    syssrv: GetCounterValue(COUNTER1,&vname1)
+    rettype: StatusType
+    retval: E_OS_CORE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CORE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetCounterValue_CounterID()==COUNTER1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetCounterValue_Value()==&vname1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetCounterValue)
+    gcov: false
+
+  post_condition_4:
+######################################################################

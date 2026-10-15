@@ -1,0 +1,44 @@
+T4_MC_004_share_resource_task_c2isr_different_coreid:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK2:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK

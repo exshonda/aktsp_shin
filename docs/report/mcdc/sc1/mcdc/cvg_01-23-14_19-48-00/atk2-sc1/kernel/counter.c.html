@@ -1,0 +1,555 @@
+<html xmlns:graph="graph" xmlns:file="file" xmlns:textutil="textutil">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <style type="text/css"> BODY,P,OL,TD{font-family: Arial, Helvetica, sans-serif;font-size:
+		11px;font-style: normal;color: #000000;} A:link {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: none;} A:active {font-family:
+		Arial, Helvetica, sans-serif;font-style: normal;color: #990000;text-decoration: none;}
+		A:visited {font-family: Arial, Helvetica, sans-serif;font-style: normal;color:
+		#999999;text-decoration: none;} A:hover {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: underline;} A.gray_link:link
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;}
+		A.gray_link:active {font-family: sans-serif;font-size: 11px;color: #666666;text-decoration:
+		none;} A.gray_link:visited {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_link:hover {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: underline;} A.red_link:link {font-family:
+		sans-serif;font-size: 11px;color: #990000;text-decoration: none;} A.red_link:active
+		{font-family: sans-serif;font-size: 11px;color: #990000;text-decoration: none;}
+		A.red_link:visited {font-family: sans-serif;font-size: 11px;color: #990000;text-decoration:
+		none;} A.red_link:hover {font-family: sans-serif;font-size: 11px;color:
+		#990000;text-decoration: underline;} A.green_link:link {font-family: sans-serif;font-size:
+		11px;color: #008040;text-decoration: none;} A.green_link:active {font-family:
+		sans-serif;font-size: 11px;color: #008040;text-decoration: none;} A.green_link:visited
+		{font-family: sans-serif;font-size: 11px;color: #008040;text-decoration: none;}
+		A.green_link:hover {font-family: sans-serif;font-size: 11px;color: #008040;text-decoration:	underline;} 
+		A.black_link:link {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:active {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:visited {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:hover {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: underline;}
+		A.blue_link:link {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:active {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:visited {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:hover {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: underline;}
+        A.dark_blue_link:link {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:active {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:visited {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:hover {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: underline;}		
+		A.gray_red_link:link {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_red_link:active {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: none;} A.gray_red_link:visited {font-family:
+		sans-serif;font-size: 11px;color: #666666;text-decoration: none;} A.gray_red_link:hover
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;} FONT.gray
+		{font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #999999;} FONT.gray2,
+		FONT.gray_red {font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #666666;}
+		FONT.time {font-size: 10px;font-family: Arial, Helvetica, sans-serif;color: #000000;}
+				
+		FONT.covered    {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #99ff99;}
+		FONT.notcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffcccc;}
+		FONT.halfcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffff66;}		
+		FONT.normal     {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffffff;}
+		
+		FONT.red {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;}
+		FONT.red2 {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;
+		text-decoration: underline;} FONT.green {font-size:11px;font-family: Arial, Helvetica,
+		sans-serif;color: #008040;} FONT.small {font-size: 1px;font-family: Arial, Helvetica,
+		sans-serif;color: #cccccc;} SELECT.cs_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} SELECT.ju_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} TD.cs_authors{font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;font-style: normal;color: #000000;border: 1px; bordercolor:
+		#d9c8ac;} UL, LI {font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-style:
+		normal;color: #000000; list-style-type: none; margin: 0; padding-left: 12px;}
+		#foldheader{cursor:pointer;cursor:hand ;} </style><title>
+         [<b>100%
+            </b>&#xA0;27/27&#xA0;]
+         &#xA0;&#xA0;/atk2-sc1/kernel/counter.c
+      </title>
+   </head>
+   <body bgcolor="#ffffff">
+      <table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_header_expander.jpg" width="50%" align="left"><img src="rep_header_3.jpg" alt="rep_header_3.jpg"></td>
+            <td background="rep_header_expander.jpg" width="50%" align="right"><img src="rep_header_logo.jpg" alt="rep_header_logo.jpg"></td>
+         </tr>
+      </table>
+      <table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td width="16%" align="center"><font class="time">01/23/14 19:48:00</font></td>
+            <td align="center" bgcolor="#d9c8ac"><b>/atk2-sc1/kernel/counter.c</b></td>
+         </tr>
+      </table><br>&#xA0;&#21508;&#34892;&#12398;&#12471;&#12531;&#12508;&#12523;&#12398;&#24847;&#21619;&#12399;&#27425;&#12398;&#36890;&#12426;&#12391;&#12377;:
+      <table border="0" width="60%" cellpadding="0" cellspacing="3">
+         <tr>
+            <td align="center" bgcolor="#99ff99" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12383;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffcccc" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffff66" width="10">code</td>
+            <td>&#37096;&#20998;&#30340;&#12395;&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffffff" width="10">code&#xA0;</td>
+            <td>&#12459;&#12496;&#12540;&#12391;&#12365;&#12427;&#35201;&#32032;&#12434;&#25345;&#12383;&#12394;&#12356;&#34892;</td>
+         </tr>
+      </table><br><table width="80%" border="0" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td>
+               <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                  <tr>
+                     <td align="center" bgcolor="#d9c8ac" colspan="4">100% 
+                        [&#xA0;27/27&#xA0;
+                        ]
+                        &#xA0;&#xA0;<b>/atk2-sc1/kernel/counter.c</b></td>
+                  </tr>
+                  <tr>
+                     <td>&#xA0;</td>
+                     <td valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                           <tr>
+                              <td valign="top"><pre><code><font class="normal">/*
+ *  TOPPERS ATK2
+ *      Toyohashi Open Platform for Embedded Real-Time Systems
+ *      Automotive Kernel Version 2
+ *
+ *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
+ *                              Toyohashi Univ. of Technology, JAPAN
+ *  Copyright (C) 2004-2013 by Center for Embedded Computing Systems
+ *              Graduate School of Information Science, Nagoya Univ., JAPAN
+ *  Copyright (C) 2011-2013 by FUJI SOFT INCORPORATED, JAPAN
+ *  Copyright (C) 2011-2013 by FUJITSU VLSI LIMITED, JAPAN
+ *  Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Renesas Electronics Corporation, JAPAN
+ *  Copyright (C) 2011-2013 by Sunny Giken Inc., JAPAN
+ *  Copyright (C) 2011-2013 by TOSHIBA CORPORATION, JAPAN
+ *  Copyright (C) 2004-2013 by Witz Corporation, JAPAN
+ *
+ *  &#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12399;&#65292;&#20197;&#19979;&#12398;(1)&#12316;(4)&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#22580;&#21512;&#12395;&#38480;&#12426;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#65288;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12434;&#21547;&#12416;&#65294;&#20197;&#19979;&#21516;&#12376;&#65289;&#12434;&#20351;&#29992;&#12539;&#35079;&#35069;&#12539;&#25913;
+ *  &#22793;&#12539;&#20877;&#37197;&#24067;&#65288;&#20197;&#19979;&#65292;&#21033;&#29992;&#12392;&#21628;&#12406;&#65289;&#12377;&#12427;&#12371;&#12392;&#12434;&#28961;&#20767;&#12391;&#35377;&#35582;&#12377;&#12427;&#65294;
+ *  (1) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#12477;&#12540;&#12473;&#12467;&#12540;&#12489;&#12398;&#24418;&#12391;&#21033;&#29992;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;
+ *      &#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12364;&#65292;&#12381;&#12398;&#12414;&#12414;&#12398;&#24418;&#12391;&#12477;&#12540;
+ *      &#12473;&#12467;&#12540;&#12489;&#20013;&#12395;&#21547;&#12414;&#12428;&#12390;&#12356;&#12427;&#12371;&#12392;&#65294;
+ *  (2) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#12521;&#12452;&#12502;&#12521;&#12522;&#24418;&#24335;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12427;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;
+ *      &#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;
+ *      &#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (3) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#27231;&#22120;&#12395;&#32068;&#12415;&#36796;&#12416;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12394;&#12356;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#27425;&#12398;&#12356;&#12378;&#12428;&#12363;&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;
+ *      &#12392;&#65294;
+ *    (a) &#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;&#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;
+ *        &#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *    (b) &#20877;&#37197;&#24067;&#12398;&#24418;&#24907;&#12434;&#65292;&#21029;&#12395;&#23450;&#12417;&#12427;&#26041;&#27861;&#12395;&#12424;&#12387;&#12390;&#65292;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12395;
+ *        &#22577;&#21578;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (4) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12427;&#12356;&#12363;&#12394;&#12427;&#25613;
+ *      &#23475;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;&#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *      &#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#12518;&#12540;&#12470;&#12414;&#12383;&#12399;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12363;&#12425;&#12398;&#12356;&#12363;&#12394;&#12427;&#29702;
+ *      &#30001;&#12395;&#22522;&#12389;&#12367;&#35531;&#27714;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;
+ *      &#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *
+ *  &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12399;&#65292;&#28961;&#20445;&#35388;&#12391;&#25552;&#20379;&#12373;&#12428;&#12390;&#12356;&#12427;&#12418;&#12398;&#12391;&#12354;&#12427;&#65294;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;
+ *  &#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12399;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12395;&#38306;&#12375;&#12390;&#65292;&#29305;&#23450;&#12398;&#20351;&#29992;&#30446;&#30340;
+ *  &#12395;&#23550;&#12377;&#12427;&#36969;&#21512;&#24615;&#12418;&#21547;&#12417;&#12390;&#65292;&#12356;&#12363;&#12394;&#12427;&#20445;&#35388;&#12418;&#34892;&#12431;&#12394;&#12356;&#65294;&#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12383;&#12356;&#12363;&#12394;&#12427;&#25613;&#23475;&#12395;&#38306;&#12375;&#12390;&#12418;&#65292;&#12381;
+ *  &#12398;&#36012;&#20219;&#12434;&#36000;&#12431;&#12394;&#12356;&#65294;
+ *
+ *  $Id: counter.c 8032 2013-12-09 04:38:30Z fsi-dankei $
+ */
+
+/*
+ *		&#12459;&#12454;&#12531;&#12479;&#21046;&#24481;&#12514;&#12472;&#12517;&#12540;&#12523;
+ */
+
+#include "kernel_impl.h"
+#include "task.h"
+#include "counter.h"
+
+/*
+ *  &#12488;&#12524;&#12540;&#12473;&#12525;&#12464;&#12510;&#12463;&#12525;&#12398;&#12487;&#12501;&#12457;&#12523;&#12488;&#23450;&#32681;
+ */
+#ifndef LOG_INCCNT_ENTER
+#define LOG_INCCNT_ENTER(cntid)
+#endif /* LOG_INCCNT_ENTER */
+
+#ifndef LOG_INCCNT_LEAVE
+#define LOG_INCCNT_LEAVE(ercd)
+#endif /* LOG_INCCNT_LEAVE */
+
+#ifndef LOG_GETCNT_ENTER
+#define LOG_GETCNT_ENTER(cntid, p_val)
+#endif /* LOG_GETCNT_ENTER */
+
+#ifndef LOG_GETCNT_LEAVE
+#define LOG_GETCNT_LEAVE(ercd, val)
+#endif /* LOG_GETCNT_LEAVE */
+
+#ifndef LOG_GETECT_ENTER
+#define LOG_GETECT_ENTER(cntid, val, p_eval)
+#endif /* LOG_GETECT_ENTER */
+
+#ifndef LOG_GETECT_LEAVE
+#define LOG_GETECT_LEAVE(ercd, val, eval)
+#endif /* LOG_GETECT_LEAVE */
+
+/*
+ *  &#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12408;&#12398;&#25407;&#20837;
+ */
+#ifdef TOPPERS_insert_cnt_expr_que
+
+void
+insert_cnt_expr_que(CNTEXPINFO *p_cntexpinfo, const CNTCB *p_cntcb)
+{
+	TickType	enqval, curval;
+	QUEUE		*next;
+	CounterType cntid;
+
+	enqval = p_cntexpinfo-&gt;expiretick;
+
+	/*
+	 *  &#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12408;&#12398;&#25407;&#20837;&#20301;&#32622;&#12434;&#27770;&#23450;&#12377;&#12427;&#12383;&#12417;&#12398;&#22522;&#28310;&#28857;
+	 *
+	 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12459;&#12454;&#12531;&#12479;&#12398;&#22580;&#21512;&#65292;&#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12408;&#12398;&#25407;&#20837;&#20301;&#32622;&#12434;&#27770;&#12417;&#12427;&#22522;&#28310;&#28857;&#12399;
+	 *  &#28288;&#20102;&#20966;&#29702;&#26178;&#12395;&#26356;&#26032;&#12375;&#12390;&#12356;&#12427;&#20516;&#12434;&#20351;&#29992;&#12375;&#65292;&#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12363;&#12425;&#29694;&#22312;&#20516;&#12434;&#21462;&#24471;&#12399;&#12375;&#12394;&#12356;
+	 *  (&#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12459;&#12454;&#12531;&#12479;&#19978;&#12398;&#12486;&#12451;&#12483;&#12463;&#20516;&#12399;&#28288;&#20102;&#12375;&#12390;&#12356;&#12427;&#12364;&#65292;&#12414;&#12384;&#28288;&#20102;&#20966;&#29702;&#12434;&#23455;&#34892;&#12375;&#12390;
+	 *  &#12356;&#12394;&#12356;&#22580;&#21512;&#12395;&#65292;&#25407;&#20837;&#22580;&#25152;&#12398;&#22522;&#28310;&#12364;&#12378;&#12428;&#12390;&#12375;&#12414;&#12358;&#12383;&#12417;)
+	 */
+	curval = p_cntcb-&gt;curval;
+
+	/* &#25407;&#20837;&#22580;&#25152;&#12398;&#12469;&#12540;&#12481; */
+	next = p_cntcb-&gt;cntexpque.p_next;
+
+	if (</font><font class="covered">curval &lt; enqval</font><font class="normal">) {
+		/* &#12459;&#12454;&#12531;&#12479;&#12398;&#12458;&#12540;&#12496;&#12540;&#12501;&#12525;&#12540;&#12364;&#36215;&#12371;&#12425;&#12394;&#12356;&#22580;&#21512; */
+		while ((</font><font class="covered">next != &amp;(p_cntcb-&gt;cntexpque)</font><font class="normal">) &amp;&amp;
+			   (</font><font class="covered">curval &lt;= ((CNTEXPINFO *) next)-&gt;expiretick</font><font class="normal">) &amp;&amp;
+			   (</font><font class="covered">((CNTEXPINFO *) next)-&gt;expiretick &lt;= enqval</font><font class="normal">)) {
+			next = next-&gt;p_next;
+		}
+	}
+	else {
+		/* &#12459;&#12454;&#12531;&#12479;&#12398;&#12458;&#12540;&#12496;&#12540;&#12501;&#12525;&#12540;&#12364;&#36215;&#12371;&#12427;&#22580;&#21512; */
+		while ((</font><font class="covered">next != &amp;(p_cntcb-&gt;cntexpque)</font><font class="normal">) &amp;&amp;
+			   ((</font><font class="covered">curval &lt;= ((CNTEXPINFO *) next)-&gt;expiretick</font><font class="normal">)
+				|| (</font><font class="covered">((CNTEXPINFO *) next)-&gt;expiretick &lt;= enqval</font><font class="normal">))) {
+			next = next-&gt;p_next;
+		}
+	}
+
+	queue_insert_prev(next, &amp;(p_cntexpinfo-&gt;cntexpque));
+
+	/*
+	 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12459;&#12454;&#12531;&#12479;&#12363;&#12388;&#20808;&#38957;&#12395;&#25407;&#20837;&#12375;&#12383;&#22580;&#21512;,&#20877;&#24230;&#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12459;&#12454;&#12531;&#12479;&#12395;
+	 *  &#28288;&#20102;&#26178;&#38291;&#12434;&#35373;&#23450;&#12375;&#30452;&#12377;&#24517;&#35201;&#12364;&#12354;&#12427;
+	 */
+	cntid = CNTID(p_cntcb);
+	if (i</font><font class="covered">s_hwcnt(cntid) &amp;&amp; (p_cntcb</font><font class="normal">-&gt;cnte</font><font class="covered">xpque.p_next == &amp;(p_cntexpinfo-&gt;cntexpque))) {
+</font><font class="normal">
+		/* &#29694;&#22312;&#35373;&#23450;&#12373;&#12428;&#12390;&#12356;&#12427;&#26178;&#21051;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523; */
+		(hwcntinib_table[cntid].cancel)();
+
+		/* &#20808;&#38957;&#12395;&#25407;&#20837;&#12375;&#12383;&#26178;&#21051;&#12395;&#20877;&#35373;&#23450; */
+		(hwcntinib_table[cntid].set)(enqval);
+
+		/*
+		 *  &#20877;&#35373;&#23450;&#20013;&#12395;&#27425;&#12398;&#28288;&#20102;&#26178;&#38291;&#12434;&#36942;&#12366;&#12390;&#12375;&#12414;&#12387;&#12383;&#12363;&#12481;&#12455;&#12483;&#12463;
+		 *
+		 *  &#36942;&#12366;&#12390;&#12375;&#12414;&#12387;&#12383;&#22580;&#21512;, &#24375;&#21046;&#21106;&#36796;&#12415;&#12395;&#12424;&#12426;&#28288;&#20102;&#20966;&#29702;&#12434;&#23455;&#34892;&#12377;&#12427;
+		 *  &#12414;&#12383;set&#12375;&#12383;&#26178;&#38291;&#12392;get&#12375;&#12383;&#26178;&#38291;&#12364;&#21516;&#12376;&#12391;&#12354;&#12387;&#12383;&#22580;&#21512;,
+		 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12391;&#21462;&#12426;&#12371;&#12412;&#12375;&#12390;&#12356;&#12427;&#12392;&#24819;&#23450;&#12375;, &#24375;&#21046;&#21106;&#36796;&#12415;&#12434;&#30330;&#29983;&#12373;&#12379;&#12427;
+		 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12391;&#21462;&#12426;&#12371;&#12412;&#12375;&#12390;&#12356;&#12394;&#12356;&#22580;&#21512;&#12395;&#24375;&#21046;&#21106;&#36796;&#12415;&#12434;&#36215;&#12371;&#12375;&#12390;&#12418;&#21839;&#38988;&#12394;&#12356;
+		 */
+		if (</font><font class="covered">diff_tick((hwcntinib_table[cntid].get)(), enqval,
+					  p_cntcb-&gt;p_cntinib-&gt;maxval2) &lt;= p_cntcb-&gt;p_cntinib-&gt;maxval</font><font class="normal">) {
+			/* &#29694;&#22312;&#35373;&#23450;&#12373;&#12428;&#12390;&#12356;&#12427;&#26178;&#21051;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523; */
+			(hwcntinib_table[cntid].cancel)();
+			/* &#24375;&#21046;&#21106;&#36796;&#12415;&#12434;&#30330;&#29983;&#12373;&#12379;&#12427; */
+			(hwcntinib_table[cntid].trigger)();
+		}
+	}
+}
+
+#endif /* TOPPERS_insert_cnt_expr_que */
+
+/*
+ *  &#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12363;&#12425;&#21066;&#38500;
+ */
+#ifdef TOPPERS_delete_cnt_expr_que
+
+void
+delete_cnt_expr_que(CNTEXPINFO *p_cntexpinfo, const CNTCB *p_cntcb)
+{
+	CounterType cntid;
+	QUEUE		*p_cntexpque;
+
+	/* &#12459;&#12454;&#12531;&#12479;&#12461;&#12517;&#12540;&#12363;&#12425;&#28288;&#20102;&#20966;&#29702;&#12434;&#21066;&#38500;&#12377;&#12427;&#21069;&#12398;&#20808;&#38957;&#12461;&#12517;&#12540;&#20445;&#25345; */
+	p_cntexpque = p_cntcb-&gt;cntexpque.p_next;
+
+	queue_delete(&amp;(p_cntexpinfo-&gt;cntexpque));
+	queue_initialize(&amp;(p_cntexpinfo-&gt;cntexpque));
+
+	/*
+	 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12459;&#12454;&#12531;&#12479;&#12363;&#12388;&#21066;&#38500;&#12377;&#12427;&#28288;&#20102;&#20966;&#29702;&#12399;&#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12398;
+	 *  &#20808;&#38957;&#12398;&#22580;&#21512;&#65292;&#12479;&#12452;&#12510;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523;&#12377;&#12427;
+	 */
+	cntid = CNTID(p_cntcb);
+	if (i</font><font class="covered">s_hwcnt(cntid) &amp;&amp; (p_cntcb</font><font class="normal">-&gt;cnte</font><font class="covered">xpque.p_next != p_cntexpque)) {
+</font><font class="normal">
+		/* &#29694;&#22312;&#35373;&#23450;&#12373;&#12428;&#12390;&#12356;&#12427;&#26178;&#21051;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523; */
+		(hwcntinib_table[cntid].cancel)();
+
+		/* &#12506;&#12531;&#12487;&#12451;&#12531;&#12464;&#20013;&#12398;&#21106;&#36796;&#12415;&#35201;&#27714;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523; */
+		(hwcntinib_table[cntid].intcancel)();
+
+		/*
+		 *  p_cntexpinfo&#12391;&#25351;&#23450;&#12373;&#12428;&#12383;&#28288;&#20102;&#20966;&#29702;&#21066;&#38500;&#24460;&#65292;&#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#27425;&#12398;
+		 *  &#28288;&#20102;&#20966;&#29702;&#12398;&#28288;&#20102;&#28857;&#12434;&#35373;&#23450;&#12377;&#12427;
+		 */
+		if (</font><font class="covered">queue_empty(&amp;(p_cntcb-&gt;cntexpque)) == FALS</font><font class="normal">E) {
+
+			/* &#20808;&#38957;&#12395;&#25407;&#20837;&#12375;&#12383;&#26178;&#21051;&#12395;&#20877;&#35373;&#23450; */
+			(hwcntinib_table[cntid].set)(((CNTEXPINFO *) p_cntcb-&gt;cntexpque.p_next)-&gt;expiretick);
+
+			/*
+			 *  &#20877;&#35373;&#23450;&#20013;&#12395;&#27425;&#12398;&#28288;&#20102;&#26178;&#38291;&#12434;&#36942;&#12366;&#12390;&#12375;&#12414;&#12387;&#12383;&#12363;&#12481;&#12455;&#12483;&#12463;
+			 *
+			 *  &#36942;&#12366;&#12390;&#12375;&#12414;&#12387;&#12383;&#22580;&#21512;, &#24375;&#21046;&#21106;&#36796;&#12415;&#12395;&#12424;&#12426;&#28288;&#20102;&#20966;&#29702;&#12434;&#23455;&#34892;&#12377;&#12427;
+			 *  &#12414;&#12383;set&#12375;&#12383;&#26178;&#38291;&#12392;get&#12375;&#12383;&#26178;&#38291;&#12364;&#21516;&#12376;&#12391;&#12354;&#12387;&#12383;&#22580;&#21512;,
+			 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12391;&#21462;&#12426;&#12371;&#12412;&#12375;&#12390;&#12356;&#12427;&#12392;&#24819;&#23450;&#12375;, &#24375;&#21046;&#21106;&#36796;&#12415;&#12434;&#30330;&#29983;&#12373;&#12379;&#12427;
+			 *  &#12495;&#12540;&#12489;&#12454;&#12455;&#12450;&#12391;&#21462;&#12426;&#12371;&#12412;&#12375;&#12390;&#12356;&#12394;&#12356;&#22580;&#21512;&#12395;&#24375;&#21046;&#21106;&#36796;&#12415;&#12434;&#36215;&#12371;&#12375;&#12390;&#12418;&#21839;&#38988;&#12394;&#12356;
+			 */
+			if (</font><font class="covered">diff_tick((hwcntinib_table[cntid].get)(),
+						  ((CNTEXPINFO *) p_cntcb-&gt;cntexpque.p_next)-&gt;expiretick,
+						  p_cntcb-&gt;p_cntinib-&gt;maxval2) &lt;= p_cntcb-&gt;p_cntinib-&gt;maxval</font><font class="normal">) {
+				/* &#29694;&#22312;&#35373;&#23450;&#12373;&#12428;&#12390;&#12356;&#12427;&#26178;&#21051;&#12434;&#12461;&#12515;&#12531;&#12475;&#12523; */
+				(hwcntinib_table[cntid].cancel)();
+				/* &#24375;&#21046;&#21106;&#36796;&#12415;&#12434;&#30330;&#29983;&#12373;&#12379;&#12427; */
+				(hwcntinib_table[cntid].trigger)();
+			}
+		}
+	}
+
+}
+
+#endif /* TOPPERS_delete_cnt_expr_que */
+
+/*
+ *  &#12459;&#12454;&#12531;&#12479;&#27231;&#33021;&#12398;&#21021;&#26399;&#21270;
+ */
+#ifdef TOPPERS_counter_initialize
+
+void
+counter_initialize(void)
+{
+	CounterType	i;
+	CNTCB		*p_cntcb;
+
+	for (i = 0U; </font><font class="covered">i &lt; tnum_counter</font><font class="normal">; i++) {
+		p_cntcb = &amp;(cntcb_table[i]);
+		p_cntcb-&gt;p_cntinib = &amp;(cntinib_table[i]);
+		p_cntcb-&gt;curval = 0U;
+		queue_initialize(&amp;(p_cntcb-&gt;cntexpque));
+		p_cntcb-&gt;cstat = CS_NULL;
+	}
+
+	for (i = 0U; </font><font class="covered">i &lt; tnum_hardcounter</font><font class="normal">; i++) {
+		(hwcntinib_table[i].init)(cntinib_table[i].maxval2,
+								  hwcntinib_table[i].nspertick);
+		(hwcntinib_table[i].start)();
+	}
+
+}
+
+#endif /* TOPPERS_counter_initialize */
+
+/*
+ *  &#12459;&#12454;&#12531;&#12479;&#27231;&#33021;&#12398;&#32066;&#20102;&#20966;&#29702;
+ */
+#ifdef TOPPERS_counter_terminate
+
+void
+counter_terminate(void)
+{
+	CounterType i;
+
+	for (i = 0U; </font><font class="covered">i &lt; tnum_hardcounter</font><font class="normal">; i++) {
+		(hwcntinib_table[i].stop)();
+	}
+}
+
+#endif /* TOPPERS_counter_terminate */
+
+/*
+ *  &#25351;&#23450;&#12375;&#12383;&#30456;&#23550;&#26178;&#38291;&#12363;&#12425;&#12398;&#12459;&#12454;&#12531;&#12479;&#20516;&#21462;&#24471;(API&#12363;&#12425;&#12398;&#21462;&#24471;)
+ *
+ *  &#25351;&#23450;&#12375;&#12383;&#12459;&#12454;&#12531;&#12479;&#12398;&#29694;&#22312;&#20516;&#12392;, &#28193;&#12373;&#12428;&#12383;&#30456;&#23550;&#20516;&#12434;&#36275;&#12375;&#12371;&#12415;&#26356;&#26032;&#20516;&#12434;
+ *  &#25147;&#12426;&#20516;&#12392;&#12375;&#12390;&#36820;&#12377;
+ */
+#ifdef TOPPERS_get_reltick
+
+TickType
+get_reltick(const CNTCB *p_cntcb, TickType relval)
+{
+	CounterType	cntid;
+	TickType	result;
+	TickType	curval;
+
+	cntid = CNTID(p_cntcb);
+
+	curval = get_curval(p_cntcb, cntid);
+
+	/* &#29694;&#22312;&#26178;&#38291;&#12363;&#12425;&#25351;&#23450;&#12373;&#12428;&#12383;&#12458;&#12501;&#12475;&#12483;&#12488;&#20998;&#36942;&#12366;&#12383;&#26178;&#38291;&#12434;&#31639;&#20986;&#12377;&#12427; */
+	result = add_tick(curval, relval, p_cntcb-&gt;p_cntinib-&gt;maxval2);
+
+	return(result);
+}
+
+#endif /* TOPPERS_get_reltick */
+
+/*
+ *  &#25351;&#23450;&#12375;&#12383;&#32118;&#23550;&#26178;&#38291;&#12363;&#12425;&#12398;&#12459;&#12454;&#12531;&#12479;&#20516;&#21462;&#24471;(API&#12363;&#12425;&#12398;&#21462;&#24471;)
+ *
+ *  &#24341;&#25968;&#12391;&#28193;&#12373;&#12428;&#12383;&#32118;&#23550;&#20516;&#12434;&#25351;&#23450;&#12375;&#12383;&#12459;&#12454;&#12531;&#12479;&#12398;&#29694;&#22312;&#20516;&#12395;&#22793;&#25563;&#12375;
+ *  &#26356;&#26032;&#20516;&#12434;&#25147;&#12426;&#20516;&#12392;&#12375;&#12390;&#36820;&#12377;
+ */
+#ifdef TOPPERS_get_abstick
+
+TickType
+get_abstick(const CNTCB *p_cntcb, TickType absval)
+{
+	CounterType	cntid;
+	TickType	result;
+	TickType	curval;
+	TickType	nextval;
+
+	cntid = CNTID(p_cntcb);
+
+	curval = get_curval(p_cntcb, cntid);
+
+	/* maxval2&#12434;&#32771;&#24942;&#12375;&#12383;&#32118;&#23550;&#26178;&#38291;&#12395;&#22793;&#25563; */
+	nextval = absval +  p_cntcb-&gt;p_cntinib-&gt;maxval + 1U;
+
+	if (</font><font class="covered">curval &lt; (p_cntcb-&gt;p_cntinib-&gt;maxval + 1U)</font><font class="normal">) {
+		/*
+		 *  &#12459;&#12454;&#12531;&#12479;&#12398;&#29694;&#22312;&#20516;&#12364;0&#12316;maxval&#12398;&#38291;&#12398;&#22580;&#21512;&#65292;
+		 *  &#32118;&#23550;&#26178;&#21051;&#12395;&#26410;&#21040;&#36948;&#12394;&#12398;&#12391;&#65292;&#32118;&#23550;&#26178;&#21051;&#12434;&#36820;&#12377;
+		 */
+		if (</font><font class="covered">absval &gt; curval</font><font class="normal">) {
+			result = absval;
+		}
+		else {
+			result = nextval;
+		}
+	}
+	else {
+		/*
+		 *  &#12459;&#12454;&#12531;&#12479;&#12398;&#29694;&#22312;&#20516;&#12364;maxval&#12316;maxval2&#12398;&#38291;&#12398;&#22580;&#21512;&#65292;
+		 *  maxval2&#32771;&#24942;&#12375;&#12383;&#32118;&#23550;&#12418;&#36229;&#12360;&#12383;&#12398;&#12391;&#65292;&#32118;&#23550;&#26178;&#21051;&#12434;&#36820;&#12377;
+		 */
+		if (</font><font class="covered">nextval &lt;= curval</font><font class="normal">) {
+			result = absval;
+		}
+		else {
+			result = nextval;
+		}
+	}
+
+	return(result);
+}
+
+#endif /* TOPPERS_get_abstick */
+
+/*
+ *  &#12459;&#12454;&#12531;&#12479;&#12398;&#28288;&#20102;&#20966;&#29702;
+ */
+#ifdef TOPPERS_expire_process
+
+void
+expire_process(CNTCB *p_cntcb, CounterType cntid)
+{
+	CNTEXPINFO	*p_cntexpinfo;
+	TickType	nowval;
+
+	nowval = get_curval(p_cntcb, cntid);
+
+	/*
+	 *  &#12459;&#12454;&#12531;&#12479;&#12398;&#28288;&#20102;&#20966;&#29702;
+	 *
+	 *  &#12461;&#12517;&#12540;&#12364;&#31354;&#12391;&#12394;&#12367;, &#12522;&#12450;&#12523;&#12479;&#12452;&#12512;&#12394;&#29694;&#22312;&#26178;&#38291;&#12363;&#12425;&#35211;&#12390;&#12461;&#12517;&#12540;&#12398;&#20808;&#38957;&#12398;&#28288;&#20102;
+	 *  &#26178;&#38291;&#12364;&#26082;&#12395;&#36942;&#12366;&#12390;&#12356;&#12428;&#12400;, &#28288;&#20102;&#20966;&#29702;&#12434;&#23455;&#34892;&#12377;&#12427;
+	 *
+	 *  &#12522;&#12450;&#12523;&#12479;&#12452;&#12512;&#12394;&#29694;&#22312;&#26178;&#38291;&#12434;&#12381;&#12398;&#37117;&#24230;&#21462;&#24471;&#12377;&#12427;&#12383;&#12417;,&#12461;&#12517;&#12540;&#12398;&#20808;&#38957;&#28288;&#20102;&#20966;&#29702;
+	 *  &#12398;&#28288;&#20102;&#26178;&#38291;&#12434;&#20877;&#35373;&#23450;&#12377;&#12427;&#26178;&#12395;&#30446;&#30340;&#12398;&#28288;&#20102;&#26178;&#38291;&#12434;&#36229;&#12360;&#12390;&#12375;&#12414;&#12387;&#12390;&#12418;&#12459;&#12496;&#12540;
+	 *  &#12391;&#12365;&#12427;
+	 */
+	while ((</font><font class="covered">queue_empty(&amp;(p_cntcb-&gt;cntexpque)) == FALS</font><font class="normal">E) &amp;&amp;
+		   (</font><font class="covered">diff_tick(nowval, ((CNTEXPINFO *) p_cntcb-&gt;cntexpque.p_next)-&gt;expiretick,
+					  p_cntcb-&gt;p_cntinib-&gt;maxval2) &lt;= p_cntcb-&gt;p_cntinib-&gt;maxval</font><font class="normal">)) {
+
+		/* &#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#12461;&#12517;&#12540;&#12398;&#20808;&#38957;&#12398;&#28288;&#20102;&#20966;&#29702;&#12434;&#65292;&#12461;&#12517;&#12540;&#12363;&#12425;&#22806;&#12377; */
+		p_cntexpinfo = (CNTEXPINFO *) p_cntcb-&gt;cntexpque.p_next;
+		queue_delete(&amp;(p_cntexpinfo-&gt;cntexpque));
+		queue_initialize(&amp;(p_cntexpinfo-&gt;cntexpque));
+
+		if (i</font><font class="covered">s_hwcnt(cntid)) {
+</font><font class="normal">			/*
+			 *  &#12459;&#12454;&#12531;&#12479;&#20516;&#12434;&#28288;&#20102;&#20966;&#29702;&#12398;&#28288;&#20102;&#28857;&#12391;&#26356;&#26032;&#12375;&#65292;&#28288;&#20102;&#20966;&#29702;&#12461;&#12517;&#12540;&#12395;&#28288;&#20102;&#28857;&#12434;
+			 *  &#25407;&#20837;&#12377;&#12427;&#26178;&#65292;&#28288;&#20102;&#20966;&#29702;&#12461;&#12517;&#12540;&#12398;&#25407;&#20837;&#20301;&#32622;&#27604;&#36611;&#12395;&#20351;&#29992;
+			 */
+			p_cntcb-&gt;curval = p_cntexpinfo-&gt;expiretick;
+
+			/*
+			 *  &#27425;&#12398;&#28288;&#20102;&#28857;&#12398;&#35373;&#23450;
+			 *  &#27425;&#12398;&#28288;&#20102;&#28857;&#12364;&#23455;&#26178;&#38291;&#12434;&#32076;&#36942;&#12375;&#12390;&#12356;&#12394;&#12356;&#22580;&#21512;&#35373;&#23450;&#12377;&#12427;
+			 */
+			if ((</font><font class="covered">queue_empty(&amp;(p_cntcb-&gt;cntexpque)) == FALS</font><font class="normal">E) &amp;&amp; </font><font class="covered">((diff_tick((hwcntinib_table[cntid].get)(),
+																			 ((CNTEXPINFO *) p_cntcb-&gt;cntexpque.p_next)-&gt;expiretick, p_cntcb-&gt;p_cntinib-&gt;maxval2)) &gt;
+																  p_cntcb-&gt;p_cntinib-&gt;maxval</font><font class="normal">)) {
+				(hwcntinib_table[cntid].set)(((CNTEXPINFO *) p_cntcb-&gt;cntexpque.p_next)-&gt;expiretick);
+			}
+		}
+
+		/* &#12459;&#12454;&#12531;&#12479;&#28288;&#20102;&#20966;&#29702;&#21628;&#20986;&#12375; */
+		(p_cntexpinfo-&gt;expirefunc)(p_cntexpinfo, p_cntcb);
+
+		/*
+		 *  &#12479;&#12473;&#12463;&#12363;&#12425;&#12398;&#21628;&#12403;&#20986;&#12375;&#26178;&#65292;&#39640;&#20778;&#20808;&#24230;&#12479;&#12473;&#12463;&#12524;&#12487;&#12451;&#29366;&#24907;&#12395;&#12394;&#12387;&#12383;&#22580;&#21512;&#12354;&#12427;&#12398;&#12391;&#65292;
+		 *  &#12481;&#12455;&#12483;&#12463;&#12375;&#12390;&#12487;&#12451;&#12473;&#12497;&#12483;&#12481;&#12377;&#12427;
+		 */
+		if ((</font><font class="covered">p_runtsk != p_schedtsk</font><font class="normal">) &amp;&amp; (</font><font class="covered">callevel_stat == TCL_TASK)</font><font class="normal">) {
+			dispatch();
+		}
+
+		/*
+		 *  &#21106;&#36796;&#12415;&#12524;&#12473;&#12509;&#12531;&#12473;&#32771;&#24942;&#12375;&#65292;1&#20491;&#12398;&#28288;&#20102;&#28857;&#20966;&#29702;&#24460;&#12395;
+		 *  1&#22238;&#12398;&#21106;&#36796;&#35377;&#21487;/&#31105;&#27490;&#12434;&#23455;&#26045;
+		 */
+		x_nested_unlock_os_int();
+		x_nested_lock_os_int();
+
+		nowval = get_curval(p_cntcb, cntid);
+	}
+}
+#endif /* TOPPERS_expire_process */
+</font></code></pre></td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td>&#xA0;</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table><br><br><table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td align="center">&copy;Parasoft Corp. -C++test&reg;&#xA0;9.4.2.17&#xA0;&#12524;&#12509;&#12540;&#12488; &#12471;&#12473;&#12486;&#12512;&#xA0;</td>
+         </tr>
+      </table><br><table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_footer_expander.jpg" width="100%" align="left"><img src="rep_footer.jpg" alt="rep_footer.jpg"></td>
+         </tr>
+      </table>
+   </body>
+</html>

@@ -1,0 +1,27 @@
+T4_OSAP_006_multi_osap_startup_hook:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    STARTUP_HOOK_OSAP1:
+      type: STARTUP_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    STARTUP_HOOK_OSAP2:
+      type: STARTUP_HOOK_OSAP
+      hookstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: STARTUP_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

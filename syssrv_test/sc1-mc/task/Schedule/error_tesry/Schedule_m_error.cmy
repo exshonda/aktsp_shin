@@ -1,0 +1,205 @@
+######################################################################
+# Schedule_m_error_0001.yaml
+######################################################################
+Schedule_m_error_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      ttype: ANY_TTYPE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      ttype: ANY_TTYPE
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OS_SPINLOCK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_SPINLOCK)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_Schedule)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# Schedule_m_error_0002.yaml
+######################################################################
+Schedule_m_error_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      ttype: ANY_TTYPE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      ttype: ANY_TTYPE
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_Schedule)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# Schedule_m_error_0003.yaml
+######################################################################
+Schedule_m_error_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      ttype: ANY_TTYPE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      ttype: ANY_TTYPE
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_Schedule)
+    gcov: false
+
+  post_condition_2:
+######################################################################

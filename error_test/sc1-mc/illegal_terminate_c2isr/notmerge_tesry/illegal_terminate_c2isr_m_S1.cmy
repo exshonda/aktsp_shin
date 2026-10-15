@@ -1,0 +1,917 @@
+######################################################################
+# illegal_terminate_c2isr_m_S1_0001.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0002.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0003.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0004.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0005.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0006.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0007.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0007:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0008.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0008:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0009.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0009:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0010.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0010:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0011.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0011:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0012.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0012:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0013.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0013:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0014.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0014:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0015.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0015:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0016.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0016:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0017.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0017:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0018.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0018:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0019.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0019:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################
+# illegal_terminate_c2isr_m_S1_0020.yaml
+######################################################################
+illegal_terminate_c2isr_m_S1_0020:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE)
+    finish: true
+
+  post_condition_0:
+######################################################################

@@ -1,0 +1,23 @@
+T4_OSAP_012_startup_hook_osap_not_actvate:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    STARTUP_HOOK_OSAP1:
+      type: STARTUP_HOOK_OSAP
+      hookstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: STARTUP_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

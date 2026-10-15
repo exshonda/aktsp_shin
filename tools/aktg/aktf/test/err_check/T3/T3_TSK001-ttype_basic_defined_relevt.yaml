@@ -1,0 +1,36 @@
+T3_TSK001_ttype_basic_defined_relevt:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relevt:
+        - EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+
+  do_0:
+    id: C2ISR1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition_0:
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_STOP

@@ -1,0 +1,38 @@
+T4_SC1_001_no_alarmcb_of_alarm_callback:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 3
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 2
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 5
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET

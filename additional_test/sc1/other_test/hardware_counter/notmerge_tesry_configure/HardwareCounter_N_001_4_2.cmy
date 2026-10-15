@@ -1,0 +1,370 @@
+######################################################################
+# HardwareCounter_N_001_4_2_0001.yaml
+######################################################################
+HardwareCounter_N_001_4_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      maxact: 3
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      maxact: 3
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        2:
+          acttsk:
+            - TASK2
+        3:
+          acttsk:
+            - TASK2
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        2:
+          acttsk:
+            - TASK3
+        3:
+          acttsk:
+            - TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+    SCHEDULE_TABLE2:
+      curval: 1
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_1:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 2
+    SCHEDULE_TABLE2:
+      curval: 2
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+      porder: 1
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+      porder: 2
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_2:
+    COUNTER1:
+      curval: 2
+    SCHEDULE_TABLE1:
+      curval: 3
+    SCHEDULE_TABLE2:
+      curval: 3
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      actcnt: 2
+######################################################################
+# HardwareCounter_N_001_4_2_0002.yaml
+######################################################################
+HardwareCounter_N_001_4_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      maxact: 3
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      maxact: 3
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        2:
+          acttsk:
+            - TASK2
+        3:
+          acttsk:
+            - TASK2
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        2:
+          acttsk:
+            - TASK3
+        3:
+          acttsk:
+            - TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+    SCHEDULE_TABLE2:
+      curval: 1
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_1:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 2
+    SCHEDULE_TABLE2:
+      curval: 2
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+      porder: 1
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+      porder: 2
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_2:
+    COUNTER1:
+      curval: 2
+    SCHEDULE_TABLE1:
+      curval: 3
+    SCHEDULE_TABLE2:
+      curval: 3
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      actcnt: 2
+######################################################################
+# HardwareCounter_N_001_4_2_0003.yaml
+######################################################################
+HardwareCounter_N_001_4_2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      maxact: 3
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      maxact: 3
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        2:
+          acttsk:
+            - TASK2
+        3:
+          acttsk:
+            - TASK2
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        2:
+          acttsk:
+            - TASK3
+        3:
+          acttsk:
+            - TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+    SCHEDULE_TABLE2:
+      curval: 1
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_1:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 2
+    SCHEDULE_TABLE2:
+      curval: 2
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+      porder: 1
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+      porder: 2
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_2:
+    COUNTER1:
+      curval: 2
+    SCHEDULE_TABLE1:
+      curval: 3
+    SCHEDULE_TABLE2:
+      curval: 3
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      actcnt: 2
+######################################################################

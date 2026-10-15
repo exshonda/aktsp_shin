@@ -1,0 +1,1342 @@
+######################################################################
+# ResumeAllInterrupts_nml_1_0001.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: SuspendAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: ALARM_CBACK1
+
+  do_2:
+    id: ALARM_CBACK1
+    syssrv: SuspendAllInterrupts()
+    gcov: false
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: ALARM_CBACK1
+        - AK_SUS_ALL_INT: ALARM_CBACK1
+
+  do_3:
+    id: ALARM_CBACK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_3:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: ALARM_CBACK1
+
+  do_4:
+    id: ALARM_CBACK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_4:
+    C1ISR1:
+      rtnstat: AK_STOP
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0002.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0002:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: SuspendAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: ALARM_CBACK1
+
+  do_2:
+    id: ALARM_CBACK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ALARM_CBACK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_3:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    ALARM_CBACK1:
+      cbstat: AK_STOP
+######################################################################
+# ResumeAllInterrupts_nml_1_0003.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+    C1ISR2:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C1ISR1
+        - AK_SUS_ALL_INT: C1ISR1
+
+  do_0:
+    id: C1ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C1ISR1
+
+  do_1:
+    id: C1ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C1ISR2:
+      rtnstat: AK_STOP
+######################################################################
+# ResumeAllInterrupts_nml_1_0004.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+    C1ISR2:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C1ISR1
+
+  do_0:
+    id: C1ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: C1ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    C1ISR2:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0005.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0006.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# ResumeAllInterrupts_nml_1_0007.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# ResumeAllInterrupts_nml_1_0008.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0009.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0010.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: ERROR_HOOK1
+        - AK_SUS_ALL_INT: ERROR_HOOK1
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: ERROR_HOOK1
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0011.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: ERROR_HOOK1
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0012.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: POSTTASK_HOOK1
+        - AK_SUS_ALL_INT: POSTTASK_HOOK1
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: POSTTASK_HOOK1
+
+  do_1:
+    id: POSTTASK_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0013.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: POSTTASK_HOOK1
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: POSTTASK_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0014.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: PRETASK_HOOK1
+        - AK_SUS_ALL_INT: PRETASK_HOOK1
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: PRETASK_HOOK1
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0015.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: PRETASK_HOOK1
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: PRETASK_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0016.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: PROTECTION_HOOK1
+        - AK_SUS_ALL_INT: PROTECTION_HOOK1
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: PROTECTION_HOOK1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0017.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: PROTECTION_HOOK1
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0018.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK1
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK1
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK1
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0019.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK1
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0020.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: STARTUP_HOOK1
+        - AK_SUS_ALL_INT: STARTUP_HOOK1
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: STARTUP_HOOK1
+
+  do_1:
+    id: STARTUP_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0021.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: STARTUP_HOOK1
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: STARTUP_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+
+  do_2:
+    id: C1ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_2:
+    C1ISR1:
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0022.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# ResumeAllInterrupts_nml_1_0023.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0024.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_nml_1_0025.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# ResumeAllInterrupts_nml_1_0026.yaml
+######################################################################
+ResumeAllInterrupts_nml_1_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+######################################################################

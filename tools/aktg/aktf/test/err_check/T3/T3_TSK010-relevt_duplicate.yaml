@@ -1,0 +1,38 @@
+T3_TSK010_relevt_duplicate:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TaskStateType
+          value: 0
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      relevt:
+        - EVENT1
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      var:
+        vname1:
+          value: WAITING

@@ -1,0 +1,34 @@
+T1_021_spinlock_class_undefined:
+  property:
+    sc:
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      class  : undefined
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval : E_OK
+    gcov: true
+
+  post_condition:
+    TASK1:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK

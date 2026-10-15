@@ -1,0 +1,19 @@
+T4_036_errorhook_nees_runtask:
+  property:
+    sc: 
+
+  pre_condition:
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

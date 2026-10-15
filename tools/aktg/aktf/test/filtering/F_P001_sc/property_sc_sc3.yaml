@@ -1,0 +1,38 @@
+property_sc_sc3:
+  property:
+    sc: 
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_MAXVAL_A-1
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0

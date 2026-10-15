@@ -1,0 +1,471 @@
+######################################################################
+# ChainTask_m_normal_schedule_0001.yaml
+######################################################################
+ChainTask_m_normal_schedule_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0002.yaml
+######################################################################
+ChainTask_m_normal_schedule_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0003.yaml
+######################################################################
+ChainTask_m_normal_schedule_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0004.yaml
+######################################################################
+ChainTask_m_normal_schedule_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0005.yaml
+######################################################################
+ChainTask_m_normal_schedule_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0006.yaml
+######################################################################
+ChainTask_m_normal_schedule_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0007.yaml
+######################################################################
+ChainTask_m_normal_schedule_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_m_normal_schedule_0008.yaml
+######################################################################
+ChainTask_m_normal_schedule_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################

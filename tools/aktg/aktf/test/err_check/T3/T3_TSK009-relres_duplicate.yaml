@@ -1,0 +1,39 @@
+T3_TSK009_relres_duplicate:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING

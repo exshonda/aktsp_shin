@@ -1,0 +1,66 @@
+T3_TSK006_porder_2_defined_getres:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      event: EVENT1
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+      porder: 2
+      getres:
+        - RESOURCE1
+    COUNTER1:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET

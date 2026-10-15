@@ -1,0 +1,27 @@
+T3_TSK019_ttype_extended_maxact_2:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_EXTENDED
+      maxact: 2
+      actcnt: 2
+
+    TASK2:
+      type  : TASK
+      tstat : READY
+      curpri: TSK_PRI_HIGH
+
+  do:
+    id     : TASK1
+    syssrv : Schedule()
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:

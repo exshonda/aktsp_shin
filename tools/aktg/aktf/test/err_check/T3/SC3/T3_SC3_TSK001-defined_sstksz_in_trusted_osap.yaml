@@ -1,0 +1,26 @@
+T3_SC3_TSK001_defined_sstksz_in_trusted_osap:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      sstksz: 256
+      osap: TRUSTED_OSAP1
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OK
+    gcov   : true
+
+  post_condition:
+    TASK1:
+      actcnt: 2

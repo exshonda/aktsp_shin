@@ -1,0 +1,2327 @@
+######################################################################
+# illegal_terminate_task_m_S1_0001.yaml
+######################################################################
+illegal_terminate_task_m_S1_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0002.yaml
+######################################################################
+illegal_terminate_task_m_S1_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0003.yaml
+######################################################################
+illegal_terminate_task_m_S1_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0004.yaml
+######################################################################
+illegal_terminate_task_m_S1_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0005.yaml
+######################################################################
+illegal_terminate_task_m_S1_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0006.yaml
+######################################################################
+illegal_terminate_task_m_S1_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0007.yaml
+######################################################################
+illegal_terminate_task_m_S1_0007:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0008.yaml
+######################################################################
+illegal_terminate_task_m_S1_0008:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0009.yaml
+######################################################################
+illegal_terminate_task_m_S1_0009:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0010.yaml
+######################################################################
+illegal_terminate_task_m_S1_0010:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0011.yaml
+######################################################################
+illegal_terminate_task_m_S1_0011:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0012.yaml
+######################################################################
+illegal_terminate_task_m_S1_0012:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0013.yaml
+######################################################################
+illegal_terminate_task_m_S1_0013:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0014.yaml
+######################################################################
+illegal_terminate_task_m_S1_0014:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0015.yaml
+######################################################################
+illegal_terminate_task_m_S1_0015:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0016.yaml
+######################################################################
+illegal_terminate_task_m_S1_0016:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0017.yaml
+######################################################################
+illegal_terminate_task_m_S1_0017:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0018.yaml
+######################################################################
+illegal_terminate_task_m_S1_0018:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0019.yaml
+######################################################################
+illegal_terminate_task_m_S1_0019:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0020.yaml
+######################################################################
+illegal_terminate_task_m_S1_0020:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0021.yaml
+######################################################################
+illegal_terminate_task_m_S1_0021:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0022.yaml
+######################################################################
+illegal_terminate_task_m_S1_0022:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0023.yaml
+######################################################################
+illegal_terminate_task_m_S1_0023:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0024.yaml
+######################################################################
+illegal_terminate_task_m_S1_0024:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0025.yaml
+######################################################################
+illegal_terminate_task_m_S1_0025:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0026.yaml
+######################################################################
+illegal_terminate_task_m_S1_0026:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0027.yaml
+######################################################################
+illegal_terminate_task_m_S1_0027:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0028.yaml
+######################################################################
+illegal_terminate_task_m_S1_0028:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0029.yaml
+######################################################################
+illegal_terminate_task_m_S1_0029:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0030.yaml
+######################################################################
+illegal_terminate_task_m_S1_0030:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0031.yaml
+######################################################################
+illegal_terminate_task_m_S1_0031:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0032.yaml
+######################################################################
+illegal_terminate_task_m_S1_0032:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0033.yaml
+######################################################################
+illegal_terminate_task_m_S1_0033:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0034.yaml
+######################################################################
+illegal_terminate_task_m_S1_0034:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+      getspn:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0035.yaml
+######################################################################
+illegal_terminate_task_m_S1_0035:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0036.yaml
+######################################################################
+illegal_terminate_task_m_S1_0036:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0037.yaml
+######################################################################
+illegal_terminate_task_m_S1_0037:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0038.yaml
+######################################################################
+illegal_terminate_task_m_S1_0038:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0039.yaml
+######################################################################
+illegal_terminate_task_m_S1_0039:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_m_S1_0040.yaml
+######################################################################
+illegal_terminate_task_m_S1_0040:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################

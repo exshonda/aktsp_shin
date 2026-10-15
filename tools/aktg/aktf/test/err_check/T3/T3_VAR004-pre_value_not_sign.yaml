@@ -1,0 +1,51 @@
+T3_VAR004_pre_value_not_sign:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      var:
+        v:
+          type: TickType
+          value: ~0
+        vname2:
+          type: TickType
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: GetElapsedValue(COUNTER1,&v,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    C2ISR1:
+      var:
+        v:
+          value: ANY_CURVAL_NOT_0_A
+        vname2:
+          value: ANY_CURVAL_NOT_0_A

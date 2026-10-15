@@ -1,0 +1,103 @@
+T4_MC_030_datalist_sender_osap_not_active_task_c2isr:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR2:
+      type: C2ISR
+      iniintpri: INT_PRI_HIGH
+      intno: INTNO_SELF_C2ISR_MID_D
+      rtnstat: AK_STOP
+      osap: OSAP_OTHER_SAME_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    ERROR_HOOK_OSAP1:
+      type: ERROR_HOOK_OSAP
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_OSAP
+        - AK_BOTH
+      osap: OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: OSAP_OTHER_SAME_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK3
+    syssrv: IocSend_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_0:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C

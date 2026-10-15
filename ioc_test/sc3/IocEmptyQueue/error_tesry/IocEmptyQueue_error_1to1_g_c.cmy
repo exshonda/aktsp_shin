@@ -1,0 +1,997 @@
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0001.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_C
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0002.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_C
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0003.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_C
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0004.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_C
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0005.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_C
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0006.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_C
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0007.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0008.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0009.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0010.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0011.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocEmptyQueue_error_1to1_g_c_0012.yaml
+######################################################################
+IocEmptyQueue_error_1to1_g_c_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocEmptyQueue_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################

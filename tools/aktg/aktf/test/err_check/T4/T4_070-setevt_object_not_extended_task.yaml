@@ -1,0 +1,67 @@
+T4_070_setevt_object_not_extended_task:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relevt:
+        - EVENT1
+    TASK2:
+      type: TASK
+      ttype: AK_BASIC
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+    TASK4:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT2
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      repeat: AK_TRUE
+      duration: 20
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 3
+      expoint:
+        5:
+          acttsk:
+            - TASK1
+          setevt:
+            - TASK2: EVENT1
+        10:
+          acttsk:
+            - TASK3
+        15:
+          setevt:
+            - TASK4: EVENT2
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    EVENT1:
+      type: EVENT
+    EVENT2:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: StopScheduleTable(SCHEDULE_TABLE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED

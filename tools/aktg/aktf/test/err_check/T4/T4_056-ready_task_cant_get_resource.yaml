@@ -1,0 +1,46 @@
+T4_056_ready_task_cant_get_resource:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      inipri: TSK_PRI_LOW
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE2
+      porder: 1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval:  E_OK
+
+  post_condition:

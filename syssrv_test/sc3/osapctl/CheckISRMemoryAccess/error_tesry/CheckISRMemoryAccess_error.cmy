@@ -1,0 +1,7112 @@
+######################################################################
+# CheckISRMemoryAccess_error_0001.yaml
+######################################################################
+CheckISRMemoryAccess_error_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0002.yaml
+######################################################################
+CheckISRMemoryAccess_error_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0003.yaml
+######################################################################
+CheckISRMemoryAccess_error_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0004.yaml
+######################################################################
+CheckISRMemoryAccess_error_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0005.yaml
+######################################################################
+CheckISRMemoryAccess_error_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: C2ISR1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0006.yaml
+######################################################################
+CheckISRMemoryAccess_error_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: ERROR_HOOK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_3:
+######################################################################
+# CheckISRMemoryAccess_error_0007.yaml
+######################################################################
+CheckISRMemoryAccess_error_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_3:
+######################################################################
+# CheckISRMemoryAccess_error_0008.yaml
+######################################################################
+CheckISRMemoryAccess_error_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_3:
+######################################################################
+# CheckISRMemoryAccess_error_0009.yaml
+######################################################################
+CheckISRMemoryAccess_error_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_3:
+######################################################################
+# CheckISRMemoryAccess_error_0010.yaml
+######################################################################
+CheckISRMemoryAccess_error_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_3:
+######################################################################
+# CheckISRMemoryAccess_error_0011.yaml
+######################################################################
+CheckISRMemoryAccess_error_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: ERROR_HOOK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_3:
+######################################################################
+# CheckISRMemoryAccess_error_0012.yaml
+######################################################################
+CheckISRMemoryAccess_error_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: POSTTASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: POSTTASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: POSTTASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0013.yaml
+######################################################################
+CheckISRMemoryAccess_error_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PRETASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PRETASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PRETASK_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PRETASK_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0014.yaml
+######################################################################
+CheckISRMemoryAccess_error_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: PROTECTION_HOOK1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0015.yaml
+######################################################################
+CheckISRMemoryAccess_error_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS440
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS440
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0016.yaml
+######################################################################
+CheckISRMemoryAccess_error_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS699
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS699
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0017.yaml
+######################################################################
+CheckISRMemoryAccess_error_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS863
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0018.yaml
+######################################################################
+CheckISRMemoryAccess_error_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0019.yaml
+######################################################################
+CheckISRMemoryAccess_error_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: PROTECTION_HOOK1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0020.yaml
+######################################################################
+CheckISRMemoryAccess_error_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+######################################################################
+# CheckISRMemoryAccess_error_0021.yaml
+######################################################################
+CheckISRMemoryAccess_error_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    STARTUP_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: STARTUP_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    STARTUP_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: STARTUP_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    STARTUP_HOOK1:
+      hookstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: STARTUP_HOOK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS411
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+######################################################################
+# CheckISRMemoryAccess_error_0022.yaml
+######################################################################
+CheckISRMemoryAccess_error_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0023.yaml
+######################################################################
+CheckISRMemoryAccess_error_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS440
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(INVALID_ISR_ID,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==INVALID_ISR_ID)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0024.yaml
+######################################################################
+CheckISRMemoryAccess_error_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS699
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C1ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C1ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0025.yaml
+######################################################################
+CheckISRMemoryAccess_error_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,0)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0026.yaml
+######################################################################
+CheckISRMemoryAccess_error_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0027.yaml
+######################################################################
+CheckISRMemoryAccess_error_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE*16+1)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ILLEGAL_ADDRESS)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE*16+1)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0028.yaml
+######################################################################
+CheckISRMemoryAccess_error_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# CheckISRMemoryAccess_error_0029.yaml
+######################################################################
+CheckISRMemoryAccess_error_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      need_si:
+        - NOS409
+        - NOS412
+
+  do_0:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_READABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_WRITEABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_13:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_14:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_14:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 2
+
+  do_15:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_15:
+
+  do_16:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_16:
+
+  do_17:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_17:
+
+  do_18:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_18:
+
+  do_19:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_19:
+
+  do_20:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_20:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_21:
+    id: TASK1
+    syssrv: CheckAssert(OSMEMORY_IS_STACKSPACE(CheckISRMemoryAccess(C2ISR1,AKTSP_CHECK_NT_TASK_ADDRESS,AKTSP_TASK_STACK_SIZE)) == 0)
+
+  post_condition_21:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 3
+
+  do_22:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_22:
+
+  do_23:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_ISRID()==C2ISR1)
+    gcov: false
+
+  post_condition_23:
+
+  do_24:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Address()==AKTSP_CHECK_NT_TASK_ADDRESS)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_24:
+
+  do_25:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_CheckISRMemoryAccess_Size()==AKTSP_TASK_STACK_SIZE)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_25:
+
+  do_26:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_CheckISRMemoryAccess)
+    gcov: false
+
+  post_condition_26:
+
+  do_27:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_27:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

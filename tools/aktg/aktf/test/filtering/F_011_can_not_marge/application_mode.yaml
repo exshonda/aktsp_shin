@@ -1,0 +1,42 @@
+application_mode:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 2
+      bootcnt: 0
+      osap: NON_TRUSTED_OSAP1
+      appmode: MainApp
+
+    TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+    MainApp:
+      type: APPLICATION_MODE
+
+  do:
+    id     : TASK1
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

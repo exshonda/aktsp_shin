@@ -1,0 +1,36 @@
+T3_CNT001_ctype_hardware_define_mincyc:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      var:
+        vname1:
+          type: TickType
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      mincyc: ANY_MINCYC_A
+      curval: ANY_CURVAL_A
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do:
+    id: C2ISR1
+    syssrv: GetCounterValue(COUNTER1,&vname1)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+
+  post_condition:

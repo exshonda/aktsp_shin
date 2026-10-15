@@ -1,0 +1,40 @@
+T3_TSK003_tstat_not_waitting_defined_waievt:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+          value: 0
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: WAITING

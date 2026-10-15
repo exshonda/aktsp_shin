@@ -1,0 +1,33 @@
+T3_TSK017_stack_share_false_defined_stk:
+  property:
+    sc: 
+      - SC1
+      - SC2
+# configure.yamlのstack_shareをfalseにしてください
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      stk: aktg_stack_1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING

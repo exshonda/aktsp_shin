@@ -1,0 +1,31 @@
+T3_VAR002_value_defined_member_shutdownhook_osap:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    SHUTDOWN_HOOK_OSAP1:
+      type: SHUTDOWN_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: NON_TRUSTED_OSAP2
+      var:
+        vname1:
+          type: TaskStateType
+          value: 0
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: SHUTDOWN_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+    SHUTDOWN_HOOK_OSAP1:
+      var:
+        vname1:
+          ticksperbase: ANY_TICKSPERBASE

@@ -1,0 +1,181 @@
+######################################################################
+# IocRead_ex_m_error_1to1_0001.yaml
+######################################################################
+IocRead_ex_m_error_1to1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_OTHER
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocRead_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocRead_IocId()==IOC0)
+
+  post_condition_3:
+######################################################################
+# IocRead_ex_m_error_1to1_0002.yaml
+######################################################################
+IocRead_ex_m_error_1to1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_OTHER
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocRead_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocRead_IocId()==IOC0)
+
+  post_condition_3:
+######################################################################

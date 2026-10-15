@@ -1,0 +1,25 @@
+T4_031_multi_protectionhook:
+  property:
+    sc: 
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    PROTECTION_HOOK2:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 1
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

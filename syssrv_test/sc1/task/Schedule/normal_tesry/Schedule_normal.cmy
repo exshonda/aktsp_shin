@@ -1,0 +1,5467 @@
+######################################################################
+# Schedule_normal_0001.yaml
+######################################################################
+Schedule_normal_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0002.yaml
+######################################################################
+Schedule_normal_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0003.yaml
+######################################################################
+Schedule_normal_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0004.yaml
+######################################################################
+Schedule_normal_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0005.yaml
+######################################################################
+Schedule_normal_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+######################################################################
+# Schedule_normal_0006.yaml
+######################################################################
+Schedule_normal_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+######################################################################
+# Schedule_normal_0007.yaml
+######################################################################
+Schedule_normal_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+######################################################################
+# Schedule_normal_0008.yaml
+######################################################################
+Schedule_normal_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+######################################################################
+# Schedule_normal_0009.yaml
+######################################################################
+Schedule_normal_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0010.yaml
+######################################################################
+Schedule_normal_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0011.yaml
+######################################################################
+Schedule_normal_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0012.yaml
+######################################################################
+Schedule_normal_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# Schedule_normal_0013.yaml
+######################################################################
+Schedule_normal_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0014.yaml
+######################################################################
+Schedule_normal_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0015.yaml
+######################################################################
+Schedule_normal_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0016.yaml
+######################################################################
+Schedule_normal_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0017.yaml
+######################################################################
+Schedule_normal_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0018.yaml
+######################################################################
+Schedule_normal_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0019.yaml
+######################################################################
+Schedule_normal_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0020.yaml
+######################################################################
+Schedule_normal_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0021.yaml
+######################################################################
+Schedule_normal_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0022.yaml
+######################################################################
+Schedule_normal_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0023.yaml
+######################################################################
+Schedule_normal_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0024.yaml
+######################################################################
+Schedule_normal_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0025.yaml
+######################################################################
+Schedule_normal_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0026.yaml
+######################################################################
+Schedule_normal_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0027.yaml
+######################################################################
+Schedule_normal_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0028.yaml
+######################################################################
+Schedule_normal_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0029.yaml
+######################################################################
+Schedule_normal_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0030.yaml
+######################################################################
+Schedule_normal_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0031.yaml
+######################################################################
+Schedule_normal_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0032.yaml
+######################################################################
+Schedule_normal_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0033.yaml
+######################################################################
+Schedule_normal_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0034.yaml
+######################################################################
+Schedule_normal_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0035.yaml
+######################################################################
+Schedule_normal_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0036.yaml
+######################################################################
+Schedule_normal_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0037.yaml
+######################################################################
+Schedule_normal_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0038.yaml
+######################################################################
+Schedule_normal_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0039.yaml
+######################################################################
+Schedule_normal_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0040.yaml
+######################################################################
+Schedule_normal_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0041.yaml
+######################################################################
+Schedule_normal_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0042.yaml
+######################################################################
+Schedule_normal_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0043.yaml
+######################################################################
+Schedule_normal_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0044.yaml
+######################################################################
+Schedule_normal_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0045.yaml
+######################################################################
+Schedule_normal_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0046.yaml
+######################################################################
+Schedule_normal_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0047.yaml
+######################################################################
+Schedule_normal_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0048.yaml
+######################################################################
+Schedule_normal_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0049.yaml
+######################################################################
+Schedule_normal_0049:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0050.yaml
+######################################################################
+Schedule_normal_0050:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0051.yaml
+######################################################################
+Schedule_normal_0051:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0052.yaml
+######################################################################
+Schedule_normal_0052:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0053.yaml
+######################################################################
+Schedule_normal_0053:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0054.yaml
+######################################################################
+Schedule_normal_0054:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0055.yaml
+######################################################################
+Schedule_normal_0055:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0056.yaml
+######################################################################
+Schedule_normal_0056:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0057.yaml
+######################################################################
+Schedule_normal_0057:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0058.yaml
+######################################################################
+Schedule_normal_0058:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0059.yaml
+######################################################################
+Schedule_normal_0059:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0060.yaml
+######################################################################
+Schedule_normal_0060:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0061.yaml
+######################################################################
+Schedule_normal_0061:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0062.yaml
+######################################################################
+Schedule_normal_0062:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0063.yaml
+######################################################################
+Schedule_normal_0063:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0064.yaml
+######################################################################
+Schedule_normal_0064:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0065.yaml
+######################################################################
+Schedule_normal_0065:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0066.yaml
+######################################################################
+Schedule_normal_0066:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0067.yaml
+######################################################################
+Schedule_normal_0067:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0068.yaml
+######################################################################
+Schedule_normal_0068:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0069.yaml
+######################################################################
+Schedule_normal_0069:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0070.yaml
+######################################################################
+Schedule_normal_0070:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0071.yaml
+######################################################################
+Schedule_normal_0071:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0072.yaml
+######################################################################
+Schedule_normal_0072:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0073.yaml
+######################################################################
+Schedule_normal_0073:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0074.yaml
+######################################################################
+Schedule_normal_0074:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0075.yaml
+######################################################################
+Schedule_normal_0075:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0076.yaml
+######################################################################
+Schedule_normal_0076:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0077.yaml
+######################################################################
+Schedule_normal_0077:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0078.yaml
+######################################################################
+Schedule_normal_0078:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0079.yaml
+######################################################################
+Schedule_normal_0079:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0080.yaml
+######################################################################
+Schedule_normal_0080:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0081.yaml
+######################################################################
+Schedule_normal_0081:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0082.yaml
+######################################################################
+Schedule_normal_0082:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0083.yaml
+######################################################################
+Schedule_normal_0083:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0084.yaml
+######################################################################
+Schedule_normal_0084:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0085.yaml
+######################################################################
+Schedule_normal_0085:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0086.yaml
+######################################################################
+Schedule_normal_0086:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0087.yaml
+######################################################################
+Schedule_normal_0087:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0088.yaml
+######################################################################
+Schedule_normal_0088:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0089.yaml
+######################################################################
+Schedule_normal_0089:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0090.yaml
+######################################################################
+Schedule_normal_0090:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0091.yaml
+######################################################################
+Schedule_normal_0091:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0092.yaml
+######################################################################
+Schedule_normal_0092:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0093.yaml
+######################################################################
+Schedule_normal_0093:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0094.yaml
+######################################################################
+Schedule_normal_0094:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0095.yaml
+######################################################################
+Schedule_normal_0095:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0096.yaml
+######################################################################
+Schedule_normal_0096:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0097.yaml
+######################################################################
+Schedule_normal_0097:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0098.yaml
+######################################################################
+Schedule_normal_0098:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0099.yaml
+######################################################################
+Schedule_normal_0099:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0100.yaml
+######################################################################
+Schedule_normal_0100:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0101.yaml
+######################################################################
+Schedule_normal_0101:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0102.yaml
+######################################################################
+Schedule_normal_0102:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0103.yaml
+######################################################################
+Schedule_normal_0103:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0104.yaml
+######################################################################
+Schedule_normal_0104:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0105.yaml
+######################################################################
+Schedule_normal_0105:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0106.yaml
+######################################################################
+Schedule_normal_0106:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0107.yaml
+######################################################################
+Schedule_normal_0107:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0108.yaml
+######################################################################
+Schedule_normal_0108:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0109.yaml
+######################################################################
+Schedule_normal_0109:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0110.yaml
+######################################################################
+Schedule_normal_0110:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0111.yaml
+######################################################################
+Schedule_normal_0111:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0112.yaml
+######################################################################
+Schedule_normal_0112:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+######################################################################
+# Schedule_normal_0113.yaml
+######################################################################
+Schedule_normal_0113:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0114.yaml
+######################################################################
+Schedule_normal_0114:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0115.yaml
+######################################################################
+Schedule_normal_0115:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0116.yaml
+######################################################################
+Schedule_normal_0116:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0117.yaml
+######################################################################
+Schedule_normal_0117:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0118.yaml
+######################################################################
+Schedule_normal_0118:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0119.yaml
+######################################################################
+Schedule_normal_0119:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0120.yaml
+######################################################################
+Schedule_normal_0120:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0121.yaml
+######################################################################
+Schedule_normal_0121:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0122.yaml
+######################################################################
+Schedule_normal_0122:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0123.yaml
+######################################################################
+Schedule_normal_0123:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0124.yaml
+######################################################################
+Schedule_normal_0124:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0125.yaml
+######################################################################
+Schedule_normal_0125:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0126.yaml
+######################################################################
+Schedule_normal_0126:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0127.yaml
+######################################################################
+Schedule_normal_0127:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0128.yaml
+######################################################################
+Schedule_normal_0128:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0129.yaml
+######################################################################
+Schedule_normal_0129:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0130.yaml
+######################################################################
+Schedule_normal_0130:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0131.yaml
+######################################################################
+Schedule_normal_0131:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0132.yaml
+######################################################################
+Schedule_normal_0132:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+######################################################################
+# Schedule_normal_0133.yaml
+######################################################################
+Schedule_normal_0133:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0134.yaml
+######################################################################
+Schedule_normal_0134:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0135.yaml
+######################################################################
+Schedule_normal_0135:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0136.yaml
+######################################################################
+Schedule_normal_0136:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0137.yaml
+######################################################################
+Schedule_normal_0137:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0138.yaml
+######################################################################
+Schedule_normal_0138:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0139.yaml
+######################################################################
+Schedule_normal_0139:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0140.yaml
+######################################################################
+Schedule_normal_0140:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0141.yaml
+######################################################################
+Schedule_normal_0141:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################
+# Schedule_normal_0142.yaml
+######################################################################
+Schedule_normal_0142:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      curevt: 0
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: WAITING
+######################################################################

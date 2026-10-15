@@ -1,0 +1,449 @@
+######################################################################
+# CheckCounterOwnership_nml_hardc_0001.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0002.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0003.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0004.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0005.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0006.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0007.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0008.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0009.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0010.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0011.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_nml_hardc_0012.yaml
+######################################################################
+CheckCounterOwnership_nml_hardc_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: TRUSTED_OSAP1
+
+  post_condition:
+######################################################################

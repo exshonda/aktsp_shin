@@ -1,0 +1,2945 @@
+######################################################################
+# IncrementCounter_nml_nost_actt1_0001.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0002.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0003.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0004.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0005.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0006.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0007.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0008.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0009.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0010.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0011.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0012.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0013.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0014.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0015.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0016.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_nost_actt1_0017.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0018.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0019.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0020.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0021.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0022.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0023.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0024.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0025.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0026.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0027.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0028.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0029.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0030.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0031.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0032.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0033.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0034.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0035.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0036.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0037.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0038.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0039.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0040.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: 1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 2
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0041.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0042.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0043.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0044.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0045.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0046.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0047.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################
+# IncrementCounter_nml_nost_actt1_0048.yaml
+######################################################################
+IncrementCounter_nml_nost_actt1_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      spolicy: AK_SCHNON
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1+1
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+######################################################################

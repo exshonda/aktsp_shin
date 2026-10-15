@@ -1,0 +1,824 @@
+OS001: The Operating System module shall provide an API that is backward 
+.
+OS002: The Operating System module shall process each expiry point on a 
+.
+OS006: 
+.
+OS007: The Operating System module shall permit multiple schedule tables to be 
+.
+OS009: If the schedule table is single-shot, the Operating System module shall stop 
+.
+OS013: The Operating System module shall provide the ability to synchronize the 
+.
+OS016: 
+.
+OS017: 
+.
+OS026: The Operating System module may prevent read access to an OSApplication¡Çs 
+.
+OS027: The Operating System module may provide an OS-Application the ability to 
+.
+OS028: In a non-trusted OS-Application, the Operating System module shall apply 
+.
+OS033: If a Task/Category 2 ISR holds an OSEK Resource and exceeds the 
+.
+OS037: If a Task/Category 2 ISR disables interrupts (via 
+.
+OS044: If a memory access violation is detected, the Operating System module shall 
+.
+OS045: If timing protection is configured together with OSEK OS Category 1 
+.
+OS048: If Category 2 interrupt occurs before the end of the OsIsrTimeFrame then the 
+.
+OS050: If service protection is required and OsStatus is not equal to EXTENDED (all 
+.
+OS051: If an invalid address (address is not writable by this OS-Application) is 
+.
+OS052: If a task returns from its entry function without making a TerminateTask() 
+.
+OS054: The Operating System module shall ignore calls to ShutdownOS() from non-
+.
+OS056: If an OS-object identifier is the parameter of an Operating System module¡Çs 
+.
+OS058: If supported by hardware, the Operating System module shall execute non-
+.
+OS060: If an application-specific startup hook is configured for an OS-Application 
+.
+OS064: If a task¡Çs OsTaskExecutionBudget is reached then the Operating System 
+.
+OS067: The Operating System module shall provide a stack monitoring which 
+.
+OS068: If a stack fault is detected by stack monitoring AND no ProtectionHook() is 
+.
+OS069: If a task returns from its entry function without making a TerminateTask() 
+.
+OS070: If a task returns from the entry function without making a TerminateTask() 
+.
+OS071: If the PostTaskHook() is configured, the Operating System module shall not 
+.
+OS081: The Operating System module shall provide the ability to provide shared 
+.
+OS083: The Operating System module shall allow non-trusted OS-Applications to 
+.
+OS085: The Operating System module shall execute an application-specific error 
+.
+OS086: The Operating System module shall permit an OS-Application read and write 
+.
+OS087: The Operating System module shall permit a Task/Category 2 ISR read and 
+.
+OS088: If an OS-Application makes a service call from the wrong context AND is 
+.
+OS089: In a trusted OS-Application, the Operating System module shall provide the 
+.
+OS092: If EnableAllInterrupts() / ResumeAllInterrupts() / 
+.
+OS093: If interrupts are disabled/suspended by a Task/ISR and the Task/ISR calls 
+.
+OS096: As far as supported by hardware, the Operating System module shall not 
+.
+OS097: 
+.
+OS100: If CallTrustedFunction() is called and the called trusted function is not 
+.
+OS106: If the ProtectionHook() returns PRO_IGNORE and was called with 
+.
+OS107: If no ProtectionHook() is configured and a protection error occurs, the 
+.
+OS108: If the Operating System module forcibly terminates a task, it terminates the 
+.
+OS109: If the Operating System module forcibly terminates an interrupt service 
+.
+OS110: If the Operating System module shall forcibly terminates an OS-Application, 
+.
+OS111: When the Operating System module restarts an OS-Application, it shall 
+.
+OS112: If an application-specific shutdown hook is configured for an OS-Application 
+.
+OS172: The generator shall provide the user the ability of reading the information of 
+.
+OS173: The generator shall provide the user the ability of performing a consistency 
+.
+OS177: If OsScalabilityClass is SC3 or SC4 AND an interrupt source that is used 
+.
+OS179: If the consistency check of the read-in configuration file has not run free of 
+.
+OS191: 
+.
+OS194: After processing the Final Expiry Point, and if the schedule table is repeating, 
+.
+OS195: The Operating System module may prevent write access to the private data 
+.
+OS196: The Operating System module shall permit a Task/Category 2 ISR read and 
+.
+OS198: The Operating System module shall prevent write access to its own data 
+.
+OS199: 
+.
+OS201: 
+.
+OS206: When a new synchronization count is provided, the Operating System 
+.
+OS207: The Operating System module shall prevent write access to the OSApplication¡Çs 
+.
+OS208: The Operating System module may prevent write access to the private stack 
+.
+OS209: The Operating System module shall permit trusted OS-Applications read and 
+.
+OS210: If a Category 2 ISR¡Çs OsIsrExecutionBudget is reached then the Operating 
+.
+OS211: The Operating System module shall execute the ProtectionHook() with 
+.
+OS225: The Operating System module shall execute an application-specific 
+.
+OS226: The Operating System module shall execute an application-specific startup 
+.
+OS227: 
+.
+OS236: If both a system-specific and one (or more) application specific startup 
+.
+OS237: If both a system-specific and one (or more) application specific shutdown 
+.
+OS239: If a task returns from the entry function without making a TerminateTask() 
+.
+OS240: If an implementation of a lower scalability class supports features of higher 
+.
+OS241: The Operating System module shall support the features according to the 
+.
+OS242: The Operating System module shall only allow Alarm Callbacks in Scalability 
+.
+OS243: If the ProtectionHook() returns PRO_TERMINATETASKISR and no Task or 
+.
+OS244: If the ProtectionHook() returns PRO_TERMINATEAPPL or 
+.
+OS245: If an instruction exception occurs (e.
+OS246: When an error occurs AND an application-specific error hook is configured 
+.
+OS256: 
+.
+OS258: 
+.
+OS261: GetApplicationID() shall return the application identifier to which the 
+.
+OS262: If no OS-Application is running, GetApplicationID() shall return 
+.
+OS263: If called from category 2 ISR (or Hook routines called inside a category 2 
+.
+OS264: If its caller is not a category 2 ISR (or Hook routines called inside a category 
+.
+OS265: If <FunctionIndex> is a defined function index, CallTrustedFunction() 
+.
+OS266: When CallTrustedFunction() calls the function <FunctionIndex>, that 
+.
+OS267: If the ISR reference <ISRID> in a call of CheckISRMemoryAccess() is valid, 
+.
+OS268: If the ISR reference <ISRID> is not valid, CheckISRMemoryAccess() shall 
+.
+OS269: If the Task reference <TaskID> in a call of CheckTaskMemoryAccess() is 
+.
+OS270: If the Task reference <TaskID> in a call of CheckTaskMemoryAccess() is 
+.
+OS271: If the OS-Application <ApplID> in a call of CheckObjectAccess() has 
+.
+OS272: If the OS-Application <ApplID> in a call of CheckObjectAccess() has no 
+.
+OS273: If the object ObjectType specified in a call of CheckObjectOwnership() 
+.
+OS274: If in a call of CheckObjectOwnership() the specified object ObjectType is 
+.
+OS275: If the schedule table <ScheduleTableID> in a call of 
+.
+OS276: If the offset <Offset>) is greater than OsCounterMaxAllowedValue of the 
+.
+OS277: If the schedule table <ScheduleTableID> in a call of 
+.
+OS278: If the input parameters of StartScheduleTableRel() are valid and the 
+.
+OS279: If the schedule table identifier <ScheduleTableID> in a call of 
+.
+OS280: If the schedule table with identifier <ScheduleTableID> is in state 
+.
+OS281: If the input parameters of StopScheduleTable() are valid, 
+.
+OS282: If the input parameter <ScheduleTableID_From> or <ScheduleTableID_To> 
+.
+OS283: If the schedule table <ScheduleTableID_From> in a call of 
+.
+OS284: If the input parameters of NextScheduleTable() are valid then 
+.
+OS285: If the input parameter <CounterID> in a call of IncrementCounter() is not 
+.
+OS286: If the input parameter of IncrementCounter() is valid, 
+.
+OS287: If the parameters in a call of TerminateApplication() are valid and the 
+.
+OS289: If the schedule table <ScheduleTableID> in a call of 
+.
+OS290: If the schedule table <ScheduleTableID> in a call of 
+.
+OS291: If the schedule table <ScheduleTableID> in a call of 
+.
+OS292: If the function index <FunctionIndex> in a call of CallTrustedFunction() is 
+.
+OS293: If the identifier <ScheduleTableID> in a call of 
+.
+OS299: The Operating System module shall provide the services 
+.
+OS300: If the current state of <ScheduleTableID> in a call of 
+.
+OS301: The Operating System module shall provide the ability to increment a 
+.
+OS303: If OsAlarmIncrementCounter is configured as action on alarm expiry AND 
+.
+OS304: If in a call to SetRelAlarm() the parameter ¡Èincrement¡É is set to zero, the 
+.
+OS308: If ProtectionHook() returns an invalid value, the Operating System 
+.
+OS309: If the schedule table <ScheduleTableID_To> in a call of 
+.
+OS311: If OsScalabilityClass is SC3 or SC4 AND a Task OR Category 2 ISR OR 
+.
+OS312: Caveats of CallTrustedFunction():
+.
+OS313: If an access right (e.
+OS314: If an access right (e.
+OS320: If configured attributes do not match the configured scalability class (e.
+OS321: If in a call of IncrementCounter() an error happens during the execution 
+.
+OS323: If SetScheduleTableAsync() is called for a running schedule table the 
+.
+OS324: If the input parameters of NextScheduleTable() are valid AND the 
+.
+OS327: The Operating System module shall always use extended status in 
+.
+OS328: If OsStatus is STANDARD and OsScalabilityClass is SC3 or SC4 the 
+.
+OS330: If in a call of NextScheduleTable() schedule table 
+.
+OS332: If <Offset> in a call of StartScheduleTableRel() is zero 
+.
+OS336: The generator shall generate a relocatable memory section containing the 
+.
+OS343: If OsScalabilityClass is SC3 or SC4 AND a task is referenced within a 
+.
+OS344: If OsScalabilityClass is SC3 or SC4 AND a task is referenced within an 
+.
+OS347: 
+.
+OS348: If the schedule table <ScheduleTableID> in a call of 
+.
+OS349: If the <Start> in a call of StartScheduleTableAbs() is greater than the 
+.
+OS350: If the schedule table <ScheduleTableID> in a call of 
+.
+OS351: If the input parameters of StartScheduleTableAbs() are valid and 
+.
+OS353: If the schedule table <ScheduleTableID> in a call of 
+.
+OS354: If the schedule table <ScheduleTableID> in a call of 
+.
+OS355: The Operating System module shall prevent write access to all private stacks 
+.
+OS356: The Operating System module shall prevent write access to all private data 
+.
+OS358: 
+.
+OS361: If OsScalabilityClass is SC3 or SC4 AND a Category 1 ISR does not 
+.
+OS362: If SetScheduleTableAsync() is called for a running schedule table, the 
+.
+OS364: If CallTrustedFunction() calls the trusted function from a Category 2 ISR 
+.
+OS365: If CallTrustedFunction() calls the trusted function from a task context, 
+.
+OS367: Operating System module¡Çs services which do not return a StatusType shall 
+.
+OS368: If a Category 2 ISR calls DisableAllInterupts() / 
+.
+OS369: If a Category 2 ISR calls GetResource() and ends (returns) without calling 
+.
+OS370: The generator shall print out information about timers used internally by the 
+.
+OS374: The Operating System module shall handle all the initialization and 
+.
+OS376: If the input parameter <CounterID> in a call of GetCounterValue() is not 
+.
+OS377: If the input parameter <CounterID> in a call of GetCounterValue() is valid, 
+.
+OS381: If the input parameter <CounterID> in a call of GetElapsedValue() is not 
+.
+OS382: If the input parameters in a call of GetElapsedValue() are valid, 
+.
+OS383: 
+.
+OS384: The Operating System module shall adjust the read out values of hardware 
+.
+OS387: If in a call of StartScheduleTableSynchron() the schedule table 
+.
+OS388: If the schedule table <ScheduleTableID> in a call of 
+.
+OS389: If <ScheduleTableID> in a call of StartScheduleTableSynchron() is 
+.
+OS391: If the <Value> in a call of GetElapsedValue() is larger than the max 
+.
+OS392: 
+.
+OS393: The generator shall create conversation macros to convert counter ticks 
+.
+OS396: If a stack fault is detected by stack monitoring AND a ProtectionHook() is 
+.
+OS397: If no OS-Application is configured, the Operating System module shall be 
+.
+OS399: 
+.
+OS401: A schedule table shall have at least one expiry point.
+OS402: An expiry point shall contain a (possibly empty) set of tasks to activate.
+OS403: An expiry point shall contain a (possibly empty) set of events to set.
+OS404: An expiry point shall contain an offset in ticks from the start of the schedule 
+.
+OS407: An expiry point shall activate at least one task OR set at least one event.
+OS408: The delay between adjacent expiry points shall be in the range 
+.
+OS409: A schedule table of the Operating System module shall be driven by exactly 
+.
+OS410: The Operating System module shall be able to process at least one schedule 
+.
+OS411: The Operating System module shall make use of ticks so that one tick on the 
+.
+OS412: The Operating System module shall process all task activations on an expiry 
+.
+OS413: The schedule table shall be configurable as either single-shot or repeating.
+OS414: When a schedule table switch is requested, the OS shall continue to process 
+.
+OS415: An expiry point shall permit the configuration of a 
+.
+OS416: An expiry point shall permit the configuration of a 
+.
+OS417: The Operating System module shall start to synchronise an explicitly 
+.
+OS418: The Operating System module shall set the state of an explicitly 
+.
+OS419: The Operating System module shall set the state of an explicitly 
+.
+OS420: IF the deviation is non-zero AND the next expiry point is adjustable AND the 
+.
+OS421: IF the deviation is non-zero AND the next expiry point is adjustable AND the 
+.
+OS422: 
+.
+OS423: If in a call of CheckObjectAccess() the object to be examined is not a 
+.
+OS424: The first call to StartOS() (for starting the Operating System) shall not 
+.
+OS425: If ShutdownOS() is called and ShutdownHook() returns then the Operating 
+.
+OS427: If the schedule table is single-shot, the Operating System module shall allow 
+.
+OS428: If schedule table processing has been cancelled before reaching the Final 
+.
+OS429: A schedule table of the Operating System module that is implicitly 
+.
+OS430: The Operating System module shall prevent a schedule table that is implicitly 
+.
+OS431: A schedule table that is explicitly synchronized shall have a duration 
+.
+OS435: If an explicitly synchronized schedule table was started synchronously, then 
+.
+OS436: The value of (Offset .
+OS437: The value of (OsScheduleTableMaxLengthen + 
+.
+OS438: A schedule table shall define a precision bound with a value in the range 0 
+.
+OS439: The Operating System module shall provide the OSEK error macros 
+.
+OS440: If a schedule table has OsScheduleTblSyncStrategy = IMPLICIT and the 
+.
+OS442: : Each expiry point on a given schedule table shall have a unique offset.
+OS443: The Initial Offset shall be zero OR in the range OsCounterMinCycle .
+OS444: For periodic schedule tables the value of Final Delay shall be in the range 
+.
+OS445: The Operating System module shall support OS-Applications which are a 
+.
+OS446: The Operating System module shall support the notion of trusted and non-
+.
+OS447: If the Operating System module terminates an OS-Application, then it shall: 
+.
+OS448: The Operating System module shall prevent access of OS-Applications, 
+.
+OS449: CheckTaskMemoryAccess and CheckIsrMemoryAccess check the memory 
+.
+OS450: CheckObjectAccess checks the access rights for Operating System objects.
+OS451: The Operating System module shall allow exporting services from trusted 
+.
+OS452: If the schedule table <ScheduleTableID> in a call of 
+.
+OS453: If the <ScheduleTableID_From> in a call of NextScheduleTable() is 
+.
+OS454: If the <ScheduleTableID> in a call of SyncScheduleTable() is not valid 
+.
+OS455: If the <Value> in a call of SyncScheduleTable() is greater than the 
+.
+OS456: If the state of the schedule table <ScheduleTableID> in a call of 
+.
+OS457: If the parameters in a call of SyncScheduleTable() are valid, 
+.
+OS458: If OsScheduleTblSyncStrategy of <ScheduleTableID> in a call of 
+.
+OS459: If the <RestartOption> in a call of TerminateApplication() is invalid, 
+.
+OS460: GetElapsedValue() shall return the current tick value of the counter in the 
+.
+OS461: If OsScalabilityClass is SC2, SC3 or SC4 AND Alarm Callbacks are 
+.
+OS462: A schedule table that is explicitly synchronized shall have a duration 
+.
+OS463: The synchronization counter shall have the same resolution as the 
+.
+OS464: Trusted OS-Applications may offer services (¡Ètrusted services¡É) to other 
+.
+OS465: The Operating System module shall limit the inter-arrival time of tasks to 
+.
+OS466: If an attempt is made to activate a task before the end of an 
+.
+OS467: If an attempt is made to release a task before the end of an 
+.
+OS469: The Operating System module shall start an OsTaskTimeFrame when a task 
+.
+OS470: The Operating System module shall limit the inter-arrival time of Category 2 
+.
+OS471: The Operating System module shall measure the start of an 
+.
+OS472: The Operating System module shall start an OsTaskTimeFrame when a task 
+.
+OS473: The Operating System module shall reset a task¡Çs OsTaskExecutionBudget 
+.
+OS474: The Operating System module shall rest an ISR¡Çs OsIsrExecutionBudget 
+.
+OS475: If the ProtectionHook() returns PRO_IGNORE and the ProtectionHook() 
+.
+OS476: The Operating System module shall allow to automatically start 
+.
+OS483: If the current state of the <ScheduleTableID> in a call of 
+.
+OS484: If OsScheduleTblSyncStrategy of <ScheduleTableID_To> in a call of 
+.
+OS493: If the input parameter <Application> in a call of TerminateApplication() 
+.
+OS494: If the input parameter <Application> in a call of TerminateApplication() 
+.
+OS495: If the <Application> in a call of GetApplicationState() is not valid 
+.
+OS496: If the parameters in a call of GetApplicationState() are valid, 
+.
+OS497: If the state of the OS-Application of the caller of AllowAccess() is not 
+.
+OS498: If the state of the OS-Application of the caller of AllowAccess() is 
+.
+OS499: 
+.
+OS500: The Operating System module shall set the state of all OS-Applications after 
+.
+OS501: 
+.
+OS502: If an OS-Application is terminated (e.
+OS503: If an OS-Application is terminated (e.
+OS504: The Operating System module shall deny access to Operating System 
+.
+OS505: If OsScheduleTblSyncStrategy of the schedule tables 
+.
+OS506: If the ProtectionHook() is called with E_OS_PROTECTION_ARRIVAL the 
+.
+OS507: If the state of <Application> in a call of TerminateApplication() is 
+.
+OS508: If the state of <Application> in a call of TerminateApplication() is 
+.
+OS509: If a service call is made on an Operating System object that is owned by 
+.
+OS510: The Operating System module shall perform the autostart of schedule tables 
+.
+OS511: 
+.
+OS512: 
+.
+OS513: 
+.
+OS514: Availability of GetApplicationID(): Available in Scalability Classes 3 and 
+.
+OS515: Availability of GetISRID(): Available in all Scalability Classes.
+OS516: Availability of CallTrustedFunction(): Available in Scalability Classes 3 
+.
+OS517: Availability of CheckISRMemoryAccess(): Available in Scalability Classes 3 
+.
+OS518: Availability of CheckTaskMemoryAccess(): Available in Scalability 
+.
+OS519: Availability of CheckObjectAccess(): Available in Scalability Classes 3 
+.
+OS520: Availability of CheckObjectOwnership():Available in Scalability Classes 
+.
+OS521: Availability of StartScheduleTableRel(): Available in all Scalability 
+.
+OS522: Availability of StartScheduleTableAbs(): Available in all Scalability 
+.
+OS523: Availability of StopScheduleTable(): Available in all Scalability Classes.
+OS524: Availability of NextScheduleTable(): Available in all Scalability Classes.
+OS525: Availability of StartScheduleTableSynchron(): Available in Scalability 
+.
+OS526: Availability of SyncScheduleTable(): Available in Scalability Classes 2 
+.
+OS527: Availability of SetScheduleTableAsync(): Available in Scalability 
+.
+OS528: Availability of GetScheduleTableStatus():Available in all Scalability 
+.
+OS529: Caveats of IncrementCounter(): If called from a task, rescheduling may 
+.
+OS530: Availability of IncrementCounter(): Available in all Scalability Classes.
+OS531: Caveats of GetCounterValue(): Note that for counters of OsCounterType 
+.
+OS532: Availability of GetCounterValue(): Available in all Scalability Classes.
+OS533: Caveats of GetElapsedValue():If the timer already passed the <Value> 
+.
+OS534: Availability of GetElapsedValue(): Available in all Scalability Classes.
+OS535: Caveats of TerminateApplication():
+.
+OS536: Availability of TerminateApplication(): Available in Scalability Classes 3 
+.
+OS537: Availability of GetApplicationState(): Available in Scalability Classes 3 
+.
+OS538: 
+.
+OS539: 
+.
+OS540: 
+.
+OS541: 
+.
+OS542: Availability of ProtectionHook(): Available in Scalability Classes 2, 3 and 
+.
+OS543: Availability of StartupHook_<App>(): Available in Scalability Classes 3 
+.
+OS544: Availability of ErrorHook_<App>(): Available in Scalability Classes 3 and 
+.
+OS545: Availability of ShutdownHook_<App>(): Available in Scalability Classes 3 
+.
+OS546: OS implementer shall provide a header file structure, so that users of the 
+.
+OS547: Availability of AllowAccess(): Available in Scalability Classes 3 and 4.
+OS548: If the state of <Application> in a call of TerminateApplication() is 
+.
+OS549:The declaration of variables in the header file shall be such, that it is possible 
+.
+OS550: All type definitions of variables which shall be debugged, shall be accessible 
+.
+OS551: Each variable that shall be accessible by AUTOSAR Debugging, shall be 
+.
+OS553: If the ProtectionHook() returns PRO_TERMINATETASKISR the Operating 
+.
+OS554: If the ProtectionHook() returns PRO_TERMINATEAPPL the Operating 
+.
+OS555: If the ProtectionHook() returns PRO_TERMINATEAPPL_RESTART the 
+.
+OS556: If the ProtectionHook() returns PRO_SHUTDOWN the Operating System 
+.
+OS557: If the ProtectionHook() returns PRO_TERMINATEAPPL_RESTART and no 
+.
+OS558: The configuration of the AUTOSAR OS allows only pre-compile (¡ÈVARIANTPRE-
+.
+OS559: The value of OsScheduleTableMaxLengthen shall be smaller than the 
+.
+OS560: 
+.
+OS561: 
+.
+OS562: If timing protection is configured together with Pre- or PostTaskHook the 
+.
+OS566: The Operating System API shall check in extended mode all pointer 
+.
+SWS Item OS002_Conf : 
+.
+SWS Item OS003_Conf : 
+.
+SWS Item OS004_Conf : 
+.
+SWS Item OS005_Conf : 
+.
+SWS Item OS006_Conf : 
+.
+SWS Item OS007_Conf : 
+.
+SWS Item OS008_Conf : 
+.
+SWS Item OS009_Conf : 
+.
+SWS Item OS010_Conf : 
+.
+SWS Item OS011_Conf : 
+.
+SWS Item OS012_Conf : 
+.
+SWS Item OS013_Conf : 
+.
+SWS Item OS014_Conf : 
+.
+SWS Item OS015_Conf : 
+.
+SWS Item OS016_Conf : 
+.
+SWS Item OS017_Conf : 
+.
+SWS Item OS018_Conf : 
+.
+SWS Item OS020_Conf : 
+.
+SWS Item OS021_Conf : 
+.
+SWS Item OS022_Conf : 
+.
+SWS Item OS026_Conf : 
+.
+SWS Item OS027_Conf : 
+.
+SWS Item OS028_Conf : 
+.
+SWS Item OS029_Conf : 
+.
+SWS Item OS030_Conf : 
+.
+SWS Item OS031_Conf : 
+.
+SWS Item OS033_Conf : 
+.
+SWS Item OS034_Conf : 
+.
+SWS Item OS035_Conf : 
+.
+SWS Item OS036_Conf : 
+.
+SWS Item OS037_Conf : 
+.
+SWS Item OS038_Conf : 
+.
+SWS Item OS039_Conf : 
+.
+SWS Item OS040_Conf : 
+.
+SWS Item OS041_Conf : 
+.
+SWS Item OS042_Conf : 
+.
+SWS Item OS043_Conf : 
+.
+SWS Item OS044_Conf : 
+.
+SWS Item OS046_Conf : 
+.
+SWS Item OS047_Conf : 
+.
+SWS Item OS048_Conf : 
+.
+SWS Item OS049_Conf : 
+.
+SWS Item OS050_Conf : 
+.
+SWS Item OS051_Conf : 
+.
+SWS Item OS052_Conf : 
+.
+SWS Item OS053_Conf : 
+.
+SWS Item OS054_Conf : 
+.
+SWS Item OS056_Conf : 
+.
+SWS Item OS057_Conf : 
+.
+SWS Item OS058_Conf : 
+.
+SWS Item OS059_Conf : 
+.
+SWS Item OS060_Conf : 
+.
+SWS Item OS061_Conf : 
+.
+SWS Item OS062_Conf : 
+.
+SWS Item OS063_Conf : 
+.
+SWS Item OS064_Conf : 
+.
+SWS Item OS065_Conf : 
+.
+SWS Item OS066_Conf : 
+.
+SWS Item OS067_Conf : 
+.
+SWS Item OS068_Conf : 
+.
+SWS Item OS069_Conf : 
+.
+SWS Item OS070_Conf : 
+.
+SWS Item OS073_Conf : 
+.
+SWS Item OS074_Conf : 
+.
+SWS Item OS075_Conf : 
+.
+SWS Item OS076_Conf : 
+.
+SWS Item OS077_Conf : 
+.
+SWS Item OS078_Conf : 
+.
+SWS Item OS079_Conf : 
+.
+SWS Item OS080_Conf : 
+.
+SWS Item OS081_Conf : 
+.
+SWS Item OS082_Conf : 
+.
+SWS Item OS083_Conf : 
+.
+SWS Item OS084_Conf : 
+.
+SWS Item OS085_Conf : 
+.
+SWS Item OS086_Conf : 
+.
+SWS Item OS087_Conf : 
+.
+SWS Item OS114_Conf : 
+.
+SWS Item OS115_Conf : 
+.
+SWS Item OS116_Conf : 
+.
+SWS Item OS120_Conf : 
+.
+SWS Item OS124_Conf : 
+.
+SWS Item OS125_Conf : 
+.
+SWS Item OS141_Conf : 
+.
+SWS Item OS143_Conf : 
+.
+SWS Item OS144_Conf : 
+.
+SWS Item OS145_Conf : 
+.
+SWS Item OS185_Conf : 
+.
+SWS Item OS213_Conf : 
+.
+SWS Item OS214_Conf : 
+.
+SWS Item OS221_Conf : 
+.
+SWS Item OS222_Conf : 
+.
+SWS Item OS223_Conf : 
+.
+SWS Item OS229_Conf : 
+.
+SWS Item OS230_Conf : 
+.
+SWS Item OS231_Conf : 
+.
+SWS Item OS234_Conf : 
+.
+SWS Item OS248_Conf : 
+.
+SWS Item OS252_Conf : 
+.
+SWS Item OS254_Conf : 
+.
+SWS Item OS255_Conf : 
+.
+SWS Item OS259_Conf : 
+.
+SWS Item OS302_Conf : 
+.
+SWS Item OS307_Conf : 
+.
+SWS Item OS325_Conf : 
+.
+SWS Item OS326_Conf : 
+.
+SWS Item OS335_Conf : 
+.
+SWS Item OS386_Conf : 
+.
+SWS Item OS387_Conf : 
+.
+SWS Item OS388_Conf : 
+.
+SWS Item OS389_Conf : 
+.
+SWS Item OS390_Conf : 
+.
+SWS Item OS391_Conf : 
+.
+SWS Item OS392_Conf : 
+.
+[OS552: The Operating System module shall avoid the integration of incompatible (c 
+.

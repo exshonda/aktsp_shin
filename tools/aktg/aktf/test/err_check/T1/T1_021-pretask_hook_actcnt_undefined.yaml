@@ -1,0 +1,20 @@
+T1_021_pretask_hook_actcnt_undefined:
+  property:
+    sc: 
+
+  pre_condition:
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      actcnt: undefined
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

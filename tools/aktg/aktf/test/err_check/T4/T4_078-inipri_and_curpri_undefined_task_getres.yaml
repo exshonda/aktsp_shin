@@ -1,0 +1,58 @@
+T4_078_inipri_and_curpri_undefined_task_getres:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      relres:
+        - RESOURCE1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do_0:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP

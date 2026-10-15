@@ -1,0 +1,542 @@
+<html xmlns:graph="graph" xmlns:file="file" xmlns:textutil="textutil">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <style type="text/css"> BODY,P,OL,TD{font-family: Arial, Helvetica, sans-serif;font-size:
+		11px;font-style: normal;color: #000000;} A:link {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: none;} A:active {font-family:
+		Arial, Helvetica, sans-serif;font-style: normal;color: #990000;text-decoration: none;}
+		A:visited {font-family: Arial, Helvetica, sans-serif;font-style: normal;color:
+		#999999;text-decoration: none;} A:hover {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: underline;} A.gray_link:link
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;}
+		A.gray_link:active {font-family: sans-serif;font-size: 11px;color: #666666;text-decoration:
+		none;} A.gray_link:visited {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_link:hover {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: underline;} A.red_link:link {font-family:
+		sans-serif;font-size: 11px;color: #990000;text-decoration: none;} A.red_link:active
+		{font-family: sans-serif;font-size: 11px;color: #990000;text-decoration: none;}
+		A.red_link:visited {font-family: sans-serif;font-size: 11px;color: #990000;text-decoration:
+		none;} A.red_link:hover {font-family: sans-serif;font-size: 11px;color:
+		#990000;text-decoration: underline;} A.green_link:link {font-family: sans-serif;font-size:
+		11px;color: #008040;text-decoration: none;} A.green_link:active {font-family:
+		sans-serif;font-size: 11px;color: #008040;text-decoration: none;} A.green_link:visited
+		{font-family: sans-serif;font-size: 11px;color: #008040;text-decoration: none;}
+		A.green_link:hover {font-family: sans-serif;font-size: 11px;color: #008040;text-decoration:	underline;} 
+		A.black_link:link {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:active {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:visited {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:hover {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: underline;}
+		A.blue_link:link {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:active {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:visited {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:hover {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: underline;}
+        A.dark_blue_link:link {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:active {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:visited {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:hover {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: underline;}		
+		A.gray_red_link:link {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_red_link:active {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: none;} A.gray_red_link:visited {font-family:
+		sans-serif;font-size: 11px;color: #666666;text-decoration: none;} A.gray_red_link:hover
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;} FONT.gray
+		{font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #999999;} FONT.gray2,
+		FONT.gray_red {font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #666666;}
+		FONT.time {font-size: 10px;font-family: Arial, Helvetica, sans-serif;color: #000000;}
+				
+		FONT.covered    {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #99ff99;}
+		FONT.notcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffcccc;}
+		FONT.halfcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffff66;}		
+		FONT.normal     {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffffff;}
+		
+		FONT.red {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;}
+		FONT.red2 {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;
+		text-decoration: underline;} FONT.green {font-size:11px;font-family: Arial, Helvetica,
+		sans-serif;color: #008040;} FONT.small {font-size: 1px;font-family: Arial, Helvetica,
+		sans-serif;color: #cccccc;} SELECT.cs_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} SELECT.ju_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} TD.cs_authors{font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;font-style: normal;color: #000000;border: 1px; bordercolor:
+		#d9c8ac;} UL, LI {font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-style:
+		normal;color: #000000; list-style-type: none; margin: 0; padding-left: 12px;}
+		#foldheader{cursor:pointer;cursor:hand ;} </style><title>
+         [<b>100%
+            </b>&#xA0;8/8&#xA0;]
+         &#xA0;&#xA0;/atk2-sc1/kernel/osctl.c
+      </title>
+   </head>
+   <body bgcolor="#ffffff">
+      <table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_header_expander.jpg" width="50%" align="left"><img src="rep_header_3.jpg" alt="rep_header_3.jpg"></td>
+            <td background="rep_header_expander.jpg" width="50%" align="right"><img src="rep_header_logo.jpg" alt="rep_header_logo.jpg"></td>
+         </tr>
+      </table>
+      <table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td width="16%" align="center"><font class="time">01/23/14 19:48:00</font></td>
+            <td align="center" bgcolor="#d9c8ac"><b>/atk2-sc1/kernel/osctl.c</b></td>
+         </tr>
+      </table><br>&#xA0;&#21508;&#34892;&#12398;&#12471;&#12531;&#12508;&#12523;&#12398;&#24847;&#21619;&#12399;&#27425;&#12398;&#36890;&#12426;&#12391;&#12377;:
+      <table border="0" width="60%" cellpadding="0" cellspacing="3">
+         <tr>
+            <td align="center" bgcolor="#99ff99" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12383;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffcccc" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffff66" width="10">code</td>
+            <td>&#37096;&#20998;&#30340;&#12395;&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffffff" width="10">code&#xA0;</td>
+            <td>&#12459;&#12496;&#12540;&#12391;&#12365;&#12427;&#35201;&#32032;&#12434;&#25345;&#12383;&#12394;&#12356;&#34892;</td>
+         </tr>
+      </table><br><table width="80%" border="0" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td>
+               <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                  <tr>
+                     <td align="center" bgcolor="#d9c8ac" colspan="4">100% 
+                        [&#xA0;8/8&#xA0;
+                        ]
+                        &#xA0;&#xA0;<b>/atk2-sc1/kernel/osctl.c</b></td>
+                  </tr>
+                  <tr>
+                     <td>&#xA0;</td>
+                     <td valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                           <tr>
+                              <td valign="top"><pre><code><font class="normal">/*
+ *  TOPPERS ATK2
+ *      Toyohashi Open Platform for Embedded Real-Time Systems
+ *      Automotive Kernel Version 2
+ *
+ *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
+ *                              Toyohashi Univ. of Technology, JAPAN
+ *  Copyright (C) 2004-2013 by Center for Embedded Computing Systems
+ *              Graduate School of Information Science, Nagoya Univ., JAPAN
+ *  Copyright (C) 2011-2013 by FUJI SOFT INCORPORATED, JAPAN
+ *  Copyright (C) 2011-2013 by FUJITSU VLSI LIMITED, JAPAN
+ *  Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Renesas Electronics Corporation, JAPAN
+ *  Copyright (C) 2011-2013 by Sunny Giken Inc., JAPAN
+ *  Copyright (C) 2011-2013 by TOSHIBA CORPORATION, JAPAN
+ *  Copyright (C) 2004-2013 by Witz Corporation, JAPAN
+ *
+ *  &#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12399;&#65292;&#20197;&#19979;&#12398;(1)&#12316;(4)&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#22580;&#21512;&#12395;&#38480;&#12426;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#65288;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12434;&#21547;&#12416;&#65294;&#20197;&#19979;&#21516;&#12376;&#65289;&#12434;&#20351;&#29992;&#12539;&#35079;&#35069;&#12539;&#25913;
+ *  &#22793;&#12539;&#20877;&#37197;&#24067;&#65288;&#20197;&#19979;&#65292;&#21033;&#29992;&#12392;&#21628;&#12406;&#65289;&#12377;&#12427;&#12371;&#12392;&#12434;&#28961;&#20767;&#12391;&#35377;&#35582;&#12377;&#12427;&#65294;
+ *  (1) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#12477;&#12540;&#12473;&#12467;&#12540;&#12489;&#12398;&#24418;&#12391;&#21033;&#29992;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;
+ *      &#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12364;&#65292;&#12381;&#12398;&#12414;&#12414;&#12398;&#24418;&#12391;&#12477;&#12540;
+ *      &#12473;&#12467;&#12540;&#12489;&#20013;&#12395;&#21547;&#12414;&#12428;&#12390;&#12356;&#12427;&#12371;&#12392;&#65294;
+ *  (2) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#12521;&#12452;&#12502;&#12521;&#12522;&#24418;&#24335;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12427;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;
+ *      &#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;
+ *      &#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (3) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#27231;&#22120;&#12395;&#32068;&#12415;&#36796;&#12416;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12394;&#12356;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#27425;&#12398;&#12356;&#12378;&#12428;&#12363;&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;
+ *      &#12392;&#65294;
+ *    (a) &#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;&#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;
+ *        &#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *    (b) &#20877;&#37197;&#24067;&#12398;&#24418;&#24907;&#12434;&#65292;&#21029;&#12395;&#23450;&#12417;&#12427;&#26041;&#27861;&#12395;&#12424;&#12387;&#12390;&#65292;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12395;
+ *        &#22577;&#21578;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (4) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12427;&#12356;&#12363;&#12394;&#12427;&#25613;
+ *      &#23475;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;&#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *      &#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#12518;&#12540;&#12470;&#12414;&#12383;&#12399;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12363;&#12425;&#12398;&#12356;&#12363;&#12394;&#12427;&#29702;
+ *      &#30001;&#12395;&#22522;&#12389;&#12367;&#35531;&#27714;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;
+ *      &#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *
+ *  &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12399;&#65292;&#28961;&#20445;&#35388;&#12391;&#25552;&#20379;&#12373;&#12428;&#12390;&#12356;&#12427;&#12418;&#12398;&#12391;&#12354;&#12427;&#65294;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;
+ *  &#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12399;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12395;&#38306;&#12375;&#12390;&#65292;&#29305;&#23450;&#12398;&#20351;&#29992;&#30446;&#30340;
+ *  &#12395;&#23550;&#12377;&#12427;&#36969;&#21512;&#24615;&#12418;&#21547;&#12417;&#12390;&#65292;&#12356;&#12363;&#12394;&#12427;&#20445;&#35388;&#12418;&#34892;&#12431;&#12394;&#12356;&#65294;&#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12383;&#12356;&#12363;&#12394;&#12427;&#25613;&#23475;&#12395;&#38306;&#12375;&#12390;&#12418;&#65292;&#12381;
+ *  &#12398;&#36012;&#20219;&#12434;&#36000;&#12431;&#12394;&#12356;&#65294;
+ *
+ *  $Id: osctl.c 6835 2013-01-23 10:11:15Z fsi-dankei $
+ */
+
+/*
+ *		OS&#21046;&#24481;&#12514;&#12472;&#12517;&#12540;&#12523;
+ */
+
+#include "kernel_impl.h"
+#include "interrupt.h"
+#include "task.h"
+
+/*
+ *  &#12488;&#12524;&#12540;&#12473;&#12525;&#12464;&#12510;&#12463;&#12525;&#12398;&#12487;&#12501;&#12457;&#12523;&#12488;&#23450;&#32681;
+ */
+
+#ifndef LOG_ERRHOOK_ENTER
+#define LOG_ERRHOOK_ENTER(ercd)
+#endif /* LOG_ERRHOOK_ENTER */
+
+#ifndef LOG_ERRHOOK_LEAVE
+#define LOG_ERRHOOK_LEAVE()
+#endif /* LOG_ERRHOOK_LEAVE */
+
+#ifndef LOG_PROHOOK_ENTER
+#define LOG_PROHOOK_ENTER(ercd)
+#endif /* LOG_PROHOOK_ENTER */
+
+#ifndef LOG_PROHOOK_LEAVE
+#define LOG_PROHOOK_LEAVE(pret)
+#endif /* LOG_PROHOOK_LEAVE */
+
+#ifndef LOG_SHUTHOOK_ENTER
+#define LOG_SHUTHOOK_ENTER(ercd)
+#endif /* LOG_SHUTHOOK_ENTER */
+
+#ifndef LOG_SHUTHOOK_LEAVE
+#define LOG_SHUTHOOK_LEAVE()
+#endif /* LOG_SHUTHOOK_LEAVE */
+
+#ifndef LOG_STUTOS_ENTER
+#define LOG_STUTOS_ENTER(ercd)
+#endif /* LOG_STUTOS_ENTER */
+
+#ifndef LOG_STUTOS_LEAVE
+#define LOG_STUTOS_LEAVE()
+#endif /* LOG_STUTOS_LEAVE */
+
+#ifdef CFG_USE_ERRORHOOK
+/*
+ *  &#12456;&#12521;&#12540;&#12501;&#12483;&#12463;&#12395;&#28193;&#12377;&#24773;&#22577;&#12434;&#26684;&#32013;&#12377;&#12427;&#22793;&#25968;
+ */
+#ifdef TOPPERS_internal_call_errorhook
+
+#ifdef CFG_USE_GETSERVICEID
+OSServiceIdType	_errorhook_svcid;
+#endif /* CFG_USE_GETSERVICEID */
+
+#ifdef CFG_USE_PARAMETERACCESS
+_ErrorHook_Par	_errorhook_par1;
+_ErrorHook_Par	_errorhook_par2;
+_ErrorHook_Par	_errorhook_par3;
+_ErrorHook_Par	errorhook_par1;
+_ErrorHook_Par	errorhook_par2;
+_ErrorHook_Par	errorhook_par3;
+#endif /* CFG_USE_PARAMETERACCESS */
+
+/*
+ *  &#12456;&#12521;&#12540;&#12501;&#12483;&#12463;&#12398;&#21628;&#12403;&#20986;&#12375;
+ */
+void
+internal_call_errorhook(StatusType ercd, OSServiceIdType svcid)
+{
+	void (*volatile errorhook_adr) (StatusType Error);
+	uint8	saved_sus_all_cnt_ctx;
+	uint8	saved_sus_os_cnt_ctx;
+
+	/*
+	 *  C&#35328;&#35486;&#12398;&#35215;&#26684;&#12391;&#12399;&#38306;&#25968;&#12398;&#12450;&#12489;&#12524;&#12473;&#12399;0&#12395;&#12394;&#12425;&#12394;&#12356;&#12392;&#12356;&#12358;&#21069;&#25552;&#12363;&#12425;,
+	 *  &#12467;&#12531;&#12497;&#12452;&#12521;&#12398;&#26368;&#36969;&#21270;&#12395;&#12424;&#12426;ErrorHook&#12398;&#12450;&#12489;&#12524;&#12473;&#21028;&#23450;&#20998;&#23696;&#12364;
+	 *  &#21066;&#38500;&#12373;&#12428;&#12390;&#12375;&#12414;&#12358;&#22580;&#21512;&#12364;&#12354;&#12427;&#12383;&#12417;, volatile&#25351;&#23450;&#12375;&#12383;&#12525;&#12540;&#12459;&#12523;&#22793;&#25968;&#12395;
+	 *  &#12450;&#12489;&#12524;&#12473;&#12434;&#20195;&#20837;&#12375;&#12390;&#12363;&#12425;&#21028;&#23450;&#12375;&#12390;&#12356;&#12427;
+	 */
+	errorhook_adr = &amp;ErrorHook;
+
+	if (</font><font class="covered">errorhook_adr != NULL) {
+</font><font class="normal">		if (</font><font class="covered">(callevel_stat &amp; (TCL_ERROR | TSYS_ISR1)) == TCL_NULL)</font><font class="normal"> {
+
+#ifdef CFG_USE_GETSERVICEID
+			_errorhook_svcid = svcid;
+#endif /* CFG_USE_GETSERVICEID */
+
+#ifdef CFG_USE_PARAMETERACCESS
+			errorhook_par1 = _errorhook_par1;
+			errorhook_par2 = _errorhook_par2;
+			errorhook_par3 = _errorhook_par3;
+#endif /* CFG_USE_PARAMETERACCESS */
+
+			saved_sus_all_cnt_ctx = sus_all_cnt_ctx;
+			saved_sus_os_cnt_ctx = sus_os_cnt_ctx;
+
+			sus_all_cnt_ctx = 0U;
+			sus_os_cnt_ctx = 0U;
+
+			ENTER_CALLEVEL(TCL_ERROR);
+			LOG_ERRHOOK_ENTER(ercd);
+			ErrorHook(ercd);
+			LOG_ERRHOOK_LEAVE();
+			LEAVE_CALLEVEL(TCL_ERROR);
+
+			release_interrupts(OSServiceId_HookMissingEnd);
+
+			sus_all_cnt_ctx = saved_sus_all_cnt_ctx;
+			sus_os_cnt_ctx = saved_sus_os_cnt_ctx;
+		}
+	}
+}
+
+#endif /* TOPPERS_internal_call_errorhook */
+
+#endif /* CFG_USE_ERRORHOOK */
+
+#ifdef CFG_USE_POSTTASKHOOK
+/*
+ *  &#12509;&#12473;&#12488;&#12479;&#12473;&#12463;&#12501;&#12483;&#12463;&#12398;&#21628;&#12403;&#20986;&#12375;
+ */
+#ifdef TOPPERS_call_posttaskhook
+
+void
+call_posttaskhook(void)
+{
+	ENTER_CALLEVEL(TCL_PREPOST);
+	PostTaskHook();
+	LEAVE_CALLEVEL(TCL_PREPOST);
+
+	release_interrupts(OSServiceId_HookMissingEnd);
+}
+
+#endif /* TOPPERS_call_posttaskhook */
+
+#endif /* CFG_USE_POSTTASKHOOK */
+
+#ifdef CFG_USE_PRETASKHOOK
+/*
+ *  &#12503;&#12524;&#12479;&#12473;&#12463;&#12501;&#12483;&#12463;&#12398;&#21628;&#12403;&#20986;&#12375;
+ */
+#ifdef TOPPERS_call_pretaskhook
+
+void
+call_pretaskhook(void)
+{
+	ENTER_CALLEVEL(TCL_PREPOST);
+	PreTaskHook();
+	LEAVE_CALLEVEL(TCL_PREPOST);
+
+	release_interrupts(OSServiceId_HookMissingEnd);
+}
+
+#endif /* TOPPERS_call_pretaskhook */
+
+#endif /* CFG_USE_PRETASKHOOK */
+
+#ifdef CFG_USE_STACKMONITORING
+
+#ifdef TOPPERS_init_stack_magic_region
+
+/*
+ *  &#12473;&#12479;&#12483;&#12463;&#12514;&#12491;&#12479;&#12522;&#12531;&#12464;&#27231;&#33021;&#12398;&#21021;&#26399;&#21270;
+ *  &#12473;&#12479;&#12483;&#12463;&#12514;&#12491;&#12479;&#12522;&#12531;&#12464;&#27231;&#33021;&#12398;&#12383;&#12417;&#12398;&#12510;&#12472;&#12483;&#12463;&#12490;&#12531;&#12496;&#12540;&#38936;&#22495;&#12398;&#21021;&#26399;&#21270;
+ */
+void
+init_stack_magic_region(void)
+{
+	TaskType	i;
+	StackType	*p_stack_magic_region;
+
+	/*
+	 *  &#12473;&#12479;&#12483;&#12463;&#12514;&#12491;&#12479;&#12522;&#12531;&#12464;&#27231;&#33021;&#12398;&#12383;&#12417;&#65292;&#12473;&#12479;&#12483;&#12463;&#25104;&#38263;&#26041;&#21521;&#32771;&#24942;&#12375;&#12383;
+	 *  &#38750;&#12479;&#12473;&#12463;&#12473;&#12479;&#12483;&#12463;&#12398;&#12510;&#12472;&#12483;&#12463;&#12490;&#12531;&#12496;&#12540;&#38936;&#22495;&#12398;&#21021;&#26399;&#21270;
+	 */
+	p_stack_magic_region = TOPPERS_ISTK_MAGIC_REGION(_ostk, _ostksz);
+	*p_stack_magic_region = STACK_MAGIC_NUMBER;
+
+	/*
+	 *  &#12473;&#12479;&#12483;&#12463;&#12514;&#12491;&#12479;&#12522;&#12531;&#12464;&#27231;&#33021;&#12398;&#12383;&#12417;&#65292;&#12473;&#12479;&#12483;&#12463;&#25104;&#38263;&#26041;&#21521;&#32771;&#24942;&#12375;&#12383;
+	 *  &#21508;&#12479;&#12473;&#12463;&#12473;&#12479;&#12483;&#12463;&#12398;&#12510;&#12472;&#12483;&#12463;&#12490;&#12531;&#12496;&#12540;&#38936;&#22495;&#12398;&#21021;&#26399;&#21270;
+	 *  &#12473;&#12479;&#12483;&#12463;&#20849;&#26377;&#12375;&#12383;&#12479;&#12473;&#12463;&#12398;&#12510;&#12472;&#12483;&#12463;&#12490;&#12531;&#12496;&#12540;&#38936;&#22495;&#12364;&#21512;&#12431;&#12379;&#12387;&#12390;&#12356;&#12427;
+	 */
+	for (i = 0U; </font><font class="covered">i &lt; tnum_task</font><font class="normal">; i++) {
+		p_stack_magic_region =
+			TOPPERS_TSTK_MAGIC_REGION(&amp;tinib_table[i]);
+		*p_stack_magic_region = STACK_MAGIC_NUMBER;
+	}
+}
+
+#endif /* TOPPERS_init_stack_magic_region */
+
+#endif /* CFG_USE_STACKMONITORING */
+
+/*
+ *  &#12503;&#12525;&#12486;&#12463;&#12471;&#12519;&#12531;&#12501;&#12483;&#12463;&#12398;&#21628;&#12403;&#20986;&#12375;
+ */
+#ifdef TOPPERS_call_protectionhk_main
+
+void
+call_protectionhk_main(StatusType ercd)
+{
+
+#ifdef CFG_USE_PROTECTIONHOOK
+
+	ProtectionReturnType	pret;
+	ProtectionReturnType	(*volatile protectionhook_adr) (StatusType FatalError);
+	uint8					saved_sus_all_cnt_ctx;
+	uint8					saved_sus_os_cnt_ctx;
+
+	/* &#12503;&#12525;&#12486;&#12463;&#12471;&#12519;&#12531;&#12501;&#12483;&#12463;&#23455;&#34892;&#20013;&#12395;&#20445;&#35703;&#36949;&#21453;&#12364;&#30330;&#29983;&#12375;&#12383;&#22580;&#21512; */
+	if (</font><font class="covered">(callevel_stat &amp; TCL_PROTECT) == TCL_PRO</font><font class="normal">TECT) {
+		internal_shutdownos(E_OS_PROTECTION_FATAL);
+	}
+
+	/*
+	 *  C&#35328;&#35486;&#12398;&#35215;&#26684;&#12391;&#12399;&#38306;&#25968;&#12398;&#12450;&#12489;&#12524;&#12473;&#12399;0&#12395;&#12394;&#12425;&#12394;&#12356;&#12392;&#12356;&#12358;&#21069;&#25552;&#12363;&#12425;,
+	 *  &#12467;&#12531;&#12497;&#12452;&#12521;&#12398;&#26368;&#36969;&#21270;&#12395;&#12424;&#12426;ProtectionHook&#12398;&#12450;&#12489;&#12524;&#12473;&#21028;&#23450;&#20998;&#23696;&#12364;
+	 *  &#21066;&#38500;&#12373;&#12428;&#12390;&#12375;&#12414;&#12358;&#22580;&#21512;&#12364;&#12354;&#12427;&#12383;&#12417;, volatile&#25351;&#23450;&#12375;&#12383;&#12525;&#12540;&#12459;&#12523;&#22793;&#25968;&#12395;
+	 *  &#12450;&#12489;&#12524;&#12473;&#12434;&#20195;&#20837;&#12375;&#12390;&#12363;&#12425;&#21028;&#23450;&#12375;&#12390;&#12356;&#12427;
+	 */
+	protectionhook_adr = &amp;ProtectionHook;
+
+	/* &#20197;&#19979; &#12471;&#12473;&#12486;&#12512;&#23450;&#32681;&#12398;&#12503;&#12525;&#12486;&#12463;&#12471;&#12519;&#12531;&#12501;&#12483;&#12463;&#12434;&#21628;&#20986;&#12377;&#20966;&#29702; */
+	if (</font><font class="covered">protectionhook_adr != NULL) {
+</font><font class="normal">
+		saved_sus_all_cnt_ctx = sus_all_cnt_ctx;
+		saved_sus_os_cnt_ctx = sus_os_cnt_ctx;
+
+		sus_all_cnt_ctx = 0U;
+		sus_os_cnt_ctx = 0U;
+
+		ENTER_CALLEVEL(TCL_PROTECT);
+		LOG_PROHOOK_ENTER(ercd);
+		pret = protectionhook_adr(ercd);
+		LOG_PROHOOK_LEAVE(pret);
+
+		LEAVE_CALLEVEL(TCL_PROTECT);
+
+		release_interrupts(OSServiceId_HookMissingEnd);
+
+		sus_all_cnt_ctx = saved_sus_all_cnt_ctx;
+		sus_os_cnt_ctx = saved_sus_os_cnt_ctx;
+
+		/* &#20197;&#19979; ProtectionHook &#23455;&#34892;&#24460;&#12398;&#20966;&#29702; */
+		switch (pret) {
+		case PRO_SHUTDOWN:
+			internal_shutdownos(ercd);
+			break;
+		case PRO_IGNORE:
+			if (</font><font class="covered">ercd != E_OS_</font><font class="normal">PROTECTION_EXCEPTION) {
+				internal_shutdownos(E_OS_PROTECTION_FATAL);
+			}
+			break;
+		default:
+			/* ProtectionHook&#12363;&#12425;&#19981;&#27491;&#12394;&#20516;&#12364;&#36820;&#12387;&#12383;&#22580;&#21512; */
+			internal_shutdownos(E_OS_PROTECTION_FATAL);
+			break;
+		}
+	}
+	else {
+		internal_shutdownos(ercd);
+	}
+
+#else /* CFG_USE_PROTECTIONHOOK */
+
+	/*
+	 *  &#12503;&#12525;&#12486;&#12463;&#12471;&#12519;&#12531;&#12501;&#12483;&#12463;&#12364;&#12467;&#12531;&#12501;&#12451;&#12462;&#12517;&#12524;&#12540;&#12471;&#12519;&#12531;&#26178;&#12395;&#28961;&#21177;&#12392;
+	 *  &#12373;&#12428;&#12390;&#12356;&#12427;&#22580;&#21512;&#65292;OS&#12399;&#20445;&#35703;&#36949;&#21453;&#26178;&#20966;&#29702;&#12392;&#12375;&#12390;OS&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#12434;
+	 *  &#34892;&#12358;
+	 *  &#12371;&#12398;&#12392;&#12365;&#65292;OS&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#12398;&#12497;&#12521;&#12513;&#12540;&#12479;&#12392;&#12375;&#12390;&#65292;
+	 *  &#36949;&#21453;&#12398;&#21306;&#21029;&#12434;&#31034;&#12377;&#12456;&#12521;&#12540;&#12467;&#12540;&#12489;&#12434;&#25351;&#23450;&#12377;&#12427;
+	 */
+	internal_shutdownos(ercd);
+#endif /* CFG_USE_PROTECTIONHOOK */
+
+}
+
+#endif /* TOPPERS_call_protectionhk_main */
+
+/*
+ *  OS&#20869;&#37096;&#12363;&#12425;&#12398;ShutdownOS&#12398;&#21628;&#12403;&#20986;&#12375;
+ */
+#ifdef TOPPERS_internal_shutdownos
+
+void
+internal_shutdownos(StatusType ercd)
+{
+	LOG_STUTOS_ENTER(ercd);
+
+	x_nested_lock_os_int();
+
+#ifdef CFG_USE_SHUTDOWNHOOK
+	call_shutdownhook(ercd);
+#endif /* CFG_USE_SHUTDOWNHOOK */
+
+	/* &#21508;&#12514;&#12472;&#12517;&#12540;&#12523;&#12398;&#32066;&#20102;&#20966;&#29702; */
+	object_terminate();
+
+	/* &#20840;&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#12395;&#31227;&#34892; */
+	x_lock_all_int();
+
+	LOG_STUTOS_LEAVE();
+
+	/* &#12479;&#12540;&#12466;&#12483;&#12488;&#20381;&#23384;&#12398;&#32066;&#20102;&#20966;&#29702; */
+	target_exit();
+
+	/*
+	 * &#12479;&#12540;&#12466;&#12483;&#12488;&#20381;&#23384;&#37096;&#12363;&#12425;&#20966;&#29702;&#12364;&#36820;&#12387;&#12390;&#12365;&#12383;&#22580;&#21512;&#65292;
+	 * &#28961;&#38480;&#12523;&#12540;&#12503;&#12434;&#34892;&#12358;
+	 */
+	while (1) {
+	}
+
+}
+
+#endif /* TOPPERS_internal_shutdownos */
+
+#ifdef TOPPERS_internal_call_shtdwnhk
+
+#ifdef CFG_USE_SHUTDOWNHOOK
+
+void
+internal_call_shtdwnhk(StatusType ercd)
+{
+
+	void (*volatile shutdownhook_adr) (StatusType Error);
+
+	/*
+	 *  &#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#12501;&#12483;&#12463;&#20013;&#12398;&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#12391;&#12399;&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#12501;&#12483;&#12463;
+	 *  &#12399;&#21628;&#12403;&#20986;&#12373;&#12394;&#12356;
+	 */
+	if (</font><font class="covered">(callevel_stat &amp; TCL_SHUTDOWN) == TCL_NU</font><font class="normal">LL) {
+		/*
+		 *  ShutdownHook &#12398;&#21628;&#12403;&#20986;&#12375;
+		 *
+		 *  C&#35328;&#35486;&#12398;&#35215;&#26684;&#12391;&#12399;&#38306;&#25968;&#12398;&#12450;&#12489;&#12524;&#12473;&#12399;0&#12395;&#12394;&#12425;&#12394;&#12356;&#12392;&#12356;&#12358;&#21069;&#25552;&#12363;&#12425;,
+		 *  &#12467;&#12531;&#12497;&#12452;&#12521;&#12398;&#26368;&#36969;&#21270;&#12395;&#12424;&#12426;ShutdownHook&#12398;&#12450;&#12489;&#12524;&#12473;&#21028;&#23450;&#20998;&#23696;&#12364;
+		 *  &#21066;&#38500;&#12373;&#12428;&#12390;&#12375;&#12414;&#12358;&#22580;&#21512;&#12364;&#12354;&#12427;&#12383;&#12417;, volatile&#25351;&#23450;&#12375;&#12383;&#12525;&#12540;&#12459;&#12523;&#22793;&#25968;&#12395;
+		 *  &#12450;&#12489;&#12524;&#12473;&#12434;&#20195;&#20837;&#12375;&#12390;&#12363;&#12425;&#21028;&#23450;&#12375;&#12390;&#12356;&#12427;
+		 */
+		shutdownhook_adr = &amp;ShutdownHook;
+
+		if (</font><font class="covered">shutdownhook_adr != NULL) {
+</font><font class="normal">			sus_all_cnt_ctx = 0U;
+			sus_os_cnt_ctx = 0U;
+
+			ENTER_CALLEVEL(TCL_SHUTDOWN);
+			LOG_SHUTHOOK_ENTER(ercd);
+			ShutdownHook(ercd);
+			LOG_SHUTHOOK_LEAVE();
+			LEAVE_CALLEVEL(TCL_SHUTDOWN);
+
+			release_interrupts(OSServiceId_HookMissingEnd);
+		}
+	}
+}
+#endif /* CFG_USE_SHUTDOWNHOOK */
+
+#endif /* TOPPERS_internal_call_shtdwnhk */
+</font></code></pre></td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td>&#xA0;</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table><br><br><table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td align="center">&copy;Parasoft Corp. -C++test&reg;&#xA0;9.4.2.17&#xA0;&#12524;&#12509;&#12540;&#12488; &#12471;&#12473;&#12486;&#12512;&#xA0;</td>
+         </tr>
+      </table><br><table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_footer_expander.jpg" width="100%" align="left"><img src="rep_footer.jpg" alt="rep_footer.jpg"></td>
+         </tr>
+      </table>
+   </body>
+</html>

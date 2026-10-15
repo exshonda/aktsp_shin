@@ -1,0 +1,36 @@
+T4_015_not_internal_standard_resource_of_relres:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      actcnt: 1
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

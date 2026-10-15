@@ -1,0 +1,881 @@
+######################################################################
+# IocSendGroup_m_error_1to1_d_0001.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 1
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0002.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0003.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 1
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0004.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0005.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 1
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0006.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0007.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 1
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################
+# IocSendGroup_m_error_1to1_d_0008.yaml
+######################################################################
+IocSendGroup_m_error_1to1_d_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      osap: OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+######################################################################

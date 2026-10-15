@@ -1,0 +1,4036 @@
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0001.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0002.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0003.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0004.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    C2ISR2:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0005.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    C2ISR2:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0006.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    C2ISR2:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0007.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0008.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0009.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0010.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0011.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0012.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0013.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0014.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0015.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0016.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0017.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      successor: SPINLOCK2
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    SPINLOCK2:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0018.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0019.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    SPINLOCK2:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0020.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    SPINLOCK2:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0021.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    SPINLOCK2:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0022.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_2:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0023.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    SPINLOCK2:
+      lockflg: AK_LOCK
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0024.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    SPINLOCK2:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    SPINLOCK2:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0025.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      bootcnt: 2
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0026.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+
+  do_4:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_4:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_6:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      bootcnt: 2
+    C2ISR2:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_9:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0027.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0028.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0029.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0030.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0031.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0032.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0033.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      bootcnt: 2
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0034.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    C2ISR2:
+      getres:
+        - RESOURCE1
+
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_2:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+
+  do_4:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_4:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_6:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_7:
+    ERROR_HOOK1:
+      bootcnt: 2
+    C2ISR2:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_8:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_RESOURCE)
+
+  post_condition_8:
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_9:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0035.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0036.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0037.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0038.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0039.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# illegal_terminate_c2isr_m_NS2_0040.yaml
+######################################################################
+illegal_terminate_c2isr_m_NS2_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      bootcnt: 0
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR2
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+
+  do_2:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_3:
+    id: C2ISR2
+    syssrv: return
+
+  post_condition_3:
+    C2ISR2:
+      rtnstat: AK_STOP
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR2
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_SPINLOCK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ISRMissingEnd)
+
+  post_condition_5:
+    ERROR_HOOK1:
+      bootcnt: 1
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_DISABLEDINT)
+
+  post_condition_6:
+
+  do_7:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

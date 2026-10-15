@@ -1,0 +1,49 @@
+T4_055_ready_task_get_internal_resource_and_pretaskhook_activate:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      inipri: TSK_PRI_LOW
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE2
+      porder: 1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE2
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval:  E_OK
+
+  post_condition:

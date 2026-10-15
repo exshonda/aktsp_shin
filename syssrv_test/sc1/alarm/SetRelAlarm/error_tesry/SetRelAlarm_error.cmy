@@ -1,0 +1,2561 @@
+######################################################################
+# SetRelAlarm_error_0001.yaml
+######################################################################
+SetRelAlarm_error_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM2:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_1:
+    ALARM_CBACK1:
+      cbstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_6:
+######################################################################
+# SetRelAlarm_error_0002.yaml
+######################################################################
+SetRelAlarm_error_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+
+  do:
+    id: C1ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+######################################################################
+# SetRelAlarm_error_0003.yaml
+######################################################################
+SetRelAlarm_error_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0004.yaml
+######################################################################
+SetRelAlarm_error_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0005.yaml
+######################################################################
+SetRelAlarm_error_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0006.yaml
+######################################################################
+SetRelAlarm_error_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0007.yaml
+######################################################################
+SetRelAlarm_error_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0008.yaml
+######################################################################
+SetRelAlarm_error_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(INVALID_ALM_ID,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==INVALID_ALM_ID)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0009.yaml
+######################################################################
+SetRelAlarm_error_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,INVALID_CYCLE_GREATER_THAN_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==INVALID_CYCLE_GREATER_THAN_MAXVAL_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0010.yaml
+######################################################################
+SetRelAlarm_error_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,INVALID_CYCLE_LOWER_THAN_MINCYCL_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==INVALID_CYCLE_LOWER_THAN_MINCYCL_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0011.yaml
+######################################################################
+SetRelAlarm_error_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,INVALID_INCREMENT_GREATER_THAN_MAXVAL_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==INVALID_INCREMENT_GREATER_THAN_MAXVAL_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0012.yaml
+######################################################################
+SetRelAlarm_error_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,INVALID_INCREMENT_LOWER_THAN_0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==INVALID_INCREMENT_LOWER_THAN_0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0013.yaml
+######################################################################
+SetRelAlarm_error_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+######################################################################
+# SetRelAlarm_error_0014.yaml
+######################################################################
+SetRelAlarm_error_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+
+  do_6:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_6:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# SetRelAlarm_error_0015.yaml
+######################################################################
+SetRelAlarm_error_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0016.yaml
+######################################################################
+SetRelAlarm_error_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0017.yaml
+######################################################################
+SetRelAlarm_error_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0018.yaml
+######################################################################
+SetRelAlarm_error_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0019.yaml
+######################################################################
+SetRelAlarm_error_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_STATE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_STATE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0020.yaml
+######################################################################
+SetRelAlarm_error_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0021.yaml
+######################################################################
+SetRelAlarm_error_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0022.yaml
+######################################################################
+SetRelAlarm_error_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0023.yaml
+######################################################################
+SetRelAlarm_error_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0024.yaml
+######################################################################
+SetRelAlarm_error_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(INVALID_ALM_ID,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_ID
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_ID)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==INVALID_ALM_ID)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0025.yaml
+######################################################################
+SetRelAlarm_error_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,INVALID_CYCLE_GREATER_THAN_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==INVALID_CYCLE_GREATER_THAN_MAXVAL_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0026.yaml
+######################################################################
+SetRelAlarm_error_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,INVALID_CYCLE_LOWER_THAN_MINCYCL_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==ANY_CURVAL_NOT_0_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==INVALID_CYCLE_LOWER_THAN_MINCYCL_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0027.yaml
+######################################################################
+SetRelAlarm_error_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,INVALID_INCREMENT_GREATER_THAN_MAXVAL_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==INVALID_INCREMENT_GREATER_THAN_MAXVAL_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################
+# SetRelAlarm_error_0028.yaml
+######################################################################
+SetRelAlarm_error_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,INVALID_INCREMENT_LOWER_THAN_0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OS_VALUE
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_VALUE)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_AlarmID()==ALARM1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_increment()==INVALID_INCREMENT_LOWER_THAN_0)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_SetRelAlarm_cycle()==ANY_ALMCYCLE_A)
+    gcov: false
+    need_si:
+      - IOS030
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_SetRelAlarm)
+    gcov: false
+
+  post_condition_5:
+######################################################################

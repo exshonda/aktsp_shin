@@ -1,0 +1,4747 @@
+######################################################################
+# stack_monitoring_NM_1_P_S_0001.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0002.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0003.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0004.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0005.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0006.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0007.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0007:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0008.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0008:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0009.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0009:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0010.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0010:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0011.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0011:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0012.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0012:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0013.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0013:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0014.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0014:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0015.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0015:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0016.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0016:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0017.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0017:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0018.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0018:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0019.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0019:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0020.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0020:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0021.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0021:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0022.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0022:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0023.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0023:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0024.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0024:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0025.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0025:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0026.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0026:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0027.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0027:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0028.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0028:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0029.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0029:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0030.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0030:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0031.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0031:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0032.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0032:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0033.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0033:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0034.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0034:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0035.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0035:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0036.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0036:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0037.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0037:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0038.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0038:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0039.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0039:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0040.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0040:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0041.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0041:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0042.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0042:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0043.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0043:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0044.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0044:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0045.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0045:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0046.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0046:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0047.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0047:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0048.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0048:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0049.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0049:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0050.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0050:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0051.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0051:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0052.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0052:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0053.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0053:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0054.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0054:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0055.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0055:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SCHEDULE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0056.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0056:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SCHEDULE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0057.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0057:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SCHEDULE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0058.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0058:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SCHEDULE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0059.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0059:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SCHEDULE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0060.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0060:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SCHEDULE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0061.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0061:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0062.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0062:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0063.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0063:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0064.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0064:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0065.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0065:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0066.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0066:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0067.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0067:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0068.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0068:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0069.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0069:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0070.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0070:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0071.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0071:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_1_P_S_0072.yaml
+######################################################################
+stack_monitoring_NM_1_P_S_0072:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_3:
+######################################################################

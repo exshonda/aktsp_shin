@@ -1,0 +1,2473 @@
+######################################################################
+# IncrementCounter_nml_st_no_act_0001.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0002.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0003.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0004.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0005.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0006.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0007.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0008.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0009.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0010.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0011.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0012.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0013.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0014.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0015.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0016.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0017.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0018.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0019.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0020.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0021.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0022.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0023.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0024.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0025.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0026.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0027.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0028.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0029.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0030.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0031.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0032.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0033.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0034.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0035.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0036.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0037.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0038.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0039.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0040.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0041.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0042.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0043.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0044.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0045.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0046.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0047.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_MAX_A+1
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################
+# IncrementCounter_nml_st_no_act_0048.yaml
+######################################################################
+IncrementCounter_nml_st_no_act_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          setevt:
+            - TASK2: EVENT1
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 0
+    SCHEDULE_TABLE1:
+      curval: 1
+######################################################################

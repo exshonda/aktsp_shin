@@ -1,0 +1,515 @@
+######################################################################
+# ResumeAllInterrupts_E_002_0001.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: DisableAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: ALARM_CBACK1
+
+  do_2:
+    id: ALARM_CBACK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_2:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: ALARM_CBACK1
+    ALARM_CBACK1:
+      cbstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_4:
+######################################################################
+# ResumeAllInterrupts_E_002_0002.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# ResumeAllInterrupts_E_002_0003.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: ERROR_HOOK1
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: ERROR_HOOK1
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_E_002_0004.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: POSTTASK_HOOK1
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: POSTTASK_HOOK1
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################
+# ResumeAllInterrupts_E_002_0005.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: PRETASK_HOOK1
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: PRETASK_HOOK1
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# ResumeAllInterrupts_E_002_0006.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: PROTECTION_HOOK1
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: PROTECTION_HOOK1
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# ResumeAllInterrupts_E_002_0007.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: SHUTDOWN_HOOK1
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: SHUTDOWN_HOOK1
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# ResumeAllInterrupts_E_002_0008.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: STARTUP_HOOK1
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: STARTUP_HOOK1
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+######################################################################
+# ResumeAllInterrupts_E_002_0009.yaml
+######################################################################
+ResumeAllInterrupts_E_002_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+
+  do_0:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    TASK1:
+      tstat: RUNNING
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_DISABLEDINT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ResumeAllInterrupts)
+    gcov: false
+
+  post_condition_2:
+######################################################################

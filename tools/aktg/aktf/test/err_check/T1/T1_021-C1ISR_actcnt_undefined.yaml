@@ -1,0 +1,24 @@
+T1_021_C1ISR_actcnt_undefined:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: 2
+      actcnt: undefined
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_ISR1_B
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_ACTIVATE
+      actcnt: undefined
+
+  do:
+    id: C1ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

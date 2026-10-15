@@ -1,0 +1,35 @@
+T4_017_no_resource_of_c2isr_getres:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      actcnt: 1
+      maxact: 2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

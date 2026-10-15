@@ -1,0 +1,1441 @@
+######################################################################
+# SetEvent_m_normal_non_group_0001.yaml
+######################################################################
+SetEvent_m_normal_non_group_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0002.yaml
+######################################################################
+SetEvent_m_normal_non_group_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_OTHER_OTHER_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0003.yaml
+######################################################################
+SetEvent_m_normal_non_group_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0004.yaml
+######################################################################
+SetEvent_m_normal_non_group_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_OTHER_OTHER_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0005.yaml
+######################################################################
+SetEvent_m_normal_non_group_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0006.yaml
+######################################################################
+SetEvent_m_normal_non_group_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0007.yaml
+######################################################################
+SetEvent_m_normal_non_group_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0008.yaml
+######################################################################
+SetEvent_m_normal_non_group_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_OTHER_OTHER_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0009.yaml
+######################################################################
+SetEvent_m_normal_non_group_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0010.yaml
+######################################################################
+SetEvent_m_normal_non_group_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_OTHER_OTHER_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0011.yaml
+######################################################################
+SetEvent_m_normal_non_group_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0012.yaml
+######################################################################
+SetEvent_m_normal_non_group_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0013.yaml
+######################################################################
+SetEvent_m_normal_non_group_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0014.yaml
+######################################################################
+SetEvent_m_normal_non_group_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_OTHER_OTHER_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0015.yaml
+######################################################################
+SetEvent_m_normal_non_group_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0016.yaml
+######################################################################
+SetEvent_m_normal_non_group_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_OTHER_OTHER_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0017.yaml
+######################################################################
+SetEvent_m_normal_non_group_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################
+# SetEvent_m_normal_non_group_0018.yaml
+######################################################################
+SetEvent_m_normal_non_group_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      relevt:
+        - EVENT1
+        - EVENT2
+      relres:
+        - RESOURCE1
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_TOP
+      spolicy: AK_SCHFULL
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TR_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do:
+    id: TASK4
+    syssrv: SetEvent(TASK3,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curevt: EVENT1
+######################################################################

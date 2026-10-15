@@ -1,0 +1,297 @@
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0001.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C1ISR1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0002.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0003.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0004.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0005.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0006.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0007.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0008.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0009.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: C2ISR1
+      arg: local
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0010.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################
+# cpu_exception_NotMerge_NP_NS_0011.yaml
+######################################################################
+cpu_exception_NotMerge_NP_NS_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseCPUException()
+    finish: true
+
+  post_condition:
+######################################################################

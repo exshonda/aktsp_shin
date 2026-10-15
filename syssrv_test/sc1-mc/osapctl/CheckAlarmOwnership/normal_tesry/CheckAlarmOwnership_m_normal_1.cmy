@@ -1,0 +1,617 @@
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0001.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_ALARM,ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0002.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0003.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_OTHER_SAME_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_ALARM,ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_OTHER_SAME_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0004.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_OTHER_SAME_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_OTHER_SAME_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0005.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_ALARM,ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0006.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0007.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_ALARM,ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0008.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0009.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_ALARM,ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0010.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0011.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_OTHER_SAME_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_ALARM,ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_OTHER_SAME_CORE
+
+  post_condition:
+######################################################################
+# CheckAlarmOwnership_m_normal_1_0012.yaml
+######################################################################
+CheckAlarmOwnership_m_normal_1_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      incounter: COUNTER2
+      osap: OSAP_OTHER_SAME_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckAlarmOwnership(ALARM1)
+    rettype: ApplicationType
+    retval: OSAP_OTHER_SAME_CORE
+
+  post_condition:
+######################################################################

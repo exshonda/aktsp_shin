@@ -1,0 +1,46 @@
+T1_027_variation_not_exist:
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+
+  do_0:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+    C2ISR1:
+      rtnstat: AK_STOP

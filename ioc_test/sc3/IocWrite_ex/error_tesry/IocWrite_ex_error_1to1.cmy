@@ -1,0 +1,245 @@
+######################################################################
+# IocWrite_ex_error_1to1_0001.yaml
+######################################################################
+IocWrite_ex_error_1to1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP3
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NON_TRUSTED_OSAP1
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TRUSTED_OSAP3
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK2
+    syssrv: IocWrite_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_0:
+    IOC0:
+      data:
+        - IOC0_DATA0: DATA_UINT8_B
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: READY
+
+  do_2:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_3:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocWrite_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_5:
+######################################################################
+# IocWrite_ex_error_1to1_0002.yaml
+######################################################################
+IocWrite_ex_error_1to1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      osap: TRUSTED_OSAP3
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NON_TRUSTED_OSAP1
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TRUSTED_OSAP3
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK2
+    syssrv: IocWrite_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_0:
+    IOC0:
+      data:
+        - IOC0_DATA0: DATA_UINT8_B
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: READY
+
+  do_2:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_3:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocWrite_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_4:
+
+  do_5:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_5:
+######################################################################

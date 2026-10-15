@@ -1,0 +1,40 @@
+T4_041_no_task_of_alarm_atsk_task:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: 5
+      cstat: AK_CS_DOING

@@ -1,0 +1,373 @@
+######################################################################
+# IncrementCounter_nml_al_cback_0001.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A+1
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_al_cback_0002.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0002:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: 0
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_al_cback_0003.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0003:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A+1
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+      cstat: AK_CS_DOING
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_al_cback_0004.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0004:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_nml_al_cback_0005.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0005:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A+1
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_MAX_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+######################################################################
+# IncrementCounter_nml_al_cback_0006.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0006:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: 0
+######################################################################
+# IncrementCounter_nml_al_cback_0007.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0007:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A+1
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_MAX_A+1
+      cstat: AK_CS_DOING
+######################################################################
+# IncrementCounter_nml_al_cback_0008.yaml
+######################################################################
+IncrementCounter_nml_al_cback_0008:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      callback: ALARM_CBACK1
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING
+######################################################################

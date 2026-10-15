@@ -1,0 +1,555 @@
+######################################################################
+# GetSpinlock_m_error_3_0001.yaml
+######################################################################
+GetSpinlock_m_error_3_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK/1-255/
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    SPINLOCK/1-255/:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      successor: SPINLOCK/2-256/
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK256:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK/1-255/
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetSpinlock(SPINLOCK256)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetSpinlock_SpinlockId()==SPINLOCK256)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetSpinlock)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# GetSpinlock_m_error_3_0002.yaml
+######################################################################
+GetSpinlock_m_error_3_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK/1-255/
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    SPINLOCK/1-255/:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      successor: SPINLOCK/2-256/
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK256:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK/1-255/
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetSpinlock(SPINLOCK256)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetSpinlock_SpinlockId()==SPINLOCK256)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetSpinlock)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# GetSpinlock_m_error_3_0003.yaml
+######################################################################
+GetSpinlock_m_error_3_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      getspn:
+        - SPINLOCK/1-255/
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    SPINLOCK/1-255/:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      successor: SPINLOCK/2-256/
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK256:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK/1-255/
+      coreid: CORE_SELF
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: GetSpinlock(SPINLOCK256)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetSpinlock_SpinlockId()==SPINLOCK256)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetSpinlock)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# GetSpinlock_m_error_3_0004.yaml
+######################################################################
+GetSpinlock_m_error_3_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      getspn:
+        - SPINLOCK/1-255/
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    SPINLOCK/1-255/:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      successor: SPINLOCK/2-256/
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK256:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK/1-255/
+      coreid: CORE_SELF
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: GetSpinlock(SPINLOCK256)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetSpinlock_SpinlockId()==SPINLOCK256)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetSpinlock)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# GetSpinlock_m_error_3_0005.yaml
+######################################################################
+GetSpinlock_m_error_3_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      getspn:
+        - SPINLOCK/1-255/
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    SPINLOCK/1-255/:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      successor: SPINLOCK/2-256/
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK256:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK/1-255/
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: GetSpinlock(SPINLOCK256)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetSpinlock_SpinlockId()==SPINLOCK256)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetSpinlock)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# GetSpinlock_m_error_3_0006.yaml
+######################################################################
+GetSpinlock_m_error_3_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      getspn:
+        - SPINLOCK/1-255/
+      osap: TR_OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    SPINLOCK/1-255/:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      successor: SPINLOCK/2-256/
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK256:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK/1-255/
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: GetSpinlock(SPINLOCK256)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetSpinlock_SpinlockId()==SPINLOCK256)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetSpinlock)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

@@ -1,0 +1,5281 @@
+######################################################################
+# StartScheduleTableAbs_normal_0001.yaml
+######################################################################
+StartScheduleTableAbs_normal_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0002.yaml
+######################################################################
+StartScheduleTableAbs_normal_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0003.yaml
+######################################################################
+StartScheduleTableAbs_normal_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0004.yaml
+######################################################################
+StartScheduleTableAbs_normal_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0005.yaml
+######################################################################
+StartScheduleTableAbs_normal_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0006.yaml
+######################################################################
+StartScheduleTableAbs_normal_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0007.yaml
+######################################################################
+StartScheduleTableAbs_normal_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0008.yaml
+######################################################################
+StartScheduleTableAbs_normal_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0009.yaml
+######################################################################
+StartScheduleTableAbs_normal_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0010.yaml
+######################################################################
+StartScheduleTableAbs_normal_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0011.yaml
+######################################################################
+StartScheduleTableAbs_normal_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0012.yaml
+######################################################################
+StartScheduleTableAbs_normal_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0013.yaml
+######################################################################
+StartScheduleTableAbs_normal_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0014.yaml
+######################################################################
+StartScheduleTableAbs_normal_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0015.yaml
+######################################################################
+StartScheduleTableAbs_normal_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0016.yaml
+######################################################################
+StartScheduleTableAbs_normal_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0017.yaml
+######################################################################
+StartScheduleTableAbs_normal_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0018.yaml
+######################################################################
+StartScheduleTableAbs_normal_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0019.yaml
+######################################################################
+StartScheduleTableAbs_normal_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0020.yaml
+######################################################################
+StartScheduleTableAbs_normal_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0021.yaml
+######################################################################
+StartScheduleTableAbs_normal_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0022.yaml
+######################################################################
+StartScheduleTableAbs_normal_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0023.yaml
+######################################################################
+StartScheduleTableAbs_normal_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0024.yaml
+######################################################################
+StartScheduleTableAbs_normal_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: C2ISR1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0025.yaml
+######################################################################
+StartScheduleTableAbs_normal_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0026.yaml
+######################################################################
+StartScheduleTableAbs_normal_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0027.yaml
+######################################################################
+StartScheduleTableAbs_normal_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0028.yaml
+######################################################################
+StartScheduleTableAbs_normal_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0029.yaml
+######################################################################
+StartScheduleTableAbs_normal_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0030.yaml
+######################################################################
+StartScheduleTableAbs_normal_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0031.yaml
+######################################################################
+StartScheduleTableAbs_normal_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0032.yaml
+######################################################################
+StartScheduleTableAbs_normal_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0033.yaml
+######################################################################
+StartScheduleTableAbs_normal_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0034.yaml
+######################################################################
+StartScheduleTableAbs_normal_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0035.yaml
+######################################################################
+StartScheduleTableAbs_normal_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0036.yaml
+######################################################################
+StartScheduleTableAbs_normal_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0037.yaml
+######################################################################
+StartScheduleTableAbs_normal_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0038.yaml
+######################################################################
+StartScheduleTableAbs_normal_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0039.yaml
+######################################################################
+StartScheduleTableAbs_normal_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0040.yaml
+######################################################################
+StartScheduleTableAbs_normal_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0041.yaml
+######################################################################
+StartScheduleTableAbs_normal_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0042.yaml
+######################################################################
+StartScheduleTableAbs_normal_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+######################################################################
+# StartScheduleTableAbs_normal_0043.yaml
+######################################################################
+StartScheduleTableAbs_normal_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0044.yaml
+######################################################################
+StartScheduleTableAbs_normal_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_NOT_0_MAX_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0045.yaml
+######################################################################
+StartScheduleTableAbs_normal_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0046.yaml
+######################################################################
+StartScheduleTableAbs_normal_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_CURVAL_WRAPAROUND_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0047.yaml
+######################################################################
+StartScheduleTableAbs_normal_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################
+# StartScheduleTableAbs_normal_0048.yaml
+######################################################################
+StartScheduleTableAbs_normal_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 6
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_TRUE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+
+  do_0:
+    id: TASK1
+    syssrv: StartScheduleTableAbs(SCHEDULE_TABLE1,ANY_MAXVAL_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_RUNNING
+
+  do_1:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_SCDLTBL_INIT_OFFSET_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+
+  do_2:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*1)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 2
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*2)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 3
+
+  do_4:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*3)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 4
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*4)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 5
+
+  do_6:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_DURATION_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_SCDLTBL_INIT_OFFSET_A+ANY_SCDLTBL_DURATION_A*5)%(ANY_MAXVAL_A+1)
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 6
+######################################################################

@@ -1,0 +1,53 @@
+T4_MC_025_datalist_object_invalid:
+  property:
+    sc:
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      var:
+        in:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      kind: AK_FUNCTION
+      osap: OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do:
+    id: TASK1
+    syssrv: IocSend_IOC0(in)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition:
+    IOC0:
+      datalist:
+        -
+         - IOC0_DATA1: DATA_UINT8_A

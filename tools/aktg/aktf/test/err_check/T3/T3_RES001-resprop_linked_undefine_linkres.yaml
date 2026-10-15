@@ -1,0 +1,44 @@
+T3_RES001_resprop_linked_undefine_linkres:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK

@@ -1,0 +1,34 @@
+T7_OSAP_001_c2isr_same_intno_different_osap_1:
+  property:
+    sc: 
+      - SC3
+      - SC4
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do_0:
+    id: C2ISR1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      istat: AK_DISABLE

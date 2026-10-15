@@ -1,0 +1,36 @@
+need_stack_true:
+  property:
+    sc:
+      - SC3
+      - SC4
+    need_stack_share: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: NON_TRUSTED_OSAP1
+
+  do_0:
+    id     : TASK1
+    syssrv : CheckAssert(OSMEMORY_IS_READABLE(CheckTaskMemoryAccess(TASK1, aktg_ustack_1, AKTSP_TASK_STACK_SIZE)) != 0)
+
+  post_condition_0:
+
+  do_1:
+    id     : TASK1
+    syssrv : CheckAssert(OSMEMORY_IS_WRITEABLE(CheckTaskMemoryAccess(TASK1, aktg_ustack_1, AKTSP_TASK_STACK_SIZE)) != 0)
+
+  post_condition_1:
+
+  do_2:
+    id     : TASK1
+    syssrv : CheckAssert(OSMEMORY_IS_EXECUTABLE(CheckTaskMemoryAccess(TASK1, TASKNAME(TASK1), sizeof(StackType))) != 0)
+
+  post_condition_2:
+
+  do_3:
+    id     : TASK1
+    syssrv : CheckAssert(OSMEMORY_IS_STACKSPACE(CheckTaskMemoryAccess(TASK1, aktg_ustack_1, AKTSP_TASK_STACK_SIZE)) != 0)
+
+  post_condition_3:

@@ -1,0 +1,41 @@
+######################################################################
+# FatalError_0008.yaml
+######################################################################
+FatalError_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################

@@ -1,0 +1,1613 @@
+######################################################################
+# GetResource_normal_task1res1_0001.yaml
+######################################################################
+GetResource_normal_task1res1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0002.yaml
+######################################################################
+GetResource_normal_task1res1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0003.yaml
+######################################################################
+GetResource_normal_task1res1_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+    RESOURCE3:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE3
+######################################################################
+# GetResource_normal_task1res1_0004.yaml
+######################################################################
+GetResource_normal_task1res1_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0005.yaml
+######################################################################
+GetResource_normal_task1res1_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0006.yaml
+######################################################################
+GetResource_normal_task1res1_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+    RESOURCE3:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE3
+######################################################################
+# GetResource_normal_task1res1_0007.yaml
+######################################################################
+GetResource_normal_task1res1_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0008.yaml
+######################################################################
+GetResource_normal_task1res1_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0009.yaml
+######################################################################
+GetResource_normal_task1res1_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+    RESOURCE1:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE1
+######################################################################
+# GetResource_normal_task1res1_0010.yaml
+######################################################################
+GetResource_normal_task1res1_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0011.yaml
+######################################################################
+GetResource_normal_task1res1_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0012.yaml
+######################################################################
+GetResource_normal_task1res1_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+    RESOURCE1:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE1
+######################################################################
+# GetResource_normal_task1res1_0013.yaml
+######################################################################
+GetResource_normal_task1res1_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0014.yaml
+######################################################################
+GetResource_normal_task1res1_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0015.yaml
+######################################################################
+GetResource_normal_task1res1_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    RESOURCE3:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE3
+######################################################################
+# GetResource_normal_task1res1_0016.yaml
+######################################################################
+GetResource_normal_task1res1_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0017.yaml
+######################################################################
+GetResource_normal_task1res1_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0018.yaml
+######################################################################
+GetResource_normal_task1res1_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    RESOURCE1:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE1
+######################################################################
+# GetResource_normal_task1res1_0019.yaml
+######################################################################
+GetResource_normal_task1res1_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0020.yaml
+######################################################################
+GetResource_normal_task1res1_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0021.yaml
+######################################################################
+GetResource_normal_task1res1_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    RESOURCE3:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE3
+######################################################################
+# GetResource_normal_task1res1_0022.yaml
+######################################################################
+GetResource_normal_task1res1_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0023.yaml
+######################################################################
+GetResource_normal_task1res1_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0024.yaml
+######################################################################
+GetResource_normal_task1res1_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    RESOURCE3:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE3
+######################################################################
+# GetResource_normal_task1res1_0025.yaml
+######################################################################
+GetResource_normal_task1res1_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0026.yaml
+######################################################################
+GetResource_normal_task1res1_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE3
+    RESOURCE3:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0027.yaml
+######################################################################
+GetResource_normal_task1res1_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    RESOURCE1:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE1
+######################################################################
+# GetResource_normal_task1res1_0028.yaml
+######################################################################
+GetResource_normal_task1res1_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0029.yaml
+######################################################################
+GetResource_normal_task1res1_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0030.yaml
+######################################################################
+GetResource_normal_task1res1_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    RESOURCE1:
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      getres:
+        - RESOURCE1
+######################################################################
+# GetResource_normal_task1res1_0031.yaml
+######################################################################
+GetResource_normal_task1res1_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################
+# GetResource_normal_task1res1_0032.yaml
+######################################################################
+GetResource_normal_task1res1_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+######################################################################

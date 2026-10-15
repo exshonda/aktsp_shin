@@ -1,0 +1,1189 @@
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0001.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0002.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+      successor: SPINLOCK2
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0003.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK4
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+      successor: SPINLOCK4
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0004.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: C2ISR1
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0005.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: C2ISR1
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0006.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK3
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+      coreid: CORE_SELF
+    SPINLOCK3:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0007.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK3
+        - SPINLOCK4
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK3:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+      successor: SPINLOCK4
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0008.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK3
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: C2ISR1
+      coreid: CORE_SELF
+    SPINLOCK3:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0009.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_ALL_INT: SPINLOCK2
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0010.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK4
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0011.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK4
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: C2ISR1
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: C2ISR1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0012.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0013.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+      successor: SPINLOCK2
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0014.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK4
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+      successor: SPINLOCK4
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0015.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0016.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0017.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK3
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+      coreid: CORE_SELF
+    SPINLOCK3:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0018.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK3
+        - SPINLOCK4
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK3:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+      successor: SPINLOCK4
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0019.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK3
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SPINLOCK3:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK3
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0020.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK2
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SPINLOCK2:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0021.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK4
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: TASK1
+######################################################################
+# SuspendOSInterrupts_m_nml_2_0022.yaml
+######################################################################
+SuspendOSInterrupts_m_nml_2_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK4
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK4
+      coreid: CORE_SELF
+    SPINLOCK4:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    gcov: true
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: TASK1
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C1ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK4
+        - AK_SUS_OS_INT: TASK1
+######################################################################

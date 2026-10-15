@@ -1,0 +1,35 @@
+T4_060_task_c2isr_no_relres:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE2:
+      lockflg: AK_LOCK

@@ -1,0 +1,1765 @@
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0001.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0002.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0003.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0004.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0005.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0006.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0007.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0008.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0009.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0010.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: C2ISR1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0011.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0012.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0013.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0014.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0015.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0016.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0017.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0018.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0019.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0020.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0021.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0022.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0023.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0024.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0025.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0026.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0027.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0028.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0029.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0030.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0031.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0032.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0033.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0034.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0035.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0036.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0037.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0038.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0039.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckObjectOwnership(OBJECT_COUNTER,COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckCounterOwnership_m_nml_h_3_0040.yaml
+######################################################################
+CheckCounterOwnership_m_nml_h_3_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - OSAP_SELF_CORE
+        - OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do:
+    id: TASK2
+    syssrv: CheckCounterOwnership(COUNTER1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################

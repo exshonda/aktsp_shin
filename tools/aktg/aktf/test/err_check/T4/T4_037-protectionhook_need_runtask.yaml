@@ -1,0 +1,19 @@
+T4_037_protectionhook_need_runtask:
+  property:
+    sc: 
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

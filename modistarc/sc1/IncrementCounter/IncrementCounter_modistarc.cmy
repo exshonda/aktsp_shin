@@ -1,0 +1,959 @@
+######################################################################
+# IncrementCounter_modistarc_0001.yaml
+######################################################################
+IncrementCounter_modistarc_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      actcnt: 1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_modistarc_0002.yaml
+######################################################################
+IncrementCounter_modistarc_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+      event: EVENT1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_modistarc_0003.yaml
+######################################################################
+IncrementCounter_modistarc_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_modistarc_0004.yaml
+######################################################################
+IncrementCounter_modistarc_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+      event: EVENT1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curevt: EVENT1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_modistarc_0005.yaml
+######################################################################
+IncrementCounter_modistarc_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_modistarc_0006.yaml
+######################################################################
+IncrementCounter_modistarc_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+      event: EVENT1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# IncrementCounter_modistarc_0007.yaml
+######################################################################
+IncrementCounter_modistarc_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      ttype: AK_BASIC
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      actcnt: 1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+######################################################################
+# IncrementCounter_modistarc_0008.yaml
+######################################################################
+IncrementCounter_modistarc_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      ttype: AK_EXTENDED
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+      event: EVENT1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+######################################################################
+# IncrementCounter_modistarc_0009.yaml
+######################################################################
+IncrementCounter_modistarc_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING
+    COUNTER2:
+      curval: 0
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+######################################################################
+# IncrementCounter_modistarc_0010.yaml
+######################################################################
+IncrementCounter_modistarc_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+      event: EVENT1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curevt: EVENT1
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING
+    COUNTER2:
+      curval: 0
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+######################################################################
+# IncrementCounter_modistarc_0011.yaml
+######################################################################
+IncrementCounter_modistarc_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+######################################################################
+# IncrementCounter_modistarc_0012.yaml
+######################################################################
+IncrementCounter_modistarc_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_BASIC
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      incounter: COUNTER2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER2
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+      event: EVENT1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+    EVENT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    COUNTER1:
+      curval: 0
+    COUNTER2:
+      curval: 0
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+######################################################################

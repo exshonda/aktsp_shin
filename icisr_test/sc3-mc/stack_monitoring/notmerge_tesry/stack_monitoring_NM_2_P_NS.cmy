@@ -1,0 +1,1617 @@
+######################################################################
+# stack_monitoring_NM_2_P_NS_0001.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0002.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0003.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0004.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0005.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0006.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0007.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0007:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0008.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0008:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0009.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0009:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0010.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0010:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0011.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0011:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0012.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0012:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0013.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0013:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0014.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0014:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0015.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0015:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0016.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0016:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0017.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0017:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0018.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0018:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0019.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0019:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0020.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0020:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0021.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0021:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0022.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0022:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0023.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0023:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_3:
+######################################################################
+# stack_monitoring_NM_2_P_NS_0024.yaml
+######################################################################
+stack_monitoring_NM_2_P_NS_0024:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_3:
+######################################################################

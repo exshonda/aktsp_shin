@@ -1,0 +1,2779 @@
+######################################################################
+# ActivateTask_modistarc_0001.yaml
+######################################################################
+ActivateTask_modistarc_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK3:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      actcnt: 1
+      porder: 1
+
+  do_1:
+    id: TASK1
+    syssrv: SetEvent(TASK2,EVENT2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT2
+      porder: 2
+
+  do_2:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+######################################################################
+# ActivateTask_modistarc_0002.yaml
+######################################################################
+ActivateTask_modistarc_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      osap: TRUSTED_OSAP1
+
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: TRUSTED_OSAP1
+
+    TASK4:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 3
+      osap: TRUSTED_OSAP1
+
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 4
+      osap: TRUSTED_OSAP1
+
+    TASK6:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 5
+      osap: TRUSTED_OSAP1
+
+    TASK7:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 6
+      osap: TRUSTED_OSAP1
+
+    TASK8:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK8:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      actcnt: 1
+      porder: 7
+
+  do_1:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+
+    TASK2:
+      tstat: RUNNING
+
+    TASK3:
+      porder: 1
+
+    TASK4:
+      porder: 2
+
+    TASK5:
+      porder: 3
+
+    TASK6:
+      porder: 4
+
+    TASK7:
+      porder: 5
+
+    TASK8:
+      porder: 6
+
+  do_2:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK2:
+      tstat: SUSPENDED
+
+    TASK3:
+      tstat: RUNNING
+
+    TASK4:
+      porder: 1
+
+    TASK5:
+      porder: 2
+
+    TASK6:
+      porder: 3
+
+    TASK7:
+      porder: 4
+
+    TASK8:
+      porder: 5
+
+  do_3:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK3:
+      tstat: SUSPENDED
+
+    TASK4:
+      tstat: RUNNING
+
+    TASK5:
+      porder: 1
+
+    TASK6:
+      porder: 2
+
+    TASK7:
+      porder: 3
+
+    TASK8:
+      porder: 4
+
+  do_4:
+    id: TASK4
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    TASK4:
+      tstat: SUSPENDED
+
+    TASK5:
+      tstat: RUNNING
+
+    TASK6:
+      porder: 1
+
+    TASK7:
+      porder: 2
+
+    TASK8:
+      porder: 3
+
+  do_5:
+    id: TASK5
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK5:
+      tstat: SUSPENDED
+
+    TASK6:
+      tstat: RUNNING
+
+    TASK7:
+      porder: 1
+
+    TASK8:
+      porder: 2
+
+  do_6:
+    id: TASK6
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    TASK6:
+      tstat: SUSPENDED
+
+    TASK7:
+      tstat: RUNNING
+
+    TASK8:
+      porder: 1
+
+  do_7:
+    id: TASK7
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_7:
+    TASK7:
+      tstat: SUSPENDED
+
+    TASK8:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK8
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_8:
+    TASK8:
+      tstat: SUSPENDED
+
+######################################################################
+# ActivateTask_modistarc_0003.yaml
+######################################################################
+ActivateTask_modistarc_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 1
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK3:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 2
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK4:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 3
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK5:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 4
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK6:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 5
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK7:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 6
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK8:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 7
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK9:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 8
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK10:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 9
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK11:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 10
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK12:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 11
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK13:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 12
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK14:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 13
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK15:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 14
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    TASK16:
+      type: TASK
+      tstat: SUSPENDED
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: TRUSTED_OSAP1
+
+    EVENT1:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT2:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT3:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT4:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT5:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT6:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT7:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT8:
+      type: EVENT
+      mask: AK_AUTO
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK16)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK16:
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+      porder: 15
+
+  do_1:
+    id: TASK1
+    syssrv: SetEvent(TASK16,EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK16:
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+
+  do_2:
+    id: TASK1
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK1:
+      curevt: 0
+
+  do_3:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK1:
+      tstat: SUSPENDED
+
+    TASK2:
+      tstat: RUNNING
+
+    TASK3:
+      porder: 1
+
+    TASK4:
+      porder: 2
+
+    TASK5:
+      porder: 3
+
+    TASK6:
+      porder: 4
+
+    TASK7:
+      porder: 5
+
+    TASK8:
+      porder: 6
+
+    TASK9:
+      porder: 7
+
+    TASK10:
+      porder: 8
+
+    TASK11:
+      porder: 9
+
+    TASK12:
+      porder: 10
+
+    TASK13:
+      porder: 11
+
+    TASK14:
+      porder: 12
+
+    TASK15:
+      porder: 13
+
+    TASK16:
+      porder: 14
+
+  do_4:
+    id: TASK2
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    TASK2:
+      curevt: 0
+
+  do_5:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK2:
+      tstat: SUSPENDED
+
+    TASK3:
+      tstat: RUNNING
+
+    TASK4:
+      porder: 1
+
+    TASK5:
+      porder: 2
+
+    TASK6:
+      porder: 3
+
+    TASK7:
+      porder: 4
+
+    TASK8:
+      porder: 5
+
+    TASK9:
+      porder: 6
+
+    TASK10:
+      porder: 7
+
+    TASK11:
+      porder: 8
+
+    TASK12:
+      porder: 9
+
+    TASK13:
+      porder: 10
+
+    TASK14:
+      porder: 11
+
+    TASK15:
+      porder: 12
+
+    TASK16:
+      porder: 13
+
+  do_6:
+    id: TASK3
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    TASK3:
+      curevt: 0
+
+  do_7:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_7:
+    TASK3:
+      tstat: SUSPENDED
+
+    TASK4:
+      tstat: RUNNING
+
+    TASK5:
+      porder: 1
+
+    TASK6:
+      porder: 2
+
+    TASK7:
+      porder: 3
+
+    TASK8:
+      porder: 4
+
+    TASK9:
+      porder: 5
+
+    TASK10:
+      porder: 6
+
+    TASK11:
+      porder: 7
+
+    TASK12:
+      porder: 8
+
+    TASK13:
+      porder: 9
+
+    TASK14:
+      porder: 10
+
+    TASK15:
+      porder: 11
+
+    TASK16:
+      porder: 12
+
+  do_8:
+    id: TASK4
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_8:
+    TASK4:
+      curevt: 0
+
+  do_9:
+    id: TASK4
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_9:
+    TASK4:
+      tstat: SUSPENDED
+
+    TASK5:
+      tstat: RUNNING
+
+    TASK6:
+      porder: 1
+
+    TASK7:
+      porder: 2
+
+    TASK8:
+      porder: 3
+
+    TASK9:
+      porder: 4
+
+    TASK10:
+      porder: 5
+
+    TASK11:
+      porder: 6
+
+    TASK12:
+      porder: 7
+
+    TASK13:
+      porder: 8
+
+    TASK14:
+      porder: 9
+
+    TASK15:
+      porder: 10
+
+    TASK16:
+      porder: 11
+
+  do_10:
+    id: TASK5
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_10:
+    TASK5:
+      curevt: 0
+
+  do_11:
+    id: TASK5
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_11:
+    TASK5:
+      tstat: SUSPENDED
+
+    TASK6:
+      tstat: RUNNING
+
+    TASK7:
+      porder: 1
+
+    TASK8:
+      porder: 2
+
+    TASK9:
+      porder: 3
+
+    TASK10:
+      porder: 4
+
+    TASK11:
+      porder: 5
+
+    TASK12:
+      porder: 6
+
+    TASK13:
+      porder: 7
+
+    TASK14:
+      porder: 8
+
+    TASK15:
+      porder: 9
+
+    TASK16:
+      porder: 10
+
+  do_12:
+    id: TASK6
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_12:
+    TASK6:
+      curevt: 0
+
+  do_13:
+    id: TASK6
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_13:
+    TASK6:
+      tstat: SUSPENDED
+
+    TASK7:
+      tstat: RUNNING
+
+    TASK8:
+      porder: 1
+
+    TASK9:
+      porder: 2
+
+    TASK10:
+      porder: 3
+
+    TASK11:
+      porder: 4
+
+    TASK12:
+      porder: 5
+
+    TASK13:
+      porder: 6
+
+    TASK14:
+      porder: 7
+
+    TASK15:
+      porder: 8
+
+    TASK16:
+      porder: 9
+
+  do_14:
+    id: TASK7
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_14:
+    TASK7:
+      curevt: 0
+
+  do_15:
+    id: TASK7
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_15:
+    TASK7:
+      tstat: SUSPENDED
+
+    TASK8:
+      tstat: RUNNING
+
+    TASK9:
+      porder: 1
+
+    TASK10:
+      porder: 2
+
+    TASK11:
+      porder: 3
+
+    TASK12:
+      porder: 4
+
+    TASK13:
+      porder: 5
+
+    TASK14:
+      porder: 6
+
+    TASK15:
+      porder: 7
+
+    TASK16:
+      porder: 8
+
+  do_16:
+    id: TASK8
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_16:
+    TASK8:
+      curevt: 0
+
+  do_17:
+    id: TASK8
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_17:
+    TASK8:
+      tstat: SUSPENDED
+
+    TASK9:
+      tstat: RUNNING
+
+    TASK10:
+      porder: 1
+
+    TASK11:
+      porder: 2
+
+    TASK12:
+      porder: 3
+
+    TASK13:
+      porder: 4
+
+    TASK14:
+      porder: 5
+
+    TASK15:
+      porder: 6
+
+    TASK16:
+      porder: 7
+      
+  do_18:
+    id: TASK9
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_18:
+    TASK9:
+      curevt: 0
+
+  do_19:
+    id: TASK9
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_19:
+    TASK9:
+      tstat: SUSPENDED
+
+    TASK10:
+      tstat: RUNNING
+
+    TASK11:
+      porder: 1
+
+    TASK12:
+      porder: 2
+
+    TASK13:
+      porder: 3
+
+    TASK14:
+      porder: 4
+
+    TASK15:
+      porder: 5
+
+    TASK16:
+      porder: 6
+
+  do_20:
+    id: TASK10
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_20:
+    TASK10:
+      curevt: 0
+
+  do_21:
+    id: TASK10
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_21:
+    TASK10:
+      tstat: SUSPENDED
+
+    TASK11:
+      tstat: RUNNING
+
+    TASK12:
+      porder: 1
+
+    TASK13:
+      porder: 2
+
+    TASK14:
+      porder: 3
+
+    TASK15:
+      porder: 4
+
+    TASK16:
+      porder: 5
+
+  do_22:
+    id: TASK11
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_22:
+    TASK11:
+      curevt: 0
+
+  do_23:
+    id: TASK11
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_23:
+    TASK11:
+      tstat: SUSPENDED
+
+    TASK12:
+      tstat: RUNNING
+
+    TASK13:
+      porder: 1
+
+    TASK14:
+      porder: 2
+
+    TASK15:
+      porder: 3
+
+    TASK16:
+      porder: 4
+
+  do_24:
+    id: TASK12
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_24:
+    TASK12:
+      curevt: 0
+
+  do_25:
+    id: TASK12
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_25:
+    TASK12:
+      tstat: SUSPENDED
+
+    TASK13:
+      tstat: RUNNING
+
+    TASK14:
+      porder: 1
+
+    TASK15:
+      porder: 2
+
+    TASK16:
+      porder: 3
+
+  do_26:
+    id: TASK13
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_26:
+    TASK13:
+      curevt: 0
+
+  do_27:
+    id: TASK13
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_27:
+    TASK13:
+      tstat: SUSPENDED
+
+    TASK14:
+      tstat: RUNNING
+
+    TASK15:
+      porder: 1
+
+    TASK16:
+      porder: 2
+
+  do_28:
+    id: TASK14
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_28:
+    TASK14:
+      curevt: 0
+
+  do_29:
+    id: TASK14
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_29:
+    TASK14:
+      tstat: SUSPENDED
+
+    TASK15:
+      tstat: RUNNING
+
+    TASK16:
+      porder: 1
+
+  do_30:
+    id: TASK15
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_30:
+    TASK15:
+      curevt: 0
+
+  do_31:
+    id: TASK15
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_31:
+    TASK15:
+      tstat: SUSPENDED
+
+    TASK16:
+      tstat: RUNNING
+
+  do_32:
+    id: TASK16
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_32:
+    TASK16:
+      curevt: 0
+
+  do_33:
+    id: TASK16
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_33:
+    TASK16:
+      tstat: SUSPENDED
+######################################################################
+# ActivateTask_modistarc_0004.yaml
+######################################################################
+ActivateTask_modistarc_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1|EVENT2
+      relevt:
+        - EVENT1
+        - EVENT2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK3:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      actcnt: 1
+      porder: 1
+
+  do_1:
+    id: TASK1
+    syssrv: SetEvent(TASK2,EVENT2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT2
+      porder: 2
+
+  do_2:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      porder: 1
+    TASK3:
+      tstat: RUNNING
+######################################################################
+# ActivateTask_modistarc_0005.yaml
+######################################################################
+ActivateTask_modistarc_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+
+    TASK4:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 3
+      osap: NON_TRUSTED_OSAP1
+
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 4
+      osap: NON_TRUSTED_OSAP1
+
+    TASK6:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 5
+      osap: NON_TRUSTED_OSAP1
+
+    TASK7:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 6
+      osap: NON_TRUSTED_OSAP1
+
+    TASK8:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK8:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      actcnt: 1
+      porder: 7
+
+  do_1:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED
+
+    TASK2:
+      tstat: RUNNING
+
+    TASK3:
+      porder: 1
+
+    TASK4:
+      porder: 2
+
+    TASK5:
+      porder: 3
+
+    TASK6:
+      porder: 4
+
+    TASK7:
+      porder: 5
+
+    TASK8:
+      porder: 6
+
+  do_2:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK2:
+      tstat: SUSPENDED
+
+    TASK3:
+      tstat: RUNNING
+
+    TASK4:
+      porder: 1
+
+    TASK5:
+      porder: 2
+
+    TASK6:
+      porder: 3
+
+    TASK7:
+      porder: 4
+
+    TASK8:
+      porder: 5
+
+  do_3:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK3:
+      tstat: SUSPENDED
+
+    TASK4:
+      tstat: RUNNING
+
+    TASK5:
+      porder: 1
+
+    TASK6:
+      porder: 2
+
+    TASK7:
+      porder: 3
+
+    TASK8:
+      porder: 4
+
+  do_4:
+    id: TASK4
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    TASK4:
+      tstat: SUSPENDED
+
+    TASK5:
+      tstat: RUNNING
+
+    TASK6:
+      porder: 1
+
+    TASK7:
+      porder: 2
+
+    TASK8:
+      porder: 3
+
+  do_5:
+    id: TASK5
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK5:
+      tstat: SUSPENDED
+
+    TASK6:
+      tstat: RUNNING
+
+    TASK7:
+      porder: 1
+
+    TASK8:
+      porder: 2
+
+  do_6:
+    id: TASK6
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    TASK6:
+      tstat: SUSPENDED
+
+    TASK7:
+      tstat: RUNNING
+
+    TASK8:
+      porder: 1
+
+  do_7:
+    id: TASK7
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_7:
+    TASK7:
+      tstat: SUSPENDED
+
+    TASK8:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK8
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_8:
+    TASK8:
+      tstat: SUSPENDED
+
+######################################################################
+# ActivateTask_modistarc_0006.yaml
+######################################################################
+ActivateTask_modistarc_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_EXTENDED
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 1
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK3:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 2
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK4:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 3
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK5:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 4
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK6:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 5
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK7:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 6
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK8:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 7
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK9:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 8
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK10:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 9
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK11:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 10
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK12:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 11
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK13:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 12
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK14:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 13
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK15:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      curpri: TSK_PRI_HIGH
+      porder: 14
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    TASK16:
+      type: TASK
+      tstat: SUSPENDED
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      relevt:
+        - EVENT1
+        - EVENT2
+        - EVENT3
+        - EVENT4
+        - EVENT5
+        - EVENT6
+        - EVENT7
+        - EVENT8
+      osap: NON_TRUSTED_OSAP1
+
+    EVENT1:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT2:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT3:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT4:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT5:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT6:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT7:
+      type: EVENT
+      mask: AK_AUTO
+    EVENT8:
+      type: EVENT
+      mask: AK_AUTO
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK16)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK16:
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+      porder: 15
+
+  do_1:
+    id: TASK1
+    syssrv: SetEvent(TASK16,EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK16:
+      curevt: EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8
+
+  do_2:
+    id: TASK1
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK1:
+      curevt: 0
+
+  do_3:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK1:
+      tstat: SUSPENDED
+
+    TASK2:
+      tstat: RUNNING
+
+    TASK3:
+      porder: 1
+
+    TASK4:
+      porder: 2
+
+    TASK5:
+      porder: 3
+
+    TASK6:
+      porder: 4
+
+    TASK7:
+      porder: 5
+
+    TASK8:
+      porder: 6
+
+    TASK9:
+      porder: 7
+
+    TASK10:
+      porder: 8
+
+    TASK11:
+      porder: 9
+
+    TASK12:
+      porder: 10
+
+    TASK13:
+      porder: 11
+
+    TASK14:
+      porder: 12
+
+    TASK15:
+      porder: 13
+
+    TASK16:
+      porder: 14
+
+  do_4:
+    id: TASK2
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    TASK2:
+      curevt: 0
+
+  do_5:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK2:
+      tstat: SUSPENDED
+
+    TASK3:
+      tstat: RUNNING
+
+    TASK4:
+      porder: 1
+
+    TASK5:
+      porder: 2
+
+    TASK6:
+      porder: 3
+
+    TASK7:
+      porder: 4
+
+    TASK8:
+      porder: 5
+
+    TASK9:
+      porder: 6
+
+    TASK10:
+      porder: 7
+
+    TASK11:
+      porder: 8
+
+    TASK12:
+      porder: 9
+
+    TASK13:
+      porder: 10
+
+    TASK14:
+      porder: 11
+
+    TASK15:
+      porder: 12
+
+    TASK16:
+      porder: 13
+
+  do_6:
+    id: TASK3
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    TASK3:
+      curevt: 0
+
+  do_7:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_7:
+    TASK3:
+      tstat: SUSPENDED
+
+    TASK4:
+      tstat: RUNNING
+
+    TASK5:
+      porder: 1
+
+    TASK6:
+      porder: 2
+
+    TASK7:
+      porder: 3
+
+    TASK8:
+      porder: 4
+
+    TASK9:
+      porder: 5
+
+    TASK10:
+      porder: 6
+
+    TASK11:
+      porder: 7
+
+    TASK12:
+      porder: 8
+
+    TASK13:
+      porder: 9
+
+    TASK14:
+      porder: 10
+
+    TASK15:
+      porder: 11
+
+    TASK16:
+      porder: 12
+
+  do_8:
+    id: TASK4
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_8:
+    TASK4:
+      curevt: 0
+
+  do_9:
+    id: TASK4
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_9:
+    TASK4:
+      tstat: SUSPENDED
+
+    TASK5:
+      tstat: RUNNING
+
+    TASK6:
+      porder: 1
+
+    TASK7:
+      porder: 2
+
+    TASK8:
+      porder: 3
+
+    TASK9:
+      porder: 4
+
+    TASK10:
+      porder: 5
+
+    TASK11:
+      porder: 6
+
+    TASK12:
+      porder: 7
+
+    TASK13:
+      porder: 8
+
+    TASK14:
+      porder: 9
+
+    TASK15:
+      porder: 10
+
+    TASK16:
+      porder: 11
+
+  do_10:
+    id: TASK5
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_10:
+    TASK5:
+      curevt: 0
+
+  do_11:
+    id: TASK5
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_11:
+    TASK5:
+      tstat: SUSPENDED
+
+    TASK6:
+      tstat: RUNNING
+
+    TASK7:
+      porder: 1
+
+    TASK8:
+      porder: 2
+
+    TASK9:
+      porder: 3
+
+    TASK10:
+      porder: 4
+
+    TASK11:
+      porder: 5
+
+    TASK12:
+      porder: 6
+
+    TASK13:
+      porder: 7
+
+    TASK14:
+      porder: 8
+
+    TASK15:
+      porder: 9
+
+    TASK16:
+      porder: 10
+
+  do_12:
+    id: TASK6
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_12:
+    TASK6:
+      curevt: 0
+
+  do_13:
+    id: TASK6
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_13:
+    TASK6:
+      tstat: SUSPENDED
+
+    TASK7:
+      tstat: RUNNING
+
+    TASK8:
+      porder: 1
+
+    TASK9:
+      porder: 2
+
+    TASK10:
+      porder: 3
+
+    TASK11:
+      porder: 4
+
+    TASK12:
+      porder: 5
+
+    TASK13:
+      porder: 6
+
+    TASK14:
+      porder: 7
+
+    TASK15:
+      porder: 8
+
+    TASK16:
+      porder: 9
+
+  do_14:
+    id: TASK7
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_14:
+    TASK7:
+      curevt: 0
+
+  do_15:
+    id: TASK7
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_15:
+    TASK7:
+      tstat: SUSPENDED
+
+    TASK8:
+      tstat: RUNNING
+
+    TASK9:
+      porder: 1
+
+    TASK10:
+      porder: 2
+
+    TASK11:
+      porder: 3
+
+    TASK12:
+      porder: 4
+
+    TASK13:
+      porder: 5
+
+    TASK14:
+      porder: 6
+
+    TASK15:
+      porder: 7
+
+    TASK16:
+      porder: 8
+
+  do_16:
+    id: TASK8
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_16:
+    TASK8:
+      curevt: 0
+
+  do_17:
+    id: TASK8
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_17:
+    TASK8:
+      tstat: SUSPENDED
+
+    TASK9:
+      tstat: RUNNING
+
+    TASK10:
+      porder: 1
+
+    TASK11:
+      porder: 2
+
+    TASK12:
+      porder: 3
+
+    TASK13:
+      porder: 4
+
+    TASK14:
+      porder: 5
+
+    TASK15:
+      porder: 6
+
+    TASK16:
+      porder: 7
+      
+  do_18:
+    id: TASK9
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_18:
+    TASK9:
+      curevt: 0
+
+  do_19:
+    id: TASK9
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_19:
+    TASK9:
+      tstat: SUSPENDED
+
+    TASK10:
+      tstat: RUNNING
+
+    TASK11:
+      porder: 1
+
+    TASK12:
+      porder: 2
+
+    TASK13:
+      porder: 3
+
+    TASK14:
+      porder: 4
+
+    TASK15:
+      porder: 5
+
+    TASK16:
+      porder: 6
+
+  do_20:
+    id: TASK10
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_20:
+    TASK10:
+      curevt: 0
+
+  do_21:
+    id: TASK10
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_21:
+    TASK10:
+      tstat: SUSPENDED
+
+    TASK11:
+      tstat: RUNNING
+
+    TASK12:
+      porder: 1
+
+    TASK13:
+      porder: 2
+
+    TASK14:
+      porder: 3
+
+    TASK15:
+      porder: 4
+
+    TASK16:
+      porder: 5
+
+  do_22:
+    id: TASK11
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_22:
+    TASK11:
+      curevt: 0
+
+  do_23:
+    id: TASK11
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_23:
+    TASK11:
+      tstat: SUSPENDED
+
+    TASK12:
+      tstat: RUNNING
+
+    TASK13:
+      porder: 1
+
+    TASK14:
+      porder: 2
+
+    TASK15:
+      porder: 3
+
+    TASK16:
+      porder: 4
+
+  do_24:
+    id: TASK12
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_24:
+    TASK12:
+      curevt: 0
+
+  do_25:
+    id: TASK12
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_25:
+    TASK12:
+      tstat: SUSPENDED
+
+    TASK13:
+      tstat: RUNNING
+
+    TASK14:
+      porder: 1
+
+    TASK15:
+      porder: 2
+
+    TASK16:
+      porder: 3
+
+  do_26:
+    id: TASK13
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_26:
+    TASK13:
+      curevt: 0
+
+  do_27:
+    id: TASK13
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_27:
+    TASK13:
+      tstat: SUSPENDED
+
+    TASK14:
+      tstat: RUNNING
+
+    TASK15:
+      porder: 1
+
+    TASK16:
+      porder: 2
+
+  do_28:
+    id: TASK14
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_28:
+    TASK14:
+      curevt: 0
+
+  do_29:
+    id: TASK14
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_29:
+    TASK14:
+      tstat: SUSPENDED
+
+    TASK15:
+      tstat: RUNNING
+
+    TASK16:
+      porder: 1
+
+  do_30:
+    id: TASK15
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_30:
+    TASK15:
+      curevt: 0
+
+  do_31:
+    id: TASK15
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_31:
+    TASK15:
+      tstat: SUSPENDED
+
+    TASK16:
+      tstat: RUNNING
+
+  do_32:
+    id: TASK16
+    syssrv: ClearEvent(EVENT1|EVENT2|EVENT3|EVENT4|EVENT5|EVENT6|EVENT7|EVENT8)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_32:
+    TASK16:
+      curevt: 0
+
+  do_33:
+    id: TASK16
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_33:
+    TASK16:
+      tstat: SUSPENDED
+######################################################################

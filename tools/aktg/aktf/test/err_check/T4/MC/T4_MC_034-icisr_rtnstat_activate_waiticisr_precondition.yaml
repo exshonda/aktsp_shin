@@ -1,0 +1,36 @@
+T4_MC_034_icisr_rtnstat_activate_waiticisr_precondition:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE_WAITICISR
+      osap: OSAP_OTHER_OTHER_CORE
+    ICISR2:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do_1:
+    id: ICISR1
+    syssrv: RaiseInterCoreInterrupt(ICISR2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    ICISR2:
+      rtnstat: AK_ACTIVATE

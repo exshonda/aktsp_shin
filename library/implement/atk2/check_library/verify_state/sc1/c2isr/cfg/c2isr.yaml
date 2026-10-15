@@ -1,0 +1,106 @@
+c2isr:
+  property:
+    cc:
+    sc:
+      - SC1
+      - SC2
+    si:
+      - COS0409
+
+  pre_condition:
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_E
+      intatr: AK_ENABLE
+      iniintpri: 4
+      rtnstat: AK_STOP
+      relres:
+        - ResourceA
+        - ResourceB
+    C2ISR2:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+      relres:
+        - ResourceC
+    C2ISR3:
+      type: C2ISR
+      intno: AKTSP_INTNO_I
+      intatr: AK_ENABLE
+      iniintpri: 2
+      rtnstat: AK_STOP
+      relres:
+        - ResourceA
+      istksz: 256
+    ResourceA:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceB:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceC:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+# 以下，確認用オブジェクト
+    TaskVerify:
+      type: TASK
+      tstat: RUNNING
+      inipri: 5
+      curpri: 5
+      spolicy: AK_SCHFULL
+      maxact: 1
+      relres:
+        - ResourceC
+    TaskDummy1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      spolicy: AK_SCHFULL
+      maxact: 1
+      relres:
+        - ResourceB
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+    AlarmVerify:
+      type: ALARM
+      counter: CounterVerify
+      astat: AK_UNSET
+      almact: AK_ALM_CBACK
+      callback: AlarmCallBackVerify
+    AlarmCallBackVerify:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    CounterVerify:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do:
+    id: TaskVerify
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

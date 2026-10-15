@@ -1,0 +1,454 @@
+<html xmlns:graph="graph" xmlns:file="file" xmlns:textutil="textutil">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <style type="text/css"> BODY,P,OL,TD{font-family: Arial, Helvetica, sans-serif;font-size:
+		11px;font-style: normal;color: #000000;} A:link {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: none;} A:active {font-family:
+		Arial, Helvetica, sans-serif;font-style: normal;color: #990000;text-decoration: none;}
+		A:visited {font-family: Arial, Helvetica, sans-serif;font-style: normal;color:
+		#999999;text-decoration: none;} A:hover {font-family: Arial, Helvetica,
+		sans-serif;font-style: normal;color: #990000;text-decoration: underline;} A.gray_link:link
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;}
+		A.gray_link:active {font-family: sans-serif;font-size: 11px;color: #666666;text-decoration:
+		none;} A.gray_link:visited {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_link:hover {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: underline;} A.red_link:link {font-family:
+		sans-serif;font-size: 11px;color: #990000;text-decoration: none;} A.red_link:active
+		{font-family: sans-serif;font-size: 11px;color: #990000;text-decoration: none;}
+		A.red_link:visited {font-family: sans-serif;font-size: 11px;color: #990000;text-decoration:
+		none;} A.red_link:hover {font-family: sans-serif;font-size: 11px;color:
+		#990000;text-decoration: underline;} A.green_link:link {font-family: sans-serif;font-size:
+		11px;color: #008040;text-decoration: none;} A.green_link:active {font-family:
+		sans-serif;font-size: 11px;color: #008040;text-decoration: none;} A.green_link:visited
+		{font-family: sans-serif;font-size: 11px;color: #008040;text-decoration: none;}
+		A.green_link:hover {font-family: sans-serif;font-size: 11px;color: #008040;text-decoration:	underline;} 
+		A.black_link:link {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:active {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:visited {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: none;} 
+		A.black_link:hover {font-family: sans-serif;font-size: 11px;color: #000000;text-decoration: underline;}
+		A.blue_link:link {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:active {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:visited {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: none;} 
+        A.blue_link:hover {font-family: sans-serif;font-size: 11px;color: #0000FF;text-decoration: underline;}
+        A.dark_blue_link:link {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:active {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:visited {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: none;} 
+        A.dark_blue_link:hover {font-family: sans-serif;font-size: 11px;color: #00008B;text-decoration: underline;}		
+		A.gray_red_link:link {font-family: sans-serif;font-size: 11px;color:
+		#666666;text-decoration: none;} A.gray_red_link:active {font-family: sans-serif;font-size:
+		11px;color: #666666;text-decoration: none;} A.gray_red_link:visited {font-family:
+		sans-serif;font-size: 11px;color: #666666;text-decoration: none;} A.gray_red_link:hover
+		{font-family: sans-serif;font-size: 11px;color: #666666;text-decoration: none;} FONT.gray
+		{font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #999999;} FONT.gray2,
+		FONT.gray_red {font-size: 11px;font-family: Arial, Helvetica, sans-serif;color: #666666;}
+		FONT.time {font-size: 10px;font-family: Arial, Helvetica, sans-serif;color: #000000;}
+				
+		FONT.covered    {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #99ff99;}
+		FONT.notcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffcccc;}
+		FONT.halfcovered {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffff66;}		
+		FONT.normal     {font-size: 10px;font-family: Arial, Helvetica, sans-serif; background-color: #ffffff;}
+		
+		FONT.red {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;}
+		FONT.red2 {font-size:11px;font-family: Arial, Helvetica, sans-serif;color: #990000;
+		text-decoration: underline;} FONT.green {font-size:11px;font-family: Arial, Helvetica,
+		sans-serif;color: #008040;} FONT.small {font-size: 1px;font-family: Arial, Helvetica,
+		sans-serif;color: #cccccc;} SELECT.cs_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} SELECT.ju_authors {font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;} TD.cs_authors{font-family: Arial, Helvetica,
+		sans-serif;font-size: 11px;font-style: normal;color: #000000;border: 1px; bordercolor:
+		#d9c8ac;} UL, LI {font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-style:
+		normal;color: #000000; list-style-type: none; margin: 0; padding-left: 12px;}
+		#foldheader{cursor:pointer;cursor:hand ;} </style><title>
+         [<b>100%
+            </b>&#xA0;14/14&#xA0;]
+         &#xA0;&#xA0;/atk2-sc1/kernel/osctl_manage.c
+      </title>
+   </head>
+   <body bgcolor="#ffffff">
+      <table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_header_expander.jpg" width="50%" align="left"><img src="rep_header_3.jpg" alt="rep_header_3.jpg"></td>
+            <td background="rep_header_expander.jpg" width="50%" align="right"><img src="rep_header_logo.jpg" alt="rep_header_logo.jpg"></td>
+         </tr>
+      </table>
+      <table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td width="16%" align="center"><font class="time">01/23/14 19:48:00</font></td>
+            <td align="center" bgcolor="#d9c8ac"><b>/atk2-sc1/kernel/osctl_manage.c</b></td>
+         </tr>
+      </table><br>&#xA0;&#21508;&#34892;&#12398;&#12471;&#12531;&#12508;&#12523;&#12398;&#24847;&#21619;&#12399;&#27425;&#12398;&#36890;&#12426;&#12391;&#12377;:
+      <table border="0" width="60%" cellpadding="0" cellspacing="3">
+         <tr>
+            <td align="center" bgcolor="#99ff99" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12383;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffcccc" width="10">code</td>
+            <td>&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffff66" width="10">code</td>
+            <td>&#37096;&#20998;&#30340;&#12395;&#12459;&#12496;&#12540;/&#12486;&#12473;&#12488;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#34892;</td>
+         </tr>
+         <tr>
+            <td align="center" bgcolor="#ffffff" width="10">code&#xA0;</td>
+            <td>&#12459;&#12496;&#12540;&#12391;&#12365;&#12427;&#35201;&#32032;&#12434;&#25345;&#12383;&#12394;&#12356;&#34892;</td>
+         </tr>
+      </table><br><table width="80%" border="0" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td>
+               <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                  <tr>
+                     <td align="center" bgcolor="#d9c8ac" colspan="4">100% 
+                        [&#xA0;14/14&#xA0;
+                        ]
+                        &#xA0;&#xA0;<b>/atk2-sc1/kernel/osctl_manage.c</b></td>
+                  </tr>
+                  <tr>
+                     <td>&#xA0;</td>
+                     <td valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                           <tr>
+                              <td valign="top"><pre><code><font class="normal">/*
+ *  TOPPERS ATK2
+ *      Toyohashi Open Platform for Embedded Real-Time Systems
+ *      Automotive Kernel Version 2
+ *
+ *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
+ *                              Toyohashi Univ. of Technology, JAPAN
+ *  Copyright (C) 2004-2013 by Center for Embedded Computing Systems
+ *              Graduate School of Information Science, Nagoya Univ., JAPAN
+ *  Copyright (C) 2011-2013 by FUJI SOFT INCORPORATED, JAPAN
+ *  Copyright (C) 2011-2013 by FUJITSU VLSI LIMITED, JAPAN
+ *  Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+ *  Copyright (C) 2011-2013 by Renesas Electronics Corporation, JAPAN
+ *  Copyright (C) 2011-2013 by Sunny Giken Inc., JAPAN
+ *  Copyright (C) 2011-2013 by TOSHIBA CORPORATION, JAPAN
+ *  Copyright (C) 2004-2013 by Witz Corporation, JAPAN
+ *
+ *  &#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12399;&#65292;&#20197;&#19979;&#12398;(1)&#12316;(4)&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#22580;&#21512;&#12395;&#38480;&#12426;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#65288;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#25913;&#22793;&#12375;&#12383;&#12418;&#12398;&#12434;&#21547;&#12416;&#65294;&#20197;&#19979;&#21516;&#12376;&#65289;&#12434;&#20351;&#29992;&#12539;&#35079;&#35069;&#12539;&#25913;
+ *  &#22793;&#12539;&#20877;&#37197;&#24067;&#65288;&#20197;&#19979;&#65292;&#21033;&#29992;&#12392;&#21628;&#12406;&#65289;&#12377;&#12427;&#12371;&#12392;&#12434;&#28961;&#20767;&#12391;&#35377;&#35582;&#12377;&#12427;&#65294;
+ *  (1) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#12477;&#12540;&#12473;&#12467;&#12540;&#12489;&#12398;&#24418;&#12391;&#21033;&#29992;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;
+ *      &#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12364;&#65292;&#12381;&#12398;&#12414;&#12414;&#12398;&#24418;&#12391;&#12477;&#12540;
+ *      &#12473;&#12467;&#12540;&#12489;&#20013;&#12395;&#21547;&#12414;&#12428;&#12390;&#12356;&#12427;&#12371;&#12392;&#65294;
+ *  (2) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#12521;&#12452;&#12502;&#12521;&#12522;&#24418;&#24335;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12427;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;
+ *      &#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;&#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;
+ *      &#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (3) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12434;&#65292;&#27231;&#22120;&#12395;&#32068;&#12415;&#36796;&#12416;&#12394;&#12393;&#65292;&#20182;&#12398;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#38283;&#30330;&#12395;&#20351;
+ *      &#29992;&#12391;&#12365;&#12394;&#12356;&#24418;&#12391;&#20877;&#37197;&#24067;&#12377;&#12427;&#22580;&#21512;&#12395;&#12399;&#65292;&#27425;&#12398;&#12356;&#12378;&#12428;&#12363;&#12398;&#26465;&#20214;&#12434;&#28288;&#12383;&#12377;&#12371;
+ *      &#12392;&#65294;
+ *    (a) &#20877;&#37197;&#24067;&#12395;&#20276;&#12358;&#12489;&#12461;&#12517;&#12513;&#12531;&#12488;&#65288;&#21033;&#29992;&#32773;&#12510;&#12491;&#12517;&#12450;&#12523;&#12394;&#12393;&#65289;&#12395;&#65292;&#19978;&#35352;&#12398;&#33879;
+ *        &#20316;&#27177;&#34920;&#31034;&#65292;&#12371;&#12398;&#21033;&#29992;&#26465;&#20214;&#12362;&#12424;&#12403;&#19979;&#35352;&#12398;&#28961;&#20445;&#35388;&#35215;&#23450;&#12434;&#25522;&#36617;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *    (b) &#20877;&#37197;&#24067;&#12398;&#24418;&#24907;&#12434;&#65292;&#21029;&#12395;&#23450;&#12417;&#12427;&#26041;&#27861;&#12395;&#12424;&#12387;&#12390;&#65292;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12395;
+ *        &#22577;&#21578;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *  (4) &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12427;&#12356;&#12363;&#12394;&#12427;&#25613;
+ *      &#23475;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;&#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *      &#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12398;&#12518;&#12540;&#12470;&#12414;&#12383;&#12399;&#12456;&#12531;&#12489;&#12518;&#12540;&#12470;&#12363;&#12425;&#12398;&#12356;&#12363;&#12394;&#12427;&#29702;
+ *      &#30001;&#12395;&#22522;&#12389;&#12367;&#35531;&#27714;&#12363;&#12425;&#12418;&#65292;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;&#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12434;
+ *      &#20813;&#36012;&#12377;&#12427;&#12371;&#12392;&#65294;
+ *
+ *  &#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12399;&#65292;&#28961;&#20445;&#35388;&#12391;&#25552;&#20379;&#12373;&#12428;&#12390;&#12356;&#12427;&#12418;&#12398;&#12391;&#12354;&#12427;&#65294;&#19978;&#35352;&#33879;&#20316;&#27177;&#32773;&#12362;
+ *  &#12424;&#12403;TOPPERS&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12399;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#12395;&#38306;&#12375;&#12390;&#65292;&#29305;&#23450;&#12398;&#20351;&#29992;&#30446;&#30340;
+ *  &#12395;&#23550;&#12377;&#12427;&#36969;&#21512;&#24615;&#12418;&#21547;&#12417;&#12390;&#65292;&#12356;&#12363;&#12394;&#12427;&#20445;&#35388;&#12418;&#34892;&#12431;&#12394;&#12356;&#65294;&#12414;&#12383;&#65292;&#26412;&#12477;&#12501;&#12488;&#12454;&#12455;
+ *  &#12450;&#12398;&#21033;&#29992;&#12395;&#12424;&#12426;&#30452;&#25509;&#30340;&#12414;&#12383;&#12399;&#38291;&#25509;&#30340;&#12395;&#29983;&#12376;&#12383;&#12356;&#12363;&#12394;&#12427;&#25613;&#23475;&#12395;&#38306;&#12375;&#12390;&#12418;&#65292;&#12381;
+ *  &#12398;&#36012;&#20219;&#12434;&#36000;&#12431;&#12394;&#12356;&#65294;
+ *
+ *  $Id: osctl_manage.c 7905 2013-09-25 08:20:15Z whirahashi $
+ */
+
+/*
+ *		OS&#31649;&#29702;&#12514;&#12472;&#12517;&#12540;&#12523;
+ */
+
+#include "kernel_impl.h"
+#include "check.h"
+#include "interrupt.h"
+
+/*
+ *  &#12488;&#12524;&#12540;&#12473;&#12525;&#12464;&#12510;&#12463;&#12525;&#12398;&#12487;&#12501;&#12457;&#12523;&#12488;&#23450;&#32681;
+ */
+#ifndef LOG_GETAAM_ENTER
+#define LOG_GETAAM_ENTER()
+#endif /* LOG_GETAAM_ENTER */
+
+#ifndef LOG_GETAAM_LEAVE
+#define LOG_GETAAM_LEAVE(mode)
+#endif /* LOG_GETAAM_LEAVE */
+
+#ifndef LOG_STAOS_ENTER
+#define LOG_STAOS_ENTER(mode)
+#endif /* LOG_STAOS_ENTER */
+
+#ifndef LOG_STAOS_LEAVE
+#define LOG_STAOS_LEAVE()
+#endif /* LOG_STAOS_LEAVE */
+
+#ifndef LOG_STAHOOK_ENTER
+#define LOG_STAHOOK_ENTER()
+#endif /* LOG_STAHOOK_ENTER */
+
+#ifndef LOG_STAHOOK_LEAVE
+#define LOG_STAHOOK_LEAVE()
+#endif /* LOG_STAHOOK_LEAVE */
+
+
+#ifdef TOPPERS_StartOS
+
+/*
+ *  OS&#23455;&#34892;&#21046;&#24481;&#12398;&#12383;&#12417;&#12398;&#22793;&#25968;
+ */
+uint16		callevel_stat = 0U;             /* &#23455;&#34892;&#20013;&#12398;&#12467;&#12531;&#12486;&#12461;&#12473;&#12488; */
+AppModeType	appmodeid;                      /* &#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#12514;&#12540;&#12489;ID */
+
+/*
+ *  &#12459;&#12540;&#12493;&#12523;&#21205;&#20316;&#29366;&#24907;&#12501;&#12521;&#12464;
+ */
+boolean		kerflg = FALSE;
+
+/*
+ *  &#12501;&#12449;&#12452;&#12523;&#21517;&#65292;&#34892;&#30058;&#21495;&#12398;&#21442;&#29031;&#29992;&#12398;&#22793;&#25968;
+ */
+const char8	*fatal_file_name = NULL;                    /* &#12501;&#12449;&#12452;&#12523;&#21517; */
+sint32		fatal_line_num = 0;                         /* &#34892;&#30058;&#21495; */
+
+/*
+ *  OS&#12398;&#36215;&#21205;
+ */
+
+void
+StartOS(AppModeType Mode)
+{
+#ifdef CFG_USE_STARTUPHOOK
+	void (*volatile startuphook_adr) (void);
+#endif /* CFG_USE_STARTUPHOOK */
+
+	LOG_STAOS_ENTER(Mode);
+#ifdef CFG_USE_EXTENDEDSTATUS
+	if (</font><font class="covered">kerflg != FALS</font><font class="normal">E) {
+		/* OS&#36215;&#21205;&#20013;&#12399;&#12456;&#12521;&#12540;&#12501;&#12483;&#12463;&#12434;&#21628;&#12406; */
+#ifdef CFG_USE_ERRORHOOK
+		x_nested_lock_os_int();
+#ifdef CFG_USE_PARAMETERACCESS
+		_errorhook_par1.mode = Mode;
+#endif /* CFG_USE_PARAMETERACCESS */
+		call_errorhook(E_OS_ACCESS, OSServiceId_StartOS);
+		x_nested_unlock_os_int();
+#endif /* CFG_USE_ERRORHOOK */
+	}
+	else {
+#endif /* CFG_USE_EXTENDEDSTATUS */
+
+		/* &#20840;&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#12395;&#31227;&#34892; */
+		x_lock_all_int();
+
+#ifdef CFG_USE_STACKMONITORING
+		/*
+		 *  &#12473;&#12479;&#12483;&#12463;&#12514;&#12491;&#12479;&#12522;&#12531;&#12464;&#27231;&#33021;&#12398;&#21021;&#26399;&#21270;
+		 *  &#12473;&#12479;&#12483;&#12463;&#12514;&#12491;&#12479;&#12522;&#12531;&#12464;&#27231;&#33021;&#12398;&#12383;&#12417;&#12398;&#12510;&#12472;&#12483;&#12463;&#12490;&#12531;&#12496;&#12540;&#38936;&#22495;&#12398;&#21021;&#26399;&#21270;
+		 */
+		init_stack_magic_region();
+#endif /* CFG_USE_STACKMONITORING */
+
+		/* &#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#12514;&#12540;&#12489;&#12398;&#35373;&#23450; */
+		appmodeid = Mode;
+
+		/* &#12479;&#12540;&#12466;&#12483;&#12488;&#20381;&#23384;&#12398;&#21021;&#26399;&#21270; */
+		target_initialize();
+
+		/* &#21508;&#12514;&#12472;&#12517;&#12540;&#12523;&#12398;&#21021;&#26399;&#21270; */
+		object_initialize();
+
+		callevel_stat = TCL_NULL;
+
+		/* &#12459;&#12540;&#12493;&#12523;&#21205;&#20316;&#20013; */
+		kerflg = TRUE;
+
+		/*
+		 *  Mode&#12364;&#19981;&#27491;&#12391;&#12354;&#12387;&#12383;&#22580;&#21512;&#65292;OS&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#12434;&#34892;&#12358;
+		 *  &#12371;&#12398;&#26178;&#65292;&#12473;&#12479;&#12540;&#12488;&#12450;&#12483;&#12503;&#12501;&#12483;&#12463;&#12399;&#21628;&#12403;&#20986;&#12373;&#12428;&#12394;&#12356;
+		 */
+		if (</font><font class="covered">Mode &gt;= tnum_appmode</font><font class="normal">) {
+			/*
+			 *  internal_shutdownos&#12434;&#21628;&#12406;&#21069;&#12395;OS&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#12408;
+			 *  &#20840;&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#35299;&#38500;
+			 */
+			x_nested_lock_os_int();
+			x_unlock_all_int();
+			internal_shutdownos(E_OS_MODE);
+		}
+
+#ifdef CFG_USE_STARTUPHOOK
+		/* OS&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#12395;&#12375;&#65292;&#20840;&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#35299;&#38500; */
+		x_nested_lock_os_int();
+		x_unlock_all_int();
+
+		/*
+		 *  StartupHook &#12398;&#21628;&#12403;&#20986;&#12375;
+		 *
+		 *  C&#35328;&#35486;&#12398;&#35215;&#26684;&#12391;&#12399;&#38306;&#25968;&#12398;&#12450;&#12489;&#12524;&#12473;&#12399;0&#12395;&#12394;&#12425;&#12394;&#12356;&#12392;&#12356;&#12358;&#21069;&#25552;&#12363;&#12425;,
+		 *  &#12467;&#12531;&#12497;&#12452;&#12521;&#12398;&#26368;&#36969;&#21270;&#12395;&#12424;&#12426;StartupHook&#12398;&#12450;&#12489;&#12524;&#12473;&#21028;&#23450;&#20998;&#23696;&#12364;
+		 *  &#21066;&#38500;&#12373;&#12428;&#12390;&#12375;&#12414;&#12358;&#22580;&#21512;&#12364;&#12354;&#12427;&#12383;&#12417;, volatile&#25351;&#23450;&#12375;&#12383;&#12525;&#12540;&#12459;&#12523;&#22793;&#25968;&#12395;
+		 *  &#12450;&#12489;&#12524;&#12473;&#12434;&#20195;&#20837;&#12375;&#12390;&#12363;&#12425;&#21028;&#23450;&#12375;&#12390;&#12356;&#12427;
+		 */
+		startuphook_adr = &amp;StartupHook;
+
+		if (</font><font class="covered">startuphook_adr != NULL) {
+</font><font class="normal">			ENTER_CALLEVEL(TCL_STARTUP);
+			LOG_STAHOOK_ENTER();
+			StartupHook();
+			LOG_STAHOOK_LEAVE();
+			LEAVE_CALLEVEL(TCL_STARTUP);
+
+			release_interrupts(OSServiceId_HookMissingEnd);
+		}
+
+		/* &#20803;&#12398;&#21106;&#36796;&#12415;&#12510;&#12473;&#12463;&#20778;&#20808;&#24230;&#12392;&#20840;&#21106;&#36796;&#12415;&#31105;&#27490;&#29366;&#24907;&#12395; */
+		x_lock_all_int();
+		x_nested_unlock_os_int();
+#endif /* CFG_USE_STARTUPHOOK */
+
+		ENTER_CALLEVEL(TCL_TASK);
+		LOG_STAOS_LEAVE();
+		start_dispatch();
+		ASSERT(0);
+#ifdef CFG_USE_EXTENDEDSTATUS
+	}
+#endif /* CFG_USE_EXTENDEDSTATUS */
+}
+
+#endif /* TOPPERS_StartOS */
+
+/*
+ *  &#29694;&#22312;&#12398;&#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#12514;&#12540;&#12489;&#12398;&#21462;&#24471;
+ */
+#ifdef TOPPERS_GetActiveApplicationMode
+
+AppModeType
+GetActiveApplicationMode(void)
+{
+	AppModeType	appmode;
+#if defined(CFG_USE_EXTENDEDSTATUS) || defined(CFG_USE_ERRORHOOK)
+	StatusType	ercd;
+#endif /* CFG_USE_EXTENDEDSTATUS || CFG_USE_ERRORHOOK */
+
+	LOG_GETAAM_ENTER();
+	CHECK_DISABL</font><font class="covered">EDINT();
+</font><font class="normal">	CHECK_CALLEV</font><font class="covered">EL(CALLEVEL_GETACTIVEAPPMODE);
+</font><font class="normal">
+	appmode = appmodeid;
+
+  exit_finish:
+	LOG_GETAAM_LEAVE(appmode);
+	return(appmode);
+
+#ifdef CFG_USE_ERRORHOOK
+  exit_errorhook:
+	x_nested_lock_os_int();
+	/*
+	 *  &#12456;&#12521;&#12540;&#30330;&#29983;&#26178;&#12399;INVALID_APPMODETYPE&#12364;&#36820;&#12427;&#12364;&#65292;&#12456;&#12521;&#12540;&#12364;&#30330;&#29983;&#12375;&#12383;&#12398;&#12363;&#23455;&#34892;&#20013;&#12398;
+	 *  C2ISR&#12364;&#23384;&#22312;&#12375;&#12394;&#12356;&#12398;&#12363;&#21306;&#21029;&#12377;&#12427;&#12383;&#12417;&#65292;&#12456;&#12521;&#12540;&#12501;&#12483;&#12463;&#12434;&#21628;&#12406;
+	 */
+	call_errorhook(ercd, OSServiceId_GetActiveApplicationMode);
+	x_nested_unlock_os_int();
+#endif /* CFG_USE_ERRORHOOK */
+
+  exit_no_errorhook:
+	appmode = INVALID_APPMODETYPE;
+	goto exit_finish;
+}
+
+#endif /* TOPPERS_GetActiveApplicationMode */
+
+/*
+ *  OS&#12398;&#32066;&#20102;
+ */
+#ifdef TOPPERS_ShutdownOS
+
+void
+ShutdownOS(StatusType Error)
+{
+	StatusType ercd = Error;
+
+	/*
+	 *  &#19981;&#27491;&#12394;&#20966;&#29702;&#21336;&#20301;&#12363;&#12425;&#21628;&#12403;&#20986;&#12375;&#12383;&#22580;&#21512;&#12418;&#65292;Error&#12434;E_OS_SHUTDOWN_FATAL&#12392;&#12375;&#12390;
+	 *  ShutdownOS&#12434;&#21628;&#12403;&#20986;&#12375;&#12383;&#12418;&#12398;&#12392;&#12375;&#12390;&#65292;&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#20966;&#29702;&#12434;&#34892;&#12358;
+	 */
+	if (</font><font class="covered">((callevel_stat &amp; TCLMASK) | (CALLEVEL_SHUTDOWNOS)) != (CALLEVEL_SHUTDOWNOS)) {
+</font><font class="normal">		ercd = E_OS_SHUTDOWN_FATAL;
+	}
+
+	/*
+	 *  OS&#12391;&#23450;&#32681;&#12373;&#12428;&#12390;&#12356;&#12394;&#12356;&#12456;&#12521;&#12540;&#12467;&#12540;&#12489;&#12364;&#25351;&#23450;&#12373;&#12428;&#12383;&#22580;&#21512;&#65292;Error&#12434;E_OS_SHUTDOWN_FATAL&#12392;&#12375;&#12390;
+	 *  ShutdownOS&#12434;&#21628;&#12403;&#20986;&#12375;&#12383;&#12418;&#12398;&#12392;&#12375;&#12390;&#65292;&#12471;&#12515;&#12483;&#12488;&#12480;&#12454;&#12531;&#20966;&#29702;&#12434;&#34892;&#12358;
+	 */
+	if (</font><font class="covered">ercd &gt; ERRCO</font><font class="normal">DE_NUM) {
+		ercd = E_OS_SHUTDOWN_FATAL;
+	}
+
+	internal_shutdownos(ercd);
+}
+#endif /* TOPPERS_ShutdownOS */
+
+/*
+ *  &#20445;&#35703;&#36949;&#21453;&#12434;&#36215;&#12371;&#12375;&#12383;&#20966;&#29702;&#21336;&#20301;&#12398;&#21462;&#24471;
+ */
+#ifdef TOPPERS_GetFaultyContext
+
+FaultyContextType
+GetFaultyContext(void)
+{
+	FaultyContextType faultycontext = FC_INVALID;
+
+#ifdef CFG_USE_PROTECTIONHOOK
+	if (</font><font class="covered">(callevel_stat &amp; CALLEVEL_GETFAULTY</font><font class="normal">CONTEXT) != 0U) {
+
+		/* C1ISR&#20197;&#22806;&#12391;&#30330;&#29983; */
+		if (</font><font class="covered">(callevel_stat &amp; TSYS_ISR1) == 0U</font><font class="normal">) {
+			/* &#12501;&#12483;&#12463;&#20013;&#12395;&#30330;&#29983; */
+			if (</font><font class="covered">(callevel_stat &amp; (TCL_ERROR | TCL_PREPOST | TCL_STARTUP | TCL_SHUTDOWN)</font><font class="normal">) != 0U) {
+				/* &#12471;&#12473;&#12486;&#12512;&#23450;&#32681;&#12501;&#12483;&#12463;&#20013;&#12395;&#30330;&#29983; */
+				faultycontext = FC_SYSTEM_HOOK;
+			}
+			else if (</font><font class="covered">(callevel_stat &amp; TCL_ISR2) != 0U)</font><font class="normal"> {
+				if (</font><font class="covered">(callevel_stat &amp; TCL_ALRMCBAK) ==</font><font class="normal"> 0U) {
+					faultycontext = FC_C2ISR;
+				}
+			}
+			else if (</font><font class="covered">(callevel_stat &amp; TCL_TASK) != 0U)</font><font class="normal"> {
+				if (</font><font class="covered">(callevel_stat &amp; TCL_ALRMCBAK) ==</font><font class="normal"> 0U) {
+					faultycontext = FC_TASK;
+				}
+			}
+			else {
+				/* &#19978;&#35352;&#20197;&#22806;&#12398;&#22580;&#21512;&#65292;&#20966;&#29702;&#12399;&#34892;&#12431;&#12394;&#12356;(&#25147;&#12426;&#20516;&#65306;FC_INVALID) */
+			}
+		}
+	}
+#endif /* CFG_USE_PROTECTIONHOOK */
+
+	return(faultycontext);
+}
+#endif /* TOPPERS_GetFaultyContext */
+</font></code></pre></td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td>&#xA0;</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table><br><br><table width="80%" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0">
+         <tr>
+            <td align="center">&copy;Parasoft Corp. -C++test&reg;&#xA0;9.4.2.17&#xA0;&#12524;&#12509;&#12540;&#12488; &#12471;&#12473;&#12486;&#12512;&#xA0;</td>
+         </tr>
+      </table><br><table width="80%" cellpadding="0" cellspacing="0">
+         <tr>
+            <td background="rep_footer_expander.jpg" width="100%" align="left"><img src="rep_footer.jpg" alt="rep_footer.jpg"></td>
+         </tr>
+      </table>
+   </body>
+</html>

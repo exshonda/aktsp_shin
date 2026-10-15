@@ -1,0 +1,18 @@
+T1_022_error_hook_required_key:
+  property:
+    sc: 
+
+  pre_condition:
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

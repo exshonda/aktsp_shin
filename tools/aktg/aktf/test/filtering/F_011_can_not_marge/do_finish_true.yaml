@@ -1,0 +1,21 @@
+do_finish_true:
+  property:
+    sc:
+
+  pre_condition:
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: SuspendAllInterrupts()
+    finish: true
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK1

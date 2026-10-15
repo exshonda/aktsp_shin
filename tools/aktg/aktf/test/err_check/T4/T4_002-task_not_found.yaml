@@ -1,0 +1,18 @@
+T4_002_task_not_found:
+  property:
+    sc: 
+
+  pre_condition:
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C2ISR1
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

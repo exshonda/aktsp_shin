@@ -1,0 +1,949 @@
+
+    AKTSP - Automotive Kernel Test Suite Package -
+    ＜ATK2-SC1テストユーザーズマニュアル＞
+
+本ドキュメントは，AKTSPを使用してATK2-SC1を実行するために必要な事項を
+説明するものである．
+
+<関連ドキュメント>
+- AKTSPユーザーズマニュアル
+  (user.txt)
+- aktb実行マニュアル
+  (aktb/docs/AKTB実行マニュアル.docx)
+- ATK2テスト仕様書
+- ATK2カバレッジ計測手順書
+
+Copyright (C) 2011-2017 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2015-2016 by AISIN COMCRUISE Co., Ltd., JAPAN
+Copyright (C) 2015-2016 by eSOL Co.,Ltd., JAPAN
+Copyright (C) 2011-2017 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2015-2017 by Fujitsu TEN Limited
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2017 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2017 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2015-2017 by SCSK Corporation, JAPAN
+Copyright (C) 2011-2016 by Sunny Giken Inc., JAPAN
+Copyright (C) 2016-2017 by SUZUKI MOTOR CORPORATION
+Copyright (C) 2011-2017 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2011-2017 by Witz Corporation, JAPAN
+
+上記著作権者は，以下の (1)〜(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+----------------------------------------------------------------------
+$Id: atk2-sc1_user.txt 2398 2017-03-14 08:10:21Z witz-itoyo $
+----------------------------------------------------------------------
+
+○目次
+
+(1) 用語説明
+(2) 概要
+    (2.1) ATK2-SC1テストの全体像
+    (2.2) AKTSPの構成(ATK2-SC1テスト)
+        (2.2.1) システムサービステスト用フォルダの構成
+        (2.2.2) OS内部処理テスト(サービス保護機能)用フォルダの構成
+        (2.2.3) OS内部処理テスト(保護違反時処理機能)用フォルダの構成
+        (2.2.4) 追加テスト用フォルダの構成用フォルダの構成
+        (2.2.5) AKTB実行モジュール(ruby版)用フォルダの構成
+        (2.2.6) ドキュメント用フォルダの構成
+        (2.2.7) テストライブラリ用フォルダの構成
+        (2.2.8) ツール用フォルダの構成
+        (2.2.9) AKTB実行環境設定ファイル用フォルダの構成
+    (2.3) 対象
+    (2.4) 動作環境
+(3) 環境構築
+(4) テスト実行
+(付録 A) デバッガを使用するテストの詳細
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) 用語説明
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+関連ドキュメントを参照すること．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) 概要
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+―――――――――――――――――――――――――――――――――――
+(2.1) ATK2-SC1テストの全体像
+―――――――――――――――――――――――――――――――――――
+
+AKTSPに含まれるテストケースは，ATK2テスト仕様書(※1)をベースで作成した．
+ATK2テスト仕様書のテスト項目とAKTSPがサポートするテストを，以下にまと
+める．
+
+※1 ATK2テスト仕様書 Ver.1.0.0
+    ATK2テスト仕様書 Ver.1.0.0はATK2外部仕様書 Ver. 1.2.0に対応しており，
+    AKTSPが対象とするATK2外部仕様書 Ver. 1.2.2に対応していない．
+    そのため，参考資料としてATK2テスト仕様書 Ver.1.0.0を参照すること．
+
+テスト項目                                    | SC1 
+--------------------------------------------------
+システムサービステスト
+ ActivateTask                                 | ○  
+ TerminateTask                                | ○  
+ ChainTask                                    | ○  
+ Schedule                                     | ○  
+ GetTaskID                                    | ○  
+ GetTaskState                                 | ○  
+ EnableAllInterrupts                          | ○  
+ DisableAllInterrupts                         | ○  
+ ResumeAllInterrupts                          | ○  
+ SuspendAllInterrupts                         | ○  
+ ResumeOSInterrupts                           | ○  
+ SuspendOSInterrupts                          | ○  
+ GetISRID                                     | ○  
+ EnableInterruptSource                        | ○  
+ DisableInterruptSource                       | ○  
+ SetEvent                                     | ○  
+ ClearEvent                                   | ○  
+ GetEvent                                     | ○  
+ WaitEvent                                    | ○  
+ GetResource                                  | ○  
+ ReleaseResource                              | ○  
+ IncrementCounter                             | ○  
+ GetCounterValue                              | ○  
+ GetElapsedValue                              | ○  
+ GetAlarmBase                                 | ○  
+ GetAlarm                                     | ○  
+ SetRelAlarm                                  | ○  
+ SetAbsAlarm                                  | ○  
+ CancelAlarm                                  | ○  
+ StartScheduleTableRel                        | ○  
+ StartScheduleTableAbs                        | ○  
+ StopScheduleTable                            | ○  
+ NextScheduleTable                            | ○  
+ GetScheduleTableStatus                       | ○  
+ StartOS                                      | ○  
+ ShutdownOS                                   | ○  
+ GetActiveApplicationMode                     | ○  
+ GetFaultyContext                             | ○  
+--------------------------------------------------
+OS内部処理テスト(サービス保護機能)
+ タスク不正終了                               | ○  
+ C2ISR不正終了                                | ○  
+--------------------------------------------------
+OS内部処理テスト(保護違反時処理機能)
+  スタックモニタリング                        | ○  
+  CPU例外                                     | ○  
+--------------------------------------------------
+その他のテスト
+ 処理レベル                                   | ○  
+ フェイタルエラー                             | ○  
+ ネストして呼び出された処理単位の振る舞い     | ○  
+ 割込み処理                                   | ○  
+ ハードウェアカウンタ                         | ○  
+
+【凡例】○：サポート
+        △：一部サポート
+        ×：未サポート
+        －：テスト対象外
+
+―――――――――――――――――――――――――――――――――――
+(2.2) AKTSPの構成(ATK2-SC1テスト)
+―――――――――――――――――――――――――――――――――――
+
+aktsp/
+  │  atk2-sc1_user.txt            本文書
+  │
+  ├─syssrv_test/sc1/             システムサービステスト
+  ├─error_test/sc1/              OS内部処理テスト(サービス保護機能)
+  ├─protection_test/sc1/         OS内部処理テスト(保護違反時処理機能)
+  ├─additional_test/sc1          追加テスト
+  │
+  ├─aktb/                        AKTB実行モジュール(ruby版)
+  ├─docs/                        ドキュメント
+  ├─library/                     テストライブラリ
+  ├─tools                        ツール
+  └─yamls/sc1/                   AKTB実行環境設定ファイル
+
+----------------------------------------------------------------------
+(2.2.1) システムサービステスト用フォルダの構成
+----------------------------------------------------------------------
+システムサービステストのファイル/フォルダ構成を以下にまとめる．
+
+aktsp/
+  └─syssrv_test/sc1/
+       ├─alarm/            アラーム関連システムサービス格納フォルダ
+       ├─counter/          カウンタ関連システムサービス格納フォルダ
+       ├─event/            イベント関連システムサービス格納フォルダ
+       ├─interrupt/        割込み関連システムサービス格納フォルダ
+       ├─osctl/            OS関連システムサービス格納フォルダ
+       ├─resource/         リソース関連システムサービス格納フォルダ
+       ├─scheduletable/    スケジュールテーブル関連システムサービス格納フォルダ
+       └─task/             タスクS関連システムサービス格納フォルダ
+
+各関連システムサービス格納フォルダ(alarm，counter…)には，システムサー
+ビス毎にフォルダがあり(フォルダ名はシステムサービス名と同じ)以下のファ
+イルが格納される．
+
+・PictMasterモデルファイル
+・TCSファイル
+・TESRYデータ(cmy形式)
+
+例)
+aktsp/
+  └─syssrv_test/sc1/
+       └─task/
+            └─ActivateTask/
+                 │  ActivateTask.xls           PictMasterモデルファイル
+                 │  ActivateTask_normal.csv    正常系TCSファイル
+                 │  ActivateTask_error.csv     異常系TCSファイル
+                 ├─normal_tesry/
+                 │     ActivateTask_normal.csv 正常系TESRYデータ(cmy形式)
+                 └─error_tesry/
+                        ActivateTask_error.csv  異常系TESRYデータ(cmy形式)
+
+----------------------------------------------------------------------
+(2.2.2) OS内部処理テスト(サービス保護機能)用フォルダの構成
+----------------------------------------------------------------------
+
+OS内部処理テスト(サービス保護機能)のファイル/フォルダ構成を以下にまとめる．
+
+aktsp/
+  └─error_test/sc1/
+       ├─illegal_terminate_task/        タスク不正終了テスト用フォルダ
+       │    └─notmerge_tesry/          マージ実行不可のTESRYデータを格納するフォルダ
+       └─illegal_terminate_c2isr/       C2ISR不正終了テスト用フォルダ
+              └─notmerge_tesry/         マージ実行不可のTESRYデータを格納するフォルダ
+
+各テストの格納フォルダには，以下のファイルが格納される．
+
+・PictMasterモデルファイル
+・TCSファイル
+・TESRYデータ(cmy形式)
+
+例)
+aktsp/
+  └─error_test/sc1/
+       └─illegal_terminate_task/                    タスク不正終了テスト用フォルダ
+            │  illegal_terminate_task.xls            PictMasterモデルファイル
+            │  illegal_terminate_task_NS1.csv        TCSファイル
+            │    ：
+            └─notmerge_tesry/                       マージ実行不可のTESRYデータを格納するフォルダ
+                   illegal_terminate_task_NS1.cmy     TESRYデータ(cmy形式)
+                     ：
+
+----------------------------------------------------------------------
+(2.2.3) OS内部処理テスト(保護違反時処理機能)用フォルダの構成
+----------------------------------------------------------------------
+
+OS内部処理テスト(保護違反時処理機能)のファイル/フォルダ構成を以下にまとめる．
+
+aktsp/
+  └─protection_test/sc1/
+       ├─cpu_exception/            CPU例外テスト用フォルダ
+       │    ├─merge_tesry/        マージ実行可能のTESRYデータを格納するフォルダ
+       │    └─notmerge_tesry/     マージ実行不可のTESRYデータを格納するフォルダ
+       │
+       └─stack_monitoring/         スタックモニタリングテスト用フォルダ
+             └─notmerge_tesry/     マージ実行不可のTESRYデータを格納するフォルダ
+
+各テストの格納フォルダには，以下のファイルが格納される．
+
+・PictMasterモデルファイル
+・TCSファイル
+・TESRYデータ(cmy形式)
+
+例)
+aktsp/
+  └─protection_test/sc1/
+       └─cpu_exception/                              CPU例外テスト用フォルダ
+            │  cpu_exception.xls                      PictMasterモデルファイル
+            │  cpu_exception_Merge.csv                TCSファイル
+            │    ：
+            ├─merge_tesry/                           マージ実行可能のTESRYデータを格納するフォルダ
+            │     cpu_exception_Merge.cmy             TESRYデータ(cmy形式)
+            │        
+            └─notmerge_tesry/                        マージ実行不可のTESRYデータを格納するフォルダ
+                   cpu_exception_NotMerge_NP_NS.cmy    TESRYデータ(cmy形式)
+                     ：
+
+----------------------------------------------------------------------
+(2.2.4) 追加テスト用フォルダの構成
+----------------------------------------------------------------------
+
+追加テストのファイル/フォルダ構成を以下にまとめる．
+
+aktsp/
+  └─additional_test/sc1/
+       ├─syssrv_test            システムサービステストの追加テストを格納するフォルダ
+       ├─error_test             OS内部処理テスト(サービス保護機能)の追加テストを格納するフォルダ
+       ├─protection_test        OS内部処理テスト(保護違反時処理機能)の追加テストを格納するフォルダ
+       ├─other_test             その他のテストを格納するフォルダ
+       └─nontesry_test          スクラッチで開発したテストを格納するフォルダ
+           │  sc1_nontesry.sh    スクラッチで開発したテストを実行するスクリプト(nondebug.MANIFESTで記載されたテストを実行する)
+           │  nondebug.MANIFEST  デバッガを使用しないテスト一覧
+           │  debug.MANIFEST     デバッガを使用するテスト一覧
+           ├─syssrv_test        システムサービステストのスクラッチで開発したテストを格納するフォルダ
+           └─other_test         その他のテストのスクラッチで開発したテストを格納するフォルダ
+
+各テスト用フォルダ以下のファイルが格納される．
+① AKTGで実行可能なテスト(nontesry_testフォルダ以外)
+・TESRYデータ(cmy形式)
+※ 以下のファイルは各テストによって存在する場合もある．
+・PictMasterモデルファイル
+・TCSファイル
+
+例)
+aktsp/
+  └─additional_test/sc1/
+      └other_test/
+         └─hardware_counter/                                      ハードウェアカウンタテスト用フォルダ
+             │  HardwareCounter.xls                                PictMasterモデルファイル
+             │  HardwareCounter_N_001_4_1.csv                      TCSファイル
+             │    :
+             ├─merge_tesry/                                       マージ実行可能のTESRYデータを格納するフォルダ
+             │    HardwareCounter_N_001_3.cmy                      TESRYデータ
+             │    HardwareCounter_N_001_4_1.cmy                    TESRYデータ
+             └─notmerge_tesry_configure/                          マージ実行不可のTESRYデータを格納するフォルダ(個別configure使用)
+                  │  HardwareCounter_N_001_4_2.cmy                 TESRYデータ
+                  │  HardwareCounter_N_001_4_3.cmy                 TESRYデータ
+                  └─configure                                     個別configureファイルを格納するフォルダ
+                        HardwareCounter_N_001_4_2_configure.yaml    aktg用confirueファイル
+                        HardwareCounter_N_001_4_2_configure.yaml    aktg用confirueファイル
+
+
+
+例)
+aktsp/
+  └─additional_test/sc1/
+       │  debug.MANIFEST                        デバッガを使用しないテスト一覧
+       │  nondebug.MANIFEST                     デバッガを使用するテスト一覧
+       │  sc1_nontesry.sh                       デバッガを使用するテストの実行スクリプト
+       └─syssrv_test/
+             └─ActivateTask/                    ActivateTaskの追加テストを格納するフォルダ
+                  │  ActivateTask.xls            PictMasterモデルファイル
+                  │  ActivateTask_E_005.csv      TCSファイル
+                  │    :
+                  └─merge_tesry/
+                        ActivateTask_E_005.cmy    TESRYデータ
+                          :
+
+② スクラッチで開発したテスト(nontesry_testフォルダ)
+・out.c
+・out.h
+・out.arxml
+・Makefile
+・gdb_cmd-nios2(デバッガコマンドファイル)
+
+例)
+aktsp/
+  └─additional_test/sc1/
+       └─nontesry_test/
+            └─syssrv_test/
+                 └─ActivateTask/
+                      └─ActivateTask_N_002_0005
+                            out.c
+                            out.h
+                            out.arxml
+                            Makefile
+
+----------------------------------------------------------------------
+(2.2.5) AKTB実行モジュール(ruby版)用フォルダの構成
+----------------------------------------------------------------------
+AKTB実行マニュアルを参照する．
+
+----------------------------------------------------------------------
+(2.2.6) ドキュメント用フォルダの構成
+----------------------------------------------------------------------
+AKTSPユーザーズマニュアルを参照する．
+
+----------------------------------------------------------------------
+(2.2.7) テストライブラリ用フォルダの構成
+----------------------------------------------------------------------
+AKTSPユーザーズマニュアルを参照する．
+
+----------------------------------------------------------------------
+(2.2.8) ツール用フォルダの構成
+----------------------------------------------------------------------
+AKTGのユーザーズマニュアルを参照する．
+
+----------------------------------------------------------------------
+(2.2.9) AKTB実行環境設定ファイル用フォルダの構成
+----------------------------------------------------------------------
+
+AKTB実行環境設定ファイル用のファイル/フォルダ構成を以下にまとめる．
+
+aktsp/
+  └─yamls/sc1/                    ATK-SC1テストのaktb実行環境設定ファイル
+       └─additional_test            ATK-SC1テストの追加テストのaktb実行環境設定ファイル
+
+
+各テストに対するaktb実行環境設定ファイルを以下にまとめる．
+※ 対象ターゲットはnios2のみ
+
+テスト項目及びTESRYデータが格納されたフォルダ                    | aktb実行環境設定ファイル
+-------------------------------------------------------------------------------------------------------------------------
+システムサービステスト
+ aktsp/syssrv_test/sc1/                                          | sc1-syssrv-M-nios2.yml
+ aktsp/additional_test/sc1/syssrv_test/*/merge_tesry/            | additional_test/sc1-add-syssrv-M-nios2.yml
+ aktsp/additional_test/sc1/syssrv_test/*/notmerge_tesry/         | additional_test/sc1-add-syssrv-FM-nios2.yml
+ aktsp/additional_test/sc1/syssrv_test/nontesry/syssrv/          | - (TESRYデータなし)
+-------------------------------------------------------------------------------------------------------------------------
+OS内部処理テスト(サービス保護機能)
+ タスク不正終了
+  aktsp/error_test/sc1/illegal_terminate_task/*                  | sc1-error_illegal_task-FM-nios2.yml
+  aktsp/additional_test/sc1/error_test/illegal_terminate_task/   | additional_test/sc1-add-error_illegal_task-FM-nios2.yml
+ C2ISR不正終了 
+  aktsp/error_test/sc1/illegal_terminate_c2isr/                  | sc1-error_illegal_c2isr-FM-nios2.yml
+-------------------------------------------------------------------------------------------------------------------------
+OS内部処理テスト(保護違反時処理機能)
+ CPU例外
+  aktsp/protection_test/sc1/cpu_exception/merge_tesry/           | sc1-protection_cpu-M-nios2.yml
+  aktsp/protection_test/sc1/cpu_exception/notmerge_tesry/        | sc1-protection_cpu-FM-nios2.yml
+ スタックモニタリング
+  aktsp/protection_test/sc1/stack_monitoring/                    | sc1-protection_stackmon-FM-nios2.yml
+  aktsp/additional_test/sc1/protection_test/stack_monitoring/    | additional_test/sc1-add-protection_stackmon-FM-nios2.yml
+-------------------------------------------------------------------------------------------------------------------------
+その他のテスト
+  aktsp/additional_test/sc1/other_test/*/merge_tesry/            | sc1-other-M-nios2.yml
+  aktsp/additional_test/sc1/other_test/*/notmerge_tesry/         | sc1-other-FM-nios2.yml
+  aktsp/additional_test/sc1/other_test/hardware_counter/         |
+    notmerge_tesry_configure/HardwareCounter_N_001_4_2.cmy       | sc1-other_HWC_N_001_4_2-nios2.yml
+    notmerge_tesry_configure/HardwareCounter_N_001_4_3.cmy       | sc1-other_HWC_N_001_4_3-nios2.yml
+  aktsp/additional_test/sc1/nontesry/other_test/                 | - (TESRYデータなし)
+
+----------------------------------------------------------------------
+(2.3) 対象
+----------------------------------------------------------------------
+
+本テストスイートのATK2-SC1に対するテスト対象は以下である．
+
+・ATK2外部仕様書              : Ver. 1.2.2
+・ATK2-SC1                    : Release 1.4.2
+
+―――――――――――――――――――――――――――――――――――
+(2.4) 動作環境
+―――――――――――――――――――――――――――――――――――
+AKTG実行マニュアルを参照すること．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) 環境構築手順
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AKTGユーザーズマニュアルを参照すること．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(4) テスト実行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ATK2-SC1のテスト実行に必要な情報を以下にまとめる．
+
+(a) aktb(ruby版)を用いて実行する場合
+  - テスト実行の詳細は，aktb実行マニュアルを参照する． 
+  ※ ATK2-SC1テストで使用するaktb実行環境設定ファイルは，本書の2.2.9節
+     を参照する．
+  ※ 追加テストも他テストと同様に，TESRYデータをtesrysフォルダに格納し
+     てテストを実行する．
+     例) aktsp/tesrys/additional_test/
+
+(b) スクラッチで開発したテストを実行する場合(additional_test/sc1/nontesry_test/)
+(b-1) デバッガを使用しないテスト
+  - テスト一覧
+    テスト項目は，additional_test/sc1/nontesry_test/nondebug.MANIFEST
+    ファイルを参照すること．
+    
+  - 実行手順
+    ① aktsp/additional_test/sc1/nontesry_test/以下の階層をaktsp/obj_n
+       ontesry/sc1フォルダにコピーする．
+
+       
+       例) aktsp/obj_nontesry/sc1/syssrv_test
+    
+    ② ソースコードが格納されたフォルダに移動し，ビルド後に実行する．
+       
+       例) aktsp/obj_nontesry/sc1/syssrv_test/ActivateTask/ActivateTask_N_0
+           02_0005/フォルダに移動し，以下のコマンドを入力する．
+           
+           $ make
+           $ make run
+      
+    ※ 自動実行スクリプトを使用する場合の実行手順
+       ① 自動実行スクリプト(sc1_nontesry.sh)を以下のように修正する．
+      
+         MODULE_NAME=atk2-sc1.exe
+         MANIFEST=nondebug.MANIFEST
+         
+         ...
+         
+         make_realclean       #コメント処理しない
+         make_depend          #コメント処理しない
+         make_build           #コメント処理しない
+         #debug               #コメント処理する
+         execute              #コメント処理しない
+
+       ② 自動実行スクリプトを実行する．
+         $ ./sc1_nontesry.sh
+
+(b-2) デバッガを使用するテスト(additional_test/sc1/nontesry_test/)
+  - テスト一覧
+    テスト項目は，additional_test/sc1/nontesry_test/debug.MANIFESTファ
+    イルを参照すること．
+   
+  - 実行手順
+    ① aktsp/additional_test/sc1/nontesry/以下の階層をaktsp/obj_no
+       ntesry/sc1フォルダにコピーする．
+       
+       例) aktsp/obj_nontesry/sc1/syssrv
+    
+    ② ソースコードが格納されたフォルダに移動し，ビルド後に実行する．
+       
+       例) aktsp/obj_nontesry/sc1/other_test/FatalError/FatalError_000
+           1/フォルダに移動し，以下のコマンドを入力する．
+           
+           $ make
+           $ make db
+           
+       ※ 最適化の影響でテストを行うことが困難であったため，一部のテス
+          トは，最適化の設定を-O0としてテストを行った．
+    
+    ③ デバッガで以下の内容を確認する．
+      「付録 A」を参照すること．
+
+    ※ 自動実行スクリプトを使用する場合の実行手順
+       ① 自動実行スクリプト(sc1_nontesry.sh)を以下のように修正する．
+      
+         MODULE_NAME=atk2-sc1.exe
+         MANIFEST=debug.MANIFEST
+         
+         ...
+         
+         make_realclean       #コメント処理しない
+         make_depend          #コメント処理しない
+         make_build           #コメント処理しない
+         debug                #コメント処理しない
+         #execute             #コメント処理する
+
+       ② 自動実行スクリプトを実行する．
+         $ ./sc1_nontesry.sh
+
+       ③ デバッガで以下の内容を確認する．
+        「付録 A」を参照すること．
+
+(b-3) 両方の方法を使用するテスト(additional_test/sc1/nontesry_test/)
+  - テスト一覧
+    テスト項目は，additional_test/sc1/nontesry_test/run_and_debug.MANI
+    FESTファイルを参照すること．
+
+  - 実行手順
+    ① (b-1)の手順を参照し，オブジェクト状態，戻り値に関してはテスト実
+       行時の出力メッセージにより結果を確認する．
+      ※ 自動実行スクリプト(sc1_nontesry.sh)を使用する場合，以下のよう
+         に修正する．
+      
+         MODULE_NAME=atk2-sc1.srec
+         MANIFEST=run_and_debug.MANIFEST
+         
+         ...
+         
+         make_realclean       #コメント処理しない
+         make_depend          #コメント処理しない
+         make_build           #コメント処理しない
+         #debug               #コメント処理する
+         execute              #コメント処理しない
+
+    ② (b-2)の手順を参照し，割込み状態など一部変数の値に関してはデバッ
+       ガを使用することにより確認する．
+      ※ 自動実行スクリプト(sc1_nontesry.sh)を使用する場合，以下のよう
+         に修正する．
+      
+         MODULE_NAME=atk2-sc1.exe
+         MANIFEST=run_and_debug.MANIFEST
+         
+         ...
+         
+         make_realclean       #コメント処理しない
+         make_depend          #コメント処理しない
+         make_build           #コメント処理しない
+         debug                #コメント処理しない
+         #execute              #コメント処理する
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(付録 A) デバッガを使用するテストの詳細
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+以下にデバッガを使用するテストにおいて(4章の(b-2)，(b-3)節参照)，確認
+する内容をまとめる．
+
+※ nios2の場合，各フォルダに格納されているデバッガコマンドファイル(gd
+b_cmd-nios2)をを使用して実行することができる．
+使用方法は，デバッガ上で以下のコマンドを入力すること．
+
+  (gdb) source gdb_cmd-nios2
+
+―――――――――――――――――――――――――――――――――――
+(A.1) デバッガを使用するテスト(4章の(b-2)を参照)
+―――――――――――――――――――――――――――――――――――
+(a) ハードウェアカウンタ
+(a-1) HardwareCounter_N_002_0001
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 関数開始時の状態確認：insert_cnt_expr_que開始直後
+    2. カウンタを再設定したのちカウンタが満了点を過ぎていることの確認
+       ：insert_cnt_expr_queの満了ティックチェック直前(counter.c:163)
+    3. 満了処理確認：expire_processの満了処理呼出し後(counter.c:422)
+  - 各箇所で以下を確認する．
+    ・TASK1，TASK2の状態(tcb_table[xx]->tstat)
+    ・ALARM1の満了点(almcb_table[yy]->cntexpinfo->expiretick)
+    ・COUNTER1(ハードウェアカウンタ)の現在値(dummy_hwcnt_curval)
+    1. TASK1：実行状態，TASK2：休止状態
+       ALARM1満了点：7
+       COUNTER1現在値：5
+    2. COUNTER1現在値を8に修正
+       TASK1：実行状態，TASK2：休止状態
+       ALARM1満了点：7
+       COUNTER1現在値：8
+    3. TASK1：実行状態，TASK2：実行可能状態
+       ALARM1満了点：7
+       COUNTER1現在値：8
+(a-2) HardwareCounter_N_002_0002
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 関数開始時の状態確認：delete_cnt_expr_que開始直後
+    2. カウンタを再設定したのちカウンタが満了点を過ぎていることの確認
+       ：delete_cnt_expr_queの満了ティックチェック直前(counter.c:223)
+    3. 満了処理確認：expire_processの満了処理呼出し後(counter.c:422)
+  - 各箇所で以下を確認する．
+    ・TASK1，TASK2，TASK3の状態(tcb_table[xx]->tstat)
+    ・ALARM1，ALARM2の満了点(almcb_table[yy]->cntexpinfo->expiretick)
+    ・COUNTER1(ハードウェアカウンタ)の現在値(dummy_hwcnt_curval)
+    1. TASK1：実行状態，TASK2：休止状態，TASK3：休止状態
+       ALARM1満了点：6，ALARM2満了点：7
+       COUNTER1現在値：5
+    2. COUNTER1現在値を8に修正
+       TASK1：実行状態，TASK2：休止状態，TASK3：休止状態
+       ALARM1満了点：5，ALARM2満了点：6
+       COUNTER1現在値：8
+    3. TASK1：実行状態，TASK2：休止状態，TASK3：実行可能状態
+       ALARM1満了点：5，ALARM2満了点：6
+       COUNTER1現在値：8
+(a-3) HardwareCounter_N_002_0003
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 関数開始時の状態確認：expire_process開始直後
+    2. カウンタを再設定したのちカウンタが満了点を過ぎていることの確認
+       ：expire_processの満了ティックチェック直前(counter.c:407)
+    3. 満了処理確認：expire_processのカウンタ満了処理呼出し(counter.c:
+       422)
+  - 各箇所で以下を確認する．
+    ・TASK1，TASK2，TASK3の状態(tcb_table[xx]->tstat)
+    ・ALARM1，ALARM2の満了点(almcb_table[yy]->cntexpinfo->expiretick)
+    ・COUNTER1(ハードウェアカウンタ)の現在値(dummy_hwcnt_curval)
+    1. TASK1：実行状態，TASK2：休止状態，TASK3：休止状態
+       ALARM1満了点：5，ALARM2満了点：6
+       COUNTER1現在値：5
+    2. COUNTER1現在値を7に修正
+       TASK1：実行状態，TASK2：実行可能状態，TASK3：休止状態
+       ALARM1満了点：5，ALARM2満了点：6
+       COUNTER1現在値：7
+    3. TASK1：実行状態，TASK2：実行可能状態，TASK3：実行可能状態
+       ALARM1満了点：5，ALARM2満了点：6
+       COUNTER1現在値：7
+
+(b) フェイタルエラー
+(b-1) FatalError_0001 (queue_delete_next(p_queue))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. search_schedtskでqueue_delete_nextの呼出し(task.c:242)
+    2. queue_delete_next
+    3. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. ready_queue[nextpri]->p_nextを&ready_queue[nextpri]にす
+       ることでレディキューを破壊する．
+    2. 3まで進行する(countinue)
+    3. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-2) FatalError_0002 (StartOS(Mode))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. start_dispatch
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. exit_and_dispatchにブレークポイント張って進行する．
+       dispatcher_2にブレークポイント張って進行する．
+       dispatcher_2の最後まで進んで(stepiを2回) r5にStartOSの復帰アドレ
+       スを指定する($ra = $ra)
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+       ※ ただし，nios2では，コンパイラがstart_dispatch以後のデバッグ
+       情報を生成しないため，確認しない．
+(b-3) FatalError_0003 (bitmap_search(bitmap))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. TASK1のTerminateTaskの呼出し(out.c:74)
+    2. primap_search
+    3. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. 2まで進行する(countinue)
+    2. ready_primap = 0にする
+    3. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-4) FatalError_0004 (preempt(void))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. TASK1のScheduleの呼出し(out.c:72)
+    2. preempt
+    3. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. 2まで進行する(countinue)
+    2. p_runtsk = 0にする
+    3. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-5) FatalError_0005 (release_interrupts)
+  - 以下の箇所にブレークポイントを張り行う．
+    1. exit_task
+    2. release_interrupts
+    3. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. 2まで進行する(countinue)
+    2. callevel_statにTSYS_DISALLINTをセットする(callevel_stat = calle
+       vel_stat + 4096)
+    3. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-6) FatalError_0006 (TerminateTask)
+  - 以下の箇所にブレークポイントを張り行う．
+    1. TerminateTask
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. exit_and_dispatchにブレークポイント張って進行する．
+       dispatcher_2にブレークポイント張って進行する．
+       dispatcher_2の最後まで進んで(stepiを2回) r5にTerminateTaskの復
+       帰アドレスを指定する($ra = $ra)
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+       ※ ただし，nios2では，コンパイラがexit_and_dispatch以後のデバッ
+       グ情報を生成しないため，確認しない．
+(b-7) FatalError_0007 (ChainTask)
+  - 以下の箇所にブレークポイントを張り行う．
+    1. ChainTask
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. exit_and_dispatchにブレークポイント張って進行する．
+       dispatcher_2にブレークポイント張って進行する．
+       dispatcher_2の最後まで進んで(stepiを2回) r5にChainTaskの復帰ア
+       ドレスを指定する($ra = $ra)
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-8) FatalError_0008 (x_config_int(intno, intatr, intpri))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. interrupt_initializeで，x_config_intの呼出し(interrupt.c:113)
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. set p_intinib->intnoを割込み番号の範囲外にする(set p_intinib->
+       intno = 32)
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-9) FatalError_0009 (default_int_handler(void))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 未定義の割込み発生(out.c:85 - AktspRaiseInterrupt(20))
+    2. default_int_handler
+    3. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. isr_tblで，未定義の割込み番号に，default_int_handlerが指定され
+       ていること(isr_tbl[19]にdefault_int_handlerがセット)
+    2. 3まで進行(default_int_handlerが呼び出されることを確認)
+    3. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-10) FatalError_0010 (x_nested_unlock_os_int(void))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. TASK2の起動(out.c:68 - ActivateTask(TASK2))
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. x_nested_unlock_os_intにブレークポイントを張った後，x_nested_un
+       lock_os_intまで進行する．
+       nested_lock_os_int_cntを0にする．
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-12) FatalError_0012 (x_set_ipm(intpri))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. GetResourceの呼出し
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. x_set_ipmにブレークポイントを張った後，x_set_ipmまで進行する．
+       nested_lock_os_int_cntを0にする．
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+(b-13) FatalError_0013 (x_get_ipm(void))
+  - 以下の箇所にブレークポイントを張り行う．
+    1. GetResourceの呼出し
+    2. internal_shutdownos
+  - 各箇所で以下を確認する．
+    1. x_get_ipmにブレークポイントを張った後，x_get_ipmまで進行する．
+       nested_lock_os_int_cntを0にする．
+    2. internal_shutdownosが実行され，戻り値(ercd)がE_OS_SYS_ASSERT_F
+       ATAL(UINT_C(27))になることを確認する．
+
+―――――――――――――――――――――――――――――――――――
+(A.2) 両方の方法を使用するテスト(4章の(b-3)を参照)
+―――――――――――――――――――――――――――――――――――
+(a) StartOS
+(a-1) StartOS_N_001_0001
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:189)
+    2. STARTUP_HOOK1呼出し
+    3. TASK1起動直後(out.c:110)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・割込み状態(status - レジスタ)
+    1. callevel_stat：OS起動前状態として，全割込み許可状態(0x0)
+    2. status：1000001IL(4~9ビット目)が4(000100)(OS割込み禁止状態)
+    3. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-2) StartOS_N_001_0002
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:185)
+    2. STARTUP_HOOK1呼出し
+    3. TASK1起動直後(out.c:105)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・割込み状態(status - レジスタ)
+    1. callevel_stat：OS起動前状態として，全割込み禁止(TSYS_DISALLINT)状態(0x1000)
+    2. status：1000001(OS割込み禁止状態として，IL(4~9ビット目)が4(000100))
+    3. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-3) StartOS_N_001_0003
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:185)
+    2. STARTUP_HOOK1呼出し
+    3. TASK1起動直後(out.c:105)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・割込み状態(status - レジスタ)
+    1. callevel_stat：OS起動前状態として，全割込み禁止(TSYS_SUSALLINT)状態(0x2000)
+    2. status：1000001(OS割込み禁止状態として，IL(4~9ビット目)が4(000100))
+    3. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-4) StartOS_N_001_0004
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:186)
+    2. STARTUP_HOOK1呼出し
+    3. TASK1起動直後(out.c:105)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・割込み状態(status - レジスタ)
+    ・全割込み禁止ネスト回数(sus_all_cnt)
+    1. callevel_stat：OS起動前状態として，全割込み禁止(TSYS_SUSALLINT)状態(0x2000)
+       sus_all_cnt：全割込み禁止のネスト状態(2)
+    2. status：1000001(OS割込み禁止状態として，IL(4~9ビット目)が4(000100))
+    3. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-5) StartOS_N_001_0005
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:118)
+    2. TASK1起動直後(out.c:37)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    1. callevel_stat：OS起動前状態として，全割込み許可状態(0x0)
+    2. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-6) StartOS_N_001_0006
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:119)
+    2. TASK1起動直後(out.c:37)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    1. callevel_stat：OS起動前状態として，全割込み禁止(TSYS_DISALLINT)状態(0x1000)
+    2. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-7) StartOS_N_001_0007
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:119)
+    2. TASK1起動直後(out.c:37)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    1. callevel_stat：OS起動前状態として，全割込み禁止(TSYS_SUSALLINT)状態(0x2000)
+    2. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-8) StartOS_N_001_0008
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:119)
+    2. TASK1起動直後(out.c:37)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・全割込み禁止ネスト回数(sus_all_cnt)
+    1. callevel_stat：OS起動前状態として，全割込み禁止(TSYS_SUSALLINT)状態(0x2000)
+       sus_all_cnt：全割込み禁止のネスト状態(2)
+    2. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-9) StartOS_N_001_0009
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:111)
+    2. STARTUP_HOOK1呼出し
+    3. TASK1起動直後(out.c:73)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・割込み状態(status - レジスタ)
+    1. callevel_stat：OS起動前状態として，全割込み許可状態(0x0)
+    2. status：1000001IL(4~9ビット目)が4(000100)(OS割込み禁止状態)
+    3. callevel_stat：TASK1起動状態として，全割込み許可状態(0x1)
+(a-10) StartOS_N_002_0001
+  - 以下の箇所にブレークポイントを張り行う．
+    1. StartOS()呼出直前(out.c:215)
+    2. STARTUP_HOOK1呼出し
+    3. MainTask起動直後(out.c:46)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat - 変数)
+    ・割込み状態(status - レジスタ)
+    1. callevel_stat：OS起動前状態として，全割込み許可状態(0x0)
+    2. status：1000001IL(4~9ビット目)が4(000100)(OS割込み禁止状態)
+    3. callevel_stat：MainTask起動状態として，全割込み許可状態(0x1)
+
+(b) 割込み処理
+(b-1) Interrupts_003_a_0001
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 初期状態(DisableAllInterrupts呼出し前，out.c:101)
+    2. DisableAllInterrupts呼出し後(EnableAllInterrupts呼出し前，out.c
+       :102)
+    3. EnableAllInterrupts呼出し後(out.c:103)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat)
+    ・カーネル起動状態(kerflg)
+    1. callevel_stat：12ビット目が0(全割込み禁止状態でない)
+       kerflg：0(カーネル起動前状態)
+    2. callevel_stat：12ビット目が1(全割込み禁止状態)
+       kerflg：0(カーネル起動前状態)
+    3. callevel_stat：12ビット目が0(全割込み禁止状態が解除される)
+       kerflg：0(カーネル起動前状態)
+(b-2) Interrupts_003_a_0002
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 初期状態(SuspendAllInterrupts呼出し前，out.c:101)
+    2. SuspendAllInterrupts呼出し後(ResumeAllInterrupts呼出し前，out.c
+       :102)
+    3. ResumeAllInterrupts呼出し後(out.c:103)
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat)
+    ・カーネル起動状態(kerflg)
+    1. callevel_stat：13ビット目が0(全割込み禁止状態でない)
+       kerflg：0(カーネル起動前状態)
+    2. callevel_stat：13ビット目が1(全割込み禁止状態)
+       kerflg：0(カーネル起動前状態)
+    3. callevel_stat：13ビット目が0(全割込み禁止状態が解除される)
+       kerflg：0(カーネル起動前状態)
+(b-2) Interrupts_003_b_0001
+  - 以下の箇所にブレークポイントを張り行う．
+    1. 初期状態(out.c:121)
+       ※ DisableAllInterrupts呼出し後 & SuspendAllInterrupts呼出し前
+    2. SuspendAllInterrupts呼出後(interrupt_manage.c:221)
+       ※ エラーフック起動処理
+    3. ResumeAllInterrupts呼出し後(interrupt_manage.c:262)
+       ※ エラーフック起動処理
+  - 各箇所で以下を確認する．
+    ・割込み状態(callevel_stat)
+    ・カーネル起動状態(kerflg)
+    1. callevel_stat：12ビット目が1(全割込み禁止状態)
+       kerflg：0(カーネル起動前状態)
+    2. callevel_stat：12ビット目が1(全割込み禁止状態が解除されない)
+       kerflg：0(カーネル起動前状態として，SuspendAllInterrupts呼出し
+       時にエラーが発生してもエラーフックを呼び出さない)
+    3. callevel_stat：12ビット目が1(全割込み禁止状態が解除されない)
+       kerflg：0(カーネル起動前状態として，ResumeAllInterrupts呼出し
+       時にエラーが発生してもエラーフックを呼び出さない)
+
+以上．

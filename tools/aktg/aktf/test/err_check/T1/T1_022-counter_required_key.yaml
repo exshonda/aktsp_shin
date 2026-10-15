@@ -1,0 +1,30 @@
+T1_022_counter_required_key:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    COUNTER1:
+      type: COUNTER
+      maxval: 10
+      ctype: AK_SOFTWARE
+    COUNTER2:
+      type: COUNTER
+      maxval: 100
+      curval: 50
+      ctype: AK_SOFTWARE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    COUNTER1:
+      curval: 5

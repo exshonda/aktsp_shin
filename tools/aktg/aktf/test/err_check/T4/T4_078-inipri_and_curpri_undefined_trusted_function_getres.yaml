@@ -1,0 +1,44 @@
+T4_078_inipri_and_curpri_undefined_trusted_function_getres:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

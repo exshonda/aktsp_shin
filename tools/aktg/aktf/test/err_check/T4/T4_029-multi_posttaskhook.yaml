@@ -1,0 +1,22 @@
+T4_029_multi_posttaskhook:
+  property:
+    sc: 
+
+  pre_condition:
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    POSTTASK_HOOK2:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

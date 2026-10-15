@@ -1,0 +1,32 @@
+######################################################################
+# FatalError_0009.yaml
+######################################################################
+FatalError_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+    gcov: false
+
+  post_condition:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+######################################################################

@@ -1,0 +1,38 @@
+T3_VAR002_value_defined_member_trusted_function:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+    gcov: false
+
+  post_condition:
+    TRUSTED_FUNCTION1:
+      caller: 
+      var:
+        vname1:
+          mincycle: ANY_MINCYC_A

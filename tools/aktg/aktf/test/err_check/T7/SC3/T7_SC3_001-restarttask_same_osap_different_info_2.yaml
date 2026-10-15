@@ -1,0 +1,73 @@
+T7_SC3_001_restarttask_same_osap_different_info_2:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP3
+    TASK2:
+      type: RESTART_TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP3
+    NON_TRUSTED_OSAP3:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP3,RESTART)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      actcnt: 1
+    NON_TRUSTED_OSAP3:
+      osapstat: APPLICATION_RESTARTING
+
+  do_1:
+    id: TASK2
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      actcnt: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AllowAccess()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    NON_TRUSTED_OSAP3:
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_3:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_3:
+    TASK1:
+      tstat: RUNNING
+      bootcnt: 1
+    TASK2:
+      tstat: SUSPENDED

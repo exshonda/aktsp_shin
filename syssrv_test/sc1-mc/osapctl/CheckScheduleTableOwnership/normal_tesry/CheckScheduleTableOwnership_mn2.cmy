@@ -1,0 +1,421 @@
+######################################################################
+# CheckScheduleTableOwnership_mn2_0001.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0002.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0003.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0004.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0005.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0005:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0006.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0006:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0007.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0007:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_SCHEDULETABLE,SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckScheduleTableOwnership_mn2_0008.yaml
+######################################################################
+CheckScheduleTableOwnership_mn2_0008:
+  property:
+    sc: 
+      - SC1
+      - SC3
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: 0
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_A+1:
+          acttsk:
+            - TASK2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckScheduleTableOwnership(SCHEDULE_TABLE1)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################

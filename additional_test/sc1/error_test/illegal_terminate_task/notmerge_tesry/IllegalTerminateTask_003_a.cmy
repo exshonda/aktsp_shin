@@ -1,0 +1,78 @@
+######################################################################
+# IllegalTerminateTask_003_a_0001.yaml
+######################################################################
+IllegalTerminateTask_003_a_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: return
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error == E_OS_MISSINGEND)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_TaskMissingEnd)
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: POSTTASK_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    TASK1:
+      tstat: SUSPENDED
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+######################################################################

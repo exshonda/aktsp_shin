@@ -1,0 +1,32 @@
+T3_DO003_do_retval_undefined_rettype:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      relevt:
+        - EVENT1
+        - EVENT2
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    EVENT2:
+      type: EVENT
+      mask: EVENTMASK_B
+
+  do:
+    id: TASK1
+    syssrv: ClearEvent(EVENT1|EVENT2)
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      curevt: 0

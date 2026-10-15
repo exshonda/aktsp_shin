@@ -1,0 +1,400 @@
+######################################################################
+# GetElapsedValue_m_normal_3_0001.yaml
+######################################################################
+GetElapsedValue_m_normal_3_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          value: 0
+        vname2:
+          type: TickType
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    repeat: ANY_MAXVAL_A+2
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+
+  do_1:
+    id: C2ISR1
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    C2ISR1:
+      var:
+        vname1:
+          value: 1
+        vname2:
+          value: ~ANY_MAXVAL_A+2
+######################################################################
+# GetElapsedValue_m_normal_3_0002.yaml
+######################################################################
+GetElapsedValue_m_normal_3_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          value: 0
+        vname2:
+          type: TickType
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    repeat: ANY_MAXVAL_A+2
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+
+  do_1:
+    id: C2ISR1
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    C2ISR1:
+      var:
+        vname1:
+          value: 1
+        vname2:
+          value: ~ANY_MAXVAL_A+2
+######################################################################
+# GetElapsedValue_m_normal_3_0003.yaml
+######################################################################
+GetElapsedValue_m_normal_3_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      caller: TASK2
+      var:
+        vname1:
+          type: TickType
+          value: 0
+        vname2:
+          type: TickType
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    repeat: ANY_MAXVAL_A+2
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TRUSTED_FUNCTION1:
+      var:
+        vname1:
+          value: 1
+        vname2:
+          value: ~ANY_MAXVAL_A+2
+######################################################################
+# GetElapsedValue_m_normal_3_0004.yaml
+######################################################################
+GetElapsedValue_m_normal_3_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          value: 0
+        vname2:
+          type: TickType
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    repeat: ANY_MAXVAL_A+2
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+
+  do_1:
+    id: TASK2
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK2:
+      var:
+        vname1:
+          value: 1
+        vname2:
+          value: ~ANY_MAXVAL_A+2
+######################################################################
+# GetElapsedValue_m_normal_3_0005.yaml
+######################################################################
+GetElapsedValue_m_normal_3_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          value: 0
+        vname2:
+          type: TickType
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NT_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    repeat: ANY_MAXVAL_A+2
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+
+  do_1:
+    id: TASK2
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK2:
+      var:
+        vname1:
+          value: 1
+        vname2:
+          value: ~ANY_MAXVAL_A+2
+######################################################################
+# GetElapsedValue_m_normal_3_0006.yaml
+######################################################################
+GetElapsedValue_m_normal_3_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: TickType
+          value: 0
+        vname2:
+          type: TickType
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    repeat: ANY_MAXVAL_A+2
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: 1
+
+  do_1:
+    id: TASK2
+    syssrv: GetElapsedValue(COUNTER1,&vname1,&vname2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK2:
+      var:
+        vname1:
+          value: 1
+        vname2:
+          value: ~ANY_MAXVAL_A+2
+######################################################################

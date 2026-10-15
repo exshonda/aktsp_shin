@@ -1,0 +1,349 @@
+######################################################################
+# stack_monitoring_NM_3_P_NS_0001.yaml
+######################################################################
+stack_monitoring_NM_3_P_NS_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_2:
+######################################################################
+# stack_monitoring_NM_3_P_NS_0002.yaml
+######################################################################
+stack_monitoring_NM_3_P_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_2:
+######################################################################
+# stack_monitoring_NM_3_P_NS_0003.yaml
+######################################################################
+stack_monitoring_NM_3_P_NS_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_2:
+######################################################################
+# stack_monitoring_NM_3_P_NS_0004.yaml
+######################################################################
+stack_monitoring_NM_3_P_NS_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+    finish: true
+
+  post_condition_2:
+######################################################################
+# stack_monitoring_NM_3_P_NS_0005.yaml
+######################################################################
+stack_monitoring_NM_3_P_NS_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+    finish: true
+
+  post_condition_2:
+######################################################################
+# stack_monitoring_NM_3_P_NS_0006.yaml
+######################################################################
+stack_monitoring_NM_3_P_NS_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+    finish: true
+
+  post_condition_2:
+######################################################################

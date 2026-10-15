@@ -1,0 +1,197 @@
+######################################################################
+# IocReceive_ex_error_1to1_0001.yaml
+######################################################################
+IocReceive_ex_error_1to1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP3
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NON_TRUSTED_OSAP3
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocReceive_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocReceive_IocId()==IOC0)
+
+  post_condition_4:
+######################################################################
+# IocReceive_ex_error_1to1_0002.yaml
+######################################################################
+IocReceive_ex_error_1to1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP3
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NON_TRUSTED_OSAP3
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocReceive_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocReceive_IocId()==IOC0)
+
+  post_condition_4:
+######################################################################

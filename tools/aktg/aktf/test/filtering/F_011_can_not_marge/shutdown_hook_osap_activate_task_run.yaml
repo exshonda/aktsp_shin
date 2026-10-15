@@ -1,0 +1,27 @@
+shutdown_hook_osap_activate_task_run:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    SHUTDOWN_HOOK_OSAP1:
+      type: SHUTDOWN_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: SHUTDOWN_HOOK_OSAP1
+    syssrv: SuspendAllInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK_OSAP1

@@ -1,0 +1,201 @@
+######################################################################
+# stack_monitoring_NM_4_NP_NS_0001.yaml
+######################################################################
+stack_monitoring_NM_4_NP_NS_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_D
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTG_OS_STACK_ADDRESS_CORE_1,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+    finish: true
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_4_NP_NS_0002.yaml
+######################################################################
+stack_monitoring_NM_4_NP_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_D
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: C2ISR1
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTG_OS_STACK_ADDRESS_CORE_1,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+    finish: true
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_4_NP_NS_0003.yaml
+######################################################################
+stack_monitoring_NM_4_NP_NS_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_D
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTG_OS_STACK_ADDRESS_CORE_1,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+    finish: true
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_4_NP_NS_0004.yaml
+######################################################################
+stack_monitoring_NM_4_NP_NS_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_D
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        local:
+          type: AktspTfParam
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: C2ISR1
+      arg: local
+      osap: TR_OSAP_OTHER_OTHER_CORE_2
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTG_OS_STACK_ADDRESS_CORE_1,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+    finish: true
+
+  post_condition_1:
+######################################################################

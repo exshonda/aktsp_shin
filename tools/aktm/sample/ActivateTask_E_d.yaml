@@ -1,0 +1,23 @@
+version: "$Id: ActivateTask_E_d.yaml 2 2014-04-15 07:29:16Z fsi-dankei $"
+ActivateTask_E_d:
+  variation:
+    cc: BCC1 | ECC1
+    ts: COS
+    si:
+      - NOS226
+      - OS210
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      tsktype: BASIC
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_LIMIT
+
+  post_condition:
+

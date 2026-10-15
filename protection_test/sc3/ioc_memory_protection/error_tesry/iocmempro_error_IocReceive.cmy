@@ -1,0 +1,77 @@
+######################################################################
+# iocmempro_error_IocReceive_0001.yaml
+######################################################################
+iocmempro_error_IocReceive_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: NON_TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TRUSTED_OSAP2
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: IocReceive_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_MEMORY)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+######################################################################

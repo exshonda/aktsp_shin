@@ -1,0 +1,230 @@
+######################################################################
+# SetRelAlarm_normal_2_0001.yaml
+######################################################################
+SetRelAlarm_normal_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+
+  do_1:
+    id: TASK2
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+    gcov: false
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_2:
+    id: C2ISR1
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_2:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+
+  do_3:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_4:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    COUNTER1:
+      cstat: AK_CS_NULL
+
+  do_5:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+      bootcnt: 1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_A
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+######################################################################
+# SetRelAlarm_normal_2_0002.yaml
+######################################################################
+SetRelAlarm_normal_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+    COUNTER1:
+      curval: 0
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+
+  do_1:
+    id: TASK2
+    syssrv: SetRelAlarm(ALARM1,ANY_CURVAL_NOT_0_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+
+  do_2:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_2:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+    COUNTER1:
+      cstat: AK_CS_NULL
+
+  do_3:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+      bootcnt: 1
+    COUNTER1:
+      curval: ANY_CURVAL_NOT_0_A
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+######################################################################

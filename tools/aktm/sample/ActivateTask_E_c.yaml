@@ -1,0 +1,29 @@
+version: "$Id: ActivateTask_E_c.yaml 2 2014-04-15 07:29:16Z fsi-dankei $"
+ActivateTask_E_c:
+  variation:
+    cc: ECC1 | ECC2
+    ts: COS
+    si: OS266
+
+  pre_condition:
+    TASK1:
+      type : TASK
+      tstat: RUNNING
+
+    TASK2:
+      type  : TASK
+      tstat : READY
+      relevt:
+        - EVT1
+
+    EVT1:
+      type: EVENT
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK2)
+    rettype: StatusType
+    retval : E_OS_LIMIT
+
+  post_condition:
+

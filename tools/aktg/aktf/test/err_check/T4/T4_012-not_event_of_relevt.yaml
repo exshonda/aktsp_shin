@@ -1,0 +1,29 @@
+T4_012_not_event_of_relevt:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      actcnt: 1
+      ttype: AK_EXTENDED
+      relevt:
+        - EVENT1
+    EVENT1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_MAX_A
+      cstat: AK_CS_NULL
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

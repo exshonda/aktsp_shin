@@ -1,0 +1,21 @@
+T4_095_c2isr_need_runtask:
+  property:
+    sc: 
+
+  pre_condition:
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+
+  do:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:

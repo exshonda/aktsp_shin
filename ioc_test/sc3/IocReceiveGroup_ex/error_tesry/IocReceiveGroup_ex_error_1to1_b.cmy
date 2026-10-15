@@ -1,0 +1,219 @@
+######################################################################
+# IocReceiveGroup_ex_error_1to1_b_0001.yaml
+######################################################################
+IocReceiveGroup_ex_error_1to1_b_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP3
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+        vname2:
+          type: uint16
+        vname3:
+          type: uint32
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NON_TRUSTED_OSAP3
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocReceiveGroup_IOC0(&vname1,&vname2,&vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocReceive_IocId()==IOC0)
+
+  post_condition_4:
+######################################################################
+# IocReceiveGroup_ex_error_1to1_b_0002.yaml
+######################################################################
+IocReceiveGroup_ex_error_1to1_b_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NON_TRUSTED_OSAP3
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+        vname2:
+          type: uint16
+        vname3:
+          type: uint32
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TRUSTED_OSAP1
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NON_TRUSTED_OSAP3
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_0:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocReceiveGroup_IOC0(&vname1,&vname2,&vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+    gcov: true
+
+  post_condition_2:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocReceive_IocId()==IOC0)
+
+  post_condition_4:
+######################################################################

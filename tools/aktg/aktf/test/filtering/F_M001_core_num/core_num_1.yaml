@@ -1,0 +1,36 @@
+core_num_1:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      actcnt: 2
+      bootcnt: 0
+      osap: OSAP_SELF_CORE
+
+    TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_SELF_CORE
+
+  do:
+    id     : TASK1
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+      actcnt: 1
+      bootcnt: 1
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

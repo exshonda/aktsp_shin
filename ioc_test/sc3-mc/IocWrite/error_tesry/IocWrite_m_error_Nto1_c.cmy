@@ -1,0 +1,1681 @@
+######################################################################
+# IocWrite_m_error_Nto1_c_0001.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+    C2ISR2:
+      type: C2ISR
+      iniintpri: INT_PRI_HIGH
+      intno: INTNO_SELF_C2ISR_MID_D
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+
+  do_5:
+    id: C2ISR1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    C2ISR1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_7:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK2
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_D)
+
+  post_condition_8:
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_9:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_9:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_10:
+    id: C2ISR2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_10:
+    C2ISR2:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_13:
+######################################################################
+# IocWrite_m_error_Nto1_c_0002.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+    C2ISR2:
+      type: C2ISR
+      iniintpri: INT_PRI_HIGH
+      intno: INTNO_SELF_C2ISR_MID_D
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+
+  do_5:
+    id: C2ISR1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    C2ISR1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_7:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK2
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_D)
+
+  post_condition_8:
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_9:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_9:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_10:
+    id: C2ISR2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_10:
+    C2ISR2:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_13:
+######################################################################
+# IocWrite_m_error_Nto1_c_0003.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+    C2ISR2:
+      type: C2ISR
+      iniintpri: INT_PRI_HIGH
+      intno: INTNO_SELF_C2ISR_MID_D
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+
+  do_5:
+    id: C2ISR1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    C2ISR1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_7:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK2
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_D)
+
+  post_condition_8:
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_9:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_9:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_10:
+    id: C2ISR2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_10:
+    C2ISR2:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_13:
+######################################################################
+# IocWrite_m_error_Nto1_c_0004.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+    C2ISR2:
+      type: C2ISR
+      iniintpri: INT_PRI_HIGH
+      intno: INTNO_SELF_C2ISR_MID_D
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: C2ISR1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+
+  do_5:
+    id: C2ISR1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    C2ISR1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_7:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_7:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK2
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_D)
+
+  post_condition_8:
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+
+  do_9:
+    id: C2ISR2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_9:
+    C2ISR2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_10:
+    id: C2ISR2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_10:
+    C2ISR2:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_11:
+
+  do_12:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_12:
+
+  do_13:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_13:
+######################################################################
+# IocWrite_m_error_Nto1_c_0005.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_5:
+    id: TASK1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_6:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_7:
+    id: TASK2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_7:
+    TASK2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_8:
+    id: TASK2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_8:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_11:
+######################################################################
+# IocWrite_m_error_Nto1_c_0006.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_5:
+    id: TASK1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_6:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_7:
+    id: TASK2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_7:
+    TASK2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_8:
+    id: TASK2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_8:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_11:
+######################################################################
+# IocWrite_m_error_Nto1_c_0007.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_5:
+    id: TASK1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_6:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_7:
+    id: TASK2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_7:
+    TASK2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+
+  do_8:
+    id: TASK2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_8:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_11:
+######################################################################
+# IocWrite_m_error_Nto1_c_0008.yaml
+######################################################################
+IocWrite_m_error_Nto1_c_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+      getspn:
+        - SPINLOCK1
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_SELF_CORE_2
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+        - SENDER1
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 0
+      data:
+        - IOC0_DATA0: DATA_UINT8_A
+    SENDER0:
+      type: IOC_SENDER
+      senderid: 0
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    SENDER1:
+      type: IOC_SENDER
+      senderid: 1
+      osap: TR_OSAP_SELF_CORE_2
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+      initval: DATA_UINT8_A
+
+  do_0:
+    id: TASK1
+    syssrv: IocWrite_IOC0_0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==0)
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_4:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_5:
+    id: TASK1
+    syssrv: ReleaseSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    TASK1:
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+
+  do_6:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_6:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_7:
+    id: TASK2
+    syssrv: GetSpinlock(SPINLOCK1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_7:
+    TASK2:
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      lockflg: AK_LOCK
+    INT_STATE1:
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+
+  do_8:
+    id: TASK2
+    syssrv: IocWrite_IOC0_1(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_NOK
+
+  post_condition_8:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+      bootcnt: 1
+
+  do_9:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_NOK)
+
+  post_condition_9:
+
+  do_10:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_IocId()==IOC0)
+
+  post_condition_10:
+
+  do_11:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocWrite_SenderId()==1)
+
+  post_condition_11:
+######################################################################

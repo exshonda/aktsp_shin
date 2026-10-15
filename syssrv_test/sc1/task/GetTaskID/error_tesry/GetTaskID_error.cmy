@@ -1,0 +1,607 @@
+######################################################################
+# GetTaskID_error_0001.yaml
+######################################################################
+GetTaskID_error_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    ALARM_CBACK1:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+      var:
+        vname1:
+          type: TaskType
+          global: true
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_CBACK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_ALMVAL_A
+      cycle: 0
+      callback: ALARM_CBACK1
+    COUNTER1:
+      type: COUNTER
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_ALMVAL_A-1
+      ctype: AK_SOFTWARE
+      cstat: AK_CS_NULL
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    COUNTER1:
+      curval: ANY_ALMVAL_A
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+    ALARM_CBACK1:
+      cbstat: AK_ACTIVATE
+
+  do_1:
+    id: ALARM_CBACK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_1:
+    ALARM_CBACK1:
+      cbstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==&vname1)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_4:
+######################################################################
+# GetTaskID_error_0002.yaml
+######################################################################
+GetTaskID_error_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+
+  do:
+    id: C1ISR1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+######################################################################
+# GetTaskID_error_0003.yaml
+######################################################################
+GetTaskID_error_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetTaskID(NULL)
+    rettype: StatusType
+    retval: OS_E_PARAM_POINTER
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==OS_E_PARAM_POINTER)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==NULL)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# GetTaskID_error_0004.yaml
+######################################################################
+GetTaskID_error_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetTaskID(NULL)
+    rettype: StatusType
+    retval: OS_E_PARAM_POINTER
+
+  post_condition:
+######################################################################
+# GetTaskID_error_0005.yaml
+######################################################################
+GetTaskID_error_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: GetTaskID(NULL)
+    rettype: StatusType
+    retval: OS_E_PARAM_POINTER
+    gcov: true
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==OS_E_PARAM_POINTER)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==NULL)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+
+  do_4:
+    id: ERROR_HOOK1
+    syssrv: return
+    gcov: false
+
+  post_condition_4:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# GetTaskID_error_0006.yaml
+######################################################################
+GetTaskID_error_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: GetTaskID(NULL)
+    rettype: StatusType
+    retval: OS_E_PARAM_POINTER
+    gcov: true
+
+  post_condition_0:
+    PRETASK_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==OS_E_PARAM_POINTER)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==NULL)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# GetTaskID_error_0007.yaml
+######################################################################
+GetTaskID_error_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: GetTaskID(NULL)
+    rettype: StatusType
+    retval: OS_E_PARAM_POINTER
+    gcov: true
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==OS_E_PARAM_POINTER)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==NULL)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# GetTaskID_error_0008.yaml
+######################################################################
+GetTaskID_error_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==&vname1)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# GetTaskID_error_0009.yaml
+######################################################################
+GetTaskID_error_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          global: true
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+    gcov: true
+
+  post_condition_0:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_CALLEVEL)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==&vname1)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# GetTaskID_error_0010.yaml
+######################################################################
+GetTaskID_error_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do_0:
+    id: TASK1
+    syssrv: GetTaskID(NULL)
+    rettype: StatusType
+    retval: OS_E_PARAM_POINTER
+    gcov: true
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==OS_E_PARAM_POINTER)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_GetTaskID_TaskID()==NULL)
+    need_si:
+      - IOS030
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_GetTaskID)
+    gcov: false
+
+  post_condition_3:
+######################################################################

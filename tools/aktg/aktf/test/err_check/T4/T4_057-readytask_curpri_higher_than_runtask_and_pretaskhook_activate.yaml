@@ -1,0 +1,29 @@
+T4_057_readytask_curpri_higher_than_runtask_and_pretaskhook_activate:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      maxact: 2
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: 2
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id     : PRETASK_HOOK1
+    syssrv : Schedule()
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:

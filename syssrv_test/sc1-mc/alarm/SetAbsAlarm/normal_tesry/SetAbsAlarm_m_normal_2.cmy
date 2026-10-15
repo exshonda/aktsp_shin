@@ -1,0 +1,6133 @@
+######################################################################
+# SetAbsAlarm_m_normal_2_0001.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0002.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0003.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,0,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0004.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,0,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0005.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0006.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0007.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0008.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0009.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0010.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0011.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0012.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0013.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0014.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0015.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0016.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0017.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0018.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0019.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0020.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0021.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0022.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0023.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0024.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0025.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0026.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0027.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0028.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0029.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0030.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,0,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (0+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0031.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,0,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0032.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,0,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: 0
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (0+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0033.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0034.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0035.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0036.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_0_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0037.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0038.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0039.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0040.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_0_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_0_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0041.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0042.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0043.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0044.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_MAX_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_MAX_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_MAX_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_MAX_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0045.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0046.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0047.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0048.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_NOT_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_CURVAL_NOT_WRAPAROUND_A-ANY_CURVAL_NOT_0_MAX_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_NOT_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0049.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0049:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0050.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0050:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0051.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0051:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_CURVAL_NOT_0_MAX_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0052.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0052:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_MAX_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_CURVAL_WRAPAROUND_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_CURVAL_WRAPAROUND_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A-ANY_CURVAL_NOT_0_MAX_A+ANY_CURVAL_WRAPAROUND_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_CURVAL_WRAPAROUND_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0053.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0053:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0054.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0054:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,ANY_ALMCYCLE_A)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: ANY_ALMCYCLE_A
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+
+  do_2:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*1)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 2
+
+  do_3:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*2)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 3%(ANY_MAXVAL_B+1)
+
+  do_4:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*3)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 4%(ANY_MAXVAL_B+1)
+
+  do_5:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*4)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 5%(ANY_MAXVAL_B+1)
+
+  do_6:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_ALMCYCLE_A
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_6:
+    ALARM1:
+      almval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*6)%(ANY_MAXVAL_A+1)
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*5)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 6%(ANY_MAXVAL_B+1)
+######################################################################
+# SetAbsAlarm_m_normal_2_0055.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0055:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: ANY_MAXVAL_A
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################
+# SetAbsAlarm_m_normal_2_0056.yaml
+######################################################################
+SetAbsAlarm_m_normal_2_0056:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_UNSET
+      incounter: COUNTER2
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_MAXVAL_A
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: SetAbsAlarm(ALARM1,ANY_MAXVAL_A,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    ALARM1:
+      astat: AK_SET
+      almval: ANY_MAXVAL_A
+      cycle: 0
+
+  do_1:
+    id: TASK2
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_MAXVAL_A+1
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: (ANY_MAXVAL_A+ANY_ALMCYCLE_A*0)%(ANY_MAXVAL_A+1)
+    COUNTER2:
+      curval: 1
+######################################################################

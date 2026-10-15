@@ -1,0 +1,22 @@
+T1_021_startup_hook_osap_class_undefined:
+  property:
+    sc:
+
+  pre_condition:
+    STARTUP_HOOK_OSAP1:
+      type: STARTUP_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+      class  : undefined
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: STARTUP_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

@@ -1,0 +1,1297 @@
+######################################################################
+# illegal_terminate_task_S1_0001.yaml
+######################################################################
+illegal_terminate_task_S1_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0002.yaml
+######################################################################
+illegal_terminate_task_S1_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0003.yaml
+######################################################################
+illegal_terminate_task_S1_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0004.yaml
+######################################################################
+illegal_terminate_task_S1_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0005.yaml
+######################################################################
+illegal_terminate_task_S1_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0006.yaml
+######################################################################
+illegal_terminate_task_S1_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+        - RESOURCE3
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0007.yaml
+######################################################################
+illegal_terminate_task_S1_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0008.yaml
+######################################################################
+illegal_terminate_task_S1_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0009.yaml
+######################################################################
+illegal_terminate_task_S1_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0010.yaml
+######################################################################
+illegal_terminate_task_S1_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0011.yaml
+######################################################################
+illegal_terminate_task_S1_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0012.yaml
+######################################################################
+illegal_terminate_task_S1_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0013.yaml
+######################################################################
+illegal_terminate_task_S1_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0014.yaml
+######################################################################
+illegal_terminate_task_S1_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0015.yaml
+######################################################################
+illegal_terminate_task_S1_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0016.yaml
+######################################################################
+illegal_terminate_task_S1_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0017.yaml
+######################################################################
+illegal_terminate_task_S1_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0018.yaml
+######################################################################
+illegal_terminate_task_S1_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0019.yaml
+######################################################################
+illegal_terminate_task_S1_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0020.yaml
+######################################################################
+illegal_terminate_task_S1_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0021.yaml
+######################################################################
+illegal_terminate_task_S1_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0022.yaml
+######################################################################
+illegal_terminate_task_S1_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0023.yaml
+######################################################################
+illegal_terminate_task_S1_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0024.yaml
+######################################################################
+illegal_terminate_task_S1_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0025.yaml
+######################################################################
+illegal_terminate_task_S1_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0026.yaml
+######################################################################
+illegal_terminate_task_S1_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    TASK1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0027.yaml
+######################################################################
+illegal_terminate_task_S1_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0028.yaml
+######################################################################
+illegal_terminate_task_S1_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0029.yaml
+######################################################################
+illegal_terminate_task_S1_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_M(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################
+# illegal_terminate_task_S1_0030.yaml
+######################################################################
+illegal_terminate_task_S1_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AKTSP_RETURN_IN_STACK_OVERFLOW_S(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+    INT_STATE1:
+      istat:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_1:
+######################################################################

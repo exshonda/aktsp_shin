@@ -1,0 +1,416 @@
+task:
+  property:
+    cc:
+      - BCC2
+      - ECC2
+    sc:
+      - SC3
+      - SC4
+    si:
+      - OS399
+      - COS3653
+
+  pre_condition:
+    TaskSus:
+      type: TASK
+      tstat: RUNNING
+      inipri: 2
+      curpri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceF
+      relevt:
+        - EventF
+      stksz: 1024
+      sstksz: 512
+      appmode:
+        - APPLICATION_MODE3
+      osap: NON_TRUSTED_OSAP1
+    TaskResource1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceF
+      osap: TRUSTED_OSAP1
+    TaskResource2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceD
+        - ResourceE
+      osap: TRUSTED_OSAP1
+    TaskResource3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceA
+        - ResourceB
+        - ResourceC
+      osap: TRUSTED_OSAP1
+    TaskEventA:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - EventA
+      osap: NON_TRUSTED_OSAP1
+    TaskEventBC:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - EventB
+        - EventC
+      osap: TRUSTED_OSAP1
+    TaskEventDE:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - EventD
+        - EventE
+      osap: TRUSTED_OSAP1
+    TaskPri15a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TaskPri15b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri15c:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+    TaskPri14a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 14
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceC
+      osap: NON_TRUSTED_OSAP1
+    TaskPri13a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHNON
+      relres:
+        - ResourceB
+      osap: TRUSTED_OSAP1
+    TaskPri13b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri12a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri12b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri12c:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri11a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 11
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri10a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri10b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri9a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri9b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHNON
+      relres:
+        - ResourceA
+      osap: NON_TRUSTED_OSAP1
+    TaskPri8a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 8
+      maxact: 3
+      spolicy: AK_SCHFULL
+      appmode:
+        - MainApp
+        - APPLICATION_MODE1
+        - APPLICATION_MODE2
+      osap: TRUSTED_OSAP1
+    TaskPri7a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceInternal
+      osap: TRUSTED_OSAP1
+    TaskPri7b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri6a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri6b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceE
+      osap: NON_TRUSTED_OSAP1
+    TaskPri5a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri5b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceInternal
+      osap: NON_TRUSTED_OSAP1
+    TaskPri4a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri4b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceD
+      osap: NON_TRUSTED_OSAP1
+    TaskPri3a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri2a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri2b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri1a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri1b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri0a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 0
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TaskPri0b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 0
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TaskPri0c:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 0
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    ResourceA:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceB:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceC:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceD:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceE:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceF:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceInternal:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EventA:
+      type: EVENT
+      mask: 0x00000001
+    EventB:
+      type: EVENT
+      mask: 0x00000010
+    EventC:
+      type: EVENT
+      mask: 0x00000100
+    EventD:
+      type: EVENT
+      mask: 0x00001000
+    EventE:
+      type: EVENT
+      mask: 0x00010000
+    EventF:
+      type: EVENT
+      mask: 0x00100000
+# 以下，確認用オブジェクト
+    VerifyTrustedFunction:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP5
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP5
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP5
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+    APPLICATION_MODE2:
+      type: APPLICATION_MODE
+    APPLICATION_MODE3:
+      type: APPLICATION_MODE
+
+  do:
+    id: TaskSus
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

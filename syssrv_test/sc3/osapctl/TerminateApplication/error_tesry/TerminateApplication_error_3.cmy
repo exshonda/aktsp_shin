@@ -1,0 +1,225 @@
+######################################################################
+# TerminateApplication_error_3_0001.yaml
+######################################################################
+TerminateApplication_error_3_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP2,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# TerminateApplication_error_3_0002.yaml
+######################################################################
+TerminateApplication_error_3_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# TerminateApplication_error_3_0003.yaml
+######################################################################
+TerminateApplication_error_3_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: ANY_BASIC_MAXACT
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP2,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################
+# TerminateApplication_error_3_0004.yaml
+######################################################################
+TerminateApplication_error_3_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: ANY_BASIC_MAXACT
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_1:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

@@ -1,0 +1,42 @@
+T4_054_readytask_curpri_higher_than_runtask_and_getres:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      maxact: 2
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      maxact: 2
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_HIGH
+      tstat: SUSPENDED
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id     : TASK1
+    syssrv : Schedule()
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:

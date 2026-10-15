@@ -1,0 +1,535 @@
+######################################################################
+# stack_monitoring_NM_4_P_S_0001.yaml
+######################################################################
+stack_monitoring_NM_4_P_S_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_OTHER
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTG_OS_STACK_ADDRESS_CORE_0,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    C2ISR1:
+      rtnstat: AK_ACTIVATE_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_4:
+######################################################################
+# stack_monitoring_NM_4_P_S_0002.yaml
+######################################################################
+stack_monitoring_NM_4_P_S_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_OTHER
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTG_OS_STACK_ADDRESS_CORE_0,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    C2ISR1:
+      rtnstat: AK_ACTIVATE_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_4:
+######################################################################
+# stack_monitoring_NM_4_P_S_0003.yaml
+######################################################################
+stack_monitoring_NM_4_P_S_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_OTHER
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_M(AKTG_OS_STACK_ADDRESS_CORE_0,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    C2ISR1:
+      rtnstat: AK_ACTIVATE_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_4:
+######################################################################
+# stack_monitoring_NM_4_P_S_0004.yaml
+######################################################################
+stack_monitoring_NM_4_P_S_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_OTHER
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTG_OS_STACK_ADDRESS_CORE_0,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    C2ISR1:
+      rtnstat: AK_ACTIVATE_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_IGNORE)
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_4:
+######################################################################
+# stack_monitoring_NM_4_P_S_0005.yaml
+######################################################################
+stack_monitoring_NM_4_P_S_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_OTHER
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTG_OS_STACK_ADDRESS_CORE_0,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    C2ISR1:
+      rtnstat: AK_ACTIVATE_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_INVALID)
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_FATAL)
+
+  post_condition_4:
+######################################################################
+# stack_monitoring_NM_4_P_S_0006.yaml
+######################################################################
+stack_monitoring_NM_4_P_S_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_OTHER
+
+  do_0:
+    id: C2ISR1
+    syssrv: AKTSP_SET_STACK_OVERFLOW_S(AKTG_OS_STACK_ADDRESS_CORE_0,AKTSP_OS_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TASK2
+    syssrv: RaiseInterCoreInterrupt(ICISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: AK_RUNNING_WAITICISR
+    TASK2:
+      tstat: AK_RUNNING_WAITICISR
+    C2ISR1:
+      rtnstat: AK_ACTIVATE_WAITICISR
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_2:
+
+  do_3:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_SHUTDOWN)
+
+  post_condition_3:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      hookstat: AK_ACTIVATE
+
+  do_4:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_4:
+######################################################################

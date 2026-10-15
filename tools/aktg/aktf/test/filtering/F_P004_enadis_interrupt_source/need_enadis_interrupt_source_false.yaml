@@ -1,0 +1,27 @@
+need_enadis_interrupt_source_false:
+  property:
+    sc: 
+    need_enadis_interrupt_source: false
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_ISR1_A
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C1ISR1
+
+  do:
+    id: C1ISR1
+    syssrv: EnableAllInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:

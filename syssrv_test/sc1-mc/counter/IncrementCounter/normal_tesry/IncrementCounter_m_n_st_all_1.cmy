@@ -1,0 +1,1697 @@
+######################################################################
+# IncrementCounter_m_n_st_all_1_0001.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0002.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0003.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0004.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0005.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0006.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0007.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0008.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0009.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0010.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0011.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: C2ISR1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0012.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    C2ISR1:
+      type: C2ISR
+      iniintpri: INT_PRI_MID
+      intno: INTNO_SELF_C2ISR_MID_A
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0013.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0014.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0015.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0016.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0017.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0018.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      duration: ANY_MAXVAL_A+1
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0019.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0020.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_BOTTOM
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+            - TASK3
+      osap: OSAP_SELF_CORE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_BOTTOM
+######################################################################
+# IncrementCounter_m_n_st_all_1_0021.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0022.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_LOW
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0023.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 0
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################
+# IncrementCounter_m_n_st_all_1_0024.yaml
+######################################################################
+IncrementCounter_m_n_st_all_1_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_BOTTOM
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+      osap: OSAP_OTHER_SAME_CORE
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: ANY_SCDLTBLREL_REPEAT
+      ststat: SCHEDULETABLE_RUNNING
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          setevt:
+            - TASK2: EVENT1
+            - TASK3: EVENT1
+      osap: OSAP_SELF_CORE
+    EVENT1:
+      type: EVENT
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    COUNTER1:
+      curval: 1
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+    TASK3:
+      tstat: READY
+      curevt: EVENT1
+######################################################################

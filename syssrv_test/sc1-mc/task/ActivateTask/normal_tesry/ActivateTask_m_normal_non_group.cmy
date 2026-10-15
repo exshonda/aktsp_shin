@@ -1,0 +1,675 @@
+######################################################################
+# ActivateTask_m_normal_non_group_0001.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK4
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      porder: 1
+    TASK2:
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0002.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_LOW
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK4
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0003.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK4
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0004.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK4
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0005.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_LOW
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK4
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0006.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_OTHER_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK4
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0007.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      porder: 1
+    TASK2:
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0008.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_LOW
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0009.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0010.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0011.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_LOW
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################
+# ActivateTask_m_normal_non_group_0012.yaml
+######################################################################
+ActivateTask_m_normal_non_group_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      inipri: TSK_PRI_TOP
+      tstat: SUSPENDED
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1
+######################################################################

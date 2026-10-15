@@ -1,0 +1,26 @@
+shutdown_hook_osap_shutdown_hook:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    SHUTDOWN_HOOK_OSAP1:
+      type: SHUTDOWN_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: NON_TRUSTED_OSAP2
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: NON_TRUSTED_OSAP1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do:
+    id: SHUTDOWN_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

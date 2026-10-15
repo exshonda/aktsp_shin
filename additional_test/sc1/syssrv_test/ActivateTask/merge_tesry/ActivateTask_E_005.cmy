@@ -1,0 +1,257 @@
+######################################################################
+# ActivateTask_E_005_0001.yaml
+######################################################################
+ActivateTask_E_005_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      actcnt: 256
+      maxact: 256
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 256
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_ActivateTask_TaskID()==TASK1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ActivateTask)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# ActivateTask_E_005_0002.yaml
+######################################################################
+ActivateTask_E_005_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      ttype: AK_BASIC
+      tstat: READY
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      actcnt: 256
+      maxact: 256
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 256
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_ActivateTask_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ActivateTask)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# ActivateTask_E_005_0003.yaml
+######################################################################
+ActivateTask_E_005_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      actcnt: 256
+      maxact: 256
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      actcnt: 256
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_ActivateTask_TaskID()==TASK1)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ActivateTask)
+    gcov: false
+
+  post_condition_3:
+######################################################################
+# ActivateTask_E_005_0004.yaml
+######################################################################
+ActivateTask_E_005_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      ttype: AK_BASIC
+      tstat: READY
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      actcnt: 256
+      maxact: 256
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 256
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==E_OS_LIMIT)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_ActivateTask_TaskID()==TASK2)
+    gcov: false
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSErrorGetServiceId()==OSServiceId_ActivateTask)
+    gcov: false
+
+  post_condition_3:
+######################################################################

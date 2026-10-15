@@ -1,0 +1,22 @@
+T4_026_multi_startuphook:
+  property:
+    sc: 
+
+  pre_condition:
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    STARTUP_HOOK2:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

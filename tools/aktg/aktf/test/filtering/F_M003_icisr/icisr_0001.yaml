@@ -1,0 +1,33 @@
+icisr_0001:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri : TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri : TSK_PRI_HIGH
+      osap: OSAP_OTHER_OTHER_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: ICISR1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK2:
+      tstat: RUNNING
+      curpri : TSK_PRI_HIGH
+      actcnt: 1

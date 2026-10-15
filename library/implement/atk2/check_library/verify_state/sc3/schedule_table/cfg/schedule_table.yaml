@@ -1,0 +1,377 @@
+schedule_table:
+  property:
+    cc:
+      - BCC2
+      - ECC2
+    sc:
+      - SC3
+      - SC4
+    si:
+      - OS399
+      - COS3653
+
+  pre_condition:
+    Task1_1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    Task1_2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 14
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    Task1_3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    Task1_4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    Task1_5:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 11
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+    Task1_6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    Task2_1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event2_1
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    Task2_2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event2_2
+      osap: NON_TRUSTED_OSAP1
+    Task2_3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event2_3
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    Task2_4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event2_4
+      osap: NON_TRUSTED_OSAP1
+    Task2_5:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event2_5
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    Task2_6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event2_6
+      osap: NON_TRUSTED_OSAP1
+    Task3_1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 8
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event3_1
+      osap: TRUSTED_OSAP1
+    Task3_2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event3_2
+      osap: NON_TRUSTED_OSAP1
+    Task3_3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event3_3
+      osap: TRUSTED_OSAP1
+    Task3_4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event3_4
+      osap: NON_TRUSTED_OSAP1
+    Task3_5:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event3_5
+      osap: TRUSTED_OSAP1
+    Task3_6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event3_6
+      osap: NON_TRUSTED_OSAP1
+    Task4_1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+    ScheduleTable1:
+      type: SCHEDULE_TABLE
+      counter: Counter1
+      autostarttype: AK_RELATIVE
+      starttick: 2
+      appmode:
+        - MainApp
+        - APPLICATION_MODE1
+      repeat: AK_TRUE
+      duration: 10
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 1
+      expoint:
+        2:
+          acttsk:
+            - Task1_1
+        4:
+          acttsk:
+            - Task1_2
+            - Task1_3
+        6:
+          acttsk:
+            - Task1_4
+            - Task1_5
+            - Task1_6
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ScheduleTable2:
+      type: SCHEDULE_TABLE
+      counter: Counter1
+      repeat: AK_FALSE
+      duration: 20
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_STOPPED
+      expoint:
+        3:
+          setevt:
+            - Task2_1: Event2_1
+        8:
+          setevt:
+            - Task2_2: Event2_2
+            - Task2_3: Event2_3
+        13:
+          setevt:
+            - Task2_4: Event2_4
+            - Task2_5: Event2_5
+            - Task2_6: Event2_6
+      osap: NON_TRUSTED_OSAP1
+    ScheduleTable3:
+      type: SCHEDULE_TABLE
+      counter: DUMMY_HARDWARE_COUNTER
+      repeat: AK_TRUE
+      duration: 11
+      syncstrategy: AK_IMPLICIT
+      ststat: SCHEDULETABLE_STOPPED
+      expoint:
+        3:
+          acttsk:
+            - Task3_1
+          setevt:
+            - Task3_1: Event3_1
+        7:
+          acttsk:
+            - Task3_2
+            - Task3_3
+          setevt:
+            - Task3_2: Event3_2
+            - Task3_3: Event3_3
+        9:
+          acttsk:
+            - Task3_4
+            - Task3_5
+            - Task3_6
+          setevt:
+            - Task3_4: Event3_4
+            - Task3_5: Event3_5
+            - Task3_6: Event3_6
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ScheduleTable4:
+      type: SCHEDULE_TABLE
+      counter: Counter2
+      autostarttype: AK_ABSOLUTE
+      starttick: 3
+      appmode:
+        - MainApp
+        - APPLICATION_MODE2
+        - APPLICATION_MODE3
+      repeat: AK_FALSE
+      duration: 11
+      syncstrategy: AK_IMPLICIT
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      curval: 1
+      expoint:
+        2:
+          acttsk:
+            - Task4_1
+      osap: NON_TRUSTED_OSAP1
+    Event2_1:
+      type: EVENT
+    Event2_2:
+      type: EVENT
+    Event2_3:
+      type: EVENT
+    Event2_4:
+      type: EVENT
+    Event2_5:
+      type: EVENT
+    Event2_6:
+      type: EVENT
+    Event3_1:
+      type: EVENT
+    Event3_2:
+      type: EVENT
+    Event3_3:
+      type: EVENT
+    Event3_4:
+      type: EVENT
+    Event3_5:
+      type: EVENT
+    Event3_6:
+      type: EVENT
+    Counter1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 19
+      curval: 0
+      ctype: AK_SOFTWARE
+      osap: NON_TRUSTED_OSAP1
+    Counter2:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+      osap: TRUSTED_OSAP1
+    DUMMY_HARDWARE_COUNTER:
+      type: COUNTER
+      curval: 0
+      ctype: AK_HARDWARE
+# 以下，確認用オブジェクト
+    TrustedTask:
+      type: TASK
+      tstat: RUNNING
+      curpri: 5
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP5
+    NonTrustedTask:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP5
+    VerifyTrustedFunction:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP5
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP5
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP5
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+    APPLICATION_MODE2:
+      type: APPLICATION_MODE
+    APPLICATION_MODE3:
+      type: APPLICATION_MODE
+
+  do:
+    id: TrustedTask
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

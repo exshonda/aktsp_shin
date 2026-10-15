@@ -1,0 +1,22 @@
+kernel_lib_sc1:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      ttype: AK_BASIC
+      maxact: 2
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

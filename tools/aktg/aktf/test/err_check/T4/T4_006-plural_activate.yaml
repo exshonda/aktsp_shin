@@ -1,0 +1,25 @@
+T4_006_plural_activate:
+  property:
+    sc: 
+  pre_condition:
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_ISR1_B
+      iniintpri: INT_PRI_ISR1
+      rtnstat: AK_ACTIVATE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+
+  do:
+    id: C1ISR1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

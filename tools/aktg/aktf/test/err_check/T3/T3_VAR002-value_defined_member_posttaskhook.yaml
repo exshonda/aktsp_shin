@@ -1,0 +1,36 @@
+T3_VAR002_value_defined_member_posttaskhook:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: POSTTASK_HOOK1
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          mincycle: ANY_MINCYC_A

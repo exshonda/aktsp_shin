@@ -1,0 +1,509 @@
+######################################################################
+# TerminateTask_modistarc_0001.yaml
+######################################################################
+TerminateTask_modistarc_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      maxact: 3
+      ttype: AK_BASIC
+      osap: ANY_OSAP_1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      maxact: 3
+      ttype: AK_BASIC
+      osap: ANY_OSAP_1
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      porder: 1
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      porder: 2
+
+  do_2:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      actcnt: 1
+  
+  do_3:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_3:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 3
+    TASK3:
+      tstat: READY
+      actcnt: 1
+
+  do_4:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_4:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 3
+    TASK3:
+      tstat: READY
+      actcnt: 2
+
+  do_5:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_5:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      actcnt: 3
+    TASK3:
+      tstat: READY
+      actcnt: 3
+
+  do_6:
+    id: TASK1
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_6:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 3
+    TASK3:
+      tstat: READY
+      actcnt: 3
+      porder: 1
+
+  do_7:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_7:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: READY
+      actcnt: 2
+      bootcnt: 1
+    TASK3:
+      tstat: RUNNING
+      actcnt: 3
+
+  do_8:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_8:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      actcnt: 2
+      bootcnt: 1
+
+  do_9:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_9:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      bootcnt: 2
+    TASK3:
+      tstat: RUNNING
+      actcnt: 2
+
+  do_10:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_10:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 1
+    TASK3:
+      tstat: READY
+      actcnt: 1
+      bootcnt: 2
+
+  do_11:
+    id: TASK2
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_11:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      actcnt: 1
+      tstat: RUNNING
+
+  do_12:
+    id: TASK3
+    syssrv: TerminateTask()
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_12:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+######################################################################
+# TerminateTask_modistarc_0002.yaml
+######################################################################
+TerminateTask_modistarc_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: 8
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK5:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK7:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+    TASK8:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 1
+      osap: ANY_OSAP_1
+
+  do_0:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curpri: 7
+      actcnt: 1
+
+  do_1:
+    id: TASK1
+    syssrv: ActivateTask(TASK3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      curpri: 6
+      actcnt: 1
+
+  do_2:
+    id: TASK1
+    syssrv: ActivateTask(TASK4)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK1:
+      tstat: RUNNING
+    TASK4:
+      tstat: READY
+      curpri: 5
+      actcnt: 1
+
+  do_3:
+    id: TASK1
+    syssrv: ActivateTask(TASK5)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TASK1:
+      tstat: RUNNING
+    TASK5:
+      tstat: READY
+      curpri: 4
+      actcnt: 1
+
+  do_4:
+    id: TASK1
+    syssrv: ActivateTask(TASK6)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TASK1:
+      tstat: RUNNING
+    TASK6:
+      tstat: READY
+      curpri: 3
+      actcnt: 1
+
+  do_5:
+    id: TASK1
+    syssrv: ActivateTask(TASK7)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    TASK1:
+      tstat: RUNNING
+    TASK7:
+      tstat: READY
+      curpri: 2
+      actcnt: 1
+
+  do_6:
+    id: TASK1
+    syssrv: ActivateTask(TASK8)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TASK1:
+      tstat: RUNNING
+    TASK8:
+      tstat: READY
+      curpri: 1
+      actcnt: 1
+
+  do_7:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_7:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+
+  do_8:
+    id: TASK2
+    syssrv: TerminateTask()
+
+  post_condition_8:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: RUNNING
+
+  do_9:
+    id: TASK3
+    syssrv: TerminateTask()
+
+  post_condition_9:
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: RUNNING
+
+  do_10:
+    id: TASK4
+    syssrv: TerminateTask()
+
+  post_condition_10:
+    TASK4:
+      tstat: SUSPENDED
+    TASK5:
+      tstat: RUNNING
+
+  do_11:
+    id: TASK5
+    syssrv: TerminateTask()
+
+  post_condition_11:
+    TASK5:
+      tstat: SUSPENDED
+    TASK6:
+      tstat: RUNNING
+
+  do_12:
+    id: TASK6
+    syssrv: TerminateTask()
+
+  post_condition_12:
+    TASK6:
+      tstat: SUSPENDED
+    TASK7:
+      tstat: RUNNING
+
+  do_13:
+    id: TASK7
+    syssrv: TerminateTask()
+
+  post_condition_13:
+    TASK7:
+      tstat: SUSPENDED
+    TASK8:
+      tstat: RUNNING
+
+  do_14:
+    id: TASK8
+    syssrv: TerminateTask()
+
+  post_condition_14:
+    TASK8:
+      tstat: SUSPENDED
+
+######################################################################
+

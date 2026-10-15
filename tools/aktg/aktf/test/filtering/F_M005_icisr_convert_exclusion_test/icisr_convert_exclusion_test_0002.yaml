@@ -1,0 +1,38 @@
+iicisr_convert_exclusion_test_0002:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri : TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+
+  do_1:
+    id: STARTUP_HOOK1
+    syssrv: return
+
+  post_condition_1:
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE

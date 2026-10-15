@@ -1,0 +1,62 @@
+T3_TSK018_maintask_wait_true_curpri_not_minpri:
+  property:
+    maintask_wait: true
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : 1
+
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      var:
+        vname1:
+          type: TaskType
+
+  do_0:
+    id     : TASK1
+    syssrv : TerminateTask()
+
+  post_condition_0:
+    POSTTASK_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id     : POSTTASK_HOOK1
+    syssrv : AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_B)
+
+  post_condition_1:
+
+  do_2:
+    id     : POSTTASK_HOOK1
+    syssrv : return
+
+  post_condition_2:
+    POSTTASK_HOOK1:
+      hookstat: AK_STOP
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_3:
+    id     : C2ISR1
+    syssrv : GetTaskID(&vname1)
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition_3:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          value: INVALID_TASK

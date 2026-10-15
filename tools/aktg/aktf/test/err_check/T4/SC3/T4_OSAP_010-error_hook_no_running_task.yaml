@@ -1,0 +1,23 @@
+T4_OSAP_010_error_hook_no_running_task:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    ERROR_HOOK_OSAP1:
+      type: ERROR_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: NON_TRUSTED_OSAP1
+    TASK1:
+      type: TASK
+      tstat: READY
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: ERROR_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

@@ -1,0 +1,56 @@
+T1_028_object_id_use_reserved_words:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      task: TASK2
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 5
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    NON_TRUSTED_OSAP1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: 5
+      cstat: AK_CS_DOING

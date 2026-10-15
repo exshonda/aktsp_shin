@@ -1,0 +1,163 @@
+######################################################################
+# Schedule_N_003_b_0001.yaml
+######################################################################
+Schedule_N_003_b_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      porder: 1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      porder: 1
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+######################################################################
+# Schedule_N_003_b_0002.yaml
+######################################################################
+Schedule_N_003_b_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+      ttype: AK_BASIC
+      porder: 1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+      ttype: AK_BASIC
+      porder: 1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+      porder: 1
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+######################################################################
+# Schedule_N_003_b_0003.yaml
+######################################################################
+Schedule_N_003_b_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      porder: 1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      porder: 1
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK2:
+      tstat: READY
+      porder: 2
+    TASK3:
+      tstat: RUNNING
+######################################################################

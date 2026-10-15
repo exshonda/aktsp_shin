@@ -1,0 +1,34 @@
+######################################################################
+# DisableAllInterrupts_err_NP_S_0001.yaml
+######################################################################
+DisableAllInterrupts_err_NP_S_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: DisableAllInterrupts()
+    gcov: true
+
+  post_condition_0:
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_PROTECTION_MEMORY)
+
+  post_condition_1:
+######################################################################

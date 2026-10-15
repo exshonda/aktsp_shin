@@ -1,0 +1,383 @@
+task:
+  property:
+    cc:
+      - BCC2
+      - ECC2
+    sc:
+      - SC1
+      - SC2
+    si:
+      - OS399
+      - COS3653
+
+  pre_condition:
+    TaskSus:
+      type: TASK
+      tstat: RUNNING
+      inipri: 2
+      curpri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceF
+      relevt:
+        - EventF
+      stksz: 1024
+      appmode:
+        - APPLICATION_MODE3
+    TaskResource1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceF
+    TaskResource2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceD
+        - ResourceE
+    TaskResource3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceA
+        - ResourceB
+        - ResourceC
+    TaskEventA:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - EventA
+    TaskEventBC:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - EventB
+        - EventC
+    TaskEventDE:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - EventD
+        - EventE
+    TaskPri15a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri15b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri15c:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 15
+      maxact: 1
+      spolicy: AK_SCHNON
+    TaskPri14a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 14
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceC
+    TaskPri13a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHNON
+      relres:
+        - ResourceB
+    TaskPri13b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 13
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri12a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri12b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri12c:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 12
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri11a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 11
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri10a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri10b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 10
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri9a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri9b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHNON
+      relres:
+        - ResourceA
+    TaskPri8a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 8
+      maxact: 3
+      spolicy: AK_SCHFULL
+      appmode:
+        - MainApp
+        - APPLICATION_MODE1
+        - APPLICATION_MODE2
+    TaskPri7a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceInternal
+    TaskPri7b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri6a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri6b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceE
+    TaskPri5a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri5b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceInternal
+    TaskPri4a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri4b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 4
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - ResourceD
+    TaskPri3a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri2a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri2b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri1a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri1b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri0a:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 0
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri0b:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 0
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskPri0c:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 0
+      maxact: 1
+      spolicy: AK_SCHFULL
+    ResourceA:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceB:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceC:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceD:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceE:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceF:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    ResourceInternal:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_UNLOCK
+    EventA:
+      type: EVENT
+      mask: 0x00000001
+    EventB:
+      type: EVENT
+      mask: 0x00000010
+    EventC:
+      type: EVENT
+      mask: 0x00000100
+    EventD:
+      type: EVENT
+      mask: 0x00001000
+    EventE:
+      type: EVENT
+      mask: 0x00010000
+    EventF:
+      type: EVENT
+      mask: 0x00100000
+# 以下，確認用オブジェクト
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+    AlarmVerify:
+      type: ALARM
+      counter: CounterVerify
+      astat: AK_UNSET
+      almact: AK_ALM_CBACK
+      callback: AlarmCallBackVerify
+    AlarmCallBackVerify:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    CounterVerify:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+    APPLICATION_MODE2:
+      type: APPLICATION_MODE
+    APPLICATION_MODE3:
+      type: APPLICATION_MODE
+
+  do:
+    id: TaskSus
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

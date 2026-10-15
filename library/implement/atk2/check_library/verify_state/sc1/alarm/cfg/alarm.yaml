@@ -1,0 +1,154 @@
+alarm:
+  property:
+    cc:
+      - BCC2
+      - ECC2
+    sc:
+      - SC1
+      - SC2
+    si:
+      - OS399
+      - COS3653
+
+  pre_condition:
+    TaskActTask:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskUnset:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+    TaskSetEvent:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relevt:
+        - Event1
+    AlarmActTask:
+      type: ALARM
+      counter: Counter
+      astat: AK_SET
+      almact: AK_ALM_ATSK
+      task: TaskActTask
+      almval: 2
+      cycle: 5
+      autostarttype: AK_ABSOLUTE
+      appmode:
+        - MainApp
+        - APPLICATION_MODE1
+    AlarmUnset:
+      type: ALARM
+      counter: Counter
+      astat: AK_UNSET
+      almact: AK_ALM_ATSK
+      task: TaskUnset
+    AlarmSetEvent:
+      type: ALARM
+      counter: Counter
+      astat: AK_SET
+      almval: 1
+      cycle: 8
+      autostarttype: AK_RELATIVE
+      almact: AK_ALM_SEVT
+      task: TaskSetEvent
+      event: Event1
+      appmode:
+        - MainApp
+        - APPLICATION_MODE2
+        - APPLICATION_MODE3
+    AlarmAlmCallBack:
+      type: ALARM
+      counter: Counter
+      astat: AK_UNSET
+      almact: AK_ALM_CBACK
+      callback: AlarmCallBack
+    AlarmIncCounter:
+      type: ALARM
+      counter: Counter
+      astat: AK_UNSET
+      almact: AK_ALM_INCNT
+      incounter: CounterInc
+    AlarmCallBack:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    Counter:
+      type: COUNTER
+      mincyc: 1
+      maxval: 8
+      curval: 0
+      ctype: AK_SOFTWARE
+    CounterInc:
+      type: COUNTER
+      mincyc: 2
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+    Event1:
+      type: EVENT
+# 以下，確認用オブジェクト
+    TaskVerify:
+      type: TASK
+      tstat: RUNNING
+      curpri: 5
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+    AlarmVerify:
+      type: ALARM
+      counter: CounterVerify
+      astat: AK_UNSET
+      almact: AK_ALM_CBACK
+      callback: AlarmCallBackVerify
+    AlarmCallBackVerify:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    CounterVerify:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+    APPLICATION_MODE2:
+      type: APPLICATION_MODE
+    APPLICATION_MODE3:
+      type: APPLICATION_MODE
+
+  do:
+    id: TaskVerify
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

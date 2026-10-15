@@ -1,0 +1,253 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜コア間割込み スタックモニタリングテスト個別ポリシー＞
+
+本ドキュメントは，保護違反時処理テストのコア間割込みのスタックモニタリ
+ングテストに関する開発および実施要綱についてまとめたものである．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2013-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2013-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2013-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2013-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2013-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2013-2014 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2013-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: icisr_stack_monitoring_policy.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ はじめに
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+本ドキュメントは，AKTSP(Automotive Kernel Test Suite Package)および
+AKTG(Automotive Kernel Test Generator)のユーザーズマニュアルの記載内容
+および，PictMasterのユーザーズマニュアル，AKTSPにおけるテストの開発およ
+び実施要綱を理解していること前提とする．
+本ドキュメントでは，コア間割込みのスタックモニタリングテストの個別ポリ
+シーを記載する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) PICTモデルファイルのテストケースの生成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PICTモデルファイルのシートをスタックモニタリングの発生タイミングにより，
+以下の1~4のパターンごとに作成する．
+また，プロテクションフックの有無とシャットダウンフックの有無でシートを
+分割する．
+
+■パターン1
+  自コアに対してコア間割込み発生時，自コアで実行状態であったタスクが，
+  設定したスタックサイズを超過していないかチェックする．
+  ・コア間割込み(単発)が発生するテストケースを生成する．
+
+  →stack_monitoring.xls：NM_1_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_1_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_1_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_1_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+  →stack_monitoring.xls：Merge_1シート(SC3-MCのみ)
+
+■パターン2
+  他コアに対してコア間割込み発生時，他コアで実行状態であったタスクが，
+  設定したスタックサイズを超過していないかチェックする．
+  ・コア間割込み(単発)が発生するテストケースを生成する
+
+  →stack_monitoring.xls：NM_2_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_2_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_2_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_2_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+  →stack_monitoring.xls：Merge_2シート(SC3-MCのみ)
+
+■パターン3
+  自コアに対してコア間割込み発生時，実行状態であったC2ISR(コア間割込み
+  より優先度が低い)が，設定したスタックサイズを超過していないかチェック
+  する．
+  ・コア間割込みを含む多重割込みが発生するテストケースを生成する
+
+  →stack_monitoring.xls：NM_3_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_3_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_3_P_Sシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_3_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+■パターン4
+  他コアに対してコア間割込み発生時，他コアで実行状態であったC2ISR(コア
+  間割込みより優先度が低い)が，設定したスタックサイズを超過していないか
+  チェックする．
+  ・コア間割込みを含む多重割込みが発生するテストケースを生成する
+
+  →stack_monitoring.xls：NM_4_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_4_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_4_P_Sシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_4_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+■パターン5
+  自コアに対してC2ISR(コア間割込みより優先度が高い)発生時，実行状態であ
+  ったコア間割込みが，設定したスタックサイズを超過していないかチェック
+  する．
+  ・コア間割込みを含む多重割込みが発生するテストケースを生成する
+
+  →stack_monitoring.xls：NM_5_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_5_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_5_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_5_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+■パターン6
+  コア間割込み終了時，実行状態であったコア間割込みが，設定したスタック
+  サイズを超過していないかチェックする．
+  ただしマジックナンバーチェック方式，かつ，自コアに対するコア間割込み
+  発生ケースのみとする．
+  ・コア間割込みが終了するテストケースを生成する
+
+  →stack_monitoring.xls：NM_6_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_6_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_6_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_6_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+■パターン7
+  呼出し元がコア間割込みの信頼関数終了時，実行状態であった信頼関数が，
+  設定したスタックサイズを超過していないかチェックする．
+  ただしマジックナンバーチェック方式，かつ，自コアに対するコア間割込み
+  発生ケースのみとする．
+  ・信頼関数が終了するテストケースを生成する
+
+  →stack_monitoring.xls：NM_7_P_Sシート(プロテクションフックあり，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_7_NP_Sシート(プロテクションフックなし，シャットダウンフックあり)
+  →stack_monitoring.xls：NM_7_P_NSシート(プロテクションフックあり，シャットダウンフックなし)
+  →stack_monitoring.xls：NM_7_NP_NSシート(プロテクションフックなし，シャットダウンフックなし)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) 組み合わせパラメータ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■check_method
+スタックオーバーフローの検出方式
+※パターン3~5はSTACK_POINTER，STACK_REMAINのみ
+※パターン6~7はMAGIC_NUMBERのみ
+  ・STACK_POINTER  スタックポインタチェック方式
+  ・MAGIC_NUMBER   マジックナンバーチェック方式
+  ・STACK_REMAIN   スタック残量チェック方式(パターン3~5のみ)
+
+■protection_hook
+プロテクションフックの有無
+  ・pro_ON   プロテクションフックあり
+  ・pro_OFF  プロテクションフックなし
+  ※プロテクションフックの有無でシートを分けているため，本パラメータは
+    固定となっている
+
+■pro_return_value
+プロテクションフックの戻り値
+  ・shutdown            PRO_SHUTDOWN
+  ・ignore              PRO_IGNORE
+  ・other_state         その他(PRO_INVALID)
+
+■shutdown_hook
+シャットダウンフックの有無
+  ・shut_ON      シャットダウンフックあり
+  ・shut_OFF     シャットダウンフックなし
+  ※シャットダウンフックの有無でシートを分けているため，本パラメータは
+    固定となっている
+
+■multiple_raising_isr
+多重割込みか単発割込み
+※パターン3のみ
+  ・yes  多重割込み
+  ・no   単発割込み
+
+■target_stack(SC3-MCのみ)
+スタックオーバーフローするスタック
+(非信頼タスク用スタックは，メモリ保護対象のスタックであるため，スタック
+ モニタリングテストの対象外となる)
+  ・Task    信頼タスク用スタック
+  ・ntTask  非信頼タスク用システムスタック
+  ・ICISR   信頼ICISR用スタック
+
+■trust_func(SC3-MCのみ)
+信頼関数の有無
+※パターン4以外で使用(信頼ICISRが呼び出した信頼関数によるスタックオーバー
+  フロー発生は，パターン5と同等のため)
+  ・TRUST_FUNC  信頼関数がスタックオーバーフローする
+  ・NO_FUNC     信頼関数を使用しない
+
+target_stackとtrust_funcの組合せを使用するパターンの関係を以下にまとめる．
+
+                             | パターン               |
+   target_stack | trust_func | 1  | 2  | 3  | 4  | 5  | 備考
+  ----------------------------------------------------------
+   Task         | NO_FUNC    | ○ | ○ | − | − | − |
+   Task         | TRUST_FUNC | ○ | ○ | − | − | − |
+   ntTask       | TRUST_FUNC | ○ | ○ | − | − | − |
+   ICISR        | NO_FUNC    | − | − | ○ | ○ | − |
+   ICISR        | TRUST_FUNC | − | − | ○ | − | ○ | ※1
+
+  【凡例】○：使用する
+          −：使用しない
+   ※1：パターン4での信頼ICISRが呼び出した信頼関数によるスタックオーバー
+        フロー発生は，パラメータ5と同等のため使用しない
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) TESRY生成表
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+各パターンで条件に合うように記述する．
+
+■スタックオーバーフロー発生，および検出に使用するターゲット依存API
+  (各APIの仕様は，ターゲット依存API外部仕様書を参照)
+・パターン1
+  AktspRaiseTaskStackOverflowByIcIsr
+・パターン2
+  AKTSP_SET_STACK_OVERFLOW_S
+  AKTSP_SET_STACK_OVERFLOW_M
+・パターン3
+  AktspRaiseIsrStackOverflowByIcIsr
+・パターン4
+  AKTSP_SET_STACK_OVERFLOW_S
+・パターン5
+  AktspRaiseIsrStackOverflowByInterrupt
+・パターン6
+  AktspRaiseIsrStackOverflowByReturn
+・パターン7
+  AktspRaiseTfnStackOverflowByReturn
+
+■パラメータとして指定するスタックとサイズ
+・SC1-MCのタスクもしくは信頼OSAPのタスクスタックの場合
+  AKTSP_TASK_STACK_ADDRESS(aktg_stack_core0[1]), AKTSP_TASK_STACK_SIZE
+  AKTSP_TASK_STACK_ADDRESS_CORE_1(aktg_stack_core1[1]), AKTSP_TASK_STACK_SIZE
+・割込みで使用されるスタックの場合
+  AKTSP_OS_STACK_ADDRESS(aktg_os_stack[0] + AKTSP_BUFFER_STACK_SIZE), AKTSP_OS_STACK_SIZE
+  AKTG_OS_STACK_ADDRESS_CORE_1(aktg_os_stack[1] + AKTSP_BUFFER_STACK_SIZE), AKTSP_OS_STACK_SIZE
+・非信頼OSAPのシステムスタックの場合(非信頼OSAPのタスクから信頼関数を呼
+  び出した場合)
+  AKTSP_TASK_SYSTEM_STACK_ADDRESS(aktg_sstack_core0[1]), AKTSP_TASK_STACK_SIZE
+  AKTSP_TASK_SYSTEM_STACK_ADDRESS_CORE_1(aktg_sstack_core1[1]), AKTSP_TASK_STACK_SIZE
+
+以上．

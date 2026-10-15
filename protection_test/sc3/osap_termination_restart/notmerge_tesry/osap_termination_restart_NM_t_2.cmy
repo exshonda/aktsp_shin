@@ -1,0 +1,3425 @@
+######################################################################
+# osap_termination_restart_NM_t_2_0001.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      task: TASK1
+      osap: NON_TRUSTED_OSAP1
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_UNSET
+      task: TASK1
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    ALARM1:
+      astat: AK_UNSET
+
+  do_2:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspCheckAlarmTerminated(ALARM1)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckAlarmTerminated(ALARM2)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_5:
+    COUNTER1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_B
+
+  do_6:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+######################################################################
+# osap_termination_restart_NM_t_2_0002.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    COUNTER3:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      accosap:
+        - NON_TRUSTED_OSAP1
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER3
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      task: TASK6
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK5:
+      tstat: READY
+      porder: 1
+    TASK1:
+      porder: 2
+    TASK6:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER3:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+
+  do_1:
+    id: TASK6
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_2:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckCounterTerminated(COUNTER2)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspCheckCounterTerminated(COUNTER3)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_6:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK6:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+    COUNTER2:
+      curval: 0
+    COUNTER3:
+      curval: 0
+      cstat: AK_CS_NULL
+######################################################################
+# osap_termination_restart_NM_t_2_0003.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE3:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      curval: 0
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK5
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE4:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK5
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE5:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE6:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE5
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE7:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE8:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE7
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE9:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE10:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE9
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE3:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE5:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE6:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE7:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE8:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE10:
+      ststat: SCHEDULETABLE_STOPPED
+
+  do_2:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE1,SCHEDULE_TABLE2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE2,SCHEDULE_TABLE1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE3,SCHEDULE_TABLE4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE4,SCHEDULE_TABLE3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE5,SCHEDULE_TABLE6,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_7:
+
+  do_8:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE6,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_8:
+
+  do_9:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE7,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_9:
+
+  do_10:
+    id: C2ISR1
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE10,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_10:
+
+  do_11:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_11:
+    COUNTER1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_B
+
+  do_12:
+    id: C2ISR1
+    syssrv: IncrementCounter(COUNTER2)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_12:
+    COUNTER2:
+      curval: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    SCHEDULE_TABLE9:
+      curval: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    TASK3:
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      actcnt: 1
+
+  do_13:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_13:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+######################################################################
+# osap_termination_restart_NM_t_2_0004.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+
+  do_2:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+######################################################################
+# osap_termination_restart_NM_t_2_0005.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      porder: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+
+  do_2:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# osap_termination_restart_NM_t_2_0006.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      porder: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      linkres: RESOURCE1
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+
+  do_2:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+######################################################################
+# osap_termination_restart_NM_t_2_0007.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      porder: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      accosap:
+        - NON_TRUSTED_OSAP1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_1:
+    id: C2ISR1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+
+  do_2:
+    id: C2ISR1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    C2ISR1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: C2ISR1
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: C2ISR1
+    syssrv: return
+
+  post_condition_7:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# osap_termination_restart_NM_t_2_0008.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      task: TASK1
+      osap: NON_TRUSTED_OSAP1
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_UNSET
+      task: TASK1
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    ALARM1:
+      astat: AK_UNSET
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckAlarmTerminated(ALARM1)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckAlarmTerminated(ALARM2)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    COUNTER1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_B
+######################################################################
+# osap_termination_restart_NM_t_2_0009.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    COUNTER3:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      var:
+        vname1:
+          type: ApplicationStateType
+      accosap:
+        - NON_TRUSTED_OSAP1
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER3
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      task: TASK6
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK5:
+      tstat: READY
+      porder: 1
+    TASK1:
+      porder: 2
+    TASK6:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER3:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+
+  do_1:
+    id: TASK6
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    COUNTER2:
+      curval: 0
+    COUNTER3:
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do_2:
+    id: TASK6
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK6:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: TASK6
+    syssrv: AktspCheckCounterTerminated(COUNTER2)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK6
+    syssrv: AktspCheckCounterTerminated(COUNTER3)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+######################################################################
+# osap_termination_restart_NM_t_2_0010.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE3:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      curval: 0
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK5
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE4:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK5
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE5:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE6:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE5
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE7:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE8:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE7
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE9:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE10:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE9
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE3:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE5:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE6:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE7:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE8:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE10:
+      ststat: SCHEDULETABLE_STOPPED
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE1,SCHEDULE_TABLE2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE2,SCHEDULE_TABLE1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE3,SCHEDULE_TABLE4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE4,SCHEDULE_TABLE3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE5,SCHEDULE_TABLE6,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE6,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_7:
+
+  do_8:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE7,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_8:
+
+  do_9:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE10,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_9:
+
+  do_10:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_10:
+    COUNTER1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_B
+
+  do_11:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER2)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_11:
+    COUNTER2:
+      curval: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    SCHEDULE_TABLE9:
+      curval: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    TASK3:
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      actcnt: 1
+######################################################################
+# osap_termination_restart_NM_t_2_0011.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0012.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      porder: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0013.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      porder: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      linkres: RESOURCE1
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0014.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      porder: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK5
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0015.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_A
+      cycle: ANY_ALMCYCLE_A
+      task: TASK1
+      osap: NON_TRUSTED_OSAP1
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_UNSET
+      task: TASK1
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    ALARM1:
+      astat: AK_UNSET
+    TASK5:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckAlarmTerminated(ALARM1)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckAlarmTerminated(ALARM2)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    COUNTER1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_B
+######################################################################
+# osap_termination_restart_NM_t_2_0016.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_NOT_0_A
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    COUNTER3:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: NON_TRUSTED_OSAP1
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER3
+      astat: AK_SET
+      almval: 1
+      cycle: 0
+      task: TASK6
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+      porder: 1
+    TASK5:
+      porder: 2
+    TASK6:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    COUNTER3:
+      curval: 1
+      cstat: AK_CS_DOING
+    ALARM1:
+      astat: AK_UNSET
+
+  do_1:
+    id: TASK6
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    TASK6:
+      tstat: SUSPENDED
+    COUNTER2:
+      curval: 0
+    COUNTER3:
+      curval: 0
+      cstat: AK_CS_NULL
+    TASK5:
+      tstat: RUNNING
+
+  do_2:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckCounterTerminated(COUNTER2)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckCounterTerminated(COUNTER3)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+######################################################################
+# osap_termination_restart_NM_t_2_0017.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: NON_TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      ttype: AK_BASIC
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK1
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE3:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING_AND_SYNCHRONOUS
+      curval: 0
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK5
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE4:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_IMPLICIT
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_STOPPED
+      duration: ANY_MAXVAL_A+1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK5
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE5:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE6:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE5
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE7:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE8:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE7
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE9:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 0
+      duration: ANY_SCDLTBL_DURATION_A
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A:
+          acttsk:
+            - TASK3
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    SCHEDULE_TABLE10:
+      type: SCHEDULE_TABLE
+      counter: COUNTER2
+      syncstrategy: AK_NONE
+      repeat: AK_FALSE
+      ststat: SCHEDULETABLE_NEXT
+      stfrom: SCHEDULE_TABLE9
+      duration: ANY_SCDLTBL_DURATION_B
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_B:
+          acttsk:
+            - TASK2
+      osap: NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE3:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE5:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE6:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE7:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE8:
+      ststat: SCHEDULETABLE_STOPPED
+    SCHEDULE_TABLE10:
+      ststat: SCHEDULETABLE_STOPPED
+    TASK5:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE1,SCHEDULE_TABLE2,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE2,SCHEDULE_TABLE1,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE3,SCHEDULE_TABLE4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE4,SCHEDULE_TABLE3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE5,SCHEDULE_TABLE6,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+
+  do_7:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE6,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_7:
+
+  do_8:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE7,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_8:
+
+  do_9:
+    id: TASK5
+    syssrv: AktspCheckScheduleTableTerminated(SCHEDULE_TABLE10,SCHEDULE_TABLE5,AK_FALSE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_9:
+
+  do_10:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_10:
+    COUNTER1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_B
+
+  do_11:
+    id: TASK5
+    syssrv: IncrementCounter(COUNTER2)
+    repeat: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_11:
+    COUNTER2:
+      curval: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    SCHEDULE_TABLE9:
+      curval: ANY_SCDLTBL_INIT_OFFSET_NOT_0_B
+    TASK3:
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      actcnt: 1
+######################################################################
+# osap_termination_restart_NM_t_2_0018.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    TASK5:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0019.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    TASK5:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0020.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE2
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      linkres: RESOURCE1
+      lockflg: AK_LOCK
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE2:
+      lockflg: AK_UNLOCK
+    TASK5:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################
+# osap_termination_restart_NM_t_2_0021.yaml
+######################################################################
+osap_termination_restart_NM_t_2_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    TASK5:
+      tstat: RUNNING
+
+  do_1:
+    id: TASK5
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_2:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_2:
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+######################################################################

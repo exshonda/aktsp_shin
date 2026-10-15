@@ -1,0 +1,57 @@
+######################################################################
+# stack_monitoring_NM_7_NP_S_0001.yaml
+######################################################################
+stack_monitoring_NM_7_NP_S_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: ICISR1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTfnStackOverflowByReturn(AKTSP_OS_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE)
+
+  post_condition_0:
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: return(E_OK)
+
+  post_condition_1:
+    ICISR1:
+      rtnstat: AK_STOP
+    TRUSTED_FUNCTION1:
+      caller: 
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_2:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_2:
+######################################################################

@@ -1,0 +1,26 @@
+T2_003_shutdownhook_var_invalid:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+       1hook*:
+        type: uint_t
+        value: 1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: SHUTDOWN_HOOK1
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: DisableAllInterrupts()
+
+  post_condition:

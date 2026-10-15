@@ -1,0 +1,34 @@
+T3_RES002_resprop_not_linked_define_linkres:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      linkres: RESOURCE2
+
+  do:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition:

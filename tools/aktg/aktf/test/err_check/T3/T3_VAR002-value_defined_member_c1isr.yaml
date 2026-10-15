@@ -1,0 +1,40 @@
+T3_VAR002_value_defined_member_c1isr:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+
+  do_0:
+    id: C1ISR1
+    syssrv: ActivateTask(INVALID_TSK_ID)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition_0:
+
+  do_1:
+    id: C1ISR1
+    syssrv: return
+
+  post_condition_1:
+    C1ISR1:
+      rtnstat: AK_STOP
+      var:
+        vname1:
+          ticksperbase: ANY_TICKSPERBASE

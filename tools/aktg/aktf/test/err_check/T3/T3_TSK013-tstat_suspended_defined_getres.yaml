@@ -1,0 +1,39 @@
+T3_TSK013_tstat_suspended_defined_getres:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHNON
+      getres:
+        - RESOURCE1
+      relres:
+        - RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1

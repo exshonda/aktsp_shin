@@ -1,0 +1,103 @@
+######################################################################
+# stack_monitoring_NM_5_NP_S_0001.yaml
+######################################################################
+stack_monitoring_NM_5_NP_S_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+      osap: OSAP_SELF_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: ICISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    ICISR1:
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_5_NP_S_0002.yaml
+######################################################################
+stack_monitoring_NM_5_NP_S_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_intno: INTNO_SELF_C2ISR_HIGH
+      osap: OSAP_SELF_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: ICISR1
+    syssrv: AktspRaiseIsrStackOverflowByInterrupt(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    ICISR1:
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################

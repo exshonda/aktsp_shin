@@ -1,0 +1,31 @@
+startup_hook_osap_and_startup_hook:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    STARTUP_HOOK_OSAP1:
+      type: STARTUP_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: NON_TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: NON_TRUSTED_OSAP1
+    STARTUP_HOOK_OSAP2:
+      type: STARTUP_HOOK_OSAP
+      hookstat: AK_STOP
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: STARTUP_HOOK_OSAP1
+    syssrv: DisableAllInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: STARTUP_HOOK_OSAP1

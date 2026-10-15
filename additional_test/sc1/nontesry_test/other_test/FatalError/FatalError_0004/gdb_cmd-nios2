@@ -1,0 +1,18 @@
+b out.c:72
+b kernel_preempt
+b kernel_internal_shutdownos
+set logging file result_execute.log
+set logging on
+commands 1
+c
+end
+commands 2
+set kernel_p_runtsk = 0
+c
+end
+commands 3
+p ercd
+end
+c
+set logging off
+quit

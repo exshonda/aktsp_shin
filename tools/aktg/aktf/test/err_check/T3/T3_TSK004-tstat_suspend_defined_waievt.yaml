@@ -1,0 +1,32 @@
+T3_TSK004_tstat_suspend_defined_waievt:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      actcnt: 1
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      relevt:
+        - EVENT1
+      waievt: EVENT1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

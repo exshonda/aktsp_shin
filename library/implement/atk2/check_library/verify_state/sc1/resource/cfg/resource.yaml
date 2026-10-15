@@ -1,0 +1,171 @@
+resource:
+  property:
+    cc:
+      - BCC2
+      - ECC2
+    sc:
+      - SC1
+      - SC2
+    si:
+      - COS0830
+      - COS0827
+
+  pre_condition:
+    TaskStandardRes:
+      type: TASK
+      tstat: RUNNING
+      curpri: 2
+      inipri: 2
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - StandardResLock
+    TaskInternalRes:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 9
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - InternalResLock
+    TaskLinkedRes:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - StandardResforLnk
+    TaskDummy1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - StandardResLock
+    TaskDummy2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - InternalResLock
+    TaskDummy3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 7
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - StandardResforLnk
+    TaskDummy4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - StandardResUnl
+    TaskDummy5:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - StandardResUnl
+    TaskDummy6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - InternalResUnl
+    TaskDummy7:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 1
+      maxact: 1
+      spolicy: AK_SCHFULL
+      relres:
+        - InternalResUnl
+    InternalResLock:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_UNLOCK
+    InternalResUnl:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_UNLOCK
+    StandardResLock:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    StandardResUnl:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    StandardResforLnk:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    LinkedResLock:
+      type: RESOURCE
+      resprop: AK_LINKED
+      linkres: StandardResforLnk
+      lockflg: AK_UNLOCK
+    LinkedResUnl:
+      type: RESOURCE
+      resprop: AK_LINKED
+      linkres: StandardResUnl
+      lockflg: AK_UNLOCK
+# 以下，確認用オブジェクト
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+    AlarmVerify:
+      type: ALARM
+      counter: CounterVerify
+      astat: AK_UNSET
+      almact: AK_ALM_CBACK
+      callback: AlarmCallBackVerify
+    AlarmCallBackVerify:
+      type: ALARM_CBACK
+      cbstat: AK_STOP
+    CounterVerify:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+
+  do:
+    id: TaskStandardRes
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

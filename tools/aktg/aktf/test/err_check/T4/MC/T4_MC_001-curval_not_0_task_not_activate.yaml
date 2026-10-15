@@ -1,0 +1,31 @@
+T4_MC_001_curval_not_0_task_not_activate:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: OSAP_OTHER_OTHER_CORE
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 1
+      ctype: AK_SOFTWARE
+      osap: OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv : Schedule()
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:

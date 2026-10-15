@@ -1,0 +1,1561 @@
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0001.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0002.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0003.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0004.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0005.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0006.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0007.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0008.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0009.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0010.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0011.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0012.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0013.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0014.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0015.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0016.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0017.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0018.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0019.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0020.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0021.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0022.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0023.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0024.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0025.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0026.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0027.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0028.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+        - NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0029.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0030.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0031.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0032.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0033.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0034.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0035.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0036.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TR_OSAP_SELF_CORE
+      caller: TASK4
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0037.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NT_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0038.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckSpinlockAccess(NT_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0039.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TR_OSAP_OTHER_OTHER_CORE,OBJECT_SPINLOCK,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckSpinlockAccess_m_normal_2_0040.yaml
+######################################################################
+CheckSpinlockAccess_m_normal_2_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK4:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_UNLOCK
+      accosap:
+        - TR_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckSpinlockAccess(TR_OSAP_OTHER_OTHER_CORE,SPINLOCK1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################

@@ -1,0 +1,57 @@
+T4_061_linkres_is_not_standard:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_UNLOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_UNLOCK
+      linkres: RESOURCE1
+
+  do_0:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    TASK1:
+      curpri: TSK_PRI_HIGH
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_1:
+    id: TASK1
+    syssrv: GetResource(RESOURCE2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      getres:
+        - RESOURCE1
+        - RESOURCE2
+
+    RESOURCE2:
+      lockflg: AK_LOCK

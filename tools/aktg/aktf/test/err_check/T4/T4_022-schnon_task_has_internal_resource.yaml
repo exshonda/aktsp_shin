@@ -1,0 +1,50 @@
+T4_022_schnon_task_has_internal_resource:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_BOTTOM
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      actcnt: 1
+      relres:
+        - RESOURCE1
+        - RESOURCE2
+      getres:
+        - RESOURCE2
+        - RESOURCE1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      relres:
+        - RESOURCE1
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+      relres:
+        - RESOURCE2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    RESOURCE2:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: ActivateTask(Tas2)
+    rettype: StatusType
+    retval: E_OS_LIMIT
+
+  post_condition_0:

@@ -1,0 +1,182 @@
+######################################################################
+# TerminateApplication_normal_5_0001.yaml
+######################################################################
+TerminateApplication_normal_5_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK2
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK2:
+      curpri: INT_PRI_MID
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_1:
+    id: TASK2
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_2:
+    id: TASK1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+######################################################################
+# TerminateApplication_normal_5_0002.yaml
+######################################################################
+TerminateApplication_normal_5_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    NON_TRUSTED_OSAP1:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: GetResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TASK1:
+      curpri: INT_PRI_MID
+      getres:
+        - RESOURCE1
+    RESOURCE1:
+      lockflg: AK_LOCK
+
+  do_1:
+    id: TASK1
+    syssrv: TerminateApplication(NON_TRUSTED_OSAP1,NO_RESTART)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_1:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+
+  do_2:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    NON_TRUSTED_OSAP1:
+      osapstat: APPLICATION_TERMINATED
+    TASK1:
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: SUSPENDED
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+
+  do_3:
+    id: TASK1
+    syssrv: GetApplicationState(NON_TRUSTED_OSAP1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TASK1:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+######################################################################

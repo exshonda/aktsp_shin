@@ -1,0 +1,662 @@
+######################################################################
+# DisableInterruptSource_nml_1_0001.yaml
+######################################################################
+DisableInterruptSource_nml_1_0001:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      istat: AK_DISABLE
+
+  do:
+    id: C2ISR1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0002.yaml
+######################################################################
+DisableInterruptSource_nml_1_0002:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+
+  do_0:
+    id: C2ISR1
+    syssrv: DisableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR2:
+      istat: AK_DISABLE
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C2ISR1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+######################################################################
+# DisableInterruptSource_nml_1_0003.yaml
+######################################################################
+DisableInterruptSource_nml_1_0003:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C2ISR1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0004.yaml
+######################################################################
+DisableInterruptSource_nml_1_0004:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: DisableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR2:
+      istat: AK_DISABLE
+
+  do_1:
+    id: C2ISR1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_HIGH)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: C2ISR1
+    syssrv: EnableInterruptSource(C2ISR2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    C2ISR1:
+      rtnstat: AK_STOP
+    C2ISR2:
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+######################################################################
+# DisableInterruptSource_nml_1_0005.yaml
+######################################################################
+DisableInterruptSource_nml_1_0005:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0006.yaml
+######################################################################
+DisableInterruptSource_nml_1_0006:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0007.yaml
+######################################################################
+DisableInterruptSource_nml_1_0007:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0008.yaml
+######################################################################
+DisableInterruptSource_nml_1_0008:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0009.yaml
+######################################################################
+DisableInterruptSource_nml_1_0009:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0010.yaml
+######################################################################
+DisableInterruptSource_nml_1_0010:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0011.yaml
+######################################################################
+DisableInterruptSource_nml_1_0011:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0012.yaml
+######################################################################
+DisableInterruptSource_nml_1_0012:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0013.yaml
+######################################################################
+DisableInterruptSource_nml_1_0013:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0014.yaml
+######################################################################
+DisableInterruptSource_nml_1_0014:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0015.yaml
+######################################################################
+DisableInterruptSource_nml_1_0015:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0016.yaml
+######################################################################
+DisableInterruptSource_nml_1_0016:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      istat: AK_DISABLE
+######################################################################
+# DisableInterruptSource_nml_1_0017.yaml
+######################################################################
+DisableInterruptSource_nml_1_0017:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_DISABLE
+
+  do_0:
+    id: TASK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      istat: AK_DISABLE
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_D)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK1
+    syssrv: EnableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+######################################################################
+# DisableInterruptSource_nml_1_0018.yaml
+######################################################################
+DisableInterruptSource_nml_1_0018:
+  property:
+    sc: 
+      - SC1
+    need_enadis_interrupt_source: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: DisableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      istat: AK_DISABLE
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_D)
+    gcov: false
+
+  post_condition_1:
+
+  do_2:
+    id: TASK1
+    syssrv: EnableInterruptSource(C2ISR1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_2:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+######################################################################

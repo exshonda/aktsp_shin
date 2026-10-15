@@ -1,0 +1,29 @@
+func_hardware_counter_test:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      actcnt: 1
+      maxact: 3
+    COUNTER1:
+      type: COUNTER
+      curval: 0
+      ctype: AK_HARDWARE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:
+    TASK1:
+      actcnt: 2

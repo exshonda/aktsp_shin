@@ -1,0 +1,97 @@
+######################################################################
+# forced_task_termination_nm_1_NS_0001.yaml
+######################################################################
+forced_task_termination_nm_1_NS_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_2:
+######################################################################
+# forced_task_termination_nm_1_NS_0002.yaml
+######################################################################
+forced_task_termination_nm_1_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_intno: INTNO_SELF_C2ISR_MID_A
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByInterrupt(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_STACKFAULT)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+    finish: true
+
+  post_condition_2:
+######################################################################

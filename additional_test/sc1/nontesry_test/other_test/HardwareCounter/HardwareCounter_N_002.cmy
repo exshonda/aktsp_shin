@@ -1,0 +1,151 @@
+######################################################################
+# HardwareCounter_N_002_0001.yaml
+######################################################################
+HardwareCounter_N_002_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_UNSET
+      task: TASK2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 5
+
+  do:
+    id: TASK1
+    syssrv: SetRelAlarm(ALARM1,2,0)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition:
+######################################################################
+# HardwareCounter_N_002_0002.yaml
+######################################################################
+HardwareCounter_N_002_0002:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 6
+      cycle: 0
+      task: TASK2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 7
+      cycle: 0
+      task: TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 5
+
+  do:
+    id: TASK1
+    syssrv: CancelAlarm(ALARM1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition:
+######################################################################
+# HardwareCounter_N_002_0003.yaml
+######################################################################
+HardwareCounter_N_002_0003:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 5
+      cycle: 0
+      task: TASK2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 6
+      cycle: 0
+      task: TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 4
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition:
+######################################################################

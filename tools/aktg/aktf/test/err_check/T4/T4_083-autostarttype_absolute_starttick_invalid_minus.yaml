@@ -1,0 +1,68 @@
+T4_083_autostarttype_absolute_starttick_invalid_minus:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relevt:
+        - EVENT1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      repeat: AK_TRUE
+      duration: 10
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 3
+      expoint:
+        5:
+          acttsk:
+            - TASK2
+          setevt:
+            - TASK1: EVENT1
+      appmode:
+        - APPLICATION_MODE1
+      autostarttype: AK_ABSOLUTE
+      starttick: -1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    EVENT1:
+      type: EVENT
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 2
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curevt: EVENT1
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+    SCHEDULE_TABLE1:
+      curval: 5
+    COUNTER1:
+      curval: 2
+      cstat: AK_CS_DOING

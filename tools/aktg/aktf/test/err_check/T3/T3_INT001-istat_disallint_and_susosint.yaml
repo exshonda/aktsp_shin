@@ -1,0 +1,30 @@
+T3_INT001_istat_disallint_and_susosint:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C1ISR1
+        - AK_SUS_OS_INT: C1ISR1
+
+  do:
+    id: C1ISR1
+    syssrv: DisableAllInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: C1ISR1

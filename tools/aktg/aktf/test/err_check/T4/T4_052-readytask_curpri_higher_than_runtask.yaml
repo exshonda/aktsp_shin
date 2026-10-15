@@ -1,0 +1,26 @@
+T4_052_readytask_curpri_higher_than_runtask:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      maxact: 2
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      maxact: 2
+
+  do:
+    id     : TASK1
+    syssrv : Schedule()
+    rettype: StatusType
+    retval : E_OK
+
+  post_condition:

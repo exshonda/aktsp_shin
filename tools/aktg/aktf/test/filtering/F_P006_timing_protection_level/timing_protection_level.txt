@@ -1,0 +1,137 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜AKTFフィルタリング対応テスト / タイミング保護機能の機能レベル＞
+
+本ドキュメントは，タイミング保護機能の機能レベルに関する対応が，AKTFで
+要件通り正しく行われていることを確認するためのテスト仕様書である．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2011-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2011-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2011-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2011-2014 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2011-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: timing_protection_level.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+タイミング保護機能の機能レベルに関する要件
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(要件1)
+configure.yamlでtiming_protection_levelに対してLevel1が指定された場合，
+TESRYデータのproperty属性であるtiming_protection_levelが1ではないテスト
+ケースは，テスト対象外とされること．(timing_protection_levelが省略の場
+合を除く)
+また，テスト対象外とされたテストケースがあった場合に，実行結果として【
+備考】に示した情報が表示されること．
+
+(要件2)
+configure.yamlでtiming_protection_levelに対してLevel2が指定された場合，
+TESRYデータのproperty属性であるtiming_protection_levelが3のテストケース
+は，テスト対象外とされること．(timing_protection_levelが省略の場合を除
+く)
+また，テスト対象外とされたテストケースがあった場合に，実行結果として
+【備考】に示した情報が表示されること．
+
+【備考】
+・実行結果として表示される情報
+  ・入力されたテストケースの総数
+  ・実行可能であったテストケースの数
+  ・NGテストケースとして除外されたテストケースの数
+  ・NGテストケースとして除外されたテストケースのテストIDと除外理由(英語)
+  ・総数と除外した数から，実行可能であったテストケースの割合(％)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+要件に対する確認内容
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+テストに用いたTESRYデータは，aktsp/syssrv_test/配下にある全TESRYデータ
+と，以下である(本ドキュメントと同フォルダに格納されている)．
+・timing_protection_level_2.yaml
+  ・property属性であるtiming_protection_levelに2を指定
+  ・要件を満たしていることを確認するためのTESRYデータであるため，
+    保護違反時処理機能の機能レベルが機能レベル2以上に対応するTESRYデー
+    タではない
+・timing_protection_level_3.yaml
+  ・property属性であるtiming_protection_levelに3を指定
+  ・要件を満たしていることを確認するためのTESRYデータであるため，
+    保護違反時処理機能の機能レベルが機能レベル3に対応するTESRYデータで
+    はない
+
+----------------------------------------------------------------------
+(要件1)に対する確認
+----------------------------------------------------------------------
+【実施内容】
+・configure.yamlのtiming_protection_levelにLevel1を指定
+ (もしくはAKTG実行の際に，オプション"--timing_protection_level Level1"
+  を指定)
+・aktsp/syssrv_test/配下にある全TESRYデータと
+  timing_protection_level_2.yaml，timing_protection_level_3.yamlを引
+  数に指定してAKTG実行
+
+【確認内容】
+・AKTGにより生成されたソースコードに，timing_protection_level_2.yaml，
+  timing_protection_level_3.yamlが除外されていることを確認した
+・要件の【備考】に記載された各項目が出力されていることを確認した
+ (NGテストケースとして除外されたテストケースのテストIDと除外理由は，除
+  外されたテストケースのファイルパスが出力されるaktg_exclusion_list.txt
+  に記載されているファイルパスによって確認した)
+
+----------------------------------------------------------------------
+(要件2)に対する確認
+----------------------------------------------------------------------
+【実施内容】
+・configure.yamlのtiming_protection_levelにLevel2を指定
+ (もしくはAKTG実行の際に，オプション"--timing_protection_level Level2"
+  を指定)
+・aktsp/syssrv_test/配下にある全TESRYデータと
+  timing_protection_level_2.yaml，timing_protection_level_3.yamlを引数
+  に指定してAKTG実行
+
+【確認内容】
+・AKTGにより生成されたソースコードに，timing_protection_level_3.yamlが
+  除外されていることを確認した
+・要件の【備考】に記載された各項目が出力されていることを確認した
+ (NGテストケースとして除外されたテストケースのテストIDと除外理由は，除
+  外されたテストケースのファイルパスが出力されるaktg_exclusion_list.txt
+  に記載されているファイルパスによって確認した)
+
+以上．

@@ -1,0 +1,29 @@
+T3_DO004_do_syssrv_no_rettype_and_retval:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      actcnt: 1

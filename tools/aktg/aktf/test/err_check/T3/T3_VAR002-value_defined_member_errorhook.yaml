@@ -1,0 +1,36 @@
+T3_VAR002_value_defined_member_errorhook:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          ticksperbase: ANY_TICKSPERBASE

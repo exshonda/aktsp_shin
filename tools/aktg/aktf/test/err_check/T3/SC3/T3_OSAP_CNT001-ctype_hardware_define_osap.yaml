@@ -1,0 +1,24 @@
+T3_OSAP_CNT001_ctype_hardware_define_osap:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      curval: 0
+      ctype: AK_HARDWARE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

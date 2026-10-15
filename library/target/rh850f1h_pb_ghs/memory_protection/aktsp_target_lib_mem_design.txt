@@ -1,0 +1,403 @@
+/*
+ *  AKTSP
+ *      Automotive Kernel Test Suite Package
+ *
+ *  Copyright (C) 2014-2015 by Center for Embedded Computing Systems
+ *              Graduate School of Information Science, Nagoya Univ., JAPAN
+
+ *  本ドキュメント，次世代車載システム向けRTOSの仕様検討及び開発に
+ *  関するコンソーシアム型共同研究において開発したものである．
+ *  本ドキュメントの著作権は，上記の著作権者に帰属する．
+ *
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
+ *
+ *  本ソフトウェアは，AUTOSAR（AUTomotive Open System ARchitecture）仕
+ *  様に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するもので
+ *  はない．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利
+ *  用する者に対して，AUTOSARパートナーになることを求めている．
+ *
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
+ *
+ *  $Id: aktsp_target_lib_mem_design.txt 693 2014-03-06 15:03:04Z t_ishikawa $
+ */
+
+ RH850依存部における aktsp_target_lib_mem.c の設計メモ
+
+◯ メモリ保護テストの登場人物
+
+・信頼OSAP1
+    - TASK1
+    - C2ISR1
+    - t_osap1_share.o (srpw)
+    - t_osap1.o
+・非信頼OSAP1
+    - TASK2
+    - TASK4
+    - nt_osap1_share.o (srpw)
+    - nt_osap1.o
+・非信頼OSAP2
+    - TASK3
+    - nt_osap2_share.o (srpw)
+    - nt_osap2.o
+・無所属
+    - common.o
+
+
+◯ RH850依存部におけるセクション
+
+・テキスト (.text .rodata)
+    - カーネルのコード・定数
+    - t_osap1.o のテキスト
+    - nt_osap1.o のテキスト
+    - nt_osap2.o のテキスト
+    - nt_osap1_shared.o のテキスト
+    - nt_osap2_shared.o のテキスト
+    - common.o のテキスト
+
+・スタック
+    - ostack
+    - TASK1のシステムスタック
+    - TASK2のシステムスタック
+    - TASK3のシステムスタック
+    - TASK4のシステムスタック
+    - TASK2のユーザスタック
+    - TASK3のユーザスタック
+    - TASK4のユーザスタック
+
+・データ (.data .bss .prsv .rosdata .sdata .sbss)
+    - ※本テストではカーネルはsdataに置かない
+    - カーネルのdata
+    - カーネルのbss
+    - カーネルのprsv
+    - t_osap1.o のdata
+    - t_osap1.o のbss
+    - t_osap1.o のprsv
+    - t_osap1.o のrosdata
+    - t_osap1.o のsdata
+    - t_osap1.o のsbss
+    - nt_osap1.o のdata
+    - nt_osap1.o のbss
+    - nt_osap1.o のprsv
+    - nt_osap1.o のrosdata
+    - nt_osap1.o のsdata
+    - nt_osap1.o のsbss
+    - nt_osap2.o のdata
+    - nt_osap2.o のbss
+    - nt_osap2.o のprsv
+    - nt_osap2.o のrosdata
+    - nt_osap2.o のsdata
+    - nt_osap2.o のsbss
+    - t_osap1_shared.o のdata
+    - t_osap1_shared.o のbss
+    - t_osap1_shared.o のprsv
+    - t_osap1_shared.o のrosdata
+    - t_osap1_shared.o のsdata
+    - t_osap1_shared.o のsbss
+    - nt_osap1_shared.o のdata
+    - nt_osap1_shared.o のbss
+    - nt_osap1_shared.o のprsv
+    - nt_osap1_shared.o のrosdata
+    - nt_osap1_shared.o のsdata
+    - nt_osap1_shared.o のsbss
+    - nt_osap2_shared.o のdata
+    - nt_osap2_shared.o のbss
+    - nt_osap2_shared.o のprsv
+    - nt_osap2_shared.o のrosdata
+    - nt_osap2_shared.o のsdata
+    - nt_osap2_shared.o のsbss
+    - common.o のdata
+    - common.o のbss
+    - common.o のprsv
+    - common.o のrosdata
+    - common.o のsdata
+    - common.o のsbss
+
+◯ RH850依存部におけるメモリオブジェクト
+
+☆ ROM
+
+#if RH850F1Hの場合
+
+・MPU4の設定（専有リードテキスト）
+    - 非信頼OSAP1専有リード
+       - nt_osap1.o のテキスト
+    - 非信頼OSAP2専有リード
+        - nt_osap2.o のテキスト
+
+・MPU9の設定（共有リードテキスト）
+    - nt_osap1_shared.o のテキスト
+    - nt_osap2_shared.o のテキスト
+    - common.o のテキスト
+
+・MPU設定なし（信頼のみアクセス可能）
+    - カーネルのコード・定数
+    - t_osap1.o のテキスト
+
+#else RH850F1Lの場合
+
+・MPU設定なし（共有リードテキスト）
+    - カーネルのコード・定数
+    - t_osap1.o のテキスト
+
+#endif
+
+☆ RAM
+
+・MPU0の設定（ユーザスタック）
+    - 非信頼OSAP1TASK2専有リードライト
+        - TASK2のユーザスタック
+    - 非信頼OSAP2TASK3専有リードライト
+        - TASK3のユーザスタック
+    - 非信頼OSAP1TASK4専有リードライト
+        - TASK4のユーザスタック
+
+・MPU1の設定（共有リード専有ライトdataのライト許可）
+    - 非信頼OSAP1専有ライト
+        - nt_osap1_shared.o のdata
+        - nt_osap1_shared.o のbss
+        - nt_osap1_shared.o のprsv
+    - 非信頼OSAP2専有ライト
+        - nt_osap2_shared.o のdata
+        - nt_osap2_shared.o のbss
+        - nt_osap2_shared.o のprsv
+
+・MPU2の設定（共有リード専有ライトsdataのライト許可）
+    - 非信頼OSAP1専有ライト
+        - nt_osap1_shared.o のsdata
+        - nt_osap1_shared.o のsbss
+    - 非信頼OSAP2専有ライト
+        - nt_osap2_shared.o のsdata
+        - nt_osap2_shared.o のsbss
+
+・MPU3の設定（共有リードライト）
+    - common.o のdata
+    - common.o のbss
+    - common.o のprsv
+    - common.o のsdata
+    - common.o のsbss
+
+#if RH850F1Hの場合
+
+・MPU5の設定（専有リードsdata）
+    - 非信頼OSAP1専有リード
+        - nt_osap1.o のrosdata
+    - 非信頼OSAP2専有リード
+        - nt_osap2.o のrosdata
+
+・MPU6の設定（専有リードライトdata）
+    - 非信頼OSAP1専有リードライト
+        - nt_osap1.o のdata
+        - nt_osap1.o のbss
+        - nt_osap1.o のprsv
+    - 非信頼OSAP2専有リードライト
+        - nt_osap2.o のdata
+        - nt_osap2.o のbss
+        - nt_osap2.o のprsv
+
+・MPU7の設定（専有リードライトsdata）
+    - 非信頼OSAP1専有リードライト
+        - nt_osap1.o のsdata
+        - nt_osap1.o のsbss
+    - 非信頼OSAP2専有リードライト
+        - nt_osap2.o のsdata
+        - nt_osap2.o のsbss
+
+・MPU8の設定（共有リードdata）
+    - t_osap1_shared.o のdata
+    - t_osap1_shared.o のbss
+    - t_osap1_shared.o のprsv
+    - t_osap1_shared.o のrosdata
+    - t_osap1_shared.o のsdata
+    - t_osap1_shared.o のsbss
+    - nt_osap1_shared.o のdata
+    - nt_osap1_shared.o のbss
+    - nt_osap1_shared.o のprsv
+    - nt_osap2_shared.o のdata
+    - nt_osap2_shared.o のbss
+    - nt_osap2_shared.o のprsv
+    - nt_osap1_shared.o のrosdata
+    - nt_osap1_shared.o のsdata
+    - nt_osap1_shared.o のsbss
+    - nt_osap2_shared.o のrosdata
+    - nt_osap2_shared.o のsdata
+    - nt_osap2_shared.o のsbss
+    - common.o のrosdata
+
+・MPU設定なし（信頼のみアクセス可能）
+    - ostack
+    - TASK1のシステムスタック
+    - TASK2のシステムスタック
+    - TASK3のシステムスタック
+    - TASK4のシステムスタック
+    - カーネルのdata
+    - カーネルのbss
+    - カーネルのprsv
+    - t_osap1.o のdata
+    - t_osap1.o のbss
+    - t_osap1.o のprsv
+    - t_osap1.o のrosdata
+    - t_osap1.o のsdata
+    - t_osap1.o のsbss
+
+#else RH850F1Lの場合
+
+・MPU設定なし（共有リードデータ）
+    - nt_osap1.o のrosdata
+    - nt_osap2.o のrosdata
+
+    - nt_osap1.o のdata
+    - nt_osap1.o のbss
+    - nt_osap1.o のprsv
+    - nt_osap2.o のdata
+    - nt_osap2.o のbss
+    - nt_osap2.o のprsv
+
+    - nt_osap1.o のsdata
+    - nt_osap1.o のsbss
+    - nt_osap2.o のsdata
+    - nt_osap2.o のsbss
+
+    - nt_osap1_shared.o のdata
+    - nt_osap1_shared.o のbss
+    - nt_osap1_shared.o のprsv
+    - nt_osap2_shared.o のdata
+    - nt_osap2_shared.o のbss
+    - nt_osap2_shared.o のprsv
+    - nt_osap1_shared.o のrosdata
+    - nt_osap1_shared.o のsdata
+    - nt_osap1_shared.o のsbss
+    - nt_osap2_shared.o のrosdata
+    - nt_osap2_shared.o のsdata
+    - nt_osap2_shared.o のsbss
+    - common.o のrosdata
+
+    - ostack
+    - TASK1のシステムスタック
+    - TASK2のシステムスタック
+    - TASK3のシステムスタック
+    - TASK4のシステムスタック
+    - カーネルのdata
+    - カーネルのbss
+    - カーネルのprsv
+    - t_osap1.o のdata
+    - t_osap1.o のbss
+    - t_osap1.o のprsv
+    - t_osap1.o のrosdata
+    - t_osap1.o のsdata
+    - t_osap1.o のsbss
+
+#endif
+
+◯ RH850依存部におけるAktspAccessAllAccessibleArea
+# 全OSAPからアクセス可能なエリア
+    - nt_osap1_shared.o のテキスト (rx)
+    - nt_osap2_shared.o のテキスト (rx)
+    - common.o のテキスト (rx)
+    - t_osap1_shared.o のdata (rx)
+    - t_osap1_shared.o のbss (rx)
+    - t_osap1_shared.o のprsv (rx)
+    - t_osap1_shared.o のrosdata (rx)
+    - t_osap1_shared.o のsdata (rx)
+    - t_osap1_shared.o のsbss (rx)
+    - nt_osap1_shared.o のdata (rx)
+    - nt_osap1_shared.o のbss (rx)
+    - nt_osap1_shared.o のprsv (rx)
+    - nt_osap1_shared.o のrosdata (rx)
+    - nt_osap1_shared.o のsdata (rx)
+    - nt_osap1_shared.o のsbss (rx)
+    - nt_osap2_shared.o のdata (rx)
+    - nt_osap2_shared.o のbss (rx)
+    - nt_osap2_shared.o のprsv (rx)
+    - nt_osap2_shared.o のrosdata (rx)
+    - nt_osap2_shared.o のsdata (rx)
+    - nt_osap2_shared.o のsbss (rx)
+    - common.o のdata (rwx)
+    - common.o のbss (rwx)
+    - common.o のprsv (rwx)
+    - common.o のrosdata (rwx)
+    - common.o のsdata (rwx)
+    - common.o のsbss (rwx)
+
+◯ RH850依存部におけるAktspAccessNtOsap1InaccessibleArea
+# 非信頼OSAP1からのみアクセス不可能なエリア
+    - nt_osap2.o のテキスト (r1,2x3)
+    - nt_osap2.o のdata (r4,5w6,7x8)
+    - nt_osap2.o のbss (r9,10w11,12x13)
+    - nt_osap2.o のprsv (r14,15w16,17x18)
+    - nt_osap2.o のrosdata (r19,20x23)
+    - nt_osap2.o のsdata (r24,25w26,27x28)
+    - nt_osap2.o のsbss (r29,30w31,32x33)
+    - nt_osap2_shared.o のdata (w34,35)
+    - nt_osap2_shared.o のbss (w36,37)
+    - nt_osap2_shared.o のprsv (w38,39)
+    - nt_osap2_shared.o のsdata (w40,41)
+    - nt_osap2_shared.o のsbss (w42,43)
+
+◯ RH850依存部におけるAktspAccessNtOsap2InaccessibleArea
+# 非信頼OSAP2からのみアクセス不可能なエリア
+    - nt_osap1.o のテキスト (r1,2x3)
+    - nt_osap1.o のdata (r4,5w6,7x8)
+    - nt_osap1.o のbss (r9,10w11,12x13)
+    - nt_osap1.o のprsv (r14,15w16,17x18)
+    - nt_osap1.o のrosdata (r19,20x23)
+    - nt_osap1.o のsdata (r24,25w26,27x28)
+    - nt_osap1.o のsbss (r29,30w31,32x33)
+    - nt_osap1_shared.o のdata (w34,35)
+    - nt_osap1_shared.o のbss (w36,37)
+    - nt_osap1_shared.o のprsv (w38,39)
+    - nt_osap1_shared.o のsdata (w40,41)
+    - nt_osap1_shared.o のsbss (w42,43)
+
+◯ RH850依存部におけるAktspAccessAllNtOsapInaccessibleArea
+# 信頼OSAPからのみアクセス可能なエリア
+    - カーネルのコード・定数 (r1,2x3)
+    - t_osap1.o のテキスト (r4,5,x6)
+    - ostack (r7,8w9,10x11)
+    - カーネルのdata (r12,13w14,15x16)
+    - カーネルのbss (r17,18w19,20x21)
+    - カーネルのprsv (r22,23w24,25x26)
+    - t_osap1.o のdata (r27,28w29,30x31)
+    - t_osap1.o のbss (r32,33w34,35x36)
+    - t_osap1.o のprsv (r37,38w39,40x41)
+    - t_osap1.o のrosdata (r42,43w44,45x46)
+    - t_osap1.o のsdata (r47,48w49,50x51)
+    - t_osap1.o のsbss (r52,53w54,55x56)
+    - t_osap1_shared.o のdata (w57,58)
+    - t_osap1_shared.o のbss (w59,60)
+    - t_osap1_shared.o のprsv (w61,62)
+    - t_osap1_shared.o のrosdata (w63,64)
+    - t_osap1_shared.o のsdata (w65,66)
+    - t_osap1_shared.o のsbss (w67,68)
+    - nt_osap2.o のrosdata (w)
+    - nt_osap1.o のrosdata (w)
+    - nt_osap2_shared.o のrosdata (w69,70)
+    - nt_osap1_shared.o のrosdata (w71,72)
+    - TASK1のシステムスタック (r73,74w75,76x77)
+    - TASK2のシステムスタック (r78,79w80,81x82)
+    - TASK3のシステムスタック (r83,84w85,86x87)
+

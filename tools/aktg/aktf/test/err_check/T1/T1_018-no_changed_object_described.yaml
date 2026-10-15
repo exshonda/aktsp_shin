@@ -1,0 +1,29 @@
+T1_018_no_changed_object_described:
+  property:
+    sc:
+
+  pre_condition:
+   TASK1:
+      type   : TASK
+      tstat  : RUNNING
+      curpri : TSK_PRI_TOP
+      maxact: 2
+      actcnt: 2
+      bootcnt: 0
+
+   TASK2:
+      type  : TASK
+      tstat : SUSPENDED
+      inipri: TSK_PRI_HIGH
+
+  do:
+    id     : TASK1
+    syssrv : ChainTask(TASK2)
+
+  post_condition:
+    TASK1:
+
+    TASK2:
+      tstat : READY
+      actcnt: 1
+      curpri: TSK_PRI_HIGH

@@ -1,0 +1,47 @@
+######################################################################
+# GetActiveApplicationMode_E_003_0001.yaml
+######################################################################
+GetActiveApplicationMode_E_003_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+    extended_return_status: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      need_si:
+        - NOS409
+        - NOS412
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+
+  do:
+    id: C1ISR1
+    syssrv: GetActiveApplicationMode()
+    rettype: AppModeType
+    retval: INVALID_APPMODETYPE
+    gcov: true
+
+  post_condition:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS412
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

@@ -1,0 +1,28 @@
+T1_021_error_hook_osap_class_undefined:
+  property:
+    sc:
+
+  pre_condition:
+    ERROR_HOOK_OSAP1:
+      type: ERROR_HOOK_OSAP
+      hookstat: AK_ACTIVATE
+      osap: NON_TRUSTED_OSAP1
+      class  : undefined
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      osap: NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+        - AK_BOTH
+
+  do:
+    id: ERROR_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval : E_OS_CALLEVEL
+
+  post_condition:

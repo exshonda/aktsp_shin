@@ -1,0 +1,4071 @@
+######################################################################
+# ChainTask_normal_schedule_0001.yaml
+######################################################################
+ChainTask_normal_schedule_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0002.yaml
+######################################################################
+ChainTask_normal_schedule_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0003.yaml
+######################################################################
+ChainTask_normal_schedule_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0004.yaml
+######################################################################
+ChainTask_normal_schedule_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0005.yaml
+######################################################################
+ChainTask_normal_schedule_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0006.yaml
+######################################################################
+ChainTask_normal_schedule_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0007.yaml
+######################################################################
+ChainTask_normal_schedule_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0008.yaml
+######################################################################
+ChainTask_normal_schedule_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0009.yaml
+######################################################################
+ChainTask_normal_schedule_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0010.yaml
+######################################################################
+ChainTask_normal_schedule_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0011.yaml
+######################################################################
+ChainTask_normal_schedule_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0012.yaml
+######################################################################
+ChainTask_normal_schedule_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0013.yaml
+######################################################################
+ChainTask_normal_schedule_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0014.yaml
+######################################################################
+ChainTask_normal_schedule_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0015.yaml
+######################################################################
+ChainTask_normal_schedule_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0016.yaml
+######################################################################
+ChainTask_normal_schedule_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0017.yaml
+######################################################################
+ChainTask_normal_schedule_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# ChainTask_normal_schedule_0018.yaml
+######################################################################
+ChainTask_normal_schedule_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0019.yaml
+######################################################################
+ChainTask_normal_schedule_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# ChainTask_normal_schedule_0020.yaml
+######################################################################
+ChainTask_normal_schedule_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0021.yaml
+######################################################################
+ChainTask_normal_schedule_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0022.yaml
+######################################################################
+ChainTask_normal_schedule_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0023.yaml
+######################################################################
+ChainTask_normal_schedule_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0024.yaml
+######################################################################
+ChainTask_normal_schedule_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0025.yaml
+######################################################################
+ChainTask_normal_schedule_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# ChainTask_normal_schedule_0026.yaml
+######################################################################
+ChainTask_normal_schedule_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0027.yaml
+######################################################################
+ChainTask_normal_schedule_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# ChainTask_normal_schedule_0028.yaml
+######################################################################
+ChainTask_normal_schedule_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0029.yaml
+######################################################################
+ChainTask_normal_schedule_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0030.yaml
+######################################################################
+ChainTask_normal_schedule_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0031.yaml
+######################################################################
+ChainTask_normal_schedule_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0032.yaml
+######################################################################
+ChainTask_normal_schedule_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0033.yaml
+######################################################################
+ChainTask_normal_schedule_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# ChainTask_normal_schedule_0034.yaml
+######################################################################
+ChainTask_normal_schedule_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0035.yaml
+######################################################################
+ChainTask_normal_schedule_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+    TRUSTED_FUNCTION1:
+      caller: 
+######################################################################
+# ChainTask_normal_schedule_0036.yaml
+######################################################################
+ChainTask_normal_schedule_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0037.yaml
+######################################################################
+ChainTask_normal_schedule_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0038.yaml
+######################################################################
+ChainTask_normal_schedule_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0039.yaml
+######################################################################
+ChainTask_normal_schedule_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0040.yaml
+######################################################################
+ChainTask_normal_schedule_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      curpri: TSK_PRI_MID
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0041.yaml
+######################################################################
+ChainTask_normal_schedule_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0042.yaml
+######################################################################
+ChainTask_normal_schedule_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0043.yaml
+######################################################################
+ChainTask_normal_schedule_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0044.yaml
+######################################################################
+ChainTask_normal_schedule_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0045.yaml
+######################################################################
+ChainTask_normal_schedule_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0046.yaml
+######################################################################
+ChainTask_normal_schedule_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0047.yaml
+######################################################################
+ChainTask_normal_schedule_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0048.yaml
+######################################################################
+ChainTask_normal_schedule_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0049.yaml
+######################################################################
+ChainTask_normal_schedule_0049:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0050.yaml
+######################################################################
+ChainTask_normal_schedule_0050:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0051.yaml
+######################################################################
+ChainTask_normal_schedule_0051:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0052.yaml
+######################################################################
+ChainTask_normal_schedule_0052:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0053.yaml
+######################################################################
+ChainTask_normal_schedule_0053:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0054.yaml
+######################################################################
+ChainTask_normal_schedule_0054:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0055.yaml
+######################################################################
+ChainTask_normal_schedule_0055:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0056.yaml
+######################################################################
+ChainTask_normal_schedule_0056:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0057.yaml
+######################################################################
+ChainTask_normal_schedule_0057:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0058.yaml
+######################################################################
+ChainTask_normal_schedule_0058:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0059.yaml
+######################################################################
+ChainTask_normal_schedule_0059:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0060.yaml
+######################################################################
+ChainTask_normal_schedule_0060:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0061.yaml
+######################################################################
+ChainTask_normal_schedule_0061:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0062.yaml
+######################################################################
+ChainTask_normal_schedule_0062:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0063.yaml
+######################################################################
+ChainTask_normal_schedule_0063:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# ChainTask_normal_schedule_0064.yaml
+######################################################################
+ChainTask_normal_schedule_0064:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 1
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: 1
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+      porder: 2
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ChainTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      actcnt: 2
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################

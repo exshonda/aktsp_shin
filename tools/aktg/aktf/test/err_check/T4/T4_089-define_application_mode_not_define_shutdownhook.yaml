@@ -1,0 +1,38 @@
+T4_089_define_application_mode_not_define_shutdownhook:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC1
+    application_mode: APPLICATION_MODE1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      appmode:
+        - MainApp
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    APPLICATION_MODE1:
+      type: APPLICATION_MODE
+    APPLICATION_MODE2:
+      type: APPLICATION_MODE
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: return
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+    STARTUP_HOOK1:
+      hookstat: AK_STOP
+
+  do_1:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition_1:
+    TASK1:
+      tstat: SUSPENDED

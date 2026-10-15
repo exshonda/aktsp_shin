@@ -1,0 +1,53 @@
+T4_079_iniintpri_and_curintpri_undefined_trusted_function_getres:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      curintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      istat: AK_ENABLE
+      relres:
+        - RESOURCE1
+      var:
+        local:
+          type: AktspTfParam
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      istat: AK_ENABLE
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: C2ISR1
+      arg: local
+      osap: TRUSTED_OSAP2
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

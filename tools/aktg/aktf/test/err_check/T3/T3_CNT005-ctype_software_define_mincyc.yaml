@@ -1,0 +1,37 @@
+T3_CNT005_ctype_software_define_mincyc:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_ISR2_A
+      iniintpri: INT_PRI_MID
+      var:
+        vname1:
+          type: TickType
+      rtnstat: AK_ACTIVATE
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      maxval: ANY_MAXVAL_A
+      curval: ANY_CURVAL_A
+      cstat: AK_CS_NULL
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+
+  do:
+    id: C2ISR1
+    syssrv: GetCounterValue(COUNTER1,&vname1)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+
+  post_condition:

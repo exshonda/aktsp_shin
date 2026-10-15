@@ -1,0 +1,6053 @@
+######################################################################
+# IocSend_ex_m_normal_1to1_0001.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0002.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0003.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0004.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0005.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0006.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0007.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0008.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0009.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint16
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0010.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint16
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0011.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0012.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0013.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0014.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0015.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0016.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0017.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0018.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0019.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0020.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_FUNCTION
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_FUNCTION
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0021.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0022.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0023.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0024.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_INT_A
+        - 
+          - IOC0_DATA0: DATA_INT_B
+        - 
+          - IOC0_DATA0: DATA_INT_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0025.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0026.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(&vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0027.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0028.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_A
+          data2: DATA_UINT16_A
+          data3: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_B
+          data2: DATA_UINT16_B
+          data3: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspIocDataStructTypePrim
+
+          data1: DATA_UINT8_C
+          data2: DATA_UINT16_C
+          data3: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+######################################################################
+# IocSend_ex_m_normal_1to1_0029.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint16
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0030.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint16
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint16
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0031.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0032.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT16_A
+        - 
+          - IOC0_DATA0: DATA_UINT16_B
+        - 
+          - IOC0_DATA0: DATA_UINT16_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0033.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0034.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint32
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0035.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0036.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT32_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0037.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0038.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0039.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: NT_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################
+# IocSend_ex_m_normal_1to1_0040.yaml
+######################################################################
+IocSend_ex_m_normal_1to1_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_A
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION2:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_B
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION3:
+      type: TRUSTED_FUNCTION
+      var:
+        vname1:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_C
+      osap: TR_OSAP_SELF_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      osap: TR_OSAP_SELF_CORE
+      kind: AK_MACRO
+    RECEIVER:
+      type: IOC_RECEIVER
+      osap: TR_OSAP_OTHER_OTHER_CORE
+      kind: AK_MACRO
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+
+  do_0:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK1
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_1:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+
+  do_2:
+    id: TRUSTED_FUNCTION1
+    syssrv: "return E_OK"
+
+  post_condition_2:
+    TRUSTED_FUNCTION1:
+      caller: 
+  do_3:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION2,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_3:
+    TRUSTED_FUNCTION2:
+      caller: TASK1
+
+  do_4:
+    id: TRUSTED_FUNCTION2
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_4:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+
+  do_5:
+    id: TRUSTED_FUNCTION2
+    syssrv: "return E_OK"
+
+  post_condition_5:
+    TRUSTED_FUNCTION2:
+      caller: 
+  do_6:
+    id: TASK1
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION3,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_6:
+    TRUSTED_FUNCTION3:
+      caller: TASK1
+
+  do_7:
+    id: TRUSTED_FUNCTION3
+    syssrv: IocSend_IOC0(vname1)
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_7:
+    IOC0:
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+######################################################################

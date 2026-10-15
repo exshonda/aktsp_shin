@@ -1,0 +1,152 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜IOCメモリプロテクション処理テスト個別ポリシー＞
+
+本ドキュメントは，保護違反時処理テストのタスク強制処理テストに関する開
+発および実施要綱についてまとめたものである．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2011-2017 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2011-2017 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2017 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2016 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2011-2016 by Sunny Giken Inc., JAPAN
+Copyright (C) 2011-2017 by Witz Corporation, JAPAN
+Copyright (C) 2014-2017 by SCSK Corporation, JAPAN
+Copyright (C) 2016-2017 by SUZUKI MOTOR CORPORATION
+Copyright (C) 2016-2017 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2016-2017 by Fujitsu TEN Limited
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)〜(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: ioc_memory_protection_policy.txt 2037 2016-10-31 07:27:24Z witz-itoyo $
+----------------------------------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ はじめに
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+本ドキュメントは，AKTSP(Automotive Kernel Test Suite Package)および
+AKTG(Automotive Kernel Test Generator)のユーザーズマニュアルの記載内容
+および，PictMasterのユーザーズマニュアル，AKTSPにおけるテストの開発およ
+び実施要綱を理解していること前提とする．
+本ドキュメントでは，IOCメモリプロテクション処理テスト個別ポリシーを記載する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) PICTモデルファイルのテストケースの生成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PICTモデルファイルのシートを以下のように分けて記載する．
+./iocmempro.xls：error_IocEmptyQueue（IocEmptyQueueを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocSend（単一通信：IocSendを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocWrite（単一通信：IocWriteを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocReceive（単一通信：IocReceiveを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocRead（単一通信：IocReadを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocSendGroup（グループ通信：IocSendを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocWriteGroup（グループ通信：IocWriteを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocReceiveGroup（グループ通信：IocReceiveを不正なOSAPから呼び出す場合）
+./iocmempro.xls：error_IocReadGroup（グループ通信：IocReadを不正なOSAPから呼び出す場合）
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) 組み合わせパラメータ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■call_origin
+保護違反を発生させる処理単位
+  ・Task			タスク
+
+■imple_kind
+IOC用システムサービスの実装方法の選択
+  ・AK_FUNCTION			関数
+
+■com_relation
+センダOSAPとレシーバOSAPとの関係
+  ・INVALID_SELF	自分から自分には送らない
+
+■datalist_state
+IOC通信するデータ
+  ・MAX3_CNT0		データ
+
+■datatype
+IOC通信のデータタイプ
+  ・UINT8
+　・GROUP_A
+
+■snd_osap
+センダOSAPが信頼か非信頼か
+  ・TRUSTED		信頼OSAP
+  ・NON_TRUSTED		非信頼OSAP
+
+■rcv_osap
+レシーバOSAPが信頼か非信頼か
+  ・TRUSTED		信頼OSAP
+  ・NON_TRUSTED		非信頼OSAP
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) 組み合わせパラメータ規定ポリシー
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+―――――――――――――――――――――――――――――――――――
+(3.1) 共通ポリシー
+―――――――――――――――――――――――――――――――――――
+(3.1.1) テスト観点
+
+                | 自OSAP |       異なるOSAP        |
+   target_stack |        | 信頼           | 非信頼 | 備考
+  --------------------------------------------------------
+   信頼OSAP     |   ○   |    エラー      | エラー | － |
+   非信頼OSAP   |   ○   | プロテクション | エラー | － |
+
+
+このテストでは非信頼OSAが信頼領域に配置されているIOC APIを呼び出したとき，
+プロテクションフックが上がることを確認するテストである．
+プロテクション以外のテストはioc_testで行う．
+
+(3.1.2) IOCテストパターン
+IOC APIには以下のものが存在する．
+・IocEmptyQueue
+・IocRead
+・IocWrite
+・IocReceive
+・IocSend
+
+またグループ通信が存在するため，以下のAPIが存在する．
+・IocReceiveGroup
+・IocEmptyQueue 
+・IocSendGroup
+・IocReadGroup
+・IocWriteGroup
+
+(3.1.2) N:1通信について
+N:1通信においてもテストする観点が同じなため，このテストケースでは1:1通信のみしかテストを行わない．
+
+以上．

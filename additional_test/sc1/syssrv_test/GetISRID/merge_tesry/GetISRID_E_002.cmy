@@ -1,0 +1,54 @@
+######################################################################
+# GetISRID_E_002_0001.yaml
+######################################################################
+GetISRID_E_002_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+    extended_return_status: true
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      need_si:
+        - NOS409
+        - NOS411
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_HIGH
+      iniintpri: INT_PRI_ISR1_HIGH
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C1ISR1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+    gcov: true
+
+  post_condition:
+    C1ISR1:
+      rtnstat: AK_ACTIVATE
+      need_si:
+        - NOS409
+        - NOS411
+      target_error_hook_cfg:
+        - AK_SC1_SINGLE
+    C2ISR1:
+      rtnstat: AK_STOP
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+######################################################################

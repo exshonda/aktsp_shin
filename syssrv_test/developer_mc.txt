@@ -1,0 +1,551 @@
+
+    AKTSP - Automotive Kernel Test Suite Package -
+    ＜MC向けシステムサービステストの開発および実施要綱＞
+
+本ドキュメントは，システムサービステストの開発および実施要綱についてま
+とめたものである．
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2011-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2011-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2011-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2011-2014 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2011-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: developer_mc.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+
+○目次
+
+(1) ファイル/フォルダ構成
+    (1.1) ファイル命名規則
+    (1.2) ファイル/フォルダ構成
+(2) パラメータ，パラメータ値の定義
+(3) テストケース抽出ポリシー
+    (3.1) 基本ポリシー
+    (3.2) 基本ポリシー
+        (3.2.1) 2つのプロセッサを跨ぐテストケース
+        (3.2.2) 自コアでかつ異なるOSAPに所属するテストケース
+        (3.2.3) タスクを「実行可能状態」に遷移させるテストケース
+        (3.2.4) 「実行状態」のタスクを対象とするテストケース
+        (3.2.5) 他コアの状態のバリエーションテストケース
+        (3.2.6) 他コアに割り付けられた複数のタスクへのテストケース
+        (3.2.7) 他コアを割込み禁止状態とするテストケース
+        (3.2.8) 割込み禁止状態に「スピンロック獲得中」を考慮したテストケース
+        (3.2.9) 呼出し元処理単位を追加したテストケース
+    (3.3) 異常系ポリシー
+    (3.4) SC3-MCにおけるOSAPの組み合せ方針
+        (3.4.1) 正常系
+        (3.4.2) 異常系
+(4) PictMasterモデルファイル作成
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+はじめに
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+このドキュメントは，システムサービステストの開発および実施要綱のうちマ
+ルチコア向けに特化した箇所について記述したものである．マルチコアのシス
+テムサービステストはシングルコアのテストを拡張して作成されるので，シン
+グルコア用のdeveloper.txtを理解していることを前提とする．
+
+なお，本ドキュメントは，AKTSP(Automotive Kernel Test Suite Package)およ
+びAKTGユーザーズマニュアルの記載内容，PictMasterのユーザーズマニュアル，
+AKTSPにおけるテストの開発および実施要綱を理解していること前提として記載
+する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) ファイル/フォルダ構成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+―――――――――――――――――――――――――――――――――――
+(1.1) ファイル命名規則
+―――――――――――――――――――――――――――――――――――
+TCSファイル，TESRYデータ，TESRYデータをcmy形式でまとめたファイル名には，
+「_m_」が入る．
+それ以外は，シングルコア向けのシステムサービステストと同等．
+
+・TCSファイル
+システムサービス名_m_[normal | error].csv
+
+・TESRYデータ
+PictMasterで自動生成する場合（自動付番）：
+システムサービス名_m_[normal | error]_[番号].yaml
+
+・akc2yを利用してTESRYデータをcmy形式でまとめたファイル
+システムサービス名_m_[normal | error].cmy
+
+―――――――――――――――――――――――――――――――――――
+(1.2) ファイル/フォルダ構成
+―――――――――――――――――――――――――――――――――――
+シングルコア向けのシステムサービステストと同等．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) パラメータ，パラメータ値の定義
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+シングルコア向けのシステムサービステストと同等．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) テストケース抽出ポリシー
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+―――――――――――――――――――――――――――――――――――
+(3.1) 基本ポリシー
+―――――――――――――――――――――――――――――――――――
+マルチコアの仕様は，シングルコアの仕様を拡張しているため，シングルコア
+向けのテストケースは1プロセッサに閉じたテストとして流用する．
+したがって，シングルコア向けで実施しているテストケースを作成する必要は
+なく，マルチコアを考慮したテストケースのみを作成する．
+
+―――――――――――――――――――――――――――――――――――
+(3.2) 詳細ポリシー
+―――――――――――――――――――――――――――――――――――
+シングルコアのテストモデルファイルからのポーティングについては，
+以下の文書を参考にすること．
+(ファイル名は，SC1-MCと記載されているがSC3-MCの場合も以下を参照する)
+
+aktsp/trunk/aktsp/syssrv_test/sc1-mc/sc1-mc_porting_policy.xls
+
+また，システムサービス発行元の処理単位を割り付けたコアを「自コア」，そ
+れ以外の処理単位を割り付けたプロセッサを「他コア」と呼ぶ．
+
+----------------------------------------------------------------------
+(3.2.1) 2つのプロセッサを跨ぐテストケース
+        (EX_OTHER_CORE)
+----------------------------------------------------------------------
+システムサービスを発行することで直接的に，またはオブジェクトを介して間
+接的に他の処理単位に影響を与えるテストケースにおいて，処理単位を異なる
+コアに割り付けたテストケースを作成する．
+
+・システムサービス発行元の処理単位を自コアに割り付けるものとし，それ以
+  外の処理単位を他コアに割り付ける
+・引数に指定する対象のオブジェクトIDのパラメータとして，”
+  OTHER_CORE_XXX”(XXXは各オブジェクト)を追加する
+・システムサービスを発行するオブジェクトは，以下で固定とする
+  タスク：
+  −状態：RUNNING
+  −優先度：TSK_PRI_MID
+
+  C2ISR：
+  −状態：AK_ACTIVATE
+  −優先度：INT_PRI_MID
+
+  フック：
+  −状態：AK_ACTIVATE
+
+・対象システムサービス
+  −ActivateTask
+  −ChainTask
+  −GetTaskState
+  −GetResource※
+  −ReleaseResource※
+  −GetEvent
+  −SetEvent
+  −CancelAlarm
+  −GetAlarm
+  −GetAlarmBase
+  −SetAbsAlarm
+  −SetRelAlarm
+  −GetCounterValue
+  −GetElapsedValue
+  −IncrementCounter※
+  −DisableInterruptSource(SC3-MC)※
+  −EnableInterruptSource(SC3-MC)※
+  −GetScheduleTableStatus
+  −NextScheduleTable
+  −StartScheduleTableAbs
+  −StartScheduleTableRel
+  −StopScheduleTable
+  −CallTrustedFunction※
+  −CheckTaskAccess(SC3-MC)
+  −CheckISRAccess(SC3-MC)
+  −CheckAlarmAccess(SC3-MC)
+  −CheckResourceAccess(SC3-MC)
+  −CheckCounterAccess(SC3-MC)
+  −CheckScheduleTableAccess(SC3-MC)
+  −CheckSpinlockAccess(SC3-MC)
+  −CheckTaskOwnership(SC3-MC)
+  −CheckISROwnership(SC3-MC)
+  −CheckAlarmOwnership(SC3-MC)
+  −CheckCounterOwnership(SC3-MC)
+  −CheckScheduleTabelOwnership(SC3-MC)
+  −GetApplicationState(SC3-MC)
+  ※異常系となるシステムサービス
+
+----------------------------------------------------------------------
+(3.2.2) 自コアでかつ異なるOSAPに所属するテストケース
+        (EX_DIFFER_OSAP)
+----------------------------------------------------------------------
+システムサービスを発行することで直接的に，またはオブジェクトを介して間
+接的に他の処理単位に影響を与えるテストケースにおいて，処理単位を異なる
+OSAPに割り付けたテストケースを作成する．
+SC1では，自コアでかつ同じOSAPに所属しているテストケースとなっていたが，
+SC1-MCでは自コアでかつ異なるOSAPに所属するオブジェクトが存在するため，
+これを考慮したテストケースを作成する． 
+SC3-MCの場合は，SC3のテストで対応済みのため追加しない．
+
+・対象システムサービス
+  −ActivateTask
+  −ChainTask
+  −GetTaskID
+  −GetTaskState
+  −Schedule
+  −TerminateTask
+  −GetResource
+  −ReleaseResource
+  −GetEvent
+  −SetEvent
+  −WaitEvent
+  −CancelAlarm
+  −GetAlarm
+  −GetAlarmBase
+  −SetAbsAlarm
+  −SetRelAlarm
+  −GetScheduleTableStatus
+  −NextScheduleTable
+  −StartScheduleTableAbs
+  −StartScheduleTableRel
+  −StopScheduleTable
+  −GetISRID
+
+----------------------------------------------------------------------
+(3.2.3) タスクを「実行可能状態」に遷移させるテストケース
+        (EX_READY_STATE)
+----------------------------------------------------------------------
+他コアに実行状態タスクが存在しない状態に，他コアの休止状態のタスクに対
+して起動要求を行うシステムサービスを発行するテストケースを作成する．
+シングルコアではシステムサービスの発行元がタスクであればそれ自身が実行
+状態のタスクとして必ず存在するが，マルチコアの場合ではコアが異なれば実
+行状態のタスクが存在しないケースもあるため，このポリシーが必要となる．
+
+・他コアの対象となるタスクは，以下で固定する．
+  タスク：
+  −状態：SUSPENDED
+  −優先度：TSK_PRI_MID
+
+・対象システムサービス
+  −ActivateTask
+  −ChainTask
+
+----------------------------------------------------------------------
+(3.2.4) 「実行状態」のタスクを対象とするテストケース
+         (EX_RUNNING_STATE)
+----------------------------------------------------------------------
+システムサービスの発行元と操作対象の両方がタスクの場合には，その対象と
+なるタスクの状態が「実行状態」であるテストケースを追加する．
+シングルコアでは，システムサービスを発行するタスクが実行状態なので，操
+作対象のタスクが実行状態であることはない．しかしマルチコアでは，異なる
+コアの実行状態であるタスクを操作対象とすることができる．
+
+・他コアの対象となるタスクは，以下で固定する．
+  タスク：
+  −状態：RUNNING
+  −優先度：TSK_PRI_MID
+
+・対象システムサービス
+  −ActivateTask
+  −ChainTask
+  −GetTaskState
+  −GetEvent
+  −SetEvent
+
+----------------------------------------------------------------------
+(3.2.5) 他コアの状態のバリエーションテストケース
+        (EX_CARE_STATE)
+----------------------------------------------------------------------
+自コアの状態を操作または参照するAPIのテストについては，「他コア」の関連
+する状態を組み合わせたテストケースを作成する．
+
+・自コアの状態を操作するシステムサービスを発行する場合，他コアに影響を
+  与えないことを確認する
+・自コアの状態を参照するシステムサービスを発行する場合，他コアの状態を
+  参照しないことを確認する
+
+  例)割込み許可状態にするシステムサービスの場合
+     −他コアの処理単位は対となる割込み禁止状態に固定する
+     −割込み許可状態にするシステムサービス発行後，他コアの割込み禁止状
+       態が解除されていないことを確認する
+
+・他コアのオブジェクトは以下で固定する
+  タスク：
+  −状態：RUNNING
+  −優先度：TSK_PRI_MID
+
+  C2ISR：
+  −状態：AK_ACTIVATE
+  −優先度：INT_PRI_MID
+
+・対象システムサービス
+  −GetTaskID
+  −DisableAllInterrupts
+  −EnableAllInterrupts
+  −GetISRID
+  −ResumeAllInterrupts
+  −ResumeOSInterrupts
+  −SuspendAllInterrupts
+  −SuspendOSInterrupts
+
+----------------------------------------------------------------------
+(3.2.6) 他コアに割り付けられた複数のタスクへのテストケース
+        (EX_MULTI_EXP)
+----------------------------------------------------------------------
+スケジュールテーブルの満了点に複数の満了動作(タスク起動＋イベントセット)
+を設定する場合，満了動作を行う処理単位をそれぞれ異なるコアに割り付けた
+テストケースを作成する．
+
+・対象システムサービス
+  −IncrementCounter
+
+----------------------------------------------------------------------
+(3.2.7) 他コアを割込み禁止状態とするテストケース
+        (EX_INT_STATE)
+----------------------------------------------------------------------
+他コアを割込み禁止状態として，自コアから他コアに所属するオブジェクトID
+に対してシステムサービスを発行するテストケースを作成する．
+全ての割込み禁止状態を組み合わせ，割込み禁止状態(INT_STATE)のcoreidは省
+略せず，他コアを指定する．
+
+・割込み禁止状態：
+  −DisableAllInterrupts
+  −SuspendAllInterrupts
+  −SuspendOSInterrupts
+  −GetSpinlock(獲得後割込み禁止状態になるケースのみ)
+
+・対象システムサービス
+  −ActivateTask
+  −ChainTask
+  −GetTaskState
+  −GetEvent
+  −SetEvent
+  −CancelAlarm
+  −GetAlarm
+  −GetAlarmBase
+  −SetAbsAlarm
+  −SetRelAlarm
+  −GetCounterValue
+  −GetElapsedValue
+  −GetScheduleTableStatus
+  −NextScheduleTable
+  −StartScheduleTableAbs
+  −StartScheduleTableRel
+  −StopScheduleTable
+  −CheckTaskAccess(SC3-MC)
+  −CheckISRAccess(SC3-MC)
+  −CheckAlarmAccess(SC3-MC)
+  −CheckResourceAccess(SC3-MC)
+  −CheckCounterAccess(SC3-MC)
+  −CheckScheduleTableAccess(SC3-MC)
+  −CheckSpinlockAccess(SC3-MC)
+  −CheckTaskOwnership(SC3-MC)
+  −CheckISROwnership(SC3-MC)
+  −CheckAlarmOwnership(SC3-MC)
+  −CheckCounterOwnership(SC3-MC)
+  −CheckScheduleTabelOwnership(SC3-MC)
+  −GetApplicationState(SC3-MC)
+
+----------------------------------------------------------------------
+(3.2.8) 割込み禁止状態に「スピンロック獲得中」を考慮したテストケース
+        (EX_LOC_STATE)
+----------------------------------------------------------------------
+自コアを割込み禁止状態として，システムサービスを発行するテストケースに
+スピンロック獲得による割込み禁止状態のケースを追加する．
+
+・対象システムサービス
+  −ActivateTask
+  −ChainTask
+  −GetTaskID
+  −GetTaskState
+  −Schedule
+  −TerminateTask
+  −GetResource
+  −ReleaseResource
+  −ClearEvent
+  −GetEvent
+  −SetEvent
+  −WaitEvent
+  −CancelAlarm
+  −GetAlarm
+  −GetAlarmBase
+  −SetAbsAlarm
+  −SetRelAlarm
+  −GetCounterValue
+  −GetElapsedValue
+  −IncrementCounter
+  −GetScheduleTableStatus
+  −NextScheduleTable
+  −StartScheduleTableAbs
+  −StartScheduleTableRel
+  −StopScheduleTable
+  −DisableAllInterrupts
+  −EnableAllInterrupts
+  −GetISRID
+  −ResumeAllInterrupts
+  −ResumeOSInterrupts
+  −SuspendAllInterrupts
+  −SuspendOSInterrupts
+  −DisableInterruptSource(SC3-MC)
+  −EnableInterruptSource(SC3-MC)
+  −CheckTaskAccess(SC3-MC)
+  −CheckISRAccess(SC3-MC)
+  −CheckAlarmAccess(SC3-MC)
+  −CheckResourceAccess(SC3-MC)
+  −CheckCounterAccess(SC3-MC)
+  −CheckScheduleTableAccess(SC3-MC)
+  −CheckSpinlockAccess(SC3-MC)
+  −CheckTaskOwnership(SC3-MC)
+  −CheckISROwnership(SC3-MC)
+  −CheckAlarmOwnership(SC3-MC)
+  −CheckCounterOwnership(SC3-MC)
+  −CheckScheduleTabelOwnership(SC3-MC)
+  −GetApplicationState(SC3-MC)
+  −GetActiveApplicationMod
+  −GetCoreID(SC3-MC)
+  −GetNumberOfActivatedCores(SC3-MC)
+
+----------------------------------------------------------------------
+(3.2.9) 呼出し元処理単位を追加したテストケース
+        (EX_NEW_CONTEXT)
+----------------------------------------------------------------------
+OSAP固有のフックからシステムサービスを発行するテストケースを追加する．
+SC3-MCの場合は，SC3のテストで対応済みのため追加しない．
+
+・対象システムサービス
+  −GetTaskID
+  −GetTaskState
+  −GetEvent
+  −GetAlarm
+  −GetAlarmBase
+  −DisableAllInterrupts
+  −EnableAllInterrupts
+  −GetISRID
+  −ResumeAllInterrupts
+  −ResumeOSInterrupts
+  −SuspendAllInterrupts
+  −SuspendOSInterrupts
+  −GetActiveApplicationMode
+
+----------------------------------------------------------------------
+(3.2.10) 自コアでかつ同じOSAPに所属するテストケース
+         (EX_SAME_OSAP)
+----------------------------------------------------------------------
+システムサービスを発行することで直接的に，またはオブジェクトを介して間
+接的に他の処理単位に影響を与えるテストケースにおいて，処理単位を同じ
+OSAPに割り付けたテストケースを作成する．
+MCで追加となったシステムサービステストが存在し，これらはシングルコアの
+テストを流用できないため，このポリシーを考慮したテストケースを作成する．
+
+・対象システムサービス
+  −CheckAlarmOwnership(SC1-MC)
+  −CheckCounterOwnership(SC1-MC)
+  −CheckISROwnership(SC1-MC)
+  −ScheduleTableOwnership(SC1-MC)
+  −CheckTaskOwnership(SC1-MC)
+  −RaiseInterCoreInterrupt
+
+----------------------------------------------------------------------
+(3.3) 異常系ポリシー
+----------------------------------------------------------------------
+・共通方針
+  −シングルコア向けのシステムサービステストと同等．
+
+・各エラーコード毎の異常系詳細方針
+マルチコアで追加必要なエラーについて，エラーコード単位で詳細を述べる．
+
+(A) E_OS_CORE
+コアを跨ぐことが出来ないシステムサービスが対象．
+・対象システムサービス：
+  −IncrementCounter
+  −GetResource
+  −ReleaseResource
+
+(B) E_OS_CALLEVEL
+スタートアップフック，シャットダウンフック，エラーフックから呼び出すこ
+とが出来ないシステムサービスにOSAP固有のスタートアップフック，シャット
+ダウンフック，エラーフックの組合せを追加する．
+
+(C) E_OS_DISABLEDINT
+スピンロック獲得による割込み禁止状態のケースを追加する．
+ポリシーのEX_LOC_STATEに該当する．
+
+(D) E_OS_SPINLOCK
+スピンロック獲得中にシステムサービスを発行するテストケースを追加する．
+・対象システムサービス：
+  −TerminateTask
+  −ChainTask
+  −WaitEvent
+  −Schedule
+
+―――――――――――――――――――――――――――――――――――
+(3.4) SC3-MCにおけるOSAPの組み合わせ基本方針
+―――――――――――――――――――――――――――――――――――
+----------------------------------------------------------------------
+(3.4.1) 正常系
+----------------------------------------------------------------------
+呼出し元処理単位が信頼OSAPか，非信頼OSAP(アクセス権あり，信頼関数経由)
+か，対象の他コアの処理単位が信頼OSAPか，他コアの非信頼OSAPかを組み合わ
+せる.
+
+   呼出し元             | 対象オブジェクト(他コア)
+   (自コア)             | 信頼OSAP | 非信頼OSAP
+  ----------------------------------------------
+   信頼OSAP             | ○       | ○
+   非信頼OSAP(Access)   | ○       | ○
+   非信頼OSAP(CallTrust)| ○       | ○
+
+  ※Access：アクセス権あり
+  ※CallTrust：信頼関数経由
+
+信頼関数の呼び出し方針，システムサービス毎の詳細方針は，シングルコア向
+けのシステムサービステストと同等．
+
+----------------------------------------------------------------------
+(3.4.2) 異常系
+----------------------------------------------------------------------
+呼出し元処理単位が非信頼OSAP(アクセス権なし)と対象の他コアの処理単位が
+非信頼OSAPの場合の異常系パターンは，SC3で対応済みのため追加しない．
+
+   呼出し元   | 対象オブジェクト(他コア)
+   (自コア)   | 信頼OSAP | 非信頼OSAP
+  ------------------------------------
+   非信頼OSAP | ×       | ×
+
+―――――――――――――――――――――――――――――――――――
+(4) PictMasterモデルファイル作成
+―――――――――――――――――――――――――――――――――――
+シングルコア向けのシステムサービステストと同等．
+
+以上．

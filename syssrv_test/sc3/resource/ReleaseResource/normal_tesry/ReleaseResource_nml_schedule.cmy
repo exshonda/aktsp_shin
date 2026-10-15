@@ -1,0 +1,193 @@
+######################################################################
+# ReleaseResource_nml_schedule_0001.yaml
+######################################################################
+ReleaseResource_nml_schedule_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      porder: 2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+      getres:
+        - RESOURCE1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      getres:
+######################################################################
+# ReleaseResource_nml_schedule_0002.yaml
+######################################################################
+ReleaseResource_nml_schedule_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      porder: 2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_schedule_0003.yaml
+######################################################################
+ReleaseResource_nml_schedule_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      porder: 1
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      porder: 2
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################

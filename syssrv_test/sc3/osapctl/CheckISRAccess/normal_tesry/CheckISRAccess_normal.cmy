@@ -1,0 +1,2729 @@
+######################################################################
+# CheckISRAccess_normal_0001.yaml
+######################################################################
+CheckISRAccess_normal_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0002.yaml
+######################################################################
+CheckISRAccess_normal_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0003.yaml
+######################################################################
+CheckISRAccess_normal_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP2,OBJECT_ISR,C2ISR1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0004.yaml
+######################################################################
+CheckISRAccess_normal_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TRUSTED_OSAP2,C2ISR1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0005.yaml
+######################################################################
+CheckISRAccess_normal_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0006.yaml
+######################################################################
+CheckISRAccess_normal_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR1)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0007.yaml
+######################################################################
+CheckISRAccess_normal_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0008.yaml
+######################################################################
+CheckISRAccess_normal_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR1)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0009.yaml
+######################################################################
+CheckISRAccess_normal_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0010.yaml
+######################################################################
+CheckISRAccess_normal_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0011.yaml
+######################################################################
+CheckISRAccess_normal_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0012.yaml
+######################################################################
+CheckISRAccess_normal_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0013.yaml
+######################################################################
+CheckISRAccess_normal_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0014.yaml
+######################################################################
+CheckISRAccess_normal_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0015.yaml
+######################################################################
+CheckISRAccess_normal_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0016.yaml
+######################################################################
+CheckISRAccess_normal_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0017.yaml
+######################################################################
+CheckISRAccess_normal_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0018.yaml
+######################################################################
+CheckISRAccess_normal_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0019.yaml
+######################################################################
+CheckISRAccess_normal_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0020.yaml
+######################################################################
+CheckISRAccess_normal_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0021.yaml
+######################################################################
+CheckISRAccess_normal_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0022.yaml
+######################################################################
+CheckISRAccess_normal_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0023.yaml
+######################################################################
+CheckISRAccess_normal_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_F
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0024.yaml
+######################################################################
+CheckISRAccess_normal_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_F
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0025.yaml
+######################################################################
+CheckISRAccess_normal_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0026.yaml
+######################################################################
+CheckISRAccess_normal_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0027.yaml
+######################################################################
+CheckISRAccess_normal_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0028.yaml
+######################################################################
+CheckISRAccess_normal_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0029.yaml
+######################################################################
+CheckISRAccess_normal_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0030.yaml
+######################################################################
+CheckISRAccess_normal_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0031.yaml
+######################################################################
+CheckISRAccess_normal_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0032.yaml
+######################################################################
+CheckISRAccess_normal_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0033.yaml
+######################################################################
+CheckISRAccess_normal_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0034.yaml
+######################################################################
+CheckISRAccess_normal_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0035.yaml
+######################################################################
+CheckISRAccess_normal_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0036.yaml
+######################################################################
+CheckISRAccess_normal_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0037.yaml
+######################################################################
+CheckISRAccess_normal_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0038.yaml
+######################################################################
+CheckISRAccess_normal_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0039.yaml
+######################################################################
+CheckISRAccess_normal_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0040.yaml
+######################################################################
+CheckISRAccess_normal_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0041.yaml
+######################################################################
+CheckISRAccess_normal_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0042.yaml
+######################################################################
+CheckISRAccess_normal_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0043.yaml
+######################################################################
+CheckISRAccess_normal_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0044.yaml
+######################################################################
+CheckISRAccess_normal_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0045.yaml
+######################################################################
+CheckISRAccess_normal_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0046.yaml
+######################################################################
+CheckISRAccess_normal_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0047.yaml
+######################################################################
+CheckISRAccess_normal_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0048.yaml
+######################################################################
+CheckISRAccess_normal_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0049.yaml
+######################################################################
+CheckISRAccess_normal_0049:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0050.yaml
+######################################################################
+CheckISRAccess_normal_0050:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0051.yaml
+######################################################################
+CheckISRAccess_normal_0051:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0052.yaml
+######################################################################
+CheckISRAccess_normal_0052:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0053.yaml
+######################################################################
+CheckISRAccess_normal_0053:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0054.yaml
+######################################################################
+CheckISRAccess_normal_0054:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0055.yaml
+######################################################################
+CheckISRAccess_normal_0055:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_E
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0056.yaml
+######################################################################
+CheckISRAccess_normal_0056:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_E
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0057.yaml
+######################################################################
+CheckISRAccess_normal_0057:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0058.yaml
+######################################################################
+CheckISRAccess_normal_0058:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0059.yaml
+######################################################################
+CheckISRAccess_normal_0059:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0060.yaml
+######################################################################
+CheckISRAccess_normal_0060:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0061.yaml
+######################################################################
+CheckISRAccess_normal_0061:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0062.yaml
+######################################################################
+CheckISRAccess_normal_0062:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0063.yaml
+######################################################################
+CheckISRAccess_normal_0063:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP2,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0064.yaml
+######################################################################
+CheckISRAccess_normal_0064:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP2
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP2,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0065.yaml
+######################################################################
+CheckISRAccess_normal_0065:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0066.yaml
+######################################################################
+CheckISRAccess_normal_0066:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0067.yaml
+######################################################################
+CheckISRAccess_normal_0067:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0068.yaml
+######################################################################
+CheckISRAccess_normal_0068:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: NO_ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0069.yaml
+######################################################################
+CheckISRAccess_normal_0069:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0070.yaml
+######################################################################
+CheckISRAccess_normal_0070:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_D
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP1
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0071.yaml
+######################################################################
+CheckISRAccess_normal_0071:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_F
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(NON_TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0072.yaml
+######################################################################
+CheckISRAccess_normal_0072:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_F
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(NON_TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0073.yaml
+######################################################################
+CheckISRAccess_normal_0073:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP3
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectAccess(TRUSTED_OSAP1,OBJECT_ISR,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################
+# CheckISRAccess_normal_0074.yaml
+######################################################################
+CheckISRAccess_normal_0074:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP3
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: CheckISRAccess(TRUSTED_OSAP1,C2ISR2)
+    rettype: ObjectAccessType
+    retval: ACCESS
+
+  post_condition:
+######################################################################

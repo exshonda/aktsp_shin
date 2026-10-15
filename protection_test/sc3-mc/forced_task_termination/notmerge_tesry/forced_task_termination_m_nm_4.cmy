@@ -1,0 +1,7537 @@
+######################################################################
+# forced_task_termination_m_nm_4_0001.yaml
+######################################################################
+forced_task_termination_m_nm_4_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0002.yaml
+######################################################################
+forced_task_termination_m_nm_4_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0003.yaml
+######################################################################
+forced_task_termination_m_nm_4_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0004.yaml
+######################################################################
+forced_task_termination_m_nm_4_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0005.yaml
+######################################################################
+forced_task_termination_m_nm_4_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0006.yaml
+######################################################################
+forced_task_termination_m_nm_4_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0007.yaml
+######################################################################
+forced_task_termination_m_nm_4_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0008.yaml
+######################################################################
+forced_task_termination_m_nm_4_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0009.yaml
+######################################################################
+forced_task_termination_m_nm_4_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0010.yaml
+######################################################################
+forced_task_termination_m_nm_4_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0011.yaml
+######################################################################
+forced_task_termination_m_nm_4_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0012.yaml
+######################################################################
+forced_task_termination_m_nm_4_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0013.yaml
+######################################################################
+forced_task_termination_m_nm_4_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0014.yaml
+######################################################################
+forced_task_termination_m_nm_4_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0015.yaml
+######################################################################
+forced_task_termination_m_nm_4_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0016.yaml
+######################################################################
+forced_task_termination_m_nm_4_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0017.yaml
+######################################################################
+forced_task_termination_m_nm_4_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0018.yaml
+######################################################################
+forced_task_termination_m_nm_4_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0019.yaml
+######################################################################
+forced_task_termination_m_nm_4_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0020.yaml
+######################################################################
+forced_task_termination_m_nm_4_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0021.yaml
+######################################################################
+forced_task_termination_m_nm_4_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0022.yaml
+######################################################################
+forced_task_termination_m_nm_4_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0023.yaml
+######################################################################
+forced_task_termination_m_nm_4_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0024.yaml
+######################################################################
+forced_task_termination_m_nm_4_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0025.yaml
+######################################################################
+forced_task_termination_m_nm_4_0025:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0026.yaml
+######################################################################
+forced_task_termination_m_nm_4_0026:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0027.yaml
+######################################################################
+forced_task_termination_m_nm_4_0027:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0028.yaml
+######################################################################
+forced_task_termination_m_nm_4_0028:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0029.yaml
+######################################################################
+forced_task_termination_m_nm_4_0029:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0030.yaml
+######################################################################
+forced_task_termination_m_nm_4_0030:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0031.yaml
+######################################################################
+forced_task_termination_m_nm_4_0031:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0032.yaml
+######################################################################
+forced_task_termination_m_nm_4_0032:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0033.yaml
+######################################################################
+forced_task_termination_m_nm_4_0033:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0034.yaml
+######################################################################
+forced_task_termination_m_nm_4_0034:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0035.yaml
+######################################################################
+forced_task_termination_m_nm_4_0035:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0036.yaml
+######################################################################
+forced_task_termination_m_nm_4_0036:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0037.yaml
+######################################################################
+forced_task_termination_m_nm_4_0037:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0038.yaml
+######################################################################
+forced_task_termination_m_nm_4_0038:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0039.yaml
+######################################################################
+forced_task_termination_m_nm_4_0039:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0040.yaml
+######################################################################
+forced_task_termination_m_nm_4_0040:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0041.yaml
+######################################################################
+forced_task_termination_m_nm_4_0041:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0042.yaml
+######################################################################
+forced_task_termination_m_nm_4_0042:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0043.yaml
+######################################################################
+forced_task_termination_m_nm_4_0043:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0044.yaml
+######################################################################
+forced_task_termination_m_nm_4_0044:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0045.yaml
+######################################################################
+forced_task_termination_m_nm_4_0045:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0046.yaml
+######################################################################
+forced_task_termination_m_nm_4_0046:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0047.yaml
+######################################################################
+forced_task_termination_m_nm_4_0047:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0048.yaml
+######################################################################
+forced_task_termination_m_nm_4_0048:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0049.yaml
+######################################################################
+forced_task_termination_m_nm_4_0049:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0050.yaml
+######################################################################
+forced_task_termination_m_nm_4_0050:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0051.yaml
+######################################################################
+forced_task_termination_m_nm_4_0051:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0052.yaml
+######################################################################
+forced_task_termination_m_nm_4_0052:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0053.yaml
+######################################################################
+forced_task_termination_m_nm_4_0053:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0054.yaml
+######################################################################
+forced_task_termination_m_nm_4_0054:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0055.yaml
+######################################################################
+forced_task_termination_m_nm_4_0055:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0056.yaml
+######################################################################
+forced_task_termination_m_nm_4_0056:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0057.yaml
+######################################################################
+forced_task_termination_m_nm_4_0057:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0058.yaml
+######################################################################
+forced_task_termination_m_nm_4_0058:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0059.yaml
+######################################################################
+forced_task_termination_m_nm_4_0059:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0060.yaml
+######################################################################
+forced_task_termination_m_nm_4_0060:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0061.yaml
+######################################################################
+forced_task_termination_m_nm_4_0061:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0062.yaml
+######################################################################
+forced_task_termination_m_nm_4_0062:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0063.yaml
+######################################################################
+forced_task_termination_m_nm_4_0063:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0064.yaml
+######################################################################
+forced_task_termination_m_nm_4_0064:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0065.yaml
+######################################################################
+forced_task_termination_m_nm_4_0065:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0066.yaml
+######################################################################
+forced_task_termination_m_nm_4_0066:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0067.yaml
+######################################################################
+forced_task_termination_m_nm_4_0067:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0068.yaml
+######################################################################
+forced_task_termination_m_nm_4_0068:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0069.yaml
+######################################################################
+forced_task_termination_m_nm_4_0069:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_ALL_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0070.yaml
+######################################################################
+forced_task_termination_m_nm_4_0070:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0071.yaml
+######################################################################
+forced_task_termination_m_nm_4_0071:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_ALL_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_ALL_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################
+# forced_task_termination_m_nm_4_0072.yaml
+######################################################################
+forced_task_termination_m_nm_4_0072:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      maxact: 1
+      actcnt: 1
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      getspn:
+        - SPINLOCK1
+        - SPINLOCK2
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      osap: TR_OSAP_SELF_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+    SPINLOCK1:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      successor: SPINLOCK2
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK2:
+      type: SPINLOCK
+      lockflg: AK_LOCK
+      susint: AK_SUS_OS_SPN
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: TASK1
+        - AK_SUS_OS_INT: SPINLOCK1
+        - AK_SUS_OS_INT: SPINLOCK2
+      coreid: CORE_SELF
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseCPUException()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: CheckAssert(FatalError == E_OS_PROTECTION_EXCEPTION)
+
+  post_condition_1:
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATETASKISR)
+
+  post_condition_2:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_3:
+    id: SHUTDOWN_HOOK1
+    syssrv: return
+    finish: true
+
+  post_condition_3:
+######################################################################

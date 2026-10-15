@@ -1,0 +1,2053 @@
+######################################################################
+# TerminateTask_m_normal_0001.yaml
+######################################################################
+TerminateTask_m_normal_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0002.yaml
+######################################################################
+TerminateTask_m_normal_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0003.yaml
+######################################################################
+TerminateTask_m_normal_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0004.yaml
+######################################################################
+TerminateTask_m_normal_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0005.yaml
+######################################################################
+TerminateTask_m_normal_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0006.yaml
+######################################################################
+TerminateTask_m_normal_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0007.yaml
+######################################################################
+TerminateTask_m_normal_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0008.yaml
+######################################################################
+TerminateTask_m_normal_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0009.yaml
+######################################################################
+TerminateTask_m_normal_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0010.yaml
+######################################################################
+TerminateTask_m_normal_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0011.yaml
+######################################################################
+TerminateTask_m_normal_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0012.yaml
+######################################################################
+TerminateTask_m_normal_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0013.yaml
+######################################################################
+TerminateTask_m_normal_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0014.yaml
+######################################################################
+TerminateTask_m_normal_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0015.yaml
+######################################################################
+TerminateTask_m_normal_0015:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0016.yaml
+######################################################################
+TerminateTask_m_normal_0016:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0017.yaml
+######################################################################
+TerminateTask_m_normal_0017:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0018.yaml
+######################################################################
+TerminateTask_m_normal_0018:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0019.yaml
+######################################################################
+TerminateTask_m_normal_0019:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0020.yaml
+######################################################################
+TerminateTask_m_normal_0020:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0021.yaml
+######################################################################
+TerminateTask_m_normal_0021:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0022.yaml
+######################################################################
+TerminateTask_m_normal_0022:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0023.yaml
+######################################################################
+TerminateTask_m_normal_0023:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0024.yaml
+######################################################################
+TerminateTask_m_normal_0024:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0025.yaml
+######################################################################
+TerminateTask_m_normal_0025:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0026.yaml
+######################################################################
+TerminateTask_m_normal_0026:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0027.yaml
+######################################################################
+TerminateTask_m_normal_0027:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0028.yaml
+######################################################################
+TerminateTask_m_normal_0028:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0029.yaml
+######################################################################
+TerminateTask_m_normal_0029:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0030.yaml
+######################################################################
+TerminateTask_m_normal_0030:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0031.yaml
+######################################################################
+TerminateTask_m_normal_0031:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0032.yaml
+######################################################################
+TerminateTask_m_normal_0032:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: READY
+######################################################################
+# TerminateTask_m_normal_0033.yaml
+######################################################################
+TerminateTask_m_normal_0033:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0034.yaml
+######################################################################
+TerminateTask_m_normal_0034:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0035.yaml
+######################################################################
+TerminateTask_m_normal_0035:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0036.yaml
+######################################################################
+TerminateTask_m_normal_0036:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0037.yaml
+######################################################################
+TerminateTask_m_normal_0037:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0038.yaml
+######################################################################
+TerminateTask_m_normal_0038:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0039.yaml
+######################################################################
+TerminateTask_m_normal_0039:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0040.yaml
+######################################################################
+TerminateTask_m_normal_0040:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0041.yaml
+######################################################################
+TerminateTask_m_normal_0041:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0042.yaml
+######################################################################
+TerminateTask_m_normal_0042:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0043.yaml
+######################################################################
+TerminateTask_m_normal_0043:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0044.yaml
+######################################################################
+TerminateTask_m_normal_0044:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+######################################################################
+# TerminateTask_m_normal_0045.yaml
+######################################################################
+TerminateTask_m_normal_0045:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0046.yaml
+######################################################################
+TerminateTask_m_normal_0046:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0047.yaml
+######################################################################
+TerminateTask_m_normal_0047:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0048.yaml
+######################################################################
+TerminateTask_m_normal_0048:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0049.yaml
+######################################################################
+TerminateTask_m_normal_0049:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0050.yaml
+######################################################################
+TerminateTask_m_normal_0050:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_EXTENDED
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0051.yaml
+######################################################################
+TerminateTask_m_normal_0051:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_ACTCNT_NOT_MAX_1
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_ACTCNT_NOT_MAX_1-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################
+# TerminateTask_m_normal_0052.yaml
+######################################################################
+TerminateTask_m_normal_0052:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_BASIC_MAXACT
+      bootcnt: 0
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      actcnt: ANY_BASIC_MAXACT-1
+      bootcnt: 1
+    TASK2:
+      tstat: RUNNING
+######################################################################

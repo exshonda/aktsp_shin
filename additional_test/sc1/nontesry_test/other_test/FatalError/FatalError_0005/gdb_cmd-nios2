@@ -1,0 +1,18 @@
+b kernel_exit_task
+b kernel_release_interrupts
+b kernel_internal_shutdownos
+set logging file result_execute.log
+set logging on
+commands 1
+c
+end
+commands 2
+set kernel_callevel_stat = kernel_callevel_stat + 4096
+c
+end
+commands 3
+p ercd
+end
+c
+set logging off
+quit

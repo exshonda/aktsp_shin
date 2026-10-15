@@ -1,0 +1,84 @@
+int_state:
+  property:
+    cc:
+      - BCC2
+      - ECC2
+    sc:
+      - SC3
+      - SC4
+    si:
+      - OS399
+      - COS3653
+
+  pre_condition:
+# 以下，確認用オブジェクト
+    TrustedTask:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 5
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP5
+    TrustedTaskMakeState:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 2
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP5
+    NonTrustedTask:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 6
+      maxact: 1
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP5
+    NonTrustedTaskMakeState:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: 3
+      maxact: 2
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP5
+    VerifyTrustedFunction:
+      type: TRUSTED_FUNCTION
+      osap: TRUSTED_OSAP5
+    C2ISR1:
+      type: C2ISR
+      intno: AKTSP_INTNO_F
+      intatr: AK_ENABLE
+      iniintpri: 3
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP5
+    C1ISR1:
+      type: C1ISR
+      intno: AKTSP_INTNO_B
+      iniintpri: 7
+      rtnstat: AK_STOP
+      osap: TRUSTED_OSAP5
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_STOP
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_STOP
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: ActivateTask(-1)
+    rettype: StatusType
+    retval: E_OS_ID
+
+  post_condition:

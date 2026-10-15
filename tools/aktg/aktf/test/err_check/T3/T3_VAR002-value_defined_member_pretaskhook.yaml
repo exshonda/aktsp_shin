@@ -1,0 +1,40 @@
+T3_VAR002_value_defined_member_pretaskhook:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: PRETASK_HOOK1
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskType
+          value: 0
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetTaskID(&vname1)
+    rettype: StatusType
+    retval: E_OS_DISABLEDINT
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          maxallowedvalue: ANY_MAXVAL_A

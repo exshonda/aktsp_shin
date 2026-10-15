@@ -1,0 +1,37 @@
+######################################################################
+# FatalError_0006.yaml
+######################################################################
+FatalError_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: READY
+      spolicy: AK_SCHFULL
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      actcnt: 1
+      maxact: 2
+      ttype: AK_BASIC
+
+  do:
+    id: TASK1
+    syssrv: TerminateTask()
+
+  post_condition:
+    TASK1:
+      tstat: SUSPENDED
+    TASK2:
+      tstat: RUNNING
+######################################################################

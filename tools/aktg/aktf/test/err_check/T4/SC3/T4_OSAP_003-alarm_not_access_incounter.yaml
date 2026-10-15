@@ -1,0 +1,50 @@
+T4_OSAP_003_alarm_not_access_incounter:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 3
+      cycle: 0
+      incounter: COUNTER2
+      osap: NON_TRUSTED_OSAP1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 0
+      ctype: AK_SOFTWARE
+      osap: TRUSTED_OSAP1
+    COUNTER2:
+      type: COUNTER
+      mincyc: 1
+      maxval: 5
+      curval: 0
+      ctype: AK_SOFTWARE
+      osap: NON_TRUSTED_OSAP2
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 3
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: 3
+    COUNTER2:
+      curval: 1

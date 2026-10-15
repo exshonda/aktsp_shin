@@ -1,0 +1,545 @@
+######################################################################
+# GetISRID_normal_0001.yaml
+######################################################################
+GetISRID_normal_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: C2ISR1
+
+  do:
+    id: C2ISR1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0002.yaml
+######################################################################
+GetISRID_normal_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+
+  do:
+    id: C2ISR1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0003.yaml
+######################################################################
+GetISRID_normal_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: C2ISR1
+
+  do:
+    id: C2ISR1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0004.yaml
+######################################################################
+GetISRID_normal_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: C2ISR1
+
+  do:
+    id: C2ISR1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0005.yaml
+######################################################################
+GetISRID_normal_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseErrorHook()
+    gcov: false
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: DisableAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: ERROR_HOOK1
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# GetISRID_normal_0006.yaml
+######################################################################
+GetISRID_normal_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseErrorHook()
+    gcov: false
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+    gcov: true
+
+  post_condition_1:
+######################################################################
+# GetISRID_normal_0007.yaml
+######################################################################
+GetISRID_normal_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseErrorHook()
+    gcov: false
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: SuspendAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: ERROR_HOOK1
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# GetISRID_normal_0008.yaml
+######################################################################
+GetISRID_normal_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseProtectionHook()
+    gcov: false
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: DisableAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_DIS_ALL_INT: PROTECTION_HOOK1
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# GetISRID_normal_0009.yaml
+######################################################################
+GetISRID_normal_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseProtectionHook()
+    gcov: false
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+    gcov: true
+
+  post_condition_1:
+######################################################################
+# GetISRID_normal_0010.yaml
+######################################################################
+GetISRID_normal_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseProtectionHook()
+    gcov: false
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+    C2ISR1:
+      rtnstat: AK_STOP
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: SuspendAllInterrupts()
+    gcov: false
+
+  post_condition_1:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: PROTECTION_HOOK1
+
+  do_2:
+    id: PROTECTION_HOOK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: C2ISR1
+    gcov: true
+
+  post_condition_2:
+######################################################################
+# GetISRID_normal_0011.yaml
+######################################################################
+GetISRID_normal_0011:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_DIS_ALL_INT: TASK1
+
+  do:
+    id: TASK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0012.yaml
+######################################################################
+GetISRID_normal_0012:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+
+  do:
+    id: TASK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0013.yaml
+######################################################################
+GetISRID_normal_0013:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: TASK1
+
+  do:
+    id: TASK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+
+  post_condition:
+######################################################################
+# GetISRID_normal_0014.yaml
+######################################################################
+GetISRID_normal_0014:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: TASK1
+
+  do:
+    id: TASK1
+    syssrv: GetISRID()
+    rettype: ISRType
+    retval: INVALID_ISR
+
+  post_condition:
+######################################################################

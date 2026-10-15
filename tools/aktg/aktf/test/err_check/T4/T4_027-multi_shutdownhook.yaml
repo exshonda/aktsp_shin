@@ -1,0 +1,22 @@
+T4_027_multi_shutdownhook:
+  property:
+    sc: 
+
+  pre_condition:
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    SHUTDOWN_HOOK2:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+
+  do:
+    id: STARTUP_HOOK1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:

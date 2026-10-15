@@ -1,0 +1,707 @@
+# $Id: configure.yaml 2054 2015-09-01 05:01:58Z aisincom-nishioka $
+
+######################################################################
+# AKTG環境設定ファイル
+# --------------------------------------------------------------------
+# テスト対象とするターゲットおよびテスト環境に合わせて，各パラメータを
+# 設定する．なお，項目によっては，AKTG実行時のオプションによりテストプ
+# ログラム生成処理に使用されないが，AKTG内部のデフォルト値は本ファイル
+# の設定情報から取得しているため，パラメータは削除できない．そこで，設
+# 定したオプションに応じて，パラメータの設定要否がわかるように以下の凡
+# 例を付与している．
+# 【MC】   マルチコアの時のみ設定が必要
+# 【CORE2】コア数が2つ以上の時のみ設定が必要
+# 【CORE3】コア数が3つ以上の時のみ設定が必要
+######################################################################
+
+# configure.yamlのバージョン
+version: 1.0.0
+
+######################################################################
+# テスト対象設定
+######################################################################
+
+# コンフォーマンスクラス
+# [BCC1，BCC2，ECC1，ECC2]
+conformance_class: ECC2
+
+# テスト対象とする仕様
+# [COS，OS，NOS，IOS，DOSをOR条件"|"で指定]
+target_spec: COS | OS | NOS | IOS | DOS
+
+######################################################################
+# OS設定
+# (オブジェクトコンテナのOsOSに当たる設定)
+######################################################################
+
+# スケーラビリティクラス
+# [SC1，SC2，SC3，SC4]
+scalability_class: SC3
+
+# 保護違反時処理機能の機能レベル
+# (SC2，SC3，SC4のみで使用)
+# [Level1: 機能レベル1，Level2: 機能レベル2，Level3: 機能レベル3]
+violation_handling_level: Level2
+
+# タイミング保護機能の機能レベル
+# (SC2，SC4のみで使用)
+# [Level1: 機能レベル1，Level2: 機能レベル2，Level3: 機能レベル3]
+timing_protection_level: Level1
+
+# メモリ保護機能の機能レベル
+# (SC3，SC4のみで使用)
+# [Level1: 機能レベル1，Level2: 機能レベル2，Level3: 機能レベル3]
+memory_protection_level: Level2
+
+# スタックモニタリングの使用有無
+# [true: スタックモニタリング有効，false: スタックモニタリング無効]
+stack_monitoring: true
+
+# エラー種別
+# [STANDARD: 標準エラーのみ検出，EXTENDED: 標準エラーと拡張エラーを検出]
+return_status: EXTENDED
+
+# OSErrorGetServiceId()の使用有無
+# [true: OSErrorGetServiceId有効，false: OSErrorGetServiceId無効]
+use_get_serviceid: true
+
+# エラーが発生したシステムサービスの引数取得の使用有無
+# [true: 引数取得有効，false: 引数取得無効]
+use_parameter_access: true
+
+# C1ISRの使用有無
+# [true: 使用する，false: 使用しない]
+use_c1isr: true
+
+# マスタコアの指定【MC】
+# (メインタスクを起動するコアにもなる)
+# [文字列，もしくは，0以上の整数]
+master_core: 0
+
+# エラーフックの呼出し有無
+# ※本パラメータをtrueにしても，エラーフックが登場しないテストプログラムの場合，
+#   コンフィギュレーションファイルはfalseで生成する(他のフックルーチンも同様)
+# [true: システム定義のエラーフック有効，false: システム定義のエラーフック無効]
+error_hook: true
+
+# ポストタスクフックの呼出し有無
+# [true: ポストタスクフック有効，false: ポストタスクフック無効]
+post_task_hook: true
+
+# プレタスクフックの呼出し有無
+# [true: プレタスクフック有効，false: プレタスクフック無効]
+pre_task_hook: true
+
+# プロテクションフックの呼出し有無
+# [true: プロテクションフック有効，false: プロテクションフック無効]
+protection_hook: true
+
+# シャットダウンフックの呼出し有無
+# [true: シャットダウンフック有効，false: シャットダウンフック無効]
+shutdown_hook: true
+
+# スタートアップフックの呼出し有無
+# [true: スタートアップフック有効，false: スタートアップフック無効]
+startup_hook: true
+
+# コア間割込みの有無
+# [true: コア間割込み有効，false: コア間割込み無効]
+inter_core_interrupt: true
+
+# 全割込み禁止バジェット(単位：秒)
+# (SC2，SC4においてタイミング保護の機能レベル2の場合のみで使用)
+# [0より大きい実数]
+all_interrupt_lock_budget: 1.0
+
+# OS管理割込み禁止バジェット(単位：秒)
+# (SC2，SC4においてタイミング保護の機能レベル2の場合のみで使用)
+# [0より大きい実数]
+os_interrupt_lock_budget: 1.0
+
+######################################################################
+# OSAP固有のフックの設定
+# (オブジェクトコンテナのOsApplication/OsApplicationHooksに当たる設定)
+######################################################################
+
+# OSAP固有のスタートアップフック呼出しの有無
+# [true: OSAP固有のスタートアップフック有効，false: OSAP固有のスタートアップフック無効]
+startup_hook_osap: false
+
+# OSAP固有のシャットダウンフック呼出しの有無
+# [true: OSAP固有のシャットダウンフック有効，false: OSAP固有のシャットダウンフック無効]
+shutdown_hook_osap: false
+
+# OSAP固有のエラーフック呼出しの有無
+# [true: OSAP固有のエラーフック有効，false: OSAP固有のエラーフック無効]
+error_hook_osap: false
+
+######################################################################
+# ターゲットのハードウェアアーキテクチャに関する設定
+######################################################################
+
+# コア数
+# [0より大きい整数]
+core_num: 1
+
+# マルチコアかどうか
+# [true: マルチコア，false: シングルコア]
+use_multi_core: false
+
+# IRCアーキテクチャタイプ【MC】
+# [local: ローカルIRCのみサポート，global: グローバルIRCのみサポート，
+#  combination: ローカルIRC，グローバルIRC両方サポート]
+irc_arch: local
+
+# システムサービスのEnableInterruptSource/DisableInterruptSourceをサポートするか
+# [true: サポートする，false: サポートしない]
+support_enadis_interrupt_source: true
+
+# CPUロック中にCPU例外が発生しても元のコンテキストに戻れるターゲットかどうか
+# [true: 戻れる, false: 戻れない]
+enable_exc_in_cpulock: true
+
+######################################################################
+# ターゲット依存部毎に用意するテストライブラリ
+# (ユーザはテストライブラリを用意できた時にtrueにする)
+######################################################################
+
+# 割込み発生関数の有無
+# [true: 有り，false: 無し]
+func_interrupt: true
+
+# プロテクションフック起動関数の有無
+# [true: 有り, false: 無し] 
+func_protection_hook: true
+
+# ハードウェアカウンタ操作関数の有無
+# [true: 有り, false: 無し] 
+func_hardware_counter: true
+
+# ハードウェアカウンタの設定情報
+# [Hash]
+hardware_counter_param:
+
+  # ハードウェアカウンタのカウンタID
+  # [文字列]
+  counter_id: DUMMY_HARDWARE_COUNTER
+
+  # ハードウェアカウンタに割付けるC2ISRの割込み番号
+  # [文字列か0以上の整数]
+  intno: AKTSP_INTNO_HWCNT
+
+  # ハードウェアカウンタに割付けるC2ISRの割込み優先度
+  # [整数か文字列]
+  iniintpri: INT_PRI_TOP
+
+  # ハードウェアカウンタに割付けるC2ISRの割込み属性
+  # [AK_ENABLE, AK_DISABLE]
+  # ※support_enadis_interrupt_sourceがfalseの場合に，AK_DISABLEは指定できない
+  intatr: AK_ENABLE
+
+  # 周期の最小値
+  # [0より大きく，maxval以下の整数]
+  mincyc: ANY_MINCYC_A
+
+  # カウンタの最大値
+  # [0より大きい整数]
+  maxval: ANY_MAXVAL_A
+
+  # ハードウェアカウンタにおける1ティック当たりの実時間(秒)
+  # [0より大きい実数]
+  secondspertick: 1.0
+
+  # ハードウェアカウンタが所属するOSAP
+  # [aktsp/tools/aktg/doc/param.txt (2.1) 共通項目の[有効値]※aの
+  #  TR_OSAP_OTHER_OTHER_CORE，NT_OSAP_OTHER_OTHER_CORE以外]
+  # (SC3，SC4のみで使用)
+  # ※ハードウェアカウンタに割付けるC2ISRが所属するOSAPは，下記osapで指
+  #   定するOSAPと同じである
+  osap: TRUSTED_OSAP1
+
+  # ハードウェアカウンタに割付けるC2ISR
+  # [文字列]
+  isrid: AKTG_C2ISR_FOR_HWCNT
+
+######################################################################
+# 必要に応じて変更可能なパラメータ
+######################################################################
+
+# タスクの最大優先度
+# [0以上の整数]
+max_task_pri: 15
+
+# タスクの最小優先度
+# [0以上の整数]
+min_task_pri: 0
+
+# スタック共有モード
+# [true: 共有する, false: 共有しない]
+stack_share: true
+
+# スタックオーバーフローをプロテクションフックで検出するか
+# (スタックモニタリングテストで使用するため，本パラメータにfalseを指定した場合，
+#  タスク用スタックを1つ多く確保し，先頭の領域をバッファとする)
+# [true: 検出する，false: 検出しない]
+stackfault_detection: true
+
+# 出力するファイルのファイル名
+# (例："out" の場合 out.c,out.h,out.cfg が生成される)
+# [文字列]
+out_file_name: out
+
+# StartOSに指定するアプリケーションモード
+# [文字列]
+app_mode_name: MainApp
+
+# デフォルトOSAP【MC】
+# (SC1，SC2用のTESRYデータでosapの指定がなく，usr_multi_coreがtrueの場合に，
+#  本パラメータでosapの補完を行う)
+# [文字列]
+default_osap_id: OSAP_SELF_CORE
+
+# スピンロック取得待ちを確認するためのループ回数【MC】
+# [0以上の整数]
+wait_spin_loop: 0xFFFFF
+
+# YAMLファイル読み込みに使用するライブラリ
+# [yaml: YAMLライブラリ，kwalify: Kwalifyライブラリ]
+yaml_lib: kwalify
+
+# doの処理のみGCOVを取得するためのコード生成処理
+# (SkyEye依存部のみで使用可能)
+# [true: ON, false: OFF]
+enable_gcov: false
+
+# doの処理のみC++testによるカバレッジを取得するためのコード生成処理
+# [true: ON, false: OFF]
+enable_cpptest: false
+
+# C++testによるカバレッジ計測時のバッファー使用
+# [true: 使用する, false: 使用しない]
+cpptest_use_buffer: false
+
+# C++testによるカバレッジ計測方法
+# [true: doの処理のみ, false: すべての処理]
+cpptest_only_do: false
+
+# TLV用トレースログを取得するか
+# (※未使用)
+# [true: 取得する, false: 取得しない]
+enable_log: false
+
+# declareの有無
+# [true: declare有効, false: declare無効]
+define_declare: false
+
+# スタック使用量表示の有無
+# [true: スタック使用量表示を有効，false: スタック使用量表示を無効]
+check_stack_usage: false
+
+# stack_shareがtrueの場合に非信頼タスクスタックを配置するメモリリージョン名
+# [文字列]
+nt_task_stack_region: RAM
+
+# コア間割込み変換モード
+# [true: 変換する, false: 変換しない]
+icisr_convert: false
+
+# コア間割込みへ変換するC2ISRの優先度
+# [文字列]
+icisr_pri: INT_PRI_MID
+
+# マスタコアのみ起動
+# [true: マスタコアのみ起動，false: 全てのコアが起動]
+boot_only_master_core: false
+
+######################################################################
+# 変数置換用マクロ定義(マクロ名は変更不可)
+######################################################################
+macro:
+
+# タスク優先度
+# [1以上，かつ，タスクの最大優先度以下の整数]
+# [TSK_PRI_MAX > TSK_PRI_TOP > TSK_PRI_HIGH > TSK_PRI_MID > TSK_PRI_LOW > TSK_PRI_BOTTOM]
+  TSK_PRI_MAX    : 15
+  TSK_PRI_TOP    : 12
+  TSK_PRI_HIGH   : 11
+  TSK_PRI_MID    : 10
+  TSK_PRI_LOW    :  9
+  TSK_PRI_BOTTOM :  8
+
+# 割込み優先度
+# [整数か文字列]
+# [整数の場合：INT_PRI_ISR1_HIGH > INT_PRI_ISR1_MID > INT_PRI_ISR1_LOW > 
+#  INT_PRI_TOP > INT_PRI_HIGH > INT_PRI_MID > INT_PRI_LOW > INT_PRI_BOTTOM]
+  INT_PRI_ISR1_HIGH   : 8
+  INT_PRI_ISR1_MID    : 7
+  INT_PRI_ISR1_LOW    : 6
+  INT_PRI_TOP         : 5
+  INT_PRI_HIGH        : 4
+  INT_PRI_MID         : 3
+  INT_PRI_LOW         : 2
+  INT_PRI_BOTTOM      : 1
+
+# ICISRの割込み優先度
+# [整数か文字列]
+  INT_PRI_ICISR       : 3
+
+# 割込み番号指定
+# [文字列か0以上の整数]
+  INTNO_SELF_C1ISR_HIGH   : AKTSP_INTNO_A
+  INTNO_SELF_C1ISR_MID    : AKTSP_INTNO_B
+  INTNO_SELF_C1ISR_LOW    : AKTSP_INTNO_C
+  INTNO_SELF_C2ISR_TOP    : AKTSP_INTNO_D
+  INTNO_SELF_C2ISR_HIGH   : AKTSP_INTNO_E
+  INTNO_SELF_C2ISR_MID_A  : AKTSP_INTNO_F
+  INTNO_SELF_C2ISR_MID_B  : AKTSP_INTNO_G
+  INTNO_SELF_C2ISR_MID_C  : AKTSP_INTNO_H
+  INTNO_SELF_C2ISR_MID_D  : AKTSP_INTNO_I
+  INTNO_SELF_C2ISR_MID_E  : AKTSP_INTNO_J
+  INTNO_SELF_C2ISR_MID_F  : AKTSP_INTNO_K
+  INTNO_SELF_C2ISR_MID_G  : AKTSP_INTNO_L
+  INTNO_SELF_C2ISR_LOW    : AKTSP_INTNO_M
+  INTNO_SELF_C2ISR_BOTTOM : AKTSP_INTNO_N
+  
+  INTNO_OTHER_ISR1_A      : AKTSP_INTNO_CORE2_A    #【CORE2】
+  INTNO_OTHER_ISR2_A      : AKTSP_INTNO_CORE2_B    #【CORE2】
+  INTNO_OTHER_ISR2_B      : AKTSP_INTNO_CORE2_C    #【CORE2】
+  INTNO_OTHER_ISR2_C      : AKTSP_INTNO_CORE2_D    #【CORE2】
+  INTNO_OTHER_ISR2_D      : AKTSP_INTNO_CORE2_E    #【CORE2】
+  INTNO_OTHER_ISR2_E      : AKTSP_INTNO_CORE2_F    #【CORE2】
+  INTNO_OTHER_ISR2_F      : AKTSP_INTNO_CORE2_G    #【CORE2】
+  INTNO_OTHER_ISR2_G      : AKTSP_INTNO_CORE2_H    #【CORE2】
+  INTNO_OTHER_ISR2_H      : AKTSP_INTNO_CORE2_I    #【CORE2】
+  INTNO_OTHER_ISR2_I      : AKTSP_INTNO_CORE2_J    #【CORE2】
+  INTNO_OTHER_ISR2_J      : AKTSP_INTNO_CORE2_K    #【CORE2】
+  INTNO_OTHER_ISR2_K      : AKTSP_INTNO_CORE2_L    #【CORE2】
+  INTNO_OTHER_1_ISR1_A    : AKTSP_INTNO_CORE2_A    #【CORE2】
+  INTNO_OTHER_1_ISR2_A    : AKTSP_INTNO_CORE2_B    #【CORE2】
+  INTNO_OTHER_1_ISR2_B    : AKTSP_INTNO_CORE2_C    #【CORE2】
+  INTNO_OTHER_1_ISR2_C    : AKTSP_INTNO_CORE2_D    #【CORE2】
+  INTNO_OTHER_1_ISR2_D    : AKTSP_INTNO_CORE2_E    #【CORE2】
+  INTNO_OTHER_1_ISR2_E    : AKTSP_INTNO_CORE2_F    #【CORE2】
+  INTNO_OTHER_2_ISR1_A    : AKTSP_INTNO_CORE3_A    #【CORE3】
+  INTNO_OTHER_2_ISR2_A    : AKTSP_INTNO_CORE3_B    #【CORE3】
+  INTNO_OTHER_2_ISR2_B    : AKTSP_INTNO_CORE3_C    #【CORE3】
+  INTNO_OTHER_2_ISR2_C    : AKTSP_INTNO_CORE3_D    #【CORE3】
+  INTNO_OTHER_2_ISR2_D    : AKTSP_INTNO_CORE3_E    #【CORE3】
+  INTNO_OTHER_2_ISR2_E    : AKTSP_INTNO_CORE3_F    #【CORE3】
+
+# コアIDの指定
+# [0以上の整数]
+  MASTER_CORE  : master_core
+  CORE_SELF    : 0
+  CORE_OTHER   : 1
+  CORE_OTHER_1 : 1
+  CORE_THIRD   : 2
+
+# コア数
+# [0以上の整数]
+  CORE_NUM : core_num
+
+# プロテクションフックの不正な戻り値
+# [整数か文字列]
+  PRO_INVALID : "-1"
+
+# 基本タスクの任意の起動要求の最大数
+# [3以上の整数]
+  ANY_BASIC_MAXACT : 3
+
+# 基本タスクの任意の起動要求数(2以上,MAX未満)
+# [2以上，かつ，ANY_BASIC_MAXACT未満の整数
+  ANY_ACTCNT_NOT_MAX_1 : 2
+
+# 満了するティックの絶対値
+# [0以上，かつ，ANY_MAXVAL_*以下の整数(*は，ANY_ALMVAL_*と同じアルファベット)]
+  ANY_ALMVAL_A : 5
+  ANY_ALMVAL_B : 15
+  ANY_ALMVAL_C : 30
+
+# アラーム満了周期
+# [0より大きく，対象カウンタのANY_MINCYC_*以上，ANY_MAXVAL_*以下の整数(*は，ANY_ALMCYCLE_*と同じアルファベット)]
+  ANY_ALMCYCLE_A : 5
+  ANY_ALMCYCLE_B : 15
+  ANY_ALMCYCLE_C : 30
+
+# 周期の最小値
+# [0より大きく，対象カウンタのANY_MAXVAL_*以下の整数(*は，ANY_MINCYC_*と同じアルファベット)]
+  ANY_MINCYC_A : 2
+  ANY_MINCYC_B : 4
+  ANY_MINCYC_C : 6
+
+# カウンタの最大値
+# [1より大きい整数]
+  ANY_MAXVAL_A : 10
+  ANY_MAXVAL_B : 50
+  ANY_MAXVAL_C : 100
+
+# カウンタの現在値
+# [0以上，対象カウンタのANY_MAXVAL_*以下の整数(*は，ANY_CURVAL_*と同じアルファベット)]
+  ANY_CURVAL_A : 0
+  ANY_CURVAL_B : 2
+  ANY_CURVAL_C : 4
+
+# カウンタの現在値(0以外の値)
+# [0より大きく，対象カウンタのANY_MAXVAL_*以下の整数(*は，ANY_CURVAL_NOT_0_*と同じアルファベット)]
+  ANY_CURVAL_NOT_0_A : 1
+  ANY_CURVAL_NOT_0_B : 3
+  ANY_CURVAL_NOT_0_C : 5
+
+# カウンタの現在値(MAX以外の値)
+# [0以上，対象カウンタのANY_MAXVAL_*未満の整数(*は，ANY_CURVAL_NOT_MAX_*と同じアルファベット)]
+  ANY_CURVAL_NOT_MAX_A : 1
+  ANY_CURVAL_NOT_MAX_B : 3
+  ANY_CURVAL_NOT_MAX_C : 5
+
+# カウンタの現在値(0,MAX以外の値)
+# [0より大きく，対象カウンタのANY_MAXVAL_*未満の整数(*は，ANY_CURVAL_NOT_0_MAX_*と同じアルファベット)]
+  ANY_CURVAL_NOT_0_MAX_A : 1
+  ANY_CURVAL_NOT_0_MAX_B : 3
+  ANY_CURVAL_NOT_0_MAX_C : 5
+  
+# ラップアラウンドするアラーム系の検査で使用するカウンタの値
+# [0以上，対象カウンタのANY_CURVAL_NOT_0_MAX_*未満の整数(*は，ANY_CURVAL_WRAPAROUND_*と同じアルファベット)]
+  ANY_CURVAL_WRAPAROUND_A : 0
+  ANY_CURVAL_WRAPAROUND_B : 2
+  ANY_CURVAL_WRAPAROUND_C : 4
+
+# ラップアラウンドしないアラーム系の検査で使用するカウンタの値
+# [対象カウンタのANY_CURVAL_NOT_0_MAX_*より大きく，ANY_MAXVAL_*以下の整数(*は，ANY_CURVAL_NOT_WRAPAROUND_*と同じアルファベット)]
+  ANY_CURVAL_NOT_WRAPAROUND_A : 2
+  ANY_CURVAL_NOT_WRAPAROUND_B : 4
+  ANY_CURVAL_NOT_WRAPAROUND_C : 6
+
+# アラーム満了までのティックの相対値の不正な値
+# [ANY_MAXVAL_*より大きい整数(*は，INVALID_INCREMENT_GREATER_THAN_MAXVAL_*と同じアルファベット)]
+  INVALID_INCREMENT_GREATER_THAN_MAXVAL_A : 11
+  INVALID_INCREMENT_GREATER_THAN_MAXVAL_B : 51
+  INVALID_INCREMENT_GREATER_THAN_MAXVAL_C : 101
+
+# アラーム満了までのティックの相対値の不正な値
+# [0より小さい整数]
+  INVALID_INCREMENT_LOWER_THAN_0 : -1
+
+# アラーム満了までのティックの絶対値の不正な値
+# [ANY_MAXVAL_*より大きい整数(*は，INVALID_START_GREATER_THAN_MAXVAL_*と同じアルファベット)]
+  INVALID_START_GREATER_THAN_MAXVAL_A : 11
+  INVALID_START_GREATER_THAN_MAXVAL_B : 51
+  INVALID_START_GREATER_THAN_MAXVAL_C : 101
+
+# アラーム満了までのティックの絶対値の不正な値
+# [0より小さい整数]
+  INVALID_START_LOWER_THAN_0 : -1
+
+# アラーム満了周期の不正な値
+# [ANY_MAXVAL_*より大きい整数(*は，INVALID_CYCLE_GREATER_THAN_MAXVAL_*と同じアルファベット)]
+  INVALID_CYCLE_GREATER_THAN_MAXVAL_A : 11
+  INVALID_CYCLE_GREATER_THAN_MAXVAL_B : 51
+  INVALID_CYCLE_GREATER_THAN_MAXVAL_C : 101
+
+# アラーム満了周期の不正な値
+# [0より大きく，ANY_MINCYC_*(*は，INVALID_CYCLE_LOWER_THAN_MINCYCL_*と同じアルファベット)より小さい整数]
+  INVALID_CYCLE_LOWER_THAN_MINCYCL_A : 1
+  INVALID_CYCLE_LOWER_THAN_MINCYCL_B : 3
+  INVALID_CYCLE_LOWER_THAN_MINCYCL_C : 5
+
+# ユーザ定義のイベントマスク値
+# [AK_AUTO，もしくは，0より大きい整数]
+  EVENTMASK_A  : AK_AUTO
+  EVENTMASK_B  : AK_AUTO
+  EVENTMASK_C  : AK_AUTO
+
+# 任意のスケジューリングポリシ
+# [AK_SCHFULL, AK_SCHNON]
+  ANY_SPOLICY : AK_SCHFULL
+
+# 任意のタスクの種別
+# [AK_BASIC, AK_EXTENDED]
+  ANY_TTYPE : AK_BASIC
+
+# 任意のカウンタ固有の単位に達するまでに必要なティック数
+# [0より大きい整数]
+  ANY_TICKSPERBASE : 1
+
+# イベントマスク値
+# [AK_AUTO，もしくは，0より大きい整数]
+  ANY_EVENTMASK : AK_AUTO
+
+# スケジュールテーブル周期(スケジュールテーブルのシステムサービステスト用)
+# [ANY_MINCYC_*+1(*は，ANY_SCDLTBL_DURATION_*と同じアルファベット)以上,ANY_MAXVAL_*(同上)以下の整数]
+  ANY_SCDLTBL_DURATION_A : 5
+  ANY_SCDLTBL_DURATION_B : 9
+  ANY_SCDLTBL_DURATION_C : 14
+
+# スケジュールテーブル初期オフセット(最終オフセットを兼ねる)(任意の値)
+# [0またはANY_MINCYC_*以上,ANY_SCDLTBL_DURATION_* - ANY_MINCYC_*以下の整数]
+  ANY_SCDLTBL_INIT_OFFSET_A : 3
+  ANY_SCDLTBL_INIT_OFFSET_B : 4
+  ANY_SCDLTBL_INIT_OFFSET_C : 6
+
+# スケジュールテーブル初期オフセット(最終オフセットを兼ねる)(0以外の値)
+# [ANY_MINCYC_*以上,ANY_SCDLTBL_DURATION_* - ANY_MINCYC_*以下の整数]
+  ANY_SCDLTBL_INIT_OFFSET_NOT_0_A : 2
+  ANY_SCDLTBL_INIT_OFFSET_NOT_0_B : 4
+  ANY_SCDLTBL_INIT_OFFSET_NOT_0_C : 6
+
+# スケジュールテーブル初期オフセット(最終オフセットを兼ねる)(中間値用)
+# [ANY_MINCYC_*以上,ANY_SCDLTBL_DURATION_* - ANY_MINCYC_*未満の整数]
+  ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_A : 2
+  ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_B : 4
+  ANY_SCDLTBL_INIT_OFFSET_NOT_0_MAX_C : 6
+
+# スケジュールテーブル初期オフセット(0以外の値)
+# [ANY_MINCYC_*(*は，ANY_SCDLTBL_OFFSET_NOT_0_*と同じアルファベット)以上,
+# ANY_MAXVAL_*(〃)以下の整数]
+  ANY_SCDLTBL_OFFSET_NOT_0_A : 2
+  ANY_SCDLTBL_OFFSET_NOT_0_B : 4
+  ANY_SCDLTBL_OFFSET_NOT_0_C : 6
+  
+# StartScheduleTableRel()の引数に指定するスケジュールテーブル開始オフセット
+# [1より大きく,ANY_MAXVAL_A未満の整数]
+  ANY_PARAM_OFFSET_STARTSCDLTBLREL : 2
+
+# StartScheduleTableRel()で使用するスケジュールテーブル開始前時刻
+# [0より大きく，対象カウンタのANY_CURVAL_STARTSCDLTBLREL_NOT_WRAPAROUND未満の整数]
+  ANY_CURVAL_STARTSCDLTBLREL : 6
+
+# StartScheduleTableRel()で使用するスケジュールテーブル開始時刻(カウンタラップアラウンドあり)
+# [0以上，ANY_MAXVAL_A - ANY_CURVAL_STARTSCDLTBLREL + ANY_CURVAL_STARTSCDLTBLREL_WRAPAROUND + 1の値が，
+#  ANY_MAXVAL_A - ANY_SCDLTBL_INIT_OFFSET_A以下の整数]
+  ANY_CURVAL_STARTSCDLTBLREL_WRAPAROUND : 0
+
+# StartScheduleTableRel()の引数に指定するスケジュールテーブル開始オフセット(カウンタラップアラウンドなし)
+# [ANY_CURVAL_STARTSCDLTBLRELより大きく,ANY_MAXVAL_A以下の整数]
+  ANY_CURVAL_STARTSCDLTBLREL_NOT_WRAPAROUND : 8
+
+# 任意のスケジュールテーブルの繰り返し指定
+# [AK_TRUE, AK_FALSE]
+  ANY_SCDLTBLREL_REPEAT : AK_FALSE
+
+# 信頼関数ので使用するスタックサイズ
+# [文字列か0以上の整数]
+# (SC3，SC4のみで使用)
+  ANY_TFN_STKSZ: AKTSP_STACK_SIZE_FOR_TFN
+
+# 任意の所属OSAP_1
+# [文字列]
+# (SC3，SC4のみで使用)
+  ANY_OSAP_1: TRUSTED_OSAP1
+
+# E_OS_ILLEGAL_ADDRESS用不正アドレス
+# ILLEGAL_ADDRESS[文字列か0より大きい整数]
+  INVALID_ILLEGAL_ADD : ActivateTask
+
+# IOC通信データ
+  DATA_UINT8_A: 0x01
+  DATA_UINT8_B: 0x02
+  DATA_UINT8_C: 0x03
+  DATA_UINT8_D: 0x04
+  DATA_UINT8_E: 0x05
+  DATA_UINT8_F: 0x06
+  DATA_UINT16_A: 0x0100
+  DATA_UINT16_B: 0x0200
+  DATA_UINT16_C: 0x0300
+  DATA_UINT16_D: 0x0400
+  DATA_UINT16_E: 0x0500
+  DATA_UINT16_F: 0x0600
+  DATA_UINT32_A: 0x01000000
+  DATA_UINT32_B: 0x02000000
+  DATA_UINT32_C: 0x03000000
+  DATA_UINT32_D: 0x04000000
+  DATA_UINT32_E: 0x05000000
+  DATA_UINT32_F: 0x06000000
+  DATA_INT_A: 10
+  DATA_INT_B: 20
+  DATA_INT_C: 30
+  DATA_INT_D: 40
+  DATA_INT_E: 50
+  DATA_INT_F: 60
+
+######################################################################
+# MC用変数置換用マクロ定義(マクロ名は変更不可)
+######################################################################
+mc_macro:
+
+# 信頼OSAP1
+# [文字列]
+# (SC3のテストをSC3-MCの環境で実行時に使用)
+  TRUSTED_OSAP1: TR_OSAP_SELF_CORE
+
+# 信頼OSAP2
+# [文字列]
+# (SC3のテストをSC3-MCの環境で実行時に使用)
+  TRUSTED_OSAP2: TR_OSAP_SELF_CORE_2
+
+# 信頼OSAP3
+# [文字列]
+# (SC3のテストをSC3-MCの環境で実行時に使用)
+  TRUSTED_OSAP3: TR_OSAP_SELF_CORE_3
+
+# 非信頼OSAP1
+# [文字列]
+# (SC3のテストをSC3-MCの環境で実行時に使用)
+  NON_TRUSTED_OSAP1: NT_OSAP_SELF_CORE
+
+# 非信頼OSAP2
+# [文字列]
+# (SC3のテストをSC3-MCの環境で実行時に使用)
+  NON_TRUSTED_OSAP2: NT_OSAP_SELF_CORE_2
+
+# 非信頼OSAP3
+# [文字列]
+# (SC3のテストをSC3-MCの環境で実行時に使用)
+  NON_TRUSTED_OSAP3: NT_OSAP_SELF_CORE_3
+
+######################################################################
+# 不正ID展開用マクロ定義(マクロ名は変更不可)※すべて配列
+######################################################################
+invalid_id:
+# タスクの不正なID
+  INVALID_TSK_ID :
+    - "(TaskType)-1"
+    - "TNUM_TASK"
+
+# カテゴリ2 ISRの不正なID
+  INVALID_ISR_ID :
+    - "(ISRType)-1"
+    - "TNUM_ISR2"
+
+# リソースの不正なID
+  INVALID_RES_ID :
+    - "(ResourceType)-1"
+    - "TNUM_STD_RESOURCE+1"
+
+# カウンタの不正なID
+  INVALID_CNT_ID :
+    - "(CounterType)-1"
+    - "TNUM_COUNTER+1"
+
+# アラームの不正なID
+  INVALID_ALM_ID :
+    - "(AlarmType)-1"
+    - "TNUM_ALARM"
+
+# スケジュールテーブルの不正なID
+  INVALID_SCHTBL_ID :
+    - "(ScheduleTableType)-1"
+    - "TNUM_SCHEDULETABLE"
+
+# OSアプリケーションの不正なID
+  INVALID_OSAP_ID :
+    - "(ApplicationType)-1"
+    - "TNUM_OSAP"
+
+# FunctionIndexの不正なID
+  INVALID_FUNC_INDEX :
+    - "(TrustedFunctionIndexType)-1"
+    - "TNUM_TFN"
+
+# ObjectTypeの不正なID
+  INVALID_OBJECT_TYPE_ID :
+    - "(ObjectTypeType)-1"
+    - "AKTSP_INVALID_OBJ_TYPE_NUM"
+
+# スピンロックの不正なID
+  INVALID_SPN_ID :
+    - "(SpinlockIdType)-1"
+    - "TNUM_SPINLOCK+1"

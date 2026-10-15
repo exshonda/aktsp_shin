@@ -1,0 +1,36 @@
+T3_TSK011_ready_and_schnon_defined_getres:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_LOW
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY

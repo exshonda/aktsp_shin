@@ -1,0 +1,91 @@
+######################################################################
+# interrupts_004_0001.yaml
+######################################################################
+interrupts_004_0001:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+
+  do_0:
+    id: TASK1
+    syssrv: SuspendAllInterrupts()
+    repeat: 254
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: CheckAssert(sus_all_cnt == 254)
+
+  post_condition_1:
+
+  do_2:
+    id: TASK1
+    syssrv: SuspendAllInterrupts()
+
+  post_condition_2:
+
+  do_3:
+    id: TASK1
+    syssrv: CheckAssert(sus_all_cnt == 255)
+
+  post_condition_3:
+
+  do_4:
+    id: TASK1
+    syssrv: ResumeAllInterrupts()
+    repeat: 255
+
+  post_condition_4:
+######################################################################
+# interrupts_004_0002.yaml
+######################################################################
+interrupts_004_0002:
+  property:
+    sc: 
+      - SC1
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+
+  do_0:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+    repeat: 254
+
+  post_condition_0:
+
+  do_1:
+    id: TASK1
+    syssrv: CheckAssert(sus_os_cnt == 254)
+
+  post_condition_1:
+
+  do_2:
+    id: TASK1
+    syssrv: SuspendOSInterrupts()
+
+  post_condition_2:
+
+  do_3:
+    id: TASK1
+    syssrv: CheckAssert(sus_os_cnt == 255)
+
+  post_condition_3:
+
+  do_4:
+    id: TASK1
+    syssrv: ResumeOSInterrupts()
+    repeat: 255
+
+  post_condition_4:
+######################################################################

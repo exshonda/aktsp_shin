@@ -1,0 +1,187 @@
+######################################################################
+# ActivateTask_N_006_0001.yaml
+######################################################################
+ActivateTask_N_006_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      bootcnt: 0
+      getres:
+        - RESOURCE1
+      relevt:
+        - EVENT1
+      relres:
+        - RESOURCE1
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      curevt: 0
+      getres:
+######################################################################
+# ActivateTask_N_006_0002.yaml
+######################################################################
+ActivateTask_N_006_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: READY
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: EVENT1
+      bootcnt: 0
+      getres:
+        - RESOURCE1
+      relevt:
+        - EVENT1
+      relres:
+        - RESOURCE1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+    EVENT1:
+      type: EVENT
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do_0:
+    id: TASK2
+    syssrv: TerminateTask()
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      getres:
+
+  do_1:
+    id: TASK1
+    syssrv: AktspRaiseInterrupt(INTNO_SELF_C2ISR_MID_A)
+    gcov: false
+
+  post_condition_1:
+    TASK1:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: SUSPENDED
+      bootcnt: 1
+      getres:
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_2:
+    id: C2ISR1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_2:
+    TASK1:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+      curevt: 0
+    C2ISR1:
+      rtnstat: AK_ACTIVATE
+
+  do_3:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_3:
+    TASK1:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK2:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################

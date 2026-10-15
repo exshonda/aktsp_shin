@@ -1,0 +1,19 @@
+b out.c:111
+b STARTUP_HOOK1
+b out.c:73
+set logging file result_execute.log
+set logging on
+commands 1
+p/x kernel_callevel_stat
+c
+end
+commands 2
+p/t $status
+c
+end
+commands 3
+p/x kernel_callevel_stat
+end
+c
+set logging off
+quit

@@ -1,0 +1,83 @@
+T1_021_schedule_table_incounter_undefined:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      relevt:
+        - EVENT1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_HIGH
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_LOW
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      repeat: AK_TRUE
+      duration: 10
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      curval: 1
+      expoint:
+        2:
+          setevt:
+            - TASK2: EVENT1
+        4:
+          incounter: COUNTER1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 10
+      curval: 3
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    EVENT1:
+      type: EVENT
+
+  do_0:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: false
+
+  post_condition_0:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_HIGH
+      actcnt: 1
+      curevt: EVENT1
+    SCHEDULE_TABLE1:
+      curval: 2
+    COUNTER1:
+      curval: 4
+      cstat: AK_CS_DOING
+
+  do_1:
+    id: TASK2
+    syssrv: StopScheduleTable(SCHEDULE_TABLE1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_1:
+    SCHEDULE_TABLE1:
+      ststat: SCHEDULETABLE_STOPPED

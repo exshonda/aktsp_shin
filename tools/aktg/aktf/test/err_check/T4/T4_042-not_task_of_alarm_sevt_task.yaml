@@ -1,0 +1,45 @@
+T4_042_not_task_of_alarm_sevt_task:
+  property:
+    sc:
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    TASK2:
+      type: EVENT
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_SEVT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: 10
+      cycle: 0
+      task: TASK2
+      event: EVT1
+    COUNTER1:
+      type: COUNTER
+      mincyc: 1
+      maxval: 20
+      curval: 0
+      cstat: AK_CS_NULL
+      ctype: AK_SOFTWARE
+    EVT1:
+      type: EVENT
+
+  do:
+    id: TASK1
+    syssrv: IncrementCounter(COUNTER1)
+    repeat: 10
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    ALARM1:
+      astat: AK_UNSET
+    COUNTER1:
+      curval: 10
+      cstat: AK_CS_DOING

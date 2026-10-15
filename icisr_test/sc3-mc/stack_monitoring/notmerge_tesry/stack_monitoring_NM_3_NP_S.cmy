@@ -1,0 +1,225 @@
+######################################################################
+# stack_monitoring_NM_3_NP_S_0001.yaml
+######################################################################
+stack_monitoring_NM_3_NP_S_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_isrid: ICISR1
+      osap: TR_OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByIcIsr(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_3_NP_S_0002.yaml
+######################################################################
+stack_monitoring_NM_3_NP_S_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: C2ISR1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_isrid: ICISR1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseIsrStackOverflowByIcIsr(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TRUSTED_FUNCTION1:
+      caller: 
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_3_NP_S_0003.yaml
+######################################################################
+stack_monitoring_NM_3_NP_S_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_isrid: ICISR1
+      osap: TR_OSAP_SELF_CORE
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: AktspRaiseIsrStackOverflowByIcIsr(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################
+# stack_monitoring_NM_3_NP_S_0004.yaml
+######################################################################
+stack_monitoring_NM_3_NP_S_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+      var:
+        local:
+          type: AktspTfParam
+    ICISR1:
+      type: ICISR
+      rtnstat: AK_STOP
+      osap: TR_OSAP_SELF_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: C2ISR1
+      arg: local
+      osap: TR_OSAP_SELF_CORE_2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_CHECK_REMAIN
+          stk_isrid: ICISR1
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_STOP
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseIsrStackOverflowByIcIsr(AKTSP_OS_STACK_ADDRESS,AKTSP_OS_STACK_SIZE,&vname1)
+
+  post_condition_0:
+    C2ISR1:
+      rtnstat: AK_STOP
+    TRUSTED_FUNCTION1:
+      caller: 
+    SHUTDOWN_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: SHUTDOWN_HOOK1
+    syssrv: CheckAssert(Error == E_OS_STACKFAULT)
+
+  post_condition_1:
+######################################################################

@@ -1,0 +1,3047 @@
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0001.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0001:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0002.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0002:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0003.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0003:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0004.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0004:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0005.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0005:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0006.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0006:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_ACTIVATE_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0007.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0007:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0008.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0008:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0009.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0009:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0010.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0010:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0011.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0011:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0012.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0012:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0013.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0013:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0014.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0014:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0015.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0015:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0016.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0016:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0017.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0017:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0018.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0018:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0019.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0019:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0020.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0020:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0021.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0021:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0022.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0022:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0023.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0023:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0024.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0024:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_RELEASE_RESOURCE
+          stk_resource: RESOURCE1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0025.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0025:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0026.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0026:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0027.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0027:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0028.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0028:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0029.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0029:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0030.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0030:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_HIGH
+      curpri: TSK_PRI_HIGH
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SET_EVENT
+          stk_task: TASK2
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0031.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0031:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0032.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0032:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0033.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0033:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0034.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0034:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0035.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0035:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0036.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0036:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0037.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0037:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0038.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0038:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0039.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0039:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0040.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0040:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0041.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0041:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0042.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0042:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHFULL
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0043.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0043:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0044.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0044:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0045.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0045:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0046.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0046:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0047.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0047:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0048.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0048:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0049.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0049:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0050.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0050:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0051.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0051:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0052.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0052:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0053.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0053:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0054.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0054:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_CHAIN_TASK
+          stk_task: TASK2
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0055.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0055:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SCHEDULE
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0056.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0056:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SCHEDULE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0057.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0057:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_SCHEDULE
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0058.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0058:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: NON_TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SCHEDULE
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0059.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0059:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SCHEDULE
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0060.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0060:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      osap: TRUSTED_OSAP1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_SCHEDULE
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0061.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0061:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0062.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0062:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0063.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0063:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0064.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0064:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0065.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0065:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+      osap: TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0066.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0066:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_TERMINATE_TASK
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0067.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0067:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0068.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0068:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0069.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0069:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_MAGIC_NUMBER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0070.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0070:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: NON_TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_SYSTEM_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0071.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0071:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+      osap: TRUSTED_OSAP1
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################
+# stack_monitoring_NM_1_NP_NS_0072.yaml
+######################################################################
+stack_monitoring_NM_1_NP_NS_0072:
+  property:
+    need_stack_share: true
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      relevt:
+        - EVENT1
+      osap: TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    TASK2:
+      type: TASK
+      tstat: READY
+      ttype: AK_EXTENDED
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      caller: TASK1
+      arg: local
+      osap: TRUSTED_OSAP2
+      var:
+        vname1:
+          type: AktspStackOverflowInfo
+          stk_mode: AK_SMM_STACK_POINTER
+          stk_action: AK_SOA_WAIT_EVENT
+          stk_event: EVENT1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: AktspRaiseTaskStackOverflowByDispatch(AKTSP_TASK_STACK_ADDRESS,AKTSP_TASK_STACK_SIZE,&vname1)
+    finish: true
+
+  post_condition:
+######################################################################

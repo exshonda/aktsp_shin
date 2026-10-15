@@ -1,0 +1,643 @@
+######################################################################
+# ReleaseResource_nml_c1res1_0001.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      curintpri: INT_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: C2ISR1
+    syssrv: ReleaseResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      curintpri: INT_PRI_MID
+      getres:
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0002.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      curintpri: INT_PRI_HIGH
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_HIGH
+      iniintpri: INT_PRI_HIGH
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: C2ISR1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      curintpri: INT_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0003.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: C2ISR1
+    syssrv: ReleaseResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0004.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_LOW
+      iniintpri: INT_PRI_LOW
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: C2ISR1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0005.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: C2ISR1
+    syssrv: ReleaseResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0006.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: TRUSTED_OSAP1
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: C2ISR1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    C2ISR1:
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0007.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+      getres:
+        - RESOURCE3
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ReleaseResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      getres:
+      caller: 
+######################################################################
+# ReleaseResource_nml_c1res1_0008.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0009.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE3
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_UNLOCK
+    RESOURCE3:
+      type: RESOURCE
+      resprop: AK_LINKED
+      lockflg: AK_LOCK
+      linkres: RESOURCE1
+
+  do:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE3)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE3:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0010.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+      var:
+        local:
+          type: AktspTfParam
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      osap: TRUSTED_OSAP2
+      caller: TASK1
+      getres:
+        - RESOURCE1
+
+  do:
+    id: TRUSTED_FUNCTION1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+    TRUSTED_FUNCTION1:
+      getres:
+      caller: 
+######################################################################
+# ReleaseResource_nml_c1res1_0011.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: NON_TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+      accosap:
+        - NON_TRUSTED_OSAP1
+
+  do:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################
+# ReleaseResource_nml_c1res1_0012.yaml
+######################################################################
+ReleaseResource_nml_c1res1_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: INT_PRI_MID
+      spolicy: ANY_SPOLICY
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      relres:
+        - RESOURCE1
+      osap: TRUSTED_OSAP1
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_STANDARD
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: ReleaseResource(RESOURCE1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      curpri: TSK_PRI_MID
+      getres:
+    RESOURCE1:
+      lockflg: AK_UNLOCK
+######################################################################

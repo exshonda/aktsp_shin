@@ -1,0 +1,27 @@
+version: "$Id: ActivateTask_E_a.yaml 2 2014-04-15 07:29:16Z fsi-dankei $"
+ActivateTask_E_a:
+  variation:
+    ts: COS
+    si:
+      - COS0432
+      - NOS226
+      - OS266
+
+  pre_condition:
+    TASK1:
+      type  : TASK
+      tstat : RUNNING
+      relevt:
+        - EVT1
+
+    EVT1:
+      type: EVENT
+
+  do:
+    id     : TASK1
+    syssrv : ActivateTask(-1)
+    rettype: StatusType
+    retval : E_OS_ID
+
+  post_condition:
+

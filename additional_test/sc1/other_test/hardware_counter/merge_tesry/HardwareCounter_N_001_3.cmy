@@ -1,0 +1,229 @@
+######################################################################
+# HardwareCounter_N_001_3_0001.yaml
+######################################################################
+HardwareCounter_N_001_3_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      cycle: 0
+      task: TASK2
+    ALARM2:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      cycle: 0
+      task: TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition:
+    COUNTER1:
+      curval: 2
+    ALARM1:
+      astat: AK_UNSET
+    ALARM2:
+      astat: AK_UNSET
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+    TASK3:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+######################################################################
+# HardwareCounter_N_001_3_0002.yaml
+######################################################################
+HardwareCounter_N_001_3_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      repeat: ANY_SCDLTBLREL_REPEAT
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+    SCHEDULE_TABLE2:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      repeat: ANY_SCDLTBLREL_REPEAT
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition:
+    COUNTER1:
+      curval: 2
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    SCHEDULE_TABLE2:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+    TASK3:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+######################################################################
+# HardwareCounter_N_001_3_0003.yaml
+######################################################################
+HardwareCounter_N_001_3_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_LOW
+      curpri: TSK_PRI_LOW
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    TASK3:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      ttype: AK_BASIC
+      spolicy: AK_SCHFULL
+    SCHEDULE_TABLE1:
+      type: SCHEDULE_TABLE
+      counter: COUNTER1
+      syncstrategy: AK_NONE
+      ststat: SCHEDULETABLE_RUNNING
+      repeat: ANY_SCDLTBLREL_REPEAT
+      duration: ANY_SCDLTBL_DURATION_A
+      curval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      expoint:
+        ANY_SCDLTBL_INIT_OFFSET_A:
+          acttsk:
+            - TASK2
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_ATSK
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_SCDLTBL_INIT_OFFSET_A-1
+      cycle: 0
+      task: TASK3
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_HARDWARE
+      curval: 1
+
+  do:
+    id: TASK1
+    syssrv: AktspIncrementHardwareCounter(COUNTER1)
+    gcov: true
+
+  post_condition:
+    COUNTER1:
+      curval: 2
+    SCHEDULE_TABLE1:
+      curval: ANY_SCDLTBL_INIT_OFFSET_A
+    ALARM1:
+      astat: AK_UNSET
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: READY
+      actcnt: 1
+      curpri: TSK_PRI_MID
+    TASK3:
+      tstat: RUNNING
+      actcnt: 1
+      curpri: TSK_PRI_HIGH
+######################################################################

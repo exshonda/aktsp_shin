@@ -1,0 +1,522 @@
+######################################################################
+# GetTaskState_m_normal_4_0001.yaml
+######################################################################
+GetTaskState_m_normal_4_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      var:
+        vname1:
+          value: RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# GetTaskState_m_normal_4_0002.yaml
+######################################################################
+GetTaskState_m_normal_4_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+      actcnt: 1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      osap: OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition_0:
+    C2ISR1:
+      var:
+        vname1:
+          value: RUNNING
+
+  do_1:
+    id: C2ISR1
+    syssrv: return
+    gcov: false
+
+  post_condition_1:
+    C2ISR1:
+      rtnstat: AK_STOP
+######################################################################
+# GetTaskState_m_normal_4_0003.yaml
+######################################################################
+GetTaskState_m_normal_4_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0004.yaml
+######################################################################
+GetTaskState_m_normal_4_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+      actcnt: 1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      coreid: CORE_SELF
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    ERROR_HOOK1:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0005.yaml
+######################################################################
+GetTaskState_m_normal_4_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      coreid: CORE_SELF
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0006.yaml
+######################################################################
+GetTaskState_m_normal_4_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+      actcnt: 1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      coreid: CORE_SELF
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0007.yaml
+######################################################################
+GetTaskState_m_normal_4_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      coreid: CORE_SELF
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0008.yaml
+######################################################################
+GetTaskState_m_normal_4_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+      actcnt: 1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      osap: OSAP_SELF_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+      coreid: CORE_SELF
+
+  do:
+    id: PRETASK_HOOK1
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    PRETASK_HOOK1:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0009.yaml
+######################################################################
+GetTaskState_m_normal_4_0009:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      maxact: ANY_BASIC_MAXACT
+      actcnt: ANY_ACTCNT_NOT_MAX_1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      var:
+        vname1:
+          type: TaskStateType
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK3
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK3:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################
+# GetTaskState_m_normal_4_0010.yaml
+######################################################################
+GetTaskState_m_normal_4_0010:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      spolicy: ANY_SPOLICY
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: ANY_TTYPE
+      spolicy: ANY_SPOLICY
+      actcnt: 1
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK3:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      ttype: AK_BASIC
+      spolicy: ANY_SPOLICY
+      var:
+        vname1:
+          type: TaskStateType
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK3
+    syssrv: GetTaskState(TASK2,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK3:
+      var:
+        vname1:
+          value: RUNNING
+######################################################################

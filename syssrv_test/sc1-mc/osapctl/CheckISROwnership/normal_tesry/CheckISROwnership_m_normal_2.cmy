@@ -1,0 +1,301 @@
+######################################################################
+# CheckISROwnership_m_normal_2_0001.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckObjectOwnership(OBJECT_ISR,C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0002.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_OTHER_ISR2_C
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: OSAP_OTHER_OTHER_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: C2ISR1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0003.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_ISR,C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0004.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0004:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: ERROR_HOOK1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0005.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0005:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckObjectOwnership(OBJECT_ISR,C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0006.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0006:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do:
+    id: PROTECTION_HOOK1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0007.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0007:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckObjectOwnership(OBJECT_ISR,C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################
+# CheckISROwnership_m_normal_2_0008.yaml
+######################################################################
+CheckISROwnership_m_normal_2_0008:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: OSAP_OTHER_OTHER_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      osap: OSAP_SELF_CORE
+    C2ISR2:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_B
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_STOP
+      osap: OSAP_SELF_CORE
+
+  do:
+    id: TASK1
+    syssrv: CheckISROwnership(C2ISR2)
+    rettype: ApplicationType
+    retval: OSAP_SELF_CORE
+
+  post_condition:
+######################################################################

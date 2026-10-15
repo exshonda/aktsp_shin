@@ -1,0 +1,49 @@
+T2_003_posttaskhook_var_invalid:
+  property:
+    sc: 
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        1vname*:
+          type: TickType
+    ALARM1:
+      type: ALARM
+      almact: AK_ALM_INCNT
+      counter: COUNTER1
+      astat: AK_SET
+      almval: ANY_CURVAL_NOT_0_MAX_A
+      cycle: 0
+      incounter: COUNTER2
+    COUNTER1:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: ANY_MINCYC_A
+      maxval: ANY_MAXVAL_A
+      curval: 0
+      cstat: AK_CS_NULL
+    COUNTER2:
+      type: COUNTER
+      ctype: AK_SOFTWARE
+      mincyc: 1
+      maxval: ANY_MAXVAL_B
+      curval: 0
+      cstat: AK_CS_NULL
+
+  do:
+    id: POSTTASK_HOOK1
+    syssrv: GetAlarm(ALARM1,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    POSTTASK_HOOK1:
+      var:
+        1vname*:
+          value: ANY_CURVAL_NOT_0_MAX_A

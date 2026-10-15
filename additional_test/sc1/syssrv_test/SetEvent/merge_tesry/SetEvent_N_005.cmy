@@ -1,0 +1,53 @@
+######################################################################
+# SetEvent_N_005_0001.yaml
+######################################################################
+SetEvent_N_005_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+      curpri: TSK_PRI_HIGH
+    TASK2:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      spolicy: AK_SCHFULL
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 1
+      ttype: AK_EXTENDED
+      spolicy: AK_SCHFULL
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+
+  do:
+    id: TASK1
+    syssrv: SetEvent(TASK2,EVENT1)
+    rettype: StatusType
+    retval: E_OK
+    gcov: true
+
+  post_condition:
+    TASK1:
+      tstat: RUNNING
+    TASK2:
+      tstat: READY
+      curevt: EVENT1
+      porder: 2
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################

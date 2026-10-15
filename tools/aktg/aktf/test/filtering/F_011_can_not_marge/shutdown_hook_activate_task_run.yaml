@@ -1,0 +1,29 @@
+shutdown_hook_activate_task_run:
+  property:
+    sc:
+      - SC3
+      - SC4
+
+  pre_condition:
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+    TASK1:
+      type   : TASK
+      tstat  : SUSPENDED
+      inipri : TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 2
+      osap: TRUSTED_OSAP1
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: SuspendAllInterrupts()
+
+  post_condition:
+    INT_STATE1:
+      istat:
+        - AK_SUS_ALL_INT: SHUTDOWN_HOOK1

@@ -1,0 +1,35 @@
+T4_081_no_appmode_of_task_appmode:
+  property:
+    sc:
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      ttype: AK_BASIC
+      maxact: 2
+      appmode:
+        - APPLICATION_MODE1
+    TASK2:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_TOP
+      ttype: AK_BASIC
+      maxact: 2
+
+  do:
+    id: TASK1
+    syssrv: ActivateTask(TASK2)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+      curpri: TSK_PRI_TOP
+      actcnt: 1

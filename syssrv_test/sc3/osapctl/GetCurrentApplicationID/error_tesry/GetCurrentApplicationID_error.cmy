@@ -1,0 +1,35 @@
+######################################################################
+# GetCurrentApplicationID_error_0001.yaml
+######################################################################
+GetCurrentApplicationID_error_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TRUSTED_OSAP1
+    C1ISR1:
+      type: C1ISR
+      intno: INTNO_SELF_C1ISR_MID
+      iniintpri: INT_PRI_ISR1_MID
+      rtnstat: AK_ACTIVATE
+      osap: TRUSTED_OSAP1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+
+  do:
+    id: C1ISR1
+    syssrv: GetCurrentApplicationID()
+    rettype: StatusType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition:
+######################################################################

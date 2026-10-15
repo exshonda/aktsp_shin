@@ -1,0 +1,3185 @@
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0001.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0002.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0003.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0004.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0005.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0006.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0007.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0008.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0009.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0010.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0011.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+        vname4:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_D
+        vname5:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_D
+        vname6:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_D
+        vname7:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_D
+        vname8:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_D
+        vname9:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+        vname10:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3,vname4,vname5,vname6,vname7,&vname8,vname9,&vname10)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0012.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+        vname4:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_D
+        vname5:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_D
+        vname6:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_D
+        vname7:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_D
+        vname8:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_D
+        vname9:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+        vname10:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3,vname4,vname5,vname6,vname7,&vname8,vname9,&vname10)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0013.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0014.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0015.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0016.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0017.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0018.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0019.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0020.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_0:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_1:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+    gcov: true
+
+  post_condition_1:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0021.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0022.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0022:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0023.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0023:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+        vname4:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_D
+        vname5:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_D
+        vname6:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_D
+        vname7:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_D
+        vname8:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_D
+        vname9:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+        vname10:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: NT_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3,vname4,vname5,vname6,vname7,&vname8,vname9,&vname10)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################
+# IocEmptyQueue_ex_m_nml_1to1_g_0024.yaml
+######################################################################
+IocEmptyQueue_ex_m_nml_1to1_g_0024:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: uint8
+          value: DATA_UINT8_D
+        vname2:
+          type: uint16
+          value: DATA_UINT16_D
+        vname3:
+          type: uint32
+          value: DATA_UINT32_D
+        vname4:
+          type: AktspUint8Pointer
+          value: DATA_UINT8_D
+        vname5:
+          type: AktspUint16Pointer
+          value: DATA_UINT16_D
+        vname6:
+          type: AktspUint32Pointer
+          value: DATA_UINT32_D
+        vname7:
+          type: AktspIocDataIntegerTypePrim
+          value: DATA_INT_D
+        vname8:
+          type: AktspIocDataIntegerTypeNoPrim
+          value: DATA_INT_D
+        vname9:
+          type: AktspIocDataStructTypePrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+        vname10:
+          type: AktspIocDataStructTypeNoPrim
+          data1: DATA_UINT8_D
+          data2: DATA_UINT16_D
+          data3: DATA_UINT32_D
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    IOC0:
+      type: IOC
+      sender:
+        - SENDER0
+      receiver: RECEIVER
+      iocdata:
+        - IOC0_DATA0
+        - IOC0_DATA1
+        - IOC0_DATA2
+        - IOC0_DATA3
+        - IOC0_DATA4
+        - IOC0_DATA5
+        - IOC0_DATA6
+        - IOC0_DATA7
+        - IOC0_DATA8
+        - IOC0_DATA9
+      maxque: 3
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+    SENDER0:
+      type: IOC_SENDER
+      kind: AK_MACRO
+      osap: TR_OSAP_SELF_CORE
+    RECEIVER:
+      type: IOC_RECEIVER
+      kind: AK_MACRO
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    IOC0_DATA0:
+      type: IOC_DATA
+      datatype: uint8
+    IOC0_DATA1:
+      type: IOC_DATA
+      datatype: uint16
+    IOC0_DATA2:
+      type: IOC_DATA
+      datatype: uint32
+    IOC0_DATA3:
+      type: IOC_DATA
+      datatype: AktspUint8Pointer
+    IOC0_DATA4:
+      type: IOC_DATA
+      datatype: AktspUint16Pointer
+    IOC0_DATA5:
+      type: IOC_DATA
+      datatype: AktspUint32Pointer
+    IOC0_DATA6:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypePrim
+    IOC0_DATA7:
+      type: IOC_DATA
+      datatype: AktspIocDataIntegerTypeNoPrim
+    IOC0_DATA8:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypePrim
+    IOC0_DATA9:
+      type: IOC_DATA
+      datatype: AktspIocDataStructTypeNoPrim
+
+  do_0:
+    id: TASK1
+    syssrv: IocSendGroup_IOC0(vname1,vname2,vname3,vname4,vname5,vname6,vname7,&vname8,vname9,&vname10)
+    rettype: Std_ReturnType
+    retval: IOC_E_LIMIT
+
+  post_condition_0:
+    ERROR_HOOK1:
+      hookstat: AK_ACTIVATE
+    IOC0:
+      lostflg: AK_TRUE
+      datalist:
+        - 
+          - IOC0_DATA0: DATA_UINT8_A
+          - IOC0_DATA1: DATA_UINT16_A
+          - IOC0_DATA2: DATA_UINT32_A
+          - IOC0_DATA3: DATA_UINT8_A
+          - IOC0_DATA4: DATA_UINT16_A
+          - IOC0_DATA5: DATA_UINT32_A
+          - IOC0_DATA6: DATA_INT_A
+          - IOC0_DATA7: DATA_INT_A
+          - IOC0_DATA8: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+          - IOC0_DATA9: "DATA_UINT8_A,DATA_UINT16_A,DATA_UINT32_A"
+        - 
+          - IOC0_DATA0: DATA_UINT8_B
+          - IOC0_DATA1: DATA_UINT16_B
+          - IOC0_DATA2: DATA_UINT32_B
+          - IOC0_DATA3: DATA_UINT8_B
+          - IOC0_DATA4: DATA_UINT16_B
+          - IOC0_DATA5: DATA_UINT32_B
+          - IOC0_DATA6: DATA_INT_B
+          - IOC0_DATA7: DATA_INT_B
+          - IOC0_DATA8: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+          - IOC0_DATA9: "DATA_UINT8_B,DATA_UINT16_B,DATA_UINT32_B"
+        - 
+          - IOC0_DATA0: DATA_UINT8_C
+          - IOC0_DATA1: DATA_UINT16_C
+          - IOC0_DATA2: DATA_UINT32_C
+          - IOC0_DATA3: DATA_UINT8_C
+          - IOC0_DATA4: DATA_UINT16_C
+          - IOC0_DATA5: DATA_UINT32_C
+          - IOC0_DATA6: DATA_INT_C
+          - IOC0_DATA7: DATA_INT_C
+          - IOC0_DATA8: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+          - IOC0_DATA9: "DATA_UINT8_C,DATA_UINT16_C,DATA_UINT32_C"
+
+  do_1:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(Error==IOC_E_LIMIT)
+
+  post_condition_1:
+
+  do_2:
+    id: ERROR_HOOK1
+    syssrv: CheckAssert(OSError_IocSend_IocId()==IOC0)
+
+  post_condition_2:
+
+  do_3:
+    id: ERROR_HOOK1
+    syssrv: return
+
+  post_condition_3:
+    ERROR_HOOK1:
+      hookstat: AK_STOP
+
+  do_4:
+    id: TASK2
+    syssrv: CallTrustedFunction(TRUSTED_FUNCTION1,&local)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_4:
+    TRUSTED_FUNCTION1:
+      caller: TASK2
+
+  do_5:
+    id: TRUSTED_FUNCTION1
+    syssrv: IocEmptyQueue_IOC0()
+    rettype: Std_ReturnType
+    retval: IOC_E_OK
+
+  post_condition_5:
+    IOC0:
+      datalist:
+      lostflg: AK_FALSE
+######################################################################

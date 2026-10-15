@@ -1,0 +1,778 @@
+######################################################################
+# GetCurrentApplicationID_m_n_0001.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      osap: TR_OSAP_SELF_CORE
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0002.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0003.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    C2ISR1:
+      type: C2ISR
+      intno: INTNO_SELF_C2ISR_MID_A 
+      iniintpri: INT_PRI_MID
+      rtnstat: AK_ACTIVATE
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: C2ISR1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0004.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0004:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0005.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0005:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: ERROR_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0006.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0006:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0007.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0007:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    POSTTASK_HOOK1:
+      type: POSTTASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: POSTTASK_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0008.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0008:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0009.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0009:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PRETASK_HOOK1:
+      type: PRETASK_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: PRETASK_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0010.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0010:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0011.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0011:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+
+  do_0:
+    id: PROTECTION_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0012.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0012:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: ANY_OSAP_1
+    STARTUP_HOOK1:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_SELF
+    STARTUP_HOOK2:
+      type: STARTUP_HOOK
+      hookstat: AK_ACTIVATE
+      coreid: CORE_OTHER
+
+  do_0:
+    id: STARTUP_HOOK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: INVALID_OSAPPLICATION
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0013.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0013:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0014.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0014:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      osap: TR_OSAP_SELF_CORE_2
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0015.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0015:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0016.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0016:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0017.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0017:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      osap: TR_OSAP_SELF_CORE_2
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0018.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0018:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0019.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0019:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0020.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0020:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      var:
+        local:
+          type: AktspTfParam
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    TRUSTED_FUNCTION1:
+      type: TRUSTED_FUNCTION
+      arg: local
+      caller: TASK1
+      osap: TR_OSAP_SELF_CORE_2
+      getspn:
+        - SPINLOCK1
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: TRUSTED_FUNCTION1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: NT_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################
+# GetCurrentApplicationID_m_n_0021.yaml
+######################################################################
+GetCurrentApplicationID_m_n_0021:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: TR_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: RUNNING
+      curpri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+      coreid: CORE_SELF
+
+  do_0:
+    id: TASK1
+    syssrv: GetApplicationID()
+    rettype: ApplicationType
+    retval: TR_OSAP_SELF_CORE
+
+  post_condition_0:
+######################################################################

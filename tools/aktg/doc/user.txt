@@ -1,0 +1,1109 @@
+
+	AKTSP - Automotive Kernel Test Suite Package -
+	＜AKTGユーザーズマニュアル＞
+
+本ドキュメントは，テストプログラム生成ツールAKTGの使用方法，および生成
+したテストプログラムの実行方法について説明するものである．
+
+<下位ドキュメント>
+AKTFエラーチェック一覧(aktsp/tools/doc/check_list.txt)
+AKTFフィルタリング仕様書(aktsp/tools/doc/filtering.txt)
+AKTG TESRY記法仕様書(aktsp/tools/doc/tesry_spec.txt)
+実装依存テストライブラリ外部仕様書(aktsp/docs/implement_spec.txt)
+ターゲット依存テストライブラリ外部仕様書(aktsp/docs/target_spec.txt)
+
+----------------------------------------------------------------------
+AKTSP
+    Automotive Kernel Test Suite Package
+
+Copyright (C) 2011-2014 by Center for Embedded Computing Systems
+            Graduate School of Information Science, Nagoya Univ., JAPAN
+Copyright (C) 2011-2014 by FUJI SOFT INCORPORATED, JAPAN
+Copyright (C) 2011-2013 by Spansion LLC, USA
+Copyright (C) 2011-2013 by NEC Communication Systems, Ltd., JAPAN
+Copyright (C) 2011-2014 by Panasonic Advanced Technology Development Co., Ltd., JAPAN
+Copyright (C) 2011-2014 by Renesas Electronics Corporation, JAPAN
+Copyright (C) 2011-2014 by Sunny Giken Inc., JAPAN
+Copyright (C) 2011-2014 by TOSHIBA CORPORATION, JAPAN
+Copyright (C) 2011-2014 by Witz Corporation, JAPAN
+
+本ドキュメントは，次世代車載システム向けRTOSの仕様検討及び
+開発に関するコンソーシアム型共同研究において作成したものである．
+本ドキュメントの著作権は，上記の著作権者に帰属する．
+
+上記著作権者は，以下の (1)?(3)の条件を満たす場合に限り，本ドキュメ
+ント（本ドキュメントを改変したものを含む．以下同じ）を使用・複製・改
+変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+(1) 本ドキュメントを利用する場合には，上記の著作権表示，この利用条件
+    および下記の無保証規定が，そのままの形でドキュメント中に含まれて
+    いること．
+(2) 本ドキュメントを改変する場合には，ドキュメントを改変した旨の記述
+    を，改変後のドキュメント中に含めること．ただし，改変後のドキュメ
+    ントが，TOPPERSプロジェクト指定の開発成果物である場合には，この限
+    りではない．
+(3) 本ドキュメントの利用により直接的または間接的に生じるいかなる損害
+    からも，上記著作権者およびTOPPERSプロジェクトを免責すること．また，
+    本ドキュメントのユーザまたはエンドユーザからのいかなる理由に基づ
+    く請求からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+
+本ドキュメントは，AUTOSAR（AUTomotive Open System ARchitecture）仕様
+に基づいている．上記の許諾は，AUTOSARの知的財産権を許諾するものではな
+い．AUTOSARは，AUTOSAR仕様に基づいたソフトウェアを商用目的で利用する
+者に対して，AUTOSARパートナーになることを求めている．
+
+本ドキュメントは，無保証で提供されているものである．上記著作権者およ
+びTOPPERSプロジェクトは，本ドキュメントに関して，特定の使用目的に対す
+る適合性も含めて，いかなる保証も行わない．また，本ドキュメントの利用
+により直接的または間接的に生じたいかなる損害に関しても，その責任を負
+わない．
+
+$Id: user.txt 347 2014-09-17 00:28:35Z fsi-dankei $
+----------------------------------------------------------------------
+
+○目次
+
+(1) 用語定義
+(2) AKTGの概要
+	(2.1) TESRYデータ(入力データ)の概要
+		(2.1.1) pre_condition(前状態)
+		(2.1.2) do(テスト内容)
+		(2.1.3) post_condition(後状態)
+	(2.2) 生成されるテストプログラムの概要
+	(2.3) テストプログラムでチェックする内容
+(3) 動作環境
+	(3.1) AKTGの実行環境
+	(3.2) 生成するテストプログラムの対応カーネル
+	(3.3) ビルドに必要なテストライブラリ
+(4) テストライブラリへのリンク
+	(4.1) 共通部分
+	(4.2) 実装依存API
+	(4.3) 実装依存マクロ
+	(4.4) ターゲット依存API
+	(4.5) ターゲット依存マクロ
+	(4.6) 実装依存となるincludeファイル
+	(4.7) ターゲット依存となるincludeファイル
+(5) AKTGによるテスト実施手順
+	(5.1) AKTG環境設定ファイル
+	(5.2) テストプログラム生成
+	(5.3) AKTG実行時のエラー表示
+	(5.4) フィルタリング
+	(5.5) target_error_hook_cfg
+	(5.6) 実行モジュールの作成
+	(5.7) テスト実行
+	(5.8) テスト実行結果の確認
+(6) AKTG環境設定ファイル設定時の注意事項
+	(6.1) ターゲット依存マクロの定義に関して
+	(6.2) ターゲット依存APIの実装に関して
+(7) 実行時オプション
+	(7.1) 標準オプション
+	(7.2) AKTGオプション
+	(7.3) ロングオプションによるconfigure.yaml設定値の上書き
+(8) ソースコードカバレッジ測定のための機能
+	(8.1) C++testを用いたカバレッジ測定
+	(8.2) GCOVを用いたカバレッジ測定
+(9) テストプログラムに関する特記事項
+	(9.1) 全TESRYデータを跨って使用する処理単位
+	(9.2) SC3，SC4における注意事項
+		(9.2.1) 前状態生成に使用するActivateTask，SetEvent
+		(9.2.2) 異常検知時のシャットダウン処理
+		(9.2.3) OSAP固有のスタートアップフックとシャットダウンフックの実行順序
+	(9.3) マルチコア対応OSに関する特記事項
+		(9.3.1) TRUSTED_MAIN_OSAPが割付けられるコア
+		(9.3.2) コア間割込み(ICISR)の取り扱い
+	(9.4) IOCのデータ型参照先に関して
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1) 用語定義
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本ドキュメントで使用する用語を定義する．なお次世代車載システム向けRTOS
+用語集に定義されている用語については，ここでは定義しないため，必要に応
+じて次世代車載システム向けRTOS 用語集を参考にすること．
+
+■Automotive Kernel Test Generator(AKTG)
+  本テストプログラム生成ツールの名称．
+
+■Automotive Kernel Test Frontend(AKTF)
+  AKTG内で使用するモジュールの名称．
+  テストプログラム生成における前処理とチェック処理を担当する．
+
+■TESRY(TEst Scenario for Rtos by Yaml)記法
+  AKTGの入力データとなるテストシナリオを構造化して記述する記法．
+  ※詳細はAKTG TESRY記法仕様書(tesry_spec.txt)を参照
+
+■TESRYデータ
+  AKTGの入力データ．
+  TESRY記法によって記述されたYAML形式のテストシナリオ．
+
+■テストプログラム
+  AKTGが生成するc，h，arxmlの3ファイル．
+
+■管理タスク
+  テストプログラムにおいて，システム状態の確認や，テスト実行の制御を行
+  うために，テストシナリオとは別に用意するタスク．
+
+■テストライブラリ
+  共通部テストライブラリ，実装依存テストライブラリ，ターゲット依存テス
+  トライブラリの総称．
+
+■実装依存テストライブラリ
+  ログの出力やOSオブジェクトの状態確認などに用いる，OS毎に実装が必要と
+  なる実装依存APIと，実装依存マクロの総称．
+
+■状態確認API
+  TESRYデータのpre_condition，post_conditionに記載されている状態が各OS
+  オブジェクトの状態と一致していることを判定および確認するために用いる
+  API．実装依存テストライブラリに含まれる．
+
+■ターゲット依存テストライブラリ
+  任意のタイミングで割込みを発生させたり，プロテクションフックを起動す
+  るために必要なターゲット毎に実装が必要となるターゲット依存APIと，割込
+  み番号やスタックサイズなど，テストプログラムで使用するターゲットに依
+  存した値を定義する必要のあるターゲット依存マクロの総称．
+
+■Automotive Kernel Test Suite Package(AKTSP)
+  AKTGを始めとした次世代車載システム向けRTOSを対象としたテストスイート
+  の総称．
+
+■システムサービステスト
+  AKTSPに含まれるシステムサービスに着目したテスト．
+
+■プロパティ
+  次世代車載システム向けRTOSでは，スケーラビリティクラスやコンフォーマ
+  ンスクラスなど，OSの実装によりAKTGに入力されたTESRYデータの実施可否が
+  異なる．また，ハードウェアアーキテクチャの違いによっても，同様のこと
+  が起こる．このようなOSの実装やハードウェアアーキテクチャの特徴をプロ
+  パティと呼ぶ．
+
+■AKTG環境設定ファイル(configure.yaml)
+  AKTG実行時に必要な，パラメータ設定ファイル．
+
+■OSAP
+  OSアプリケーション．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(2) AKTGの概要
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AKTGは，OSEK/VDX OS，AUTOSAR OS，次世代車載システム向けRTOS用のテストプ
+ログラムを生成するツールである．
+TESRY記法によって記述されたテストシナリオを読み込み，一つのテストプロ
+グラムとして生成する．
+
+―――――――――――――――――――――――――――――――――――
+(2.1) TESRYデータ(入力データ)の概要
+―――――――――――――――――――――――――――――――――――
+
+TESRYデータでは，1つのテストシナリオを以下の3つの部分に分けて記述する．
+なお，本節で紹介する以外にも複雑な記述方法も可能である．詳細は，
+tesry_spec.txtを参照する．
+
+----------------------------------------------------------------------
+(2.1.1) pre_condition(前状態)
+----------------------------------------------------------------------
+
+テストを行うシステムサービスを呼び出すときのシステム状態を記述する．
+
+----------------------------------------------------------------------
+(2.1.2) do(テスト内容)
+----------------------------------------------------------------------
+
+テストを行うシステムサービスを呼び出す処理単位や，その戻り値などを記述
+する．
+
+----------------------------------------------------------------------
+(2.1.3) post_condition(後状態)
+----------------------------------------------------------------------
+
+システムサービスを呼び出した直後のシステム状態を記述する．
+
+―――――――――――――――――――――――――――――――――――
+(2.2) 生成されるテストプログラムの概要
+―――――――――――――――――――――――――――――――――――
+
+管理タスクのみ自動起動し，テストに登場する処理単位は，管理タスクからの
+操作により，テストシナリオに合わせて起動する．生成されるテストプログラ
+ムの流れは以下のとおりである．
+
+・pre_conditionへのシステムの状態の移行
+・pre_conditionを満たしているかどうかのチェック
+・doの実行
+・post_conditionを満たしているかどうかのチェック
+・post_conditionから初期状態へシステムの状態の移行
+
+―――――――――――――――――――――――――――――――――――
+(2.3) テストプログラムでチェックする内容
+―――――――――――――――――――――――――――――――――――
+
+以下の点をチェックして1つでもエラーがあれば，エラー内容を出力し，OSを終
+了する．
+
+・doを実行する前に，pre_conditionで定義した状態を満たしているか
+・doで実行するシステムサービスの返り値が定義した返り値と一致しているか
+・doを実行した後に，post_conditionで定義した状態を満たしているか
+・テストプログラムが想定通りの順番に動作が行われているか
+・do以外で使用する各システムサービスの戻り値が全て正常値であるか
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(3) 動作環境
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本章では，AKTGの動作環境や，テストプログラム動作確認に用いたOS，テスト
+ライブラリについてまとめる．
+
+―――――――――――――――――――――――――――――――――――
+(3.1) AKTGの実行環境
+―――――――――――――――――――――――――――――――――――
+
+AKTGはRubyによって記述されているため，Rubyの実行環境が必要である．
+Cygwinに含まれる以下のバージョンのRubyで動作確認済みである．
+※patchlevelが低いバージョンだと正常に動作しないことがあるので注意する
+
+ruby 1.9.3p194 (2012-04-20 revision 35410) [i386-cygwin]
+
+―――――――――――――――――――――――――――――――――――
+(3.2) 生成するテストプログラムの対応カーネル
+―――――――――――――――――――――――――――――――――――
+
+AKTGは，OSEK/VDX OS，AUTOSAR OS，次世代車載システム向けRTOS上で動作する
+テストプログラムを生成する．
+
+動作確認に使用したOSは以下である．
+・ATK2 SC1 1.0.1
+・ATK2 SC3FL2 1.0.1
+・ATK2 SC1-MC 0.0.3
+・ATK2 SC3FL2-MC 0.0.1
+
+また，nios2_dev_gcc依存部を使用して，DE2-115ボードにてテストプログラム
+を実行した．
+
+―――――――――――――――――――――――――――――――――――
+(3.3) ビルドに必要なテストライブラリ
+―――――――――――――――――――――――――――――――――――
+
+AKTGで生成したテストプログラムをビルドするには，テストライブラリが必要
+である．
+テストライブラリのうち，状態確認APIをはじめとする実装依存テストライブラ
+リは，OSの実装に合わせて用意する必要がある．ATK2用の実装依存テストライ
+ブラリはATK2用の実装依存テストライブラリ(aktsp/library/implement/atk2)
+に用意されているため，他のOSでテストする際は参考にする．仕様は
+implement_spec.txtに規定した．
+また，ターゲット依存テストライブラリはターゲット毎に実装が必要であるが，
+nios2_dev_gcc依存部など，いくつかのターゲット依存部は，AKTSP内(
+nios2_dev_gccの場合，aktsp/library/target/nios2_dev_gcc)に用意されてい
+るため，新規ターゲットにポーティングする際は，参考にする．仕様は
+target_spec.txtに規定した．
+テストライブラリを用意したら，(4)章を参考にテストプログラムとのリンク設
+定を行う．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(4) テストライブラリへのリンク
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本章では，AKTGを単体で使用する場合のテストライブラリへのリンク方法につ
+いてまとめる．リンクが必要なテストライブラリは，以下に分類される．
+(ファイルへのパスは，AKTSPのユーザーズマニュアルを参照する)
+・共通部テストライブラリ
+・実装依存テストライブラリ(実装依存API，実装依存マクロ)
+・ターゲット依存テストライブラリ(ターゲット依存API，ターゲット依存マク
+  ロ)
+
+―――――――――――――――――――――――――――――――――――
+(4.1) 共通部テストライブラリ
+―――――――――――――――――――――――――――――――――――
+
+[ファイル名] aktsp_common_lib.c
+             aktsp_common_lib.h
+
+テストライブラリの共通部分については，OSの実装やターゲットに依存せず使
+用できるため，実装は不要である．
+
+ATK2を使用する際は，テストプログラムのビルドに用いるMakefileへ以下の記
+述を追加する．
+
+・アプリケーションプログラムへaktsp_common_lib.oを追加
+  例) APPL_COBJS = $(APPLNAME).o aktsp_common_lib.o
+
+・aktsp_common_lib.c，aktsp_common_lib.hが配置されているディレクトリへ
+  のパスをアプリケーションのディレクトリ名に登録
+  例) APPLDIR = $(SRCDIR)/aktsp/library/common
+
+―――――――――――――――――――――――――――――――――――
+(4.2) 実装依存API
+―――――――――――――――――――――――――――――――――――
+
+[ファイル名] aktsp_implement_lib.h
+
+実装依存APIはOS毎に実装が必要であるが，ATK2用の実装依存APIはAKTSP内に用
+意されている．ターゲットに依存せずに使用できるため，ATK2のテストを実施
+する場合，実装は不要である．
+また，AKTGが生成するテストプログラムファイル(デフォルトout.c)で，
+aktsp_implement_lib.hをincludeするため，aktsp_implement_lib.hから参照可
+能なファイルに実装する必要がある．implement_spec.txtに定義する仕様を満
+たしていれば，実装するファイルパスやファイル名は任意である．
+
+ATK2を使用する際は，テストプログラムのビルドに用いるMakefileへ以下の記
+述を追加する．
+
+・アプリケーションプログラムへaktsp_implement_lib.oを追加
+  例) APPL_COBJS = $(APPLNAME).o aktsp_implement_lib.o
+
+・aktsp_implement_lib.c，aktsp_implement_lib.hが配置されているディレク
+  トリへのパスをアプリケーションのディレクトリ名に登録
+  例) APPLDIR = $(SRCDIR)/aktsp/library/implement/atk2
+
+―――――――――――――――――――――――――――――――――――
+(4.3) 実装依存マクロ
+―――――――――――――――――――――――――――――――――――
+
+実装依存マクロはOS毎に定義が必要であるが，ATK2用の実装依存マクロは
+AKTSP内に用意されている．ターゲットに依存せずに使用できるため，ATK2のテ
+ストを実施する場合，定義は不要である．
+また，AKTGが生成するテストプログラムファイル(デフォルトout.c)で，
+aktsp_implement_lib.hをincludeするため，aktsp_implement_lib.hから参照可
+能なファイルに定義する必要がある．
+定義が必要なマクロは，implement_spec.txtを参照する．
+
+―――――――――――――――――――――――――――――――――――
+(4.4) ターゲット依存API
+―――――――――――――――――――――――――――――――――――
+
+[ファイル名] aktsp_target_lib.h
+
+ターゲット依存APIはターゲット毎に実装が必要である．また，AKTGが生成する
+テストプログラムのhファイルで，aktsp_target_lib.hをincludeするため，
+aktsp_target_lib.hから参照可能なファイルに実装する必要がある．
+target_spec.txtに定義する仕様を満たしていれば，実装するファイルパスやフ
+ァイル名は任意である．
+
+ATK2を使用する際は，テストプログラムのビルドに用いるMakefileへ以下の記
+述を追加する．
+
+・アプリケーションプログラムへaktsp_target_lib.oを追加
+  例) APPL_COBJS = $(APPLNAME).o aktsp_target_lib.o
+
+・aktsp_target_lib.c，aktsp_target_lib.hや実装したファイルが配置されて
+  いるディレクトリへのパスをアプリケーションのディレクトリ名に登録
+  例) APPLDIR = $(SRCDIR)/aktsp/library/target/nios2_dev_gcc
+
+―――――――――――――――――――――――――――――――――――
+(4.5) ターゲット依存マクロ
+―――――――――――――――――――――――――――――――――――
+
+[ファイル名] aktsp_target_lib.h
+
+ターゲット依存マクロはターゲット毎に定義が必要である．また，AKTGが生成
+するテストプログラムのhファイルで，aktsp_target_lib.hをincludeするため，
+aktsp_target_lib.hから参照可能なファイルに定義する必要がある．
+定義が必要なマクロは，target_spec.txtを参照する．
+
+ターゲット依存マクロは，ターゲット依存APIと合わせてテストプログラムへリ
+ンクする．
+
+※割込み番号が必要なだけ用意できない場合は，(6.1)節を参照する
+
+―――――――――――――――――――――――――――――――――――
+(4.6) 実装依存となるincludeファイル
+―――――――――――――――――――――――――――――――――――
+
+[ファイル名] aktsp_implement_include.h
+
+テストプログラムをビルドする際に，OS実装の都合でincludeするファイルがあ
+る場合は，aktsp_implement_include.hに定義する．AKTGが生成するテストプロ
+グラムファイル(デフォルトout.c)でaktsp_implement_include.hをincludeする
+ため，aktsp_implement_include.hは必ず用意する．
+
+―――――――――――――――――――――――――――――――――――
+(4.7) ターゲット依存となるincludeファイル
+―――――――――――――――――――――――――――――――――――
+
+[ファイル名] aktsp_target_include.h
+
+テストプログラムをビルドする際に，ターゲットの都合でincludeするファイル
+がある場合は，aktsp_target_include.hに定義する．AKTGが生成するテストプ
+ログラムファイル(デフォルトout.c)でaktsp_target_include.hをincludeする
+ため，aktsp_target_include.hは必ず用意する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(5) AKTGによるテスト実施手順
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本章では，AKTGの使用方法，AKTGの実行結果やテスト実施結果の見方について
+まとめる．
+
+―――――――――――――――――――――――――――――――――――
+(5.1) AKTG環境設定ファイル
+―――――――――――――――――――――――――――――――――――
+
+AKTGの各種設定は，AKTG環境設定ファイルの内容を変更することで行う．AKTG
+環境設定ファイル内に各設定項目の説明を付与しているので，詳細はAKTG環境
+設定ファイルを参照する．AKTG環境設定ファイル設定時の注意事項は(6)章を参
+照する．
+
+なお，macro，invalid_id以下に定義している値は，AKTGに入力したTESRYデー
+タ内に記述された文字列を変換するために使用するマクロである．
+
+macro以下のマクロを使用した場合は，定義した値へ変換したテストプログラム
+を生成する．invalid_id以下のマクロを使用した場合も，定義した値への変換
+を行うが，配列により，複数の値が設定可能である．複数定義されたマクロを
+使用したTESRYデータは，定義された値の数だけテストケースを複製して，テス
+トをそれぞれの値で実行する．
+
+macro，invalid_idで設定するマクロの値を変更することで，要求に合わせて様
+々な値でテストが実施可能となる．
+
+―――――――――――――――――――――――――――――――――――
+(5.2) テストプログラム生成
+―――――――――――――――――――――――――――――――――――
+
+AKTG(aktg.rb)にTESRYデータ(YAML)を引数として渡し実行することで，カレン
+トフォルダにout.c，out.h，out.arxmlの3ファイルを生成する(アプリケーショ
+ン名"out"は，AKTG環境設定ファイルで変更可能)．
+
+例) input.yamlのテストプログラム生成
+  $ ./aktg.rb input.yaml
+
+また，複数のTESRYデータを引数に並べて指定すると(ワイルドカードでの指定
+でも可)，それらのTESRYデータをすべて含んだテストプログラムを生成する．
+
+  $ ./aktg.rb */*.yaml
+
+※ただし，1つのテストシナリオに登場するオブジェクトの組合せや，テストシ
+  ナリオによっては，1件でのみ実行可能な場合がある．詳細はAKTFフィルタリ
+  ング仕様書(filtering.txt)を参照する
+※使用可能なオブジェクトの上限数は実装に依存するため，実装に合わせて
+  TESRYデータを分けて実行する必要がある可能性がある．AKTGでは，入力され
+  たTESRYデータの通りにテストプログラムを生成するため，オブジェクトの上
+  限数はチェックしない．
+
+その他のオプションについては(7)章を参照する．
+
+―――――――――――――――――――――――――――――――――――
+(5.3) AKTG実行時のエラー表示
+―――――――――――――――――――――――――――――――――――
+
+指定したTESRYデータが存在しない場合や，オプションの指定が不正な場合など，
+AKTG実行時に何らかの問題が発生した場合，エラーメッセージを出力する．例え
+ば，ファイルが存在しない場合には以下のように出力する．
+
+======================================================================
+Some errors occurred.
+======================================================================
+* aktsp/syssrv_test/sc1/task/ActivateTask/normal_tesry/ActivateTask_normal_1000.yaml
+  1. can't open file. [aktsp/syssrv_test/sc1/task/ActivateTask/normal_tesry/ActivateTask_normal_1000.yaml]
+======================================================================
+1 test cases error.
+
+AKTGでは，内部モジュールであるAKTFによってTESRYデータの正当性検証を行う．
+TESRYデータに誤りがあった場合に，例えば以下のようなエラーメッセージを出
+力する．(例：ActivateTask_normal_0001.yamlのpre_conditionにおいて実行中
+の処理単位が存在しない)
+
+======================================================================
+Some errors occurred.
+======================================================================
+* aktsp/syssrv_test/sc1/task/ActivateTask/normal_tesry/ActivateTask_normal_0001.yaml
+  1. [/ActivateTask_normal_0001/pre_condition]
+  => T4_001: there is no active process unit.
+======================================================================
+1 test cases error.
+
+T4_001はエラーコードである．チェック項目の一覧についてはcheck_list.txt
+を参照する．
+
+―――――――――――――――――――――――――――――――――――
+(5.4) フィルタリング
+―――――――――――――――――――――――――――――――――――
+
+複数のTESRYデータをまとめて読み込んだ場合は，オプションおよびAKTG環境設
+定ファイルで設定された内容と，入力されたTESRYデータのプロパティや登場す
+るオブジェクトとを比較して，実行可能なTESRYデータのみを採用したテストプ
+ログラムを生成する．この際，除外されたファイルの一覧を
+aktg_exclusion_list.txtとしてカレントフォルダに出力する．また，フィルタ
+リングによって除外されたTESRYデータが存在することを示す以下のようなメッ
+セージを出力する．
+※フィルタリングの詳細はfiltering.txtを参照する
+
+======================================================================
+Some files are excluded by variation mismatch.
+======================================================================
+* F_004: "func_interrupt" is not available.  72 test cases
+======================================================================
+72 test cases are excluded.(50% passed, 72 / 144 test cases)
+
+全ての入力ファイルが除外された場合は，通常のエラーと同様のヘッダ(Some 
+errors occurred.)で，以下のようなエラーが出力される．
+
+======================================================================
+Some errors occurred.
+======================================================================
+available test scenario does not exist.
+
+―――――――――――――――――――――――――――――――――――
+(5.5) target_error_hook_cfg
+―――――――――――――――――――――――――――――――――――
+
+AKTG環境設定ファイルで設定された内容と，TESRYデータ内に記述した
+target_error_hook_cfgの内容とを比較して，無効となったエラーフックと関連
+オブジェクトを除外したテストプログラムを生成する．この際，除外したオブ
+ジェクトを含むTESRYデータのID一覧をaktg_errorhook_exclusion_list.txtと
+してカレントフォルダに出力する．また，target_error_hook_cfgによって除外
+されたオブジェクトを含むTESRYデータが存在することを示す以下のようなメッ
+セージを出力する．
+※target_error_hook_cfgの詳細はparam.txtを参照する
+
+======================================================================
+Some files are excluded ErrorHook or ErrorHookOsap by target_error_hook_cfg.
+======================================================================
+24 test cases
+
+―――――――――――――――――――――――――――――――――――
+(5.6) 実行モジュールの作成
+―――――――――――――――――――――――――――――――――――
+
+(4)章で述べたテストライブラリの設定をしたMakefileを，AKTGが生成したテス
+トプログラムが存在するカレントフォルダに配置し，以下のコマンドを実行し，
+テストプログラムのビルドを行う．
+
+$ make depend
+$ make
+
+―――――――――――――――――――――――――――――――――――
+(5.7) テスト実行
+―――――――――――――――――――――――――――――――――――
+
+作成された実行モジュールをターゲットシステムで実行する．
+
+―――――――――――――――――――――――――――――――――――
+(5.8) テスト実行結果の確認
+―――――――――――――――――――――――――――――――――――
+
+AKTGが生成するテストプログラムでは，実装依存APIのログ出力APIにより実行
+状況を出力する．すべてのシステム状態のチェックに問題がなく，想定した順
+序で動作した場合，下記のように「All check points passed.」が出力される．
+1つでも問題が発生すると，エラーを出力してカーネルを終了する．
+
+(テストID): Start
+Check point 1 passed.
+  ・
+  ・
+  ・
+(テストID): OK
+Check point (n) passed.
+All check points passed.
+
+以下に，主なエラー発生例をいくつか示す．
+
+テストプログラムが想定した順序で動作することを確認するために，チェック
+ポイントとして，連番で数字が増えていることを確認する．
+チェックポイントを想定した順序通りに通過しなかった場合(例：1の次に3にい
+ってしまった場合)は，以下のように出力されて終了する．
+
+test1: Start
+Check point 1 passed.
+## Unexpected check point 3.
+
+システムサービスが予期しないエラーコード(例：E_OS_ID)を返した場合には，
+以下のように出力される．
+
+test1: Start
+Check point 1 passed.
+Check point 2 passed.
+Check point 3 passed.
+Check point 4 passed.
+## Unexpected error E_OS_ID detected at out.c:230.
+
+アサートによるシステム状態のチェックがfalseになった場合には，以下のよう
+に出力される．ただし，タスクのmaxactに関するエラーメッセージは，状態確
+認APIの実装による(以下は，ATK2の場合)．
+
+test1 start.
+Check point 1 passed.
+Check point 2 passed.
+## Task maxact Error!! OS : 1, TESRY : 2.
+## Assertion `ercd == E_OK' failed at out.c:206.
+
+タイムアウトを伴う処理においてタイムアウトが発生した場合，以下のように
+出力される(例：チェックポイントが3になるのを待つ)．
+
+test1 start.
+Check point 1 passed.
+Check point 2 passed.
+## AktspWaitCheckPoint(3) caused a timeout.
+
+※タイムアウト時間はターゲット依存マクロで定義している
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(6) AKTG環境設定ファイル設定時の注意事項
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本章では，AKTG環境設定ファイルを設定する際の注意事項について定義する．
+
+―――――――――――――――――――――――――――――――――――
+(6.1) ターゲット依存マクロの定義に関して
+―――――――――――――――――――――――――――――――――――
+
+複数のテストケースをまとめてテスト実施できるよう，AKTG環境設定ファイル
+では，割込み番号に対するマクロを以下の14個用意している．
+
+INTNO_SELF_C1ISR_HIGH   : AKTSP_INTNO_A
+INTNO_SELF_C1ISR_MID    : AKTSP_INTNO_B
+INTNO_SELF_C1ISR_LOW    : AKTSP_INTNO_C
+INTNO_SELF_C2ISR_TOP    : AKTSP_INTNO_D
+INTNO_SELF_C2ISR_HIGH   : AKTSP_INTNO_E
+INTNO_SELF_C2ISR_MID_A  : AKTSP_INTNO_F
+INTNO_SELF_C2ISR_MID_B  : AKTSP_INTNO_G
+INTNO_SELF_C2ISR_MID_C  : AKTSP_INTNO_H
+INTNO_SELF_C2ISR_MID_D  : AKTSP_INTNO_K
+INTNO_SELF_C2ISR_MID_E  : AKTSP_INTNO_L
+INTNO_SELF_C2ISR_MID_F  : AKTSP_INTNO_M
+INTNO_SELF_C2ISR_MID_G  : AKTSP_INTNO_N
+INTNO_SELF_C2ISR_LOW    : AKTSP_INTNO_I
+INTNO_SELF_C2ISR_BOTTOM : AKTSP_INTNO_J
+
+また，ハードウェアカウンタ用のカテゴリ2ISRを設けるためには割込み番号が
+さらに1個必要であるので，ターゲット依存マクロでもAKTSP_INTNO_A~
+AKTSP_INTNO_NとAKTSP_INTNO_HWCNT(AKTG環境設定ファイルで変更可能)の，合
+計15個の割込み番号を用意する必要がある．例えば，nios2_dev_gccでは以下の
+ように設定されている．
+
+#define AKTSP_INTNO_HWCNT  21     /* 割込み番号(ハードウェアカウンタ用) */
+#define AKTSP_INTNO_A      22     /* 割込み番号A */
+#define AKTSP_INTNO_B      23     /* 割込み番号B */
+#define AKTSP_INTNO_C      24     /* 割込み番号C */
+#define AKTSP_INTNO_D      25     /* 割込み番号D */
+#define AKTSP_INTNO_E      26     /* 割込み番号E */
+#define AKTSP_INTNO_F      27     /* 割込み番号F */
+#define AKTSP_INTNO_G      28     /* 割込み番号G */
+#define AKTSP_INTNO_H      29     /* 割込み番号H */
+#define AKTSP_INTNO_I      30     /* 割込み番号I */
+#define AKTSP_INTNO_J      31     /* 割込み番号J */
+#define AKTSP_INTNO_K      20     /* 割込み番号K */
+#define AKTSP_INTNO_L      19     /* 割込み番号L */
+#define AKTSP_INTNO_M      18     /* 割込み番号M */
+#define AKTSP_INTNO_N      17     /* 割込み番号N */
+
+しかし，ターゲットシステムによっては，割込み番号を15個用意することが困
+難な場合がある．この場合，configure.yamlにて対象のマクロにAK_INVALIDを
+指定すると，AKTGのフィルタリング機能によりそのマクロが含まれるTESRYデー
+タはテスト対象外となる．除外されたTESRYデータを用いてテストを実施する場
+合は，AK_INVALIDとするマクロの値を変えて別途テストを実施することとなる．
+
+(例：割込み番号が5個のみ(ハードウェアカウンタ用以外の割込み番号が4個の
+     み)である場合)
+<aktsp_target_lib.h>
+#define AKTSP_INTNO_HWCNT  21     /* 割込み番号(ハードウェアカウンタ用) */
+#define AKTSP_INTNO_A      22     /* 割込み番号A */
+#define AKTSP_INTNO_B      23     /* 割込み番号B */
+#define AKTSP_INTNO_C      24     /* 割込み番号C */
+#define AKTSP_INTNO_D      25     /* 割込み番号D */
+
+<configure.yaml>
+INTNO_SELF_C1ISR_HIGH   : AKTSP_INTNO_A
+INTNO_SELF_C1ISR_MID    : AKTSP_INTNO_B
+INTNO_SELF_C1ISR_LOW    : AK_INVALID
+INTNO_SELF_C2ISR_TOP    : AK_INVALID
+INTNO_SELF_C2ISR_HIGH   : AK_INVALID
+INTNO_SELF_C2ISR_MID_A  : AKTSP_INTNO_C
+INTNO_SELF_C2ISR_MID_B  : AK_INVALID
+INTNO_SELF_C2ISR_MID_C  : AK_INVALID
+INTNO_SELF_C2ISR_MID_D  : AK_INVALID
+INTNO_SELF_C2ISR_MID_E  : AK_INVALID
+INTNO_SELF_C2ISR_MID_F  : AK_INVALID
+INTNO_SELF_C2ISR_MID_G  : AK_INVALID
+INTNO_SELF_C2ISR_LOW    : AKTSP_INTNO_D
+INTNO_SELF_C2ISR_BOTTOM : AK_INVALID
+
+また，AKTG環境設定ファイルでは，割込み優先度に対するマクロを以下の8個用
+意している．
+
+INT_PRI_ISR1_HIGH   : 8
+INT_PRI_ISR1_MID    : 7
+INT_PRI_ISR1_LOW    : 6
+INT_PRI_TOP         : 5
+INT_PRI_HIGH        : 4
+INT_PRI_MID         : 3
+INT_PRI_LOW         : 2
+INT_PRI_BOTTOM      : 1
+
+割込み番号の設定と同様に，割込み優先度を8個用意することが困難な場合は，
+configure.yamlにて対象のマクロにAK_INVALIDを指定すると，AKTGのフィルタ
+リング機能によりそのマクロが含まれるTESRYデータはテスト対象外となる．
+
+(例：割込み優先度が7個のみである場合)
+
+<configure.yaml>
+INT_PRI_ISR1_HIGH   : 7
+INT_PRI_ISR1_MID    : 6
+INT_PRI_ISR1_LOW    : AK_INVALID
+INT_PRI_TOP         : 5
+INT_PRI_HIGH        : 4
+INT_PRI_MID         : 3
+INT_PRI_LOW         : 2
+INT_PRI_BOTTOM      : 1
+
+複数のTESRYデータを入力してAKTGを実行する場合，同一の割込み番号で異なる
+割込み優先度や割込み要求禁止フラグを設定すると，1つのテストプログラムと
+して実行できないため，AKTGがエラーとする．スケーラビリティクラスがSC3の
+OSをテスト対象とする際には，OSAPも同様である．また，1つのテストシナリオ
+内に同一の割込み番号のISRが登場する場合も，AKTGがエラーとする．
+TESRYデータで指定する割込み番号や割込み優先度，OSAPの組合せは以下である
+ので，AKTG環境設定ファイルの割込み番号に対するマクロを設定する際の参考
+にする．
+
+SC1,SC3の場合
+  ISR種別 | 割込み番号のマクロ      | 割込み優先度のマクロ | 所属OSAP      | システムサービス発行元の非信頼OSAPからのアクセス権
+--------------------------------------------------------------------------------------------------------------------------------
+  C1ISR   | INTNO_SELF_C1ISR_HIGH   | INT_PRI_ISR1_HIGH    | -             |
+  C1ISR   | INTNO_SELF_C1ISR_MID    | INT_PRI_ISR1_MID     | -             |
+  C1ISR   | INTNO_SELF_C1ISR_LOW    | INT_PRI_ISR1_LOW     | -             |
+  C2ISR   | INTNO_SELF_C2ISR_TOP    | INT_PRI_TOP          | TRUSTED_OSAP1 | なし
+  C2ISR   | INTNO_SELF_C2ISR_HIGH   | INT_PRI_HIGH         | TRUSTED_OSAP1 | なし
+  C2ISR   | INTNO_SELF_C2ISR_MID_A  | INT_PRI_MID          | TRUSTED_OSAP1 | なし
+  C2ISR   | INTNO_SELF_C2ISR_MID_B  | INT_PRI_MID          | TRUSTED_OSAP1 | なし
+  C2ISR   | INTNO_SELF_C2ISR_MID_C  | INT_PRI_MID          | TRUSTED_OSAP2 | なし
+  C2ISR   | INTNO_SELF_C2ISR_MID_D  | INT_PRI_MID          | TRUSTED_OSAP1 | あり(NON_TRUSTED_OSAP1)
+  C2ISR   | INTNO_SELF_C2ISR_MID_E  | INT_PRI_MID          | TRUSTED_OSAP1 | あり(NON_TRUSTED_OSAP2)
+  C2ISR   | INTNO_SELF_C2ISR_MID_F  | INT_PRI_MID          | TRUSTED_OSAP2 | あり(NON_TRUSTED_OSAP1)
+  C2ISR   | INTNO_SELF_C2ISR_MID_G  | INT_PRI_MID          | TRUSTED_OSAP2 | あり(NON_TRUSTED_OSAP2)
+  C2ISR   | INTNO_SELF_C2ISR_LOW    | INT_PRI_LOW          | TRUSTED_OSAP1 | なし
+  C2ISR   | INTNO_SELF_C2ISR_BOTTOM | INT_PRI_BOTTOM       | TRUSTED_OSAP1 | なし
+
+SC1-MC,SC3-MCの場合(他コアに対するOSAP追加分)
+  ISR種別 | 割込み番号のマクロ    | 割込み優先度のマクロ | 所属OSAP                   | システムサービス発行元の非信頼OSAPからのアクセス権
+-------------------------------------------------------------------------------------------------------------------------------------------
+  C1ISR   | INTNO_OTHER_ISR1_A    | INT_PRI_ISR1_MID     | OSAP_OTHER_OTHER_CORE※    |
+  C2ISR   | INTNO_OTHER_ISR2_A    | INT_PRI_TOP          | OSAP_OTHER_OTHER_CORE※    | なし
+  C2ISR   | INTNO_OTHER_ISR2_B    | INT_PRI_HIGH         | OSAP_OTHER_OTHER_CORE※    | なし
+  C2ISR   | INTNO_OTHER_ISR2_C    | INT_PRI_MID          | OSAP_OTHER_OTHER_CORE※    | なし
+  C2ISR   | INTNO_OTHER_ISR2_D    | INT_PRI_LOW          | OSAP_OTHER_OTHER_CORE※    | なし
+  C2ISR   | INTNO_OTHER_ISR2_E    | INT_PRI_BOTTOM       | OSAP_OTHER_OTHER_CORE※    | なし
+  C2ISR   | INTNO_OTHER_ISR2_F    | INT_PRI_MID          | OSAP_OTHER_OTHER_CORE※    | あり(NT_OSAP_SELF_CORE)          ※SC3-MCのみ
+  C2ISR   | INTNO_OTHER_ISR2_G    | INT_PRI_MID          | OSAP_OTHER_OTHER_CORE※    | あり(NT_OSAP_SELF_CORE_2)        ※SC3-MCのみ
+  C2ISR   | INTNO_OTHER_ISR2_H    | INT_PRI_MID          | OSAP_OTHER_OTHER_CORE※    | あり(NT_OSAP_OTHER_OTHER_CORE)   ※SC3-MCのみ
+  C2ISR   | INTNO_OTHER_ISR2_I    | INT_PRI_MID          | OSAP_OTHER_OTHER_CORE※    | あり(NT_OSAP_OTHER_OTHER_CORE_2) ※SC3-MCのみ
+  C2ISR   | INTNO_OTHER_ISR2_J    | INT_PRI_MID          | TR_OSAP_OTHER_OTHER_CORE_2 | なし
+  C2ISR   | INTNO_OTHER_ISR2_K    | INT_PRI_MID          | TR_OSAP_OTHER_OTHER_CORE_2 | あり(NT_OSAP_OTHER_OTHER_CORE)   ※SC3-MCのみ
+※SC3-MCの場合，所属OSAPは「TR_OSAP_OTHER_OTHER_CORE」
+
+―――――――――――――――――――――――――――――――――――
+(6.2) ターゲット依存APIの実装に関して
+―――――――――――――――――――――――――――――――――――
+
+target_spec.txtに定義したターゲット依存APIが用意できない場合，AKTG環境
+設定ファイルの設定により，入力されたTESRYデータの中から，ターゲット依存
+APIを必要とするTESRYデータを除外したテストプログラムを生成することが可
+能である．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(7) 実行時オプション
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+コマンドラインで以下の様式に沿って引数を与える．
+
+./aktg.rb [options] {file or directory}
+
+―――――――――――――――――――――――――――――――――――
+(7.1) 標準オプション
+―――――――――――――――――――――――――――――――――――
+
+ short | long      | 説明
+-------------------------------------------
+ -v    | --version | バージョン情報
+       | --help    | ヘルプ
+
+―――――――――――――――――――――――――――――――――――
+(7.2) AKTGオプション
+―――――――――――――――――――――――――――――――――――
+
+ option       | 説明                                                                 | デフォルト設定
+------------------------------------------------------------------------------------------------------------------------------------------------------
+ -c CONF_FILE | 読み込むAKTG環境設定ファイルを指定                                   | TOOL_ROOT/ttg/bin/configure.yaml
+ -p           | プログレスバー表示off                                                | on
+ -d           | デバッグモードon                                                     | off
+ -t           | テストプログラムフロー出力on                                         | off
+ -h           | 各フックルーチンの有無に関わらず，全フックルーチンの設定をtrueにする | テストプログラムに登場するフックルーチンのみの設定をtrueにする
+ -s           | 静的APIによるコンフィギュレーションファイル(*.cfg)生成on             | off(ATK2では静的APIが廃止されたため，機能としては残しているが未サポートである)
+
+デバッグモードをonにした場合は，以下の2つのファイルを出力する．
+
+(a) aktg_before.yaml
+AKTGが読み込んだTESRYデータを，1つのTESRYデータにまとめたファイル．
+
+(b) aktg_after.yaml
+AKTGが読み込み，以下に挙げる前処理を行った後のファイル．
+aktg_before.yamlと比較することにより，下記処理で実施した内容を確認する
+ためのファイルである．
+
+・TESRYデータの補完処理
+・マクロ置換処理
+・テストシナリオID付与による，オブジェクトIDや変数名の一意化処理
+
+―――――――――――――――――――――――――――――――――――
+(7.3) ロングオプションによるconfigure.yaml設定値の上書き
+―――――――――――――――――――――――――――――――――――
+
+ロングオプションによってAKTG環境設定ファイルに設定するパラメータ名を直
+接指定し，値を設定する．AKTG環境設定ファイルに設定した値は上書きされる．
+
+例)システム定義のエラーフックを無効にする
+  --error_hook false
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(8) ソースコードカバレッジ測定のための機能
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本章では，各種ツールを用いてソースコードカバレッジを測定する際の，AKTG
+の機能についてまとめる．
+
+―――――――――――――――――――――――――――――――――――
+(8.1) C++testを用いたカバレッジ測定
+―――――――――――――――――――――――――――――――――――
+
+詳細は以下を参照
+https://www.nces.is.nagoya-u.ac.jp/trac/atk2-tools/#Ctest
+
+C++test：http://www.techmatrix.co.jp/quality/ctest/
+
+―――――――――――――――――――――――――――――――――――
+(8.2) GCOVを用いたカバレッジ測定
+―――――――――――――――――――――――――――――――――――
+
+GCOVは，ATK2のat91skyeye_gcc依存部でサポートされているプログラムのソー
+スコードカバレッジを取得するツールである．AKTG環境設定ファイルもしくは
+実行時オプションにてGCOV取得をONにした場合，生成するテストプログラムに
+GCOV取得用のコードを追加する．GCOV取得を行うために，at91skyeye_gccの
+target_config.cに用意された以下のGCOV取得用ライブラリを利用する．
+
+GCOV初期化
+・gcov_init()
+
+GCOV取得中断
+・gcov_pause()
+
+GCOV取得再開
+・gcov_resume()
+
+GCOV出力
+・gcov_dump()
+
+これらの関数を用いて，doの前後のみのカバレッジ取得を可能としている．
+
+GCOV関連ファイルの取り扱いについてはカーネルパッケージに付属している
+at91skyeye_gcc依存部のtarget_user.txtを参照する．
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(9) テストプログラムに関する特記事項
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+本章では，ユーザが，AKTGが生成したテストプログラムを確認した際に，疑問
+を抱く可能性のある処理について説明する．
+
+―――――――――――――――――――――――――――――――――――
+(9.1) 全TESRYデータを跨って使用する処理単位
+―――――――――――――――――――――――――――――――――――
+
+タスクやリソースなどのオブジェクトは，入力されたTESRYデータに記述された
+数だけ定義する．しかし，ISRは，1つの割込み番号に対して1つしか定義できず，
+また，各フックルーチンについても1つしか定義できないため，複数のTESRYデ
+ータにおいて同一割込み番号のISRやフックルーチンが使用されていると，テス
+トプログラムをマージすることができない．そこで，同一割込み番号に対する
+ISRや各フックルーチンは，全TESRYデータに対して1つのみ定義し，その関数を
+共有することで対応する．具体的には，以下のように2つのTESRYデータをマー
+ジした場合，if文によって実行中のTESRYデータに対応する処理だけが実行され
+るような関数とする．
+
+<tesry_a.yaml>
+  C2ISR1:
+    intno: AKTSP_INTNO_A
+
+<tesry_b.yaml>
+  C2ISR2:
+    intno: AKTSP_INTNO_A
+
+<テストプログラム>
+ISR(AKTG_C2ISR_COMMON_AKTSP_INTNO_A){
+
+	AktspClearIntRequest(AKTSP_INTNO_A);
+
+	if (AKTG_C2ISR_COMMON_AKTSP_INTNO_A_bootcnt == AKTG_C2ISR_COMMON_AKTSP_INTNO_A_tesry_a) {
+			:
+	}
+
+	if (AKTG_C2ISR_COMMON_AKTSP_INTNO_A_bootcnt == AKTG_C2ISR_COMMON_AKTSP_INTNO_A_tesry_b) {
+			:
+	}
+
+}
+
+以上の仕様を実現するため，同一割込み番号に対するISRにおいて，属性や割込
+み優先度などの設定値が異なるTESRYデータが存在する場合，コンフィギュレー
+ションファイルに定義する値が決定できないため，エラーを表示する．
+
+なお，複数のテストシナリオをマージした際のタスクやリソースなどのオブジ
+ェクトは，TESRYデータ内に記述したテストIDと各オブジェクトIDを"_"で繋い
+だ文字列をIDとして，複数のテストをマージしてもユニークとなるようにリネ
+ーム処理を行う．ただし，割込みに関しては，以下の命名規則でリネームを行
+う．
+
+■C1ISR
+  AKTG_C1ISR_COMMON_ + 割込み番号
+
+■C2ISR
+  AKTG_C2ISR_COMMON_ + 割込み番号
+
+―――――――――――――――――――――――――――――――――――
+(9.2) SC3，SC4における注意事項
+―――――――――――――――――――――――――――――――――――
+
+本節では，テスト対象OSのスケーラビリティクラスがSC3，もしくはSC4であっ
+た場合の注意事項をまとめる．
+
+----------------------------------------------------------------------
+(9.2.1) 前状態生成に使用するActivateTask，SetEvent
+----------------------------------------------------------------------
+
+前状態実現処理において，SC1，SC2との処理の共通化，および簡略化ために，
+信頼/非信頼に関係なく，全タスクから全タスクへ，ActivateTask，SetEventを
+発行する必要がある．これに対し，テストライブラリでは，ActivateTaskを発
+行するだけの信頼関数であるAktspTfnActivateTaskと，SetEventを発行するだ
+けの信頼関数であるAktspTfnSetEventを用意し，非信頼OSAPに所属するタスク
+からは，これらの信頼関数を使用する．
+
+----------------------------------------------------------------------
+(9.2.2) 異常検知時のシャットダウン処理
+----------------------------------------------------------------------
+
+状態確認がNGであったり，意図しないチェックポイントを通過した場合に，テ
+ストプログラムは即座にシャットダウン処理を行うが，ShutdowOSは非信頼
+OSAPから呼び出しても無視される．これに対し，テストライブラリでは，
+ShutdowOSを発行するだけの信頼関数であるAktspTfnShutdownOSを用意する．処
+理の簡略化のため，異常時には，信頼/非信頼に関係なく一律この信頼関数を使
+用する．ただし，信頼関数は，タスクとC2ISRからのみ発行可能であるので，こ
+れ以外の非信頼OSAPに所属する処理単位からはシャットダウンは行えない．こ
+の場合，テスト毎に行うメインタスクの状態確認関数である
+AktgCheckMainTask内で，異常を検知して終了するため，異常が発生したテスト
+より後のテストが実行されることはない．
+
+----------------------------------------------------------------------
+(9.2.3) OSAP固有のスタートアップフックとシャットダウンフックの実行順序
+----------------------------------------------------------------------
+
+テストプログラムに，複数のOSAP固有のスタートアップフックやOSAP固有のシ
+ャットダウンフックが登場する場合，AKTGが生成するテストプログラムは，コ
+ンフィギュレーションファイルに出力する順で実行される前提でチェックポイ
+ントを設定する．コンフィギュレーションファイルに出力する順は，OSAP IDの
+アルファベット順である．
+なお，ATK2では，コンフィギュレーションファイルに記述した順で実行される．
+
+―――――――――――――――――――――――――――――――――――
+(9.3) マルチコア対応OSに関する特記事項
+―――――――――――――――――――――――――――――――――――
+
+本節では，テスト対象OSがマルチコア対応OSであった場合の特記事項をまとめ
+る．
+
+----------------------------------------------------------------------
+(9.3.1) TRUSTED_MAIN_OSAPが割付けられるコア
+----------------------------------------------------------------------
+
+メインタスクやハードウェアカウンタが所属するOSAPである
+TRUSTED_MAIN_OSAPは，マスタコアに割付けられる．
+
+----------------------------------------------------------------------
+(9.3.2) コア間割込み(ICISR)の取り扱い
+----------------------------------------------------------------------
+
+ICISRは，C1ISR，C2ISR同様，関数を共有して実現するが，1つの割込み番号，
+割込み優先度を使用するため，ICISRが所属するOSAP毎に共有する．また，1つ
+のOSAPに複数のICISRが所属する場合に備え，OSAP内でインデックスを付与する．
+
+<tesry_a.yaml>
+  ICISR1:
+    osap: OSAP_SELF_CORE
+  ICISR2:
+    osap: OSAP_SELF_CORE
+
+<tesry_b.yaml>
+  ICISR1:
+    osap: OSAP_SELF_CORE
+  ICISR2:
+    osap: OSAP_OTHER_OTHER_CORE
+
+<テストプログラム>
+ICISR(AKTG_ICISR_OSAP_SELF_CORE_1){
+	if (AKTG_ICISR_OSAP_SELF_CORE_1_bootcnt == AKTG_ICISR_OSAP_SELF_CORE_1_tesry_a) {
+			:
+	}
+
+	if (AKTG_ICISR_OSAP_SELF_CORE_1_bootcnt == AKTG_ICISR_OSAP_SELF_CORE_1_tesry_b) {
+			:
+	}
+}
+ICISR(AKTG_ICISR_OSAP_SELF_CORE_2){
+	if (AKTG_ICISR_OSAP_SELF_CORE_1_bootcnt == AKTG_ICISR_OSAP_SELF_CORE_2_tesry_a) {
+			:
+	}
+}
+ICISR(AKTG_ICISR_OSAP_OTHER_OTHER_CORE_1){
+	if (AKTG_ICISR_OSAP_OTHER_OTHER_CORE_1_bootcnt == AKTG_ICISR_OSAP_OTHER_OTHER_CORE_1_tesry_b) {
+			:
+	}
+}
+
+ICISRのリネームの命名規則は以下である．
+
+■ICISR
+  AKTG_ICISR_ + OSAP ID + 連番
+
+なお，ATK2では，ICISRは1コアに31個のみ登録可能であるが，登場するOSAPと，
+OSAPに含まれるICISRの組み合わせが，31個を超えない限り，上記の対応でテス
+ト実施に支障はないため，AKTGではICISRの上限チェックを行わない．
+
+―――――――――――――――――――――――――――――――――――
+(9.4) IOCのデータ型参照先に関して
+―――――――――――――――――――――――――――――――――――
+
+テストで使用するIOCが参照するIMPLEMENTATION-DATA-TYPEは，
+"ImplementationDataTypes"というショートネームのAR-PACKAGE内で別途定義さ
+れているものとする．従って，AKTGでは，TESRYデータのIOC通信データ
+(IOC_DATA)のdatatypeに書かれた文字列に，"/ImplementationDataTypes/"を付
+与して出力する．
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(参考) フォルダ構成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AKTGのフォルダ構成は以下である．
+
+aktg/								AKTGモジュール実装部
+	aktf/							AKTFモジュール実装部
+		bin/						AKTFモジュール
+			class/					AKTFでのみ使用するクラス
+			process_unit/			AKTF用処理単位クラス
+			sc_object/				AKTF用同期通信オブジェクトクラス
+			sys_state/				AKTF用割込み禁止状態クラス
+			test_scenario/			AKTF用テストシナリオクラス
+		test/						AKTFに対するテスト用フォルダ
+	bin/							AKTG本体，AKTG環境設定ファイル
+		builder/					各ビルダークラス
+			multi_builder/			マルチコア用クラス
+				test_scenario/		マルチコア用テストシナリオクラス
+		director/					各ディレクタークラス
+		product/					各プロダクトクラス
+	common/							
+		bin/						AKTG/AKTF共通部
+			process_unit/			処理単位クラス
+			sc_object/				同期通信オブジェクトクラス
+			sys_state/				CPU状態クラス
+			test_scenario/			テストシナリオクラス
+		kwalify/					YAMLライブラリ(※1)
+	doc/							AKTG関連ドキュメント
+
+※1：以下から入手
+     http://www.kuwata-lab.com/kwalify/
+
+
+
+以上．

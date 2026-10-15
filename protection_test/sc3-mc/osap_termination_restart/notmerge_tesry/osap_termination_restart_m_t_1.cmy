@@ -1,0 +1,466 @@
+######################################################################
+# osap_termination_restart_m_t_1_0001.yaml
+######################################################################
+osap_termination_restart_m_t_1_0001:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NT_OSAP_SELF_CORE
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      porder: 1
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_DO_NOT_CARE
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    NT_OSAP_SELF_CORE:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseProtectionHook()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATEAPPL)
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    NT_OSAP_SELF_CORE:
+      osapstat: APPLICATION_TERMINATED
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+      getspn:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+
+  do_2:
+    id: TASK5
+    syssrv: GetApplicationState(NT_OSAP_SELF_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+######################################################################
+# osap_termination_restart_m_t_1_0002.yaml
+######################################################################
+osap_termination_restart_m_t_1_0002:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NT_OSAP_SELF_CORE
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      porder: 1
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_ALL_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_ALL_INT: SPINLOCK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    NT_OSAP_SELF_CORE:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseProtectionHook()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATEAPPL)
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    NT_OSAP_SELF_CORE:
+      osapstat: APPLICATION_TERMINATED
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+      getspn:
+    INT_STATE1:
+      istat:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+
+  do_2:
+    id: TASK5
+    syssrv: GetApplicationState(NT_OSAP_SELF_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+######################################################################
+# osap_termination_restart_m_t_1_0003.yaml
+######################################################################
+osap_termination_restart_m_t_1_0003:
+  property:
+    sc: 
+      - SC3
+      - SC4
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      getspn:
+        - SPINLOCK1
+      osap: NT_OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      porder: 2
+      osap: NT_OSAP_SELF_CORE
+    TASK3:
+      type: TASK
+      tstat: WAITING
+      curpri: TSK_PRI_MID
+      ttype: AK_EXTENDED
+      curevt: 0
+      waievt: EVENT1
+      relevt:
+        - EVENT1
+      osap: NT_OSAP_SELF_CORE
+    TASK4:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_HIGH
+      osap: NT_OSAP_SELF_CORE
+    TASK5:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_MID
+      var:
+        vname1:
+          type: ApplicationStateType
+      porder: 1
+      osap: TR_OSAP_SELF_CORE
+      accosap:
+        - NT_OSAP_SELF_CORE
+    TASK6:
+      type: TASK
+      tstat: SUSPENDED
+      inipri: TSK_PRI_MID
+      osap: TR_OSAP_OTHER_OTHER_CORE
+    SPINLOCK1:
+      type: SPINLOCK
+      susint: AK_SUS_OS_SPN
+      lockflg: AK_LOCK
+      accosap:
+        - NT_OSAP_SELF_CORE
+        - TR_OSAP_OTHER_OTHER_CORE
+    EVENT1:
+      type: EVENT
+      mask: EVENTMASK_A
+    INT_STATE1:
+      type: INT_STATE
+      istat:
+        - AK_SUS_OS_INT: SPINLOCK1
+    ERROR_HOOK1:
+      type: ERROR_HOOK
+      hookstat: AK_STOP
+      target_error_hook_cfg:
+        - AK_ONLY_SYSTEM
+      coreid: CORE_SELF
+    PROTECTION_HOOK1:
+      type: PROTECTION_HOOK
+      hookstat: AK_STOP
+    NT_OSAP_SELF_CORE:
+      type: OSAP
+      osapstat: APPLICATION_ACCESSIBLE
+
+  do_0:
+    id: TASK1
+    syssrv: AktspRaiseProtectionHook()
+
+  post_condition_0:
+    PROTECTION_HOOK1:
+      hookstat: AK_ACTIVATE
+
+  do_1:
+    id: PROTECTION_HOOK1
+    syssrv: return(PRO_TERMINATEAPPL)
+
+  post_condition_1:
+    PROTECTION_HOOK1:
+      hookstat: AK_STOP
+    NT_OSAP_SELF_CORE:
+      osapstat: APPLICATION_TERMINATED
+    TASK5:
+      tstat: RUNNING
+    TASK1:
+      tstat: SUSPENDED
+      getspn:
+    INT_STATE1:
+      istat:
+    SPINLOCK1:
+      lockflg: AK_UNLOCK
+    TASK2:
+      tstat: SUSPENDED
+    TASK3:
+      tstat: SUSPENDED
+    TASK4:
+      tstat: SUSPENDED
+
+  do_2:
+    id: TASK5
+    syssrv: GetApplicationState(NT_OSAP_SELF_CORE,&vname1)
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition_2:
+    TASK5:
+      var:
+        vname1:
+          value: APPLICATION_TERMINATED
+
+  do_3:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK1,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_3:
+
+  do_4:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK2,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_4:
+
+  do_5:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK3,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_5:
+
+  do_6:
+    id: TASK5
+    syssrv: AktspCheckTaskTerminated(TASK4,AK_TRUE)
+    rettype: StatusType
+    retval: E_OS_ACCESS
+
+  post_condition_6:
+######################################################################

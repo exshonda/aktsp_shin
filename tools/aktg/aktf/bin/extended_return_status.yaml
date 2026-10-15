@@ -1,0 +1,430 @@
+# $Id: extended_return_status.yaml 2 2014-04-15 07:29:16Z fsi-dankei $
+
+######################################################################
+# 拡張エラーの戻り値一覧
+# --------------------------------------------------------------------
+# システムサービス毎に拡張エラーに該当する戻り値の一覧を示す．
+# configure.yamlのエラー種別(return_status)で，標準エラーのみ検出
+# (STANDARD)を設定した場合，この一覧にあるシステムサービスと戻り値を指
+# 定しているテストケースを除外する．
+######################################################################
+
+GetActiveApplicationMode:
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+ActivateTask:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+TerminateTask:
+  - E_OS_RESOURCE
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_SPINLOCK
+
+ChainTask:
+  - E_OS_ID
+  - E_OS_RESOURCE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_SPINLOCK
+  - E_OS_CORE
+
+Schedule:
+  - E_OS_RESOURCE
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_SPINLOCK
+
+GetTaskID:
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+
+GetTaskState:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+GetISRID:
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+EnableInterruptSource:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_CORE
+
+DisableInterruptSource:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_CORE
+
+SetEvent:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_STATE
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+ClearEvent:
+  - E_OS_ACCESS
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+GetEvent:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_STATE
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+WaitEvent:
+  - E_OS_ACCESS
+  - E_OS_CALLEVEL
+  - E_OS_RESOURCE
+  - E_OS_DISABLEDINT
+  - E_OS_SPINLOCK
+
+GetResource:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+ReleaseResource:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_NOFUNC
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+IncrementCounter:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_STATE
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+GetCounterValue:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+GetElapsedValue:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+GetAlarmBase:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+GetAlarm:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+SetRelAlarm:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+SetAbsAlarm:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CancelAlarm:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+StartScheduleTableRel:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+StartScheduleTableAbs:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+StopScheduleTable:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+NextScheduleTable:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+StartScheduleTableSynchron:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+SyncScheduleTable:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+SetScheduleTableAsync:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+GetScheduleTableStatus:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+GetApplicationID:
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+CallTrustedFunction:
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+
+CheckISRMemoryAccess:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+CheckTaskMemoryAccess:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+CheckTaskAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckISRAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckAlarmAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckResourceAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckCounterAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckScheduleTableAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckSpinlockAccess:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+CheckTaskOwnership:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckISROwnership:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckAlarmOwnership:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckCounterOwnership:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+CheckScheduleTableOwnership:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - E_OS_CORE
+
+TerminateApplication:
+  - E_OS_ID
+  - E_OS_VALUE
+  - E_OS_ACCESS
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+AllowAccess:
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+GetApplicationState:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+  - E_OS_CORE
+
+StartCore:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_STATE
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+
+StartNonAutosarCore:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_STATE
+  - OS_E_PARAM_POINTER
+  - E_OS_PARAM_POINTER
+  - E_OS_ILLEGAL_ADDRESS
+
+GetSpinlock:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_INTERFERENCE_DEADLOCK
+  - E_OS_NESTING_DEADLOCK
+
+ReleaseSpinlock:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_STATE
+  - E_OS_DISABLEDINT
+  - E_OS_NOFUNC
+  - E_OS_CALLEVEL
+
+TryToGetSpinlock:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_DISABLEDINT
+  - E_OS_INTERFERENCE_DEADLOCK
+  - E_OS_NESTING_DEADLOCK
+
+RaiseInterCoreInterrupt:
+  - E_OS_ID
+  - E_OS_CALLEVEL
+  - E_OS_ACCESS
+  - E_OS_CORE
+
+GetMutex:
+  - E_OS_ID
+  - E_OS_ACCESS
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT
+
+ReleaseMutex:
+  - E_OS_ID
+  - E_OS_NOFUNC
+  - E_OS_ACCESS
+  - E_OS_CALLEVEL
+  - E_OS_DISABLEDINT

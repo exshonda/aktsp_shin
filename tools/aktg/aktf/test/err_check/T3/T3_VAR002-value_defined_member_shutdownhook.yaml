@@ -1,0 +1,30 @@
+T3_VAR002_value_defined_member_shutdownhook:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      ttype: AK_BASIC
+    SHUTDOWN_HOOK1:
+      type: SHUTDOWN_HOOK
+      hookstat: AK_ACTIVATE
+      var:
+        vname1:
+          type: TaskStateType
+          value: 0
+
+  do:
+    id: SHUTDOWN_HOOK1
+    syssrv: GetTaskState(TASK1,&vname1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
+    SHUTDOWN_HOOK1:
+      var:
+        vname1:
+          ticksperbase: ANY_TICKSPERBASE

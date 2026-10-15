@@ -1,0 +1,164 @@
+######################################################################
+# Schedule_m_normal_schedule_0001.yaml
+######################################################################
+Schedule_m_normal_schedule_0001:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: AK_BASIC
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# Schedule_m_normal_schedule_0002.yaml
+######################################################################
+Schedule_m_normal_schedule_0002:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      ttype: ANY_TTYPE
+      relres:
+        - RESOURCE1
+      getres:
+        - RESOURCE1
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: ANY_TTYPE
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHFULL
+      relres:
+        - RESOURCE1
+      ttype: AK_BASIC
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+    RESOURCE1:
+      type: RESOURCE
+      resprop: AK_INTERNAL
+      lockflg: AK_LOCK
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+      curpri: TSK_PRI_MID
+      getres:
+    TASK2:
+      tstat: RUNNING
+      getres:
+        - RESOURCE1
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################
+# Schedule_m_normal_schedule_0003.yaml
+######################################################################
+Schedule_m_normal_schedule_0003:
+  property:
+    sc: 
+      - SC1
+      - SC2
+
+  pre_condition:
+    TASK1:
+      type: TASK
+      tstat: RUNNING
+      inipri: TSK_PRI_MID
+      curpri: TSK_PRI_MID
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      osap: OSAP_SELF_CORE
+    TASK2:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: ANY_TTYPE
+      porder: 1
+      osap: OSAP_OTHER_SAME_CORE
+    TASK3:
+      type: TASK
+      tstat: READY
+      curpri: TSK_PRI_HIGH
+      spolicy: AK_SCHNON
+      ttype: AK_BASIC
+      porder: 2
+      osap: OSAP_OTHER_SAME_CORE
+
+  do:
+    id: TASK1
+    syssrv: Schedule()
+    rettype: StatusType
+    retval: E_OK
+
+  post_condition:
+    TASK1:
+      tstat: READY
+    TASK2:
+      tstat: RUNNING
+    TASK3:
+      tstat: READY
+      porder: 1
+######################################################################

@@ -1,0 +1,19 @@
+T1_022_shutdown_hook_osap_required_key:
+  property:
+    sc:
+
+  pre_condition:
+    SHUTDOWN_HOOK_OSAP1:
+      type: SHUTDOWN_HOOK_OSAP
+    TASK1:
+      type: TASK
+      tstat: SUSPENDED
+      osap: NON_TRUSTED_OSAP1
+
+  do:
+    id: SHUTDOWN_HOOK_OSAP1
+    syssrv: ActivateTask(TASK1)
+    rettype: StatusType
+    retval: E_OS_CALLEVEL
+
+  post_condition:
