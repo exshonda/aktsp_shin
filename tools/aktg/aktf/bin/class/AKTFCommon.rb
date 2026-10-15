@@ -454,8 +454,8 @@ module AKTFModule
     GRP_DEF_DO.each{|sAtr, aClass|
       if (aSpecified.include?(sAtr))
         cClass = hDo[sAtr].class()
-        if (hDo[sAtr].is_a?(Fixnum))
-          cClass = cClass.superclass
+        if (hDo[sAtr].is_a?(Integer))  # 1.9: Fixnum/Bignum, 2.4+: Integer
+          cClass = Integer
         end
         ### T2_001: パラメータの型が想定されている型と異なる
         if (!aClass.include?(cClass))
