@@ -6,10 +6,12 @@
 #
 #  <yaml> は展開済みの TESRY データ (expand_tesry.sh で .cmy から作る)．
 #  <outdir> に out.c/out.h/out.arxml (AKTG 生成物)，Makefile，atk2-sc1.elf，
-#  expected_count (AktspCheckFinish に渡る最終チェックポイント番号) を作る．
+#  expected_count (最終チェックポイント番号) を作る．
 #
 #  環境変数:
 #    ATK2_DIR  ATK2 のソースツリー (既定: aktsp と並べて置いた ../atk2_sc1_shin)
+#    MAKE_JOBS make の並列数 (既定: 8)
+#    AKTSP_CDEFS コンパイラへの追加定義 (既定: -DAKTSP_TASK_STACK_SIZE=4096U)
 #    CCRH が PATH 上にあること (Linux 版 CC-RH)
 #
 set -euo pipefail
@@ -17,6 +19,13 @@ set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 AKTSP=$(cd "$HERE/../../.." && pwd)
 ATK2_DIR=$(cd "${ATK2_DIR:-$AKTSP/../atk2_sc1_shin}" && pwd)
+# CC-RH (-Ospeed -Oinline_size) は全テストのフック本体を ErrorHook 等へ
+# インライン展開するため，フックのフレームが 500 バイトを超える．SC1 の
+# ErrorHook/PreTaskHook/PostTaskHook は呼出し元タスクのスタックで動くので，
+# 既定の 1280 バイトでは E_OS_STACKFAULT になる．syssrv_test/sc1 の *_error は
+# 2048 バイト，IncrementCounter_nml_* (アラーム満了→タスク起動がサービス
+# コール内で重なる) は 4096 バイトで通った
+AKTSP_CDEFS=${AKTSP_CDEFS:--DAKTSP_TASK_STACK_SIZE=4096U}
 BASE_MAKEFILE=$ATK2_DIR/obj/obj_rh850f1kms1_ccrh/Makefile
 
 [ $# -ge 2 ] || { echo "usage: $0 <outdir> <yaml>..."; exit 1; }
@@ -65,22 +74,30 @@ cat >> Makefile <<'MK'
 # _kernel_exit_task に改名)．最終リンクでのみ別名を与える
 # (private: 前提条件である cfg1_out のリンクへ継承させない)
 $(OBJFILE): private LDFLAGS += -define=_exit_task=_kernel_exit_task
+# AKTSP 向けの追加定義 (gen_build.sh が make の引数で渡す)
+CDEFS := $(CDEFS) $(AKTSP_CDEFS)
 MK
 # 置換が 1 つでも外れると黙ってサンプルをビルドしてしまうので，全件当たったことを確かめる
 nsub=$(diff "$BASE_MAKEFILE" Makefile | grep -c '^>' || true)
-if [ "$nsub" -ne 16 ]; then
-  echo "Makefile generation: expected 16 changed lines, got $nsub ($BASE_MAKEFILE changed?)"; exit 1
+if [ "$nsub" -ne 18 ]; then
+  echo "Makefile generation: expected 18 changed lines, got $nsub ($BASE_MAKEFILE changed?)"; exit 1
 fi
 
-if ! make -j8 > make.log 2>&1; then
+# AKTSP_CDEFS の変更は依存関係に現れないので，常に全体を作り直す
+make clean > /dev/null 2>&1 || true
+if ! make -j"${MAKE_JOBS:-8}" AKTSP_CDEFS="$AKTSP_CDEFS" > make.log 2>&1; then
   echo "make failed (see $out/make.log)"
   grep -E "[EF]0[0-9]{6}" make.log | head || true
   exit 1
 fi
 [ -f atk2-sc1.elf ] || { echo "atk2-sc1.elf not built"; exit 1; }
 
-grep -o 'AktspCheckFinish([0-9]*)' out.c | grep -o '[0-9][0-9]*' > expected_count
-[ "$(wc -l < expected_count)" -eq 1 ] || { echo "AktspCheckFinish not unique in out.c"; exit 1; }
+# 最終チェックポイント = out.c 中の最大のチェックポイント番号．通常は MainTask 末尾の
+# AktspCheckFinish(N) だが，ShutdownHook を試すテストを含むと ShutdownHook 内の
+# AktspCheckPoint(N) が最後になる (チェックポイントは実行順に通し番号)
+max=$(grep -o -E 'Aktsp(CheckPoint|CheckFinish)\([0-9]+\)' out.c | grep -o -E '[0-9]+' | sort -n | tail -1 || true)
+[ -n "$max" ] || { echo "no checkpoint in out.c"; exit 1; }
+echo "$max" > expected_count
 
 echo "built: $out/atk2-sc1.elf"
 echo "expected_count: $(cat expected_count)"
