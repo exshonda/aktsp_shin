@@ -11,6 +11,7 @@
 #  環境変数:
 #    ATK2_DIR  ATK2 のソースツリー (既定: aktsp と並べて置いた ../atk2_sc1_shin)
 #    MAKE_JOBS make の並列数 (既定: 8)
+#    FUNC_INTERRUPT/FUNC_HARDWARE_COUNTER/FUNC_PROTECTION_HOOK  AKTG の同名オプション (既定: true)
 #    AKTSP_CDEFS コンパイラへの追加定義 (既定: -DAKTSP_TASK_STACK_SIZE=4096U)
 #    CCRH が PATH 上にあること (Linux 版 CC-RH)
 #
@@ -26,6 +27,10 @@ ATK2_DIR=$(cd "${ATK2_DIR:-$AKTSP/../atk2_sc1_shin}" && pwd)
 # 2048 バイト，IncrementCounter_nml_* (アラーム満了→タスク起動がサービス
 # コール内で重なる) は 4096 バイトで通った
 AKTSP_CDEFS=${AKTSP_CDEFS:--DAKTSP_TASK_STACK_SIZE=4096U}
+# AKTG に渡すターゲット依存関数の有無 (true/false)
+FUNC_INTERRUPT=${FUNC_INTERRUPT:-true}
+FUNC_HARDWARE_COUNTER=${FUNC_HARDWARE_COUNTER:-true}
+FUNC_PROTECTION_HOOK=${FUNC_PROTECTION_HOOK:-true}
 BASE_MAKEFILE=$ATK2_DIR/obj/obj_rh850f1kms1_ccrh/Makefile
 
 [ $# -ge 2 ] || { echo "usage: $0 <outdir> <yaml>..."; exit 1; }
@@ -36,11 +41,11 @@ for y in "$@"; do yamls+=("$(cd "$(dirname "$y")" && pwd)/$(basename "$y")"); do
 mkdir -p "$out"; cd "$out"
 rm -f out.c out.h out.arxml atk2-sc1.elf expected_count aktg_exclusion_list.txt
 
-# AKTG (SC1, シングルコア．割込み・HW カウンタ・プロテクションフックの
-# ターゲット依存関数は F1KM-S1 向けに未整備なので false)
+# AKTG (SC1, シングルコア)
 if ! ruby "$AKTSP/tools/aktg/bin/aktg.rb" -p \
      --scalability_class SC1 --core_num 1 --use_multi_core false \
-     --func_interrupt false --func_hardware_counter false --func_protection_hook false \
+     --func_interrupt "$FUNC_INTERRUPT" --func_hardware_counter "$FUNC_HARDWARE_COUNTER" \
+     --func_protection_hook "$FUNC_PROTECTION_HOOK" \
      --out_file_name out "${yamls[@]}" > aktg.log 2>&1; then
   echo "AKTG failed (see $out/aktg.log)"; exit 1
 fi
@@ -70,17 +75,13 @@ sed \
  "$BASE_MAKEFILE" > Makefile
 cat >> Makefile <<'MK'
 
-# aktsp_target.asm は改名前の _exit_task を参照する (ATK2 は kernel_rename.h で
-# _kernel_exit_task に改名)．最終リンクでのみ別名を与える
-# (private: 前提条件である cfg1_out のリンクへ継承させない)
-$(OBJFILE): private LDFLAGS += -define=_exit_task=_kernel_exit_task
 # AKTSP 向けの追加定義 (gen_build.sh が make の引数で渡す)
 CDEFS := $(CDEFS) $(AKTSP_CDEFS)
 MK
 # 置換が 1 つでも外れると黙ってサンプルをビルドしてしまうので，全件当たったことを確かめる
 nsub=$(diff "$BASE_MAKEFILE" Makefile | grep -c '^>' || true)
-if [ "$nsub" -ne 18 ]; then
-  echo "Makefile generation: expected 18 changed lines, got $nsub ($BASE_MAKEFILE changed?)"; exit 1
+if [ "$nsub" -ne 14 ]; then
+  echo "Makefile generation: expected 14 changed lines, got $nsub ($BASE_MAKEFILE changed?)"; exit 1
 fi
 
 # AKTSP_CDEFS の変更は依存関係に現れないので，常に全体を作り直す

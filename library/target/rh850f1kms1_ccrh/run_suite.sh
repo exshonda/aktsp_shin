@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-#  syssrv_test/sc1 のうち，割込みとハードウェアカウンタを使わないテストを
-#  まとめて生成・ビルド・実機実行する
+#  syssrv_test/sc1 のテストをまとめて生成・ビルド・実機実行する
 #
 #  usage: run_suite.sh [<workdir>] [<block size>]
 #    <workdir>    作業ディレクトリ (既定: <aktsp>/obj/f1kms1)
@@ -9,6 +8,8 @@
 #
 #  環境変数: CSPLUS_MCP_SERVER, ATK2_DIR, AKTSP_CDEFS (gen_build.sh/run_test.py 参照)
 #  BUILD_PARALLEL ブロックの並列ビルド数 (既定: 4)
+#  EXCLUDE        この拡張正規表現に一致する "type: ..." を含む YAML を除く
+#                 (例: 'C1ISR|C2ISR|AK_HARDWARE|PROTECTION_HOOK'．既定: 除外なし)
 #
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
@@ -20,11 +21,14 @@ mkdir -p "$W"; W=$(cd "$W" && pwd)
 # 1. .cmy を展開
 "$HERE/expand_tesry.sh" "$W/tesry" $(find "$AKTSP/syssrv_test/sc1" -name '*.cmy' | sort) > "$W/expand.log"
 
-# 2. 割込み (C1ISR/C2ISR/ISRT)，HW カウンタ (AK_HARDWARE)，プロテクションフックを
-#    使うものを除く (F1KM-S1 向けのターゲット依存関数が未整備のため)
-find "$W/tesry" -name '*.yaml' | sort | while read -r f; do
-  grep -q -E 'type: (C1ISR|C2ISR|AK_HARDWARE|PROTECTION_HOOK|ISRT)\b' "$f" || echo "$f"
-done > "$W/selected.list"
+# 2. 対象を選ぶ
+if [ -n "${EXCLUDE:-}" ]; then
+  find "$W/tesry" -name '*.yaml' | sort | while read -r f; do
+    grep -q -E "type: ($EXCLUDE)\b" "$f" || echo "$f"
+  done > "$W/selected.list"
+else
+  find "$W/tesry" -name '*.yaml' | sort > "$W/selected.list"
+fi
 echo "selected $(wc -l < "$W/selected.list") / $(find "$W/tesry" -name '*.yaml' | wc -l) yaml"
 
 # 3. ブロックに分けてビルド
