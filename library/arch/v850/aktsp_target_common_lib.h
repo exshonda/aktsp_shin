@@ -74,6 +74,7 @@
 /*
  *  タスクのスタックサイズ
  */
+#ifndef AKTSP_TASK_STACK_SIZE	/* overridable from the build (e.g. -DAKTSP_TASK_STACK_SIZE=2048U) */
 #ifdef __v850e2v3__
 #define AKTSP_TASK_STACK_SIZE   1280U
 #elif defined(__v850e3v5__)
@@ -81,6 +82,7 @@
 #else  /* __v850e3v5__ */
 #error please define ether __v850e2v3__ or __v850e3v5__
 #endif /* __v850e2v3__ */
+#endif /* AKTSP_TASK_STACK_SIZE */
 
 /*
  *  信頼フックが使用するスタックサイズ
