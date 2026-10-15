@@ -72,6 +72,7 @@
 
 extern void _aktsp_shift_sp(uint32 stk);
 extern void _aktsp_return_in_stack_overflow_s(uint32 stk, uint32 sz);
+extern void _aktsp_raise_fetrap(void);
 
 #define AKTSP_SHIFT_SP								_aktsp_shift_sp(stk)
 #define AKTSP_RETURN_IN_STACK_OVERFLOW_S(stk, sz)	_aktsp_return_in_stack_overflow_s(stk, sz)

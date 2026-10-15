@@ -279,9 +279,12 @@ AktspCancelIntRequest(InterruptNumberType intno)
 #ifdef _RH850G3K_
 #define SEG_CONT 0xffff8c00
 #define SEG_FLAG 0xffff8c02
-#elif defined(_RH850G3KH_)	/* RH850/F1KM-S1: TODO unverified, borrowed from G3K. Used only to raise ProtectionHook. */
-#define SEG_CONT 0xffff8c00
-#define SEG_FLAG 0xffff8c02
+#elif defined(_RH850G3KH_)
+/*
+ *  RH850 G3KH (F1K/F1KM): the SEG register layout of G3K/G3M is not assumed.
+ *  The CPU exception is raised with FETRAP (FE level -> ProtectionHook) instead.
+ */
+#define AKTSP_RAISE_CPU_EXCEPTION_BY_FETRAP
 #elif defined(_RH850G3M_)
 #define SEG_CONT 0xfffee980
 #define SEG_FLAG 0xfffee982
@@ -309,8 +312,10 @@ void
 AktspProtectionHookInit(void)
 {
 	/* リザーブ領域アクセス通知クリア */
+#ifndef AKTSP_RAISE_CPU_EXCEPTION_BY_FETRAP
 	sil_reh_mem((void *)SEG_FLAG);
 	sil_wrh_mem((void *)SEG_FLAG,0x0000);
+#endif /* AKTSP_RAISE_CPU_EXCEPTION_BY_FETRAP */
 }
 
 /*
@@ -549,6 +554,8 @@ AktspRaiseCPUException(void)
 {
 #ifdef CFG_USE_SCALABILITYCLASS3
 	asm("FETRAP 0xf");
+#elif defined(AKTSP_RAISE_CPU_EXCEPTION_BY_FETRAP)
+	_aktsp_raise_fetrap();
 #else
 	/* リザーブ領域アクセス通知クリア */
 	sil_reh_mem((void *)SEG_FLAG);

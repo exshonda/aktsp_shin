@@ -87,7 +87,9 @@
 /*
  *  信頼フックが使用するスタックサイズ
  */
+#ifndef AKTSP_HOOK_STACK_SIZE	/* overridable from the build */
 #define AKTSP_HOOK_STACK_SIZE   512U /* 512byte */
+#endif /* AKTSP_HOOK_STACK_SIZE */
 
 /*
  *  1つのC2ISRが使用するスタックサイズ

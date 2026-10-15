@@ -54,6 +54,9 @@
 ;  $Id: aktsp_target.asm 4883 2014-02-28 02:23:44Z shigihara $
 ;
 
+; Kernel symbols are referenced by their ATK2 1.4 (kernel_rename.h) names
+; (_kernel_exit_task, _kernel_callevel_stat).
+
 ; _aktsp_shift_sp(uint32 stk)
 ; stkの値をスタックポインタ(sp)に設定
 	.extern __aktsp_shift_sp
@@ -67,7 +70,14 @@ __aktsp_shift_sp:
 	.extern __aktsp_return_in_stack_overflow_s
 __aktsp_return_in_stack_overflow_s:
 	mov     r6, sp
-	br      _exit_task
+	br      _kernel_exit_task
+
+; _aktsp_raise_fetrap(void)
+; raise an FE-level CPU exception (FETRAP 15) -> ProtectionHook(E_OS_PROTECTION_EXCEPTION)
+	.public __aktsp_raise_fetrap
+__aktsp_raise_fetrap:
+	fetrap  15
+	jmp     [lp]
 
 ; C1ISR用定義
 ; (インラインアセンブラが使えないためシンボル名固定で対応)
@@ -117,7 +127,7 @@ $endif ;/* TOPPERS_USE_HFLOAT */
 	;/*
 	 ;*  _callevel_stat 保存
 	 ;*/
-	Lea     _callevel_stat, r6
+	Lea     _kernel_callevel_stat, r6
 	ld.h    0[r6], r7
 	Push    r7
 
@@ -135,7 +145,7 @@ POST_C1ISR .macro
 	;/*
 	 ;* _callevel_stat の復帰
 	 ;*/
-	Lea     _callevel_stat, r7
+	Lea     _kernel_callevel_stat, r7
 	Pop     r6
 	st.h    r6, 0[r7]
 
