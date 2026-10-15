@@ -117,6 +117,24 @@ def read_cstr(mcp: "Mcp", addr: int, limit: int = 160) -> str:
     return data.split(b"\0", 1)[0].decode("ascii", "replace")
 
 
+ERRNAME = {0: "E_OK", 1: "E_OS_ACCESS", 2: "E_OS_CALLEVEL", 3: "E_OS_ID", 4: "E_OS_LIMIT",
+           5: "E_OS_NOFUNC", 6: "E_OS_RESOURCE", 7: "E_OS_STATE", 8: "E_OS_VALUE",
+           9: "E_OS_SERVICEID", 10: "E_OS_ILLEGAL_ADDRESS", 11: "E_OS_MISSINGEND",
+           12: "E_OS_DISABLEDINT", 13: "E_OS_STACKFAULT", 14: "E_OS_PROTECTION_MEMORY",
+           15: "E_OS_PROTECTION_TIME_TASK", 16: "E_OS_PROTECTION_TIME_ISR",
+           17: "E_OS_PROTECTION_ARRIVAL_TASK", 18: "E_OS_PROTECTION_ARRIVAL_ISR",
+           19: "E_OS_PROTECTION_LOCKED_RESOURCE", 20: "E_OS_PROTECTION_LOCKED_OSINT",
+           21: "E_OS_PROTECTION_LOCKED_ALLINT", 22: "E_OS_PROTECTION_EXCEPTION",
+           23: "E_OS_PROTECTION_FATAL", 24: "E_OS_MODE", 25: "E_OS_SHUTDOWN_FATAL",
+           26: "E_OS_PARAM_POINTER", 27: "E_OS_SYS_ASSERT_FATAL", 28: "E_OS_STACKINSUFFICIENT"}
+
+
+def sym_of(syms: dict[str, int], addr: int) -> str:
+    best = max(((a, n) for n, a in syms.items() if a <= addr and a < 0xfe000000),
+               default=(0, "?"))
+    return f"{best[1]}+0x{addr - best[0]:x}"
+
+
 def le(data, n: int) -> int:
     return sum(int(b) << (8 * i) for i, b in enumerate(data[:n]))
 
@@ -159,6 +177,11 @@ def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, 
     # (失敗時は停止したままにする．引数 r6-r8 から式・ファイル・行が分かる)
     for loc in ("_CheckErcd", "_CheckAssert"):
         mcp.call("add_breakpoint_at", location=loc, breakpoint_type="hardware")
+    # OS がシャットダウンする原因 (StatusType と呼出し元) を記録する．
+    # 正常終了でも ShutdownOS(E_OK) で通るので，記録したら実行を続ける
+    a_sd = syms.get("_kernel_internal_shutdownos")
+    if a_sd is not None:
+        mcp.call("add_breakpoint", address=a_sd, breakpoint_type="hardware")
     mcp.call("write_memory", address=a_count, data=list(JUNK_COUNT.to_bytes(4, "little")))
     mcp.call("write_memory", address=a_state, data=[JUNK_STATE])
     if (le(mcp.call("read_memory", address=a_count, length=4), 4) != JUNK_COUNT
@@ -166,17 +189,23 @@ def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, 
         raise McpError("pre-fill of check_count/cp_state did not stick")
 
     t0 = time.monotonic()
-    mcp.call("run")
     hung = False
-    while mcp.call("get_status").get("state") == "TARGET_RUNNING":
-        if time.monotonic() - t0 > timeout:
-            mcp.call("halt")
-            hung = True
+    shutdown = []
+    while True:
+        mcp.call("run")
+        while mcp.call("get_status").get("state") == "TARGET_RUNNING":
+            if time.monotonic() - t0 > timeout:
+                mcp.call("halt")
+                hung = True
+                break
+            time.sleep(0.2)
+        pc = int(mcp.call("get_pc"))
+        if hung or pc != a_sd or len(shutdown) >= 4:
             break
-        time.sleep(0.5)
+        err = int(mcp.call("read_register", name="r6"))
+        lp = int(mcp.call("read_register", name="lp"))
+        shutdown.append(f"E={err}({ERRNAME.get(err, '?')}) from {sym_of(syms, lp)}")
     elapsed = time.monotonic() - t0
-
-    pc = int(mcp.call("get_pc"))
     where = ""
     if pc in (a_cerc, a_cass):
         r6, r7, r8 = (int(mcp.call("read_register", name=r)) for r in ("r6", "r7", "r8"))
@@ -192,6 +221,8 @@ def run_one(mcp: Mcp, server: str, outdir: Path, timeout: float) -> tuple[bool, 
     if hung:
         detail += f" TIMEOUT(>{timeout:.0f}s)"
     detail += where
+    if shutdown and not ok:
+        detail += " [ShutdownOS: " + "; ".join(shutdown) + "]"
     if not ok:
         if count == JUNK_COUNT:
             detail += " [check_count untouched: test lib never initialised]"

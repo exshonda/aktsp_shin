@@ -12,7 +12,7 @@
 #    ATK2_DIR  ATK2 のソースツリー (既定: aktsp と並べて置いた ../atk2_sc1_shin)
 #    MAKE_JOBS make の並列数 (既定: 8)
 #    FUNC_INTERRUPT/FUNC_HARDWARE_COUNTER/FUNC_PROTECTION_HOOK  AKTG の同名オプション (既定: true)
-#    AKTSP_CDEFS コンパイラへの追加定義 (既定: -DAKTSP_TASK_STACK_SIZE=4096U)
+#    AKTSP_CDEFS コンパイラへの追加定義 (既定: -DAKTSP_TASK_STACK_SIZE=8192U -DAKTSP_HOOK_STACK_SIZE=4096U)
 #    CCRH が PATH 上にあること (Linux 版 CC-RH)
 #
 set -euo pipefail
@@ -25,8 +25,10 @@ ATK2_DIR=$(cd "${ATK2_DIR:-$AKTSP/../atk2_sc1_shin}" && pwd)
 # ErrorHook/PreTaskHook/PostTaskHook は呼出し元タスクのスタックで動くので，
 # 既定の 1280 バイトでは E_OS_STACKFAULT になる．syssrv_test/sc1 の *_error は
 # 2048 バイト，IncrementCounter_nml_* (アラーム満了→タスク起動がサービス
-# コール内で重なる) は 4096 バイトで通った
-AKTSP_CDEFS=${AKTSP_CDEFS:--DAKTSP_TASK_STACK_SIZE=4096U}
+# コール内で重なる) は 4096 バイト，HW カウンタ割込みを伴うものは 8192 バイトが要る．
+# ISR/フックが使う OS スタック (AKTSP_HOOK_STACK_SIZE 分を含む) も，既定の
+# 512 バイトでは予備領域を越えてあふれ，直下の cp_state 等を書き潰した
+AKTSP_CDEFS=${AKTSP_CDEFS:--DAKTSP_TASK_STACK_SIZE=8192U -DAKTSP_HOOK_STACK_SIZE=4096U}
 # AKTG に渡すターゲット依存関数の有無 (true/false)
 FUNC_INTERRUPT=${FUNC_INTERRUPT:-true}
 FUNC_HARDWARE_COUNTER=${FUNC_HARDWARE_COUNTER:-true}
