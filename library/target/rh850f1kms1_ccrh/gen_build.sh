@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+#  AKTSP テストプログラムの生成とビルド (RH850/F1KM-S1, atk2_sc1_shin, Linux 版 CC-RH)
+#
+#  usage: gen_build.sh <outdir> <yaml>...
+#
+#  <yaml> は展開済みの TESRY データ (expand_tesry.sh で .cmy から作る)．
+#  <outdir> に out.c/out.h/out.arxml (AKTG 生成物)，Makefile，atk2-sc1.elf，
+#  expected_count (AktspCheckFinish に渡る最終チェックポイント番号) を作る．
+#
+#  環境変数:
+#    ATK2_DIR  ATK2 のソースツリー (既定: aktsp と並べて置いた ../atk2_sc1_shin)
+#    CCRH が PATH 上にあること (Linux 版 CC-RH)
+#
+set -euo pipefail
+
+HERE=$(cd "$(dirname "$0")" && pwd)
+AKTSP=$(cd "$HERE/../../.." && pwd)
+ATK2_DIR=$(cd "${ATK2_DIR:-$AKTSP/../atk2_sc1_shin}" && pwd)
+BASE_MAKEFILE=$ATK2_DIR/obj/obj_rh850f1kms1_ccrh/Makefile
+
+[ $# -ge 2 ] || { echo "usage: $0 <outdir> <yaml>..."; exit 1; }
+out=$1; shift
+yamls=()
+for y in "$@"; do yamls+=("$(cd "$(dirname "$y")" && pwd)/$(basename "$y")"); done
+
+mkdir -p "$out"; cd "$out"
+rm -f out.c out.h out.arxml atk2-sc1.elf expected_count aktg_exclusion_list.txt
+
+# AKTG (SC1, シングルコア．割込み・HW カウンタ・プロテクションフックの
+# ターゲット依存関数は F1KM-S1 向けに未整備なので false)
+if ! ruby "$AKTSP/tools/aktg/bin/aktg.rb" -p \
+     --scalability_class SC1 --core_num 1 --use_multi_core false \
+     --func_interrupt false --func_hardware_counter false --func_protection_hook false \
+     --out_file_name out "${yamls[@]}" > aktg.log 2>&1; then
+  echo "AKTG failed (see $out/aktg.log)"; exit 1
+fi
+if [ -s aktg_exclusion_list.txt ]; then
+  echo "excluded by AKTG:"; cat aktg_exclusion_list.txt
+fi
+
+# ATK2 の Python 版 cfg は EUC-JP の arxml を読めないので UTF-8 化する
+# (vpath の先頭が . なので，ここに置いたものが優先される)
+for f in out.arxml "$AKTSP/library/common/aktsp_implementation_data_types.arxml"; do
+  iconv -f EUC-JP -t UTF-8 "$f" | sed '1s/encoding="EUC-JP"/encoding="UTF-8"/' > "$(basename "$f").tmp"
+done
+mv out.arxml.tmp out.arxml
+mv aktsp_implementation_data_types.arxml.tmp aktsp_implementation_data_types.arxml
+
+# サンプル用の Makefile からテスト用の Makefile を作る
+sed \
+ -e "s|^SRCDIR = \.\./\.\.\$|SRCDIR = $ATK2_DIR\nAKTSP = $AKTSP|" \
+ -e 's|^CFGNAME = sample1$|CFGNAME = out aktsp_implementation_data_types|' \
+ -e 's|^OMIT_HW_COUNTER =$|OMIT_HW_COUNTER = true|' \
+ -e 's|^APPLNAME = sample1$|APPLNAME = out|' \
+ -e 's|^APPLDIR  = \$(SRCDIR)/sample$|APPLDIR  = .\nAKTSP_LIBDIRS = $(AKTSP)/library/common $(AKTSP)/library/implement/atk2 $(AKTSP)/library/arch/v850 $(AKTSP)/library/arch/v850/ccrh|' \
+ -e 's|^APPL_DIR = \$(APPLDIR) \$(SRCDIR)/library$|APPL_DIR = $(APPLDIR) $(SRCDIR)/library $(AKTSP_LIBDIRS)|' \
+ -e 's|^APPL_ASMOBJS =$|APPL_ASMOBJS = aktsp_target.obj|' \
+ -e 's|^APPL_COBJS = \$(APPLNAME)\.obj$|APPL_COBJS = $(APPLNAME).obj aktsp_common_lib.obj aktsp_implement_lib.obj aktsp_target_lib.obj|' \
+ -e 's|^INCLUDES := \$(INCLUDES) \$(foreach dir,\$(APPLDIR),-I\$(dir))$|INCLUDES := $(INCLUDES) $(foreach dir,$(APPLDIR) $(AKTSP_LIBDIRS),-I$(dir))|' \
+ "$BASE_MAKEFILE" > Makefile
+cat >> Makefile <<'MK'
+
+# aktsp_target.asm は改名前の _exit_task を参照する (ATK2 は kernel_rename.h で
+# _kernel_exit_task に改名)．最終リンクでのみ別名を与える
+# (private: 前提条件である cfg1_out のリンクへ継承させない)
+$(OBJFILE): private LDFLAGS += -define=_exit_task=_kernel_exit_task
+MK
+# 置換が 1 つでも外れると黙ってサンプルをビルドしてしまうので，全件当たったことを確かめる
+nsub=$(diff "$BASE_MAKEFILE" Makefile | grep -c '^>' || true)
+if [ "$nsub" -ne 16 ]; then
+  echo "Makefile generation: expected 16 changed lines, got $nsub ($BASE_MAKEFILE changed?)"; exit 1
+fi
+
+if ! make -j8 > make.log 2>&1; then
+  echo "make failed (see $out/make.log)"
+  grep -E "[EF]0[0-9]{6}" make.log | head || true
+  exit 1
+fi
+[ -f atk2-sc1.elf ] || { echo "atk2-sc1.elf not built"; exit 1; }
+
+grep -o 'AktspCheckFinish([0-9]*)' out.c | grep -o '[0-9][0-9]*' > expected_count
+[ "$(wc -l < expected_count)" -eq 1 ] || { echo "AktspCheckFinish not unique in out.c"; exit 1; }
+
+echo "built: $out/atk2-sc1.elf"
+echo "expected_count: $(cat expected_count)"
+grep -E " _(check_count\.1|cp_state|infinite_loop|AktspInfiniteLoop)\$" atk2-sc1.syms
