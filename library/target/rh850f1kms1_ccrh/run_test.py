@@ -258,10 +258,13 @@ def forced_merge_plan(out_c: Path) -> list[tuple[str, int]]:
     テストごとに決まる．チェックポイントは，その直前に現れたテスト ID (関数名や
     ENUM_AKTG_FORCE_MERGE_bootcnt の比較) のテストに属するものとして数える．
 
-    期待値は，そのテストのコード中で AktspOutputLog_0("All check points passed.")
-    を直接出力している箇所があれば，その直前のチェックポイント番号 (finish: true の
-    テスト．合格を出力した後に OS がシャットダウンするのが正しく，以降のコードは
-    実行されない)．なければ最大のチェックポイント番号 (AktspCheckFinish(N))．
+    期待値は，そのテストのコード中の AktspOutputLog_0("All check points passed.")
+    の直前のチェックポイント番号．優先順位は
+      1. 無条件の出力 (finish: true のテスト．合格を出力した後に OS がシャットダウン
+         するのが正しく，以降のコードは実行されない)
+      2. if (state == AK_TRUE) 付きの出力 (ShutdownHook で終わるテスト．MainTask の
+         AktspCheckFinish には到達しない)
+      3. どちらもなければ最大のチェックポイント番号 (AktspCheckFinish(N))
     """
     text = out_c.read_text(errors="replace")
     order = re.findall(r'AktspOutputLog_0\("\\n=== (\S+) ==="\)', text)
@@ -270,10 +273,15 @@ def forced_merge_plan(out_c: Path) -> list[tuple[str, int]]:
     id_re = re.compile("|".join(re.escape(t) for t in sorted(order, key=len, reverse=True)))
     cp_re = re.compile(r"\bAktsp(?:CheckPoint|CheckFinish)\((\d+)\)")
     best: dict[str, int] = {}
-    finish: dict[str, int] = {}
+    finish: dict[str, int] = {}      # 無条件の合格出力の直前
+    cfinish: dict[str, int] = {}     # 条件付きの合格出力の直前
     last: dict[str, int] = {}
     current = None
+    prev = ""
     for line in text.splitlines():
+        conditional = prev.strip().startswith("if (state == AK_TRUE)")
+        if line.strip():
+            prev = line
         m = id_re.search(line)
         if m and not (m.end() < len(line) and (line[m.end()].isdigit())):
             current = m.group(0)
@@ -284,8 +292,9 @@ def forced_merge_plan(out_c: Path) -> list[tuple[str, int]]:
             best[current] = max(best.get(current, 0), int(c.group(1)))
             last[current] = int(c.group(1))
         if 'AktspOutputLog_0("All check points passed.")' in line and current in last:
-            finish[current] = max(finish.get(current, 0), last[current])
-    return [(t, finish.get(t, best.get(t, 0))) for t in order]
+            d = cfinish if conditional else finish
+            d[current] = max(d.get(current, 0), last[current])
+    return [(t, finish.get(t, cfinish.get(t, best.get(t, 0)))) for t in order]
 
 
 def run_forced(mcp: Mcp, server: str, outdir: Path, timeout: float,
